@@ -1,0 +1,104 @@
+﻿@model LegalManagementSystem.Models.LoginUser
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap/css/bootstrap.min.css">
+@*<link href="~/Content/Site.css" rel="stylesheet" />*@
+<link rel="stylesheet" type="text/css" href="~/Content/css/my-login.css">
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+</head>
+<body class="my-login-page">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="brand">
+                        <img src="~/Content/Images/legal-scale-icon-5.jpg" />">
+                    </div>
+
+                    @if (ViewBag.ErrorMsg != null)
+                    {
+                        <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
+                    }
+                        @*<div>
+                            @Html.Partial("Error")
+                        </div>*@
+                    
+                        <div class="card fat">
+                            <div class="card-body">
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+                                <div style="width:740px; margin:0 auto;">
+                                    <div class="form-horizontal">
+                                        <h4 style="color:slategrey;margin-left:70px;">Register new User</h4>
+                                        <br />
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group" @*style="margin:10px;"*@>
+                                            @*@Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            <div class="col-md-5">
+                                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
+                                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" @*style="margin:10px;"*@>
+                                            @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            <div class="col-md-5">
+                                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password" } })
+                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" @*style="margin:10px;"*@>
+                                            @*@Html.LabelFor(model => model.RoleId, "User Role", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            <div class="col-md-5">
+                                                @Html.DropDownListFor(model => model.RoleId, (SelectList)ViewBag.RoleNames,"------ Select User Role------", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" @*style="margin:10px;"*@>
+                                            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    @Html.EditorFor(model => model.IsActive)
+                                                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-5 col-md-7">
+                                                <input style="margin-left:0" type="submit" value="Register" class="btn btn-primary btn-group-lg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    }
+                                </div>
+                        </div>
+                        <div class="footer">
+                            <strong>Copyright &copy; @DateTime.Now.Year <a href="https://www.shrishsystems.com">Shrish Systems Private Limited</a>.</strong> All rights reserved.
+                        </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/my-login.js"></script>
+</body>
+</html>

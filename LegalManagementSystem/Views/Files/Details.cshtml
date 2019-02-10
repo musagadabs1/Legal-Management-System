@@ -1,0 +1,82 @@
+﻿@model LegalManagementSystem.Models.File
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>File Details</h2>
+
+<div>
+    <h4></h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpeningDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClosingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.Surname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FileNumber }) @*|
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

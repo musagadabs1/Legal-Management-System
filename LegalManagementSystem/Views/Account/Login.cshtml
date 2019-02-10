@@ -1,0 +1,129 @@
+﻿
+@using LegalManagementSystem.Models
+@*@model LoginViewModel*@
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kodinger">
+    <title>My Login Page</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/my-login.css">
+</head>
+<body class="my-login-page">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    
+                    @if (ViewBag.ErrorMsg != null)
+                    {
+                        <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
+                    }
+                    <div class="card fat">
+                        <div class="card-body">
+                            <div class="brand">
+                                <img src="~/Content/Images/legal-scale-icon-5.jpg" />">
+                            </div>
+                            <h5 class="card-title" style="text-align:center;">Login to your Account</h5>
+                            <p style="text-align:center;">Your Credentials</p>
+                            <!--<form method="POST">-->
+                            @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    @*<label for="username">Username</label>*@
+                                    <input id="txtUsername" type="text" class="form-control" name="txtUsername" value="" placeholder="Username" required autofocus>
+                                </div>
+
+                                <div class="form-group">
+                                    @*<label for="password">Password</label>*@
+                                    <input id="txtPassword" type="password" class="form-control" name="txtPassword" placeholder="Password" required data-eye>
+                                </div>
+                                <div class="form-group no-margin">
+                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                </div>
+                                <br />
+                                <p>
+                                    @Html.ActionLink("Don't have an Account ?", "Register")
+                                </p>
+                                <br /><br />
+                                <p style="text-align:center;color:slategrey">Please Contact your IT Department</p>
+                            }
+
+
+                            <!--</form>-->
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <strong>Copyright &copy; @DateTime.Now.Year <a href="https://www.shrishsystems.com">Shrish Systems Private Limited</a>.</strong> All rights reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/my-login.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+@*@model LegalManagementSystem.Models.LoginUser
+    @{
+        ViewBag.Title = "Log in";
+    }
+
+    <h2>@ViewBag.Title.</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>
+                }
+            </section>
+        </div>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

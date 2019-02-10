@@ -1,0 +1,57 @@
+﻿@model LegalManagementSystem.Models.Certification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Certification Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CertificationType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertificationType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAchieved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAchieved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skilled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skilled)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) @*|
+    @Html.ActionLink("Back to List", "Index")*@
+</p>
