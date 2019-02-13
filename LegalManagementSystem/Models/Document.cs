@@ -15,7 +15,6 @@ namespace LegalManagementSystem.Models
     public partial class Document
     {
         public int DocumentId { get; set; }
-        public int MyCaseId { get; set; }
         public string DocName { get; set; }
         public System.DateTime AssignedDate { get; set; }
         public string Tags { get; set; }
@@ -25,7 +24,8 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public System.DateTime DateModified { get; set; }
         public string DocPath { get; set; }
+        public string FileNumber { get; set; }
     
-        public virtual MyCas MyCas { get; set; }
+        public virtual File File { get; set; }
     }
 }

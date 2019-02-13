@@ -14,6 +14,7 @@ namespace LegalManagementSystem.Models
         public const string LAWYER = "Lawyer";
         public const string User = "User";
         public static string StaffId { get; set; }
+        public static string Status { get; set; }
 
         public static List<string> Roles = new List<string> { "Administrator", "Attorney", "Lawyer", "User" };
         public static string Encrypt(string str)

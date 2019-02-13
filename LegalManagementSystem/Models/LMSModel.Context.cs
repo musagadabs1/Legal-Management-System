@@ -34,7 +34,6 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Library> Libraries { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
-        public virtual DbSet<MyCas> MyCases { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
     }

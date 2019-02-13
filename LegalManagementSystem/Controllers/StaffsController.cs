@@ -87,12 +87,14 @@ namespace LegalManagementSystem.Controllers
 
                 try
                 {
+                    var staffId = string.Empty;
                     var user = User.Identity.Name;
                     staff.CreatedBy = user;
                     staff.CreatedOn = DateTime.Today;
-                    LegalGuideUtility.StaffId = staff.StaffId; //ViewBag.StaffId=staff.StaffId;
+                    staffId = staff.StaffId.ToUpper();
+                    LegalGuideUtility.StaffId = staffId; //ViewBag.StaffId=staff.StaffId;
                     staff.Status = "Active";
-                    staff.Branch = "Abuja";
+                    //staff.Branch = "Abuja";
 
                     db.Staffs.Add(staff);
                     await db.SaveChangesAsync();
@@ -165,11 +167,14 @@ namespace LegalManagementSystem.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var staffId = string.Empty;
+
                     var user = User.Identity.Name;
                     staff.ModifiedBy = user;
+                    staffId = staff.StaffId.ToUpper();
                     staff.ModifiedOn = DateTime.Today;
-                    LegalGuideUtility.StaffId = staff.StaffId; //ViewBag.StaffId=staff.StaffId;
-                    staff.Status = "Active";
+                    LegalGuideUtility.StaffId = staffId; //ViewBag.StaffId=staff.StaffId;
+                    staff.Status = LegalGuideUtility.Status;
                     //staff.Branch = "Abuja";
 
                     db.Entry(staff).State = EntityState.Modified;

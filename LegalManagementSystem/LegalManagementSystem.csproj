@@ -238,9 +238,6 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MyCas.cs">
-      <DependentUpon>LMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Staff.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>

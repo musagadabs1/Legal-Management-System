@@ -4,28 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c181a08da7974b09b650f169aa4e70fa" Name="Diagram1" ZoomLevel="89">
+      <Diagram DiagramId="c181a08da7974b09b650f169aa4e70fa" Name="Diagram1" ZoomLevel="51">
         <EntityTypeShape EntityType="MyCaseNewModel.Certification" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Client" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.Dependant" Width="1.5" PointX="4.125" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.Document" Width="1.5" PointX="8" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.Education" Width="1.5" PointX="8.375" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.Experience" Width="1.5" PointX="7.125" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.File" Width="1.5" PointX="6" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.Library" Width="1.5" PointX="3.125" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.Dependant" Width="1.5" PointX="4.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.Document" Width="1.5" PointX="8" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.Education" Width="1.5" PointX="8" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.Experience" Width="1.5" PointX="4.875" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.File" Width="1.5" PointX="6.375" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.Library" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.LoginUser" Width="1.5" PointX="8" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.MyCas" Width="1.5" PointX="5.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Staff" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.UserRole" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
         <AssociationConnector Association="MyCaseNewModel.FK_Certifications_Staffs" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Files_Clients" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Dependants_Staffs" ManuallyRouted="false" />
-        <AssociationConnector Association="MyCaseNewModel.FK_dbo_Documents_dbo_MyCases_MyCaseId" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Educations_Staffs" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Experiences_Staffs" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Files_Staffs" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Libraries_Staffs" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="MyCaseNewModel.FK_Documents_Files" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

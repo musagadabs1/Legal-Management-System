@@ -11,8 +11,7 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Staff
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,78 +26,37 @@ namespace LegalManagementSystem.Models
         }
     
         public int Id { get; set; }
-        [Required]
-        [Display(Name ="First Name")]
         public string FirstName { get; set; }
-        //[Required]
-        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
         public string Gender { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
-        [Required]
-        [Display(Name = "Last Name")]
+        public System.DateTime ModifiedOn { get; set; }
         public string LastName { get; set; }
-        [DataType(DataType.Date)]
-        [Display(Name ="Date of Birth")]
-        public DateTime DOB { get; set; }
-        [DataType(DataType.Date)]
-        [Display(Name = "Date of Employment")]
-        public DateTime DOE { get; set; }
+        public System.DateTime DOB { get; set; }
+        public System.DateTime DOE { get; set; }
         public string Status { get; set; }
-        [Display(Name ="Address")]
-        [DataType(DataType.MultilineText)]
         public string Address { get; set; }
-        [Display(Name ="Marital Status")]
         public string MaritalStatus { get; set; }
-        [Display(Name ="File Path")]
         public string ImagePath { get; set; }
-        [Display(Name ="Phone (Extension)")]
         public string OfficeNo { get; set; }
-        [Display(Name ="Mobile No")]
-        [Required]
         public string MobileNo { get; set; }
-        [Display(Name ="Work Email Address")]
-        [Required]
-        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [Display(Name = "Personal Email Address")]
-        //[Required]
-        [DataType(DataType.EmailAddress)]
         public string PersonalEmail { get; set; }
         public string Relationship { get; set; }
-        [Display(Name ="Emergency Mobile No")]
         public string KTelephone { get; set; }
-        [Display(Name ="Emergency Email")]
         public string NKEmail { get; set; }
-        [Display(Name ="Address")]
         public string NKAddress { get; set; }
-        [Required]
         public string Bank { get; set; }
-        public string Branch { get; set; }
-        [Display(Name ="Account Number")]
-        [Required]
-        public int AccountNumber { get; set; }
-        [Display(Name ="Emergency Full Name")]
+        public Nullable<int> AccountNumber { get; set; }
         public string NKFullName { get; set; }
         public string Password { get; set; }
-        [Display(Name ="Staff Number")]
-        [Required]
         public string StaffId { get; set; }
-        [Display(Name ="Line Manager")]
-        [Required]
         public string LineManager { get; set; }
-        [Display(Name ="Department")]
-        [Required]
         public string Department { get; set; }
-        [Display(Name ="Designation")]
-        [Required]
         public string Designation { get; set; }
-        [Display(Name ="Year Call to bar")]
         public Nullable<int> YearCallToBar { get; set; }
-        [Required]
         public string Location { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

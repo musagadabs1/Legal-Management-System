@@ -11,40 +11,32 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class File
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public File()
+        {
+            this.Documents = new HashSet<Document>();
+        }
+    
         public int Id { get; set; }
-        [Required]
-        [Display(Name ="File Number")]
         public string FileNumber { get; set; }
-        [Required]
-        [Display(Name = "File Name")]
         public string FileName { get; set; }
-        //[Required]
-        [Display(Name = "File Type")]
         public string FileType { get; set; }
-        [Display(Name ="Client Name")]
-        public int ClientId { get; set; }
-        [Required]
-        [Display(Name = "Opening Date")]
-        [DataType(DataType.Date)]
-        public DateTime OpeningDate { get; set; }
-        [Display(Name ="Location")]
+        public Nullable<int> ClientId { get; set; }
+        public Nullable<System.DateTime> OpeningDate { get; set; }
         public string FilePath { get; set; }
-        [Display(Name ="Advocate Name")]
         public string AdvocateId { get; set; }
-        //[Required]
-        [Display(Name = "Closing Date")]
-        [DataType(DataType.Date)]
-        public DateTime ClosingDate { get; set; }
+        public Nullable<System.DateTime> ClosingDate { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual Staff Staff { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }
