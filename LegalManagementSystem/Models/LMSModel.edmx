@@ -21,6 +21,24 @@
           <Property Name="ModeifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
+        <EntityType Name="ClientMatterAcceptanceForms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Industry" Type="nvarchar" MaxLength="50" />
+          <Property Name="AgreedFee" Type="float" />
+          <Property Name="PaymentTerms" Type="nvarchar" MaxLength="50" />
+          <Property Name="TimeFrame" Type="int" />
+          <Property Name="MatterManager" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+        </EntityType>
         <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="ClientId" />
@@ -224,6 +242,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientMatterAcceptanceForms">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Dependants_Staffs">
           <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
           <End Role="Dependants" Type="Self.Dependants" Multiplicity="*" />
@@ -322,6 +352,7 @@
         </Association>
         <EntityContainer Name="MyCaseNewModelStoreContainer">
           <EntitySet Name="Certifications" EntityType="Self.Certifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dependants" EntityType="Self.Dependants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
@@ -335,6 +366,10 @@
           <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
           </AssociationSet>
           <AssociationSet Name="FK_Dependants_Staffs" Association="Self.FK_Dependants_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
@@ -409,6 +444,7 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Files" Relationship="Self.FK_Files_Clients" FromRole="Clients" ToRole="Files" />
+          <NavigationProperty Name="ClientMatterAcceptanceForms" Relationship="MyCaseNewModel.FK_ClientMatterAcceptanceForms_Clients" FromRole="Client" ToRole="ClientMatterAcceptanceForm" />
         </EntityType>
         <EntityType Name="Dependant">
           <Key>
@@ -742,6 +778,11 @@
             <End Role="File" EntitySet="Files" />
             <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
+          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="MyCaseNewModel.ClientMatterAcceptanceForm" />
+          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="MyCaseNewModel.FK_ClientMatterAcceptanceForms_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientMatterAcceptanceForm" EntitySet="ClientMatterAcceptanceForms" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Documents_Files">
           <End Type="MyCaseNewModel.File" Role="File" Multiplicity="1" />
@@ -752,6 +793,37 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="FileNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ClientMatterAcceptanceForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AgreedFee" Type="Double" />
+          <Property Name="PaymentTerms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeFrame" Type="Int32" />
+          <Property Name="MatterManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Client" Relationship="MyCaseNewModel.FK_ClientMatterAcceptanceForms_Clients" FromRole="ClientMatterAcceptanceForm" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
+          <End Type="MyCaseNewModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="MyCaseNewModel.ClientMatterAcceptanceForm" Role="ClientMatterAcceptanceForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientMatterAcceptanceForm">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -976,6 +1048,25 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientMatterAcceptanceForms">
+            <EntityTypeMapping TypeName="MyCaseNewModel.ClientMatterAcceptanceForm">
+              <MappingFragment StoreEntitySet="ClientMatterAcceptanceForms">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MatterManager" ColumnName="MatterManager" />
+                <ScalarProperty Name="TimeFrame" ColumnName="TimeFrame" />
+                <ScalarProperty Name="PaymentTerms" ColumnName="PaymentTerms" />
+                <ScalarProperty Name="AgreedFee" ColumnName="AgreedFee" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

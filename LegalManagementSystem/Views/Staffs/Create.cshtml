@@ -47,7 +47,7 @@
          </div>
          <div class="form-group">
              <div class="col-md-6">
-                 @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label" })
+                 @Html.LabelForRequired(model => model.DOB,"Date of Birth", htmlAttributes: new { @class = "control-label" })
                  @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "09 Feb 2019" } })
                  @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
              </div>
@@ -75,7 +75,7 @@
          <div class="form-group">
              <div class="col-md-6">
                  @Html.LabelForRequired(model => model.MobileNo,"Mobile Number", htmlAttributes: new { @class = "control-label" })
-                 @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "08000000000" } })
+                 @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2348000000000" } })
                  @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
              </div>
              <div class="col-md-6">
@@ -87,7 +87,7 @@
          <div class="form-group">
              <div class="col-md-6">
                  @Html.LabelFor(model => model.OfficeNo, htmlAttributes: new { @class = "control-label" })
-                 @Html.EditorFor(model => model.OfficeNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "09000000000" } })
+                 @Html.EditorFor(model => model.OfficeNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2349000000000" } })
                  @Html.ValidationMessageFor(model => model.OfficeNo, "", new { @class = "text-danger" })
              </div>
              <div class="col-md-6">

@@ -18,6 +18,7 @@ namespace LegalManagementSystem.Models
         public Client()
         {
             this.Files = new HashSet<File>();
+            this.ClientMatterAcceptanceForms = new HashSet<ClientMatterAcceptanceForm>();
         }
     
         public int ClientId { get; set; }
@@ -37,5 +38,7 @@ namespace LegalManagementSystem.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
     }
 }

@@ -201,6 +201,9 @@
     <Compile Include="Models\Client.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClientMatterAcceptanceForm.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Dependant.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -288,6 +291,7 @@
     <Content Include="Content\Images\clipart43844.png" />
     <Content Include="Content\Images\legal-scale-icon-21.jpg" />
     <Content Include="Content\Images\legal-scale-icon-5.jpg" />
+    <Content Include="Content\Images\man-user.png" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\my-login.js" />
     <Content Include="Content\MenuStyle.css" />
