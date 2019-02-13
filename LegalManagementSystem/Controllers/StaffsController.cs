@@ -26,6 +26,10 @@ namespace LegalManagementSystem.Controllers
             }
             return View(await db.Staffs.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
+        public ActionResult Salary()
+        {
+            return View();
+        }
 
         // GET: Staffs/Details/5
         public async Task<ActionResult> Details(string id)
@@ -80,18 +84,45 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = User.Identity.Name;
-                staff.CreatedBy = user;
-                staff.CreatedOn = DateTime.Today;
-                LegalGuideUtility.StaffId = staff.StaffId; //ViewBag.StaffId=staff.StaffId;
-                staff.Status = "Active";
-                staff.Branch = "Abuja";
 
-                db.Staffs.Add(staff);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                try
+                {
+                    var user = User.Identity.Name;
+                    staff.CreatedBy = user;
+                    staff.CreatedOn = DateTime.Today;
+                    LegalGuideUtility.StaffId = staff.StaffId; //ViewBag.StaffId=staff.StaffId;
+                    staff.Status = "Active";
+                    staff.Branch = "Abuja";
+
+                    db.Staffs.Add(staff);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Create", "Experiences");
+                }
+                catch (Exception ex)
+                {
+
+                    ViewBag.Error = "Can't Save Profile please check and try again." + ex.Message;
+                }
             }
+            else
+            {
+                ViewBag.Error = "Can't Save Profile, Some fields are missing";
+            }
+            ViewBag.Gender = new List<SelectListItem> {
+                new SelectListItem{Text="Male",Value ="M"},
+                new SelectListItem{Text="Female",Value ="F"}
+            };
+             //= gender;
+            ViewBag.Marital = new List<SelectListItem> {
+                new SelectListItem{Text="Divorced",Value="Divorced"},
+                new SelectListItem{Text="Married",Value="Married"},
+                new SelectListItem{Text="Single",Value="Single"},
+                new SelectListItem{Text="Separated",Value="Separated"},
+                new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
+                new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
+            };
+             //= Marital;
             return View(staff);
         }
 
@@ -130,19 +161,61 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,Branch,AccountNumber,NKFullName,Password,StaffId,LineManager,Department,Designation,YearCallToBar,Location")] Staff staff)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = User.Identity.Name;
-                staff.ModifiedBy = user;
-                staff.ModifiedOn = DateTime.Today;
-                LegalGuideUtility.StaffId = staff.StaffId; //ViewBag.StaffId=staff.StaffId;
-                staff.Status = "Active";
-                staff.Branch = "Abuja";
+                if (ModelState.IsValid)
+                {
+                    var user = User.Identity.Name;
+                    staff.ModifiedBy = user;
+                    staff.ModifiedOn = DateTime.Today;
+                    LegalGuideUtility.StaffId = staff.StaffId; //ViewBag.StaffId=staff.StaffId;
+                    staff.Status = "Active";
+                    //staff.Branch = "Abuja";
 
-                db.Entry(staff).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                    db.Entry(staff).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Create", "Experiences");
+                }
+                else
+                {
+                    ViewBag.Error = "Can't Save Profile, Some fields are missing";
+                    ViewBag.Gender = new List<SelectListItem> {
+                        new SelectListItem{Text="Male",Value ="M"},
+                        new SelectListItem{Text="Female",Value ="F"}
+                    };
+                     ViewBag.Marital = new List<SelectListItem> {
+                            new SelectListItem{Text="Divorced",Value="Divorced"},
+                            new SelectListItem{Text="Married",Value="Married"},
+                            new SelectListItem{Text="Single",Value="Single"},
+                            new SelectListItem{Text="Separated",Value="Separated"},
+                            new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
+                            new SelectListItem{Text="Single With Children",Value="Single With Children"}
+
+                     };
+                     //= Marital;
+                    return View(staff);
+                }
             }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Can't Save Profile please check and try again." + ex.Message;
+                //throw;
+            }
+            ViewBag.Gender = new List<SelectListItem> {
+                new SelectListItem{Text="Male",Value ="M"},
+                new SelectListItem{Text="Female",Value ="F"}
+            };
+            //= gender;
+            ViewBag.Marital = new List<SelectListItem> {
+                new SelectListItem{Text="Divorced",Value="Divorced"},
+                new SelectListItem{Text="Married",Value="Married"},
+                new SelectListItem{Text="Single",Value="Single"},
+                new SelectListItem{Text="Separated",Value="Separated"},
+                new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
+                new SelectListItem{Text="Single With Children",Value="Single With Children"}
+
+            };
+             //= Marital;
             return View(staff);
         }
 

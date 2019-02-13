@@ -41,7 +41,12 @@ namespace LegalManagementSystem.Controllers
         // GET: Dependants/Create
         public ActionResult Create()
         {
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
+            var gender = new List<SelectListItem> {
+                new SelectListItem{Text="Male",Value ="M"},
+                new SelectListItem{Text="Female",Value ="F"}
+            };
+            ViewBag.Gender = gender;
             return View();
         }
 
@@ -60,10 +65,14 @@ namespace LegalManagementSystem.Controllers
                 dependant.StaffId = LegalGuideUtility.StaffId;
                 db.Dependants.Add(dependant);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Dependants");
             }
-
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
+            var gender = new List<SelectListItem> {
+                new SelectListItem{Text="Male",Value ="M"},
+                new SelectListItem{Text="Female",Value ="F"}
+            };
+            ViewBag.Gender = gender;
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
             return View(dependant);
         }
 
@@ -79,7 +88,12 @@ namespace LegalManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
+            var gender = new List<SelectListItem> {
+                new SelectListItem{Text="Male",Value ="M"},
+                new SelectListItem{Text="Female",Value ="F"}
+            };
+            ViewBag.Gender = gender;
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
             return View(dependant);
         }
 
@@ -101,7 +115,12 @@ namespace LegalManagementSystem.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
+            var gender = new List<SelectListItem> {
+                new SelectListItem{Text="Male",Value ="M"},
+                new SelectListItem{Text="Female",Value ="F"}
+            };
+            ViewBag.Gender = gender;
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
             return View(dependant);
         }
 

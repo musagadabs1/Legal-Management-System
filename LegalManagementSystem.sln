@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalManagementSystem", "LegalManagementSystem\LegalManagementSystem.csproj", "{28A01D43-3A64-44F3-B3DA-EB93FBD6735A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestExpandable", "TestExpandable\TestExpandable.csproj", "{D36A01FE-4FA1-4C25-BB41-599A8E41ACFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{28A01D43-3A64-44F3-B3DA-EB93FBD6735A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28A01D43-3A64-44F3-B3DA-EB93FBD6735A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28A01D43-3A64-44F3-B3DA-EB93FBD6735A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D36A01FE-4FA1-4C25-BB41-599A8E41ACFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D36A01FE-4FA1-4C25-BB41-599A8E41ACFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D36A01FE-4FA1-4C25-BB41-599A8E41ACFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D36A01FE-4FA1-4C25-BB41-599A8E41ACFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

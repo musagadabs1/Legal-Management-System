@@ -8,11 +8,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
-using System.IO;
 
 namespace LegalManagementSystem.Controllers
 {
-    [Authorize(Roles ="Admin,Advocate,Attorney")]
+    [Authorize(Roles ="Admin,Attorney,Advocate")]
     public class FilesController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -20,7 +19,6 @@ namespace LegalManagementSystem.Controllers
         // GET: Files
         public async Task<ActionResult> Index()
         {
-            
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
@@ -29,6 +27,9 @@ namespace LegalManagementSystem.Controllers
             }
             var files = db.Files.Include(f => f.Client).Include(f => f.Staff);
             return View(await files.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+
+            //var files = db.Files.Include(f => f.Client).Include(f => f.Staff);
+            //return View(await files.ToListAsync());
         }
 
         // GET: Files/Details/5
@@ -38,7 +39,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.File file = await db.Files.FindAsync(id);
+            File file = await db.Files.FindAsync(id);
             if (file == null)
             {
                 return HttpNotFound();
@@ -50,7 +51,7 @@ namespace LegalManagementSystem.Controllers
         public ActionResult Create()
         {
             ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName");
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname");
+            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "FirstName");
             ViewBag.Type = new List<SelectListItem>
             {
               new SelectListItem{Text="Family",Value="Family"},
@@ -65,42 +66,21 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FileNumber,FileName,FileType,ClientId,OpeningDate,FilePath,AdvocateId,ClosingDate,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] Models.File file, HttpPostedFileBase fileBase)
+        public async Task<ActionResult> Create([Bind(Include = "Id,FileNumber,FileName,FileType,ClientId,OpeningDate,FilePath,AdvocateId,ClosingDate,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] File file)
         {
-            string fileName = string.Empty;
-            string filePath = string.Empty;
             if (ModelState.IsValid)
             {
-                try
-                {
+                var user = User.Identity.Name;
+                file.CreatedBy = user;
+                file.CreatedOn = DateTime.Today;
 
-                    if (fileBase.ContentLength > 0 && fileBase != null)
-                    {
-                        filePath = fileBase.FileName;
-                        fileName = Path.GetFileName(fileBase.FileName);
-                    }
-                    var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Docs";
-                    var docPath = Path.Combine(folderPath, filePath);
-
-                    var user = User.Identity.Name;
-                    file.CreatedBy = user;
-                    file.CreatedOn = DateTime.Today;
-                    file.FilePath = fileName;
-
-                    db.Files.Add(file);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Error = "Error Occoured while uploading a file. Check and try again. " + ex.Message;
-                    return View(file);
-                }
-
+                db.Files.Add(file);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
 
             ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", file.ClientId);
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname", file.AdvocateId);
+            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "FirstName", file.AdvocateId);
             ViewBag.Type = new List<SelectListItem>
             {
               new SelectListItem{Text="Family",Value="Family"},
@@ -117,13 +97,13 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.File file = await db.Files.FindAsync(id);
+            File file = await db.Files.FindAsync(id);
             if (file == null)
             {
                 return HttpNotFound();
             }
             ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", file.ClientId);
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname", file.AdvocateId);
+            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "FirstName", file.AdvocateId);
             ViewBag.Type = new List<SelectListItem>
             {
               new SelectListItem{Text="Family",Value="Family"},
@@ -138,30 +118,20 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FileNumber,FileName,FileType,ClientId,OpeningDate,FilePath,AdvocateId,ClosingDate,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] Models.File file, HttpPostedFileBase fileBase)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FileNumber,FileName,FileType,ClientId,OpeningDate,FilePath,AdvocateId,ClosingDate,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] File file)
         {
-            string fileName = string.Empty;
-            string filePath = string.Empty;
             if (ModelState.IsValid)
             {
-                if (fileBase.ContentLength > 0 && fileBase != null)
-                {
-                    filePath = fileBase.FileName;
-                    fileName = Path.GetFileName(fileBase.FileName);
-                }
-                var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Docs";
-                var docPath = Path.Combine(folderPath, filePath);
                 var user = User.Identity.Name;
-                file.ModifiedBy = user;
-                file.ModifiedOn = DateTime.Today;
-                file.FilePath = fileName;
+                file.CreatedBy = user;
+                file.CreatedOn = DateTime.Today;
 
                 db.Entry(file).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", file.ClientId);
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname", file.AdvocateId);
+            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "FirstName", file.AdvocateId);
             ViewBag.Type = new List<SelectListItem>
             {
               new SelectListItem{Text="Family",Value="Family"},
@@ -178,7 +148,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Models.File file = await db.Files.FindAsync(id);
+            File file = await db.Files.FindAsync(id);
             if (file == null)
             {
                 return HttpNotFound();
@@ -191,7 +161,7 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            Models.File file = await db.Files.FindAsync(id);
+            File file = await db.Files.FindAsync(id);
             db.Files.Remove(file);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

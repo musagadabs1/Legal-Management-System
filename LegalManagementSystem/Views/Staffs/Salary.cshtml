@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Salary";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+<h2>Salary</h2>
+@using (Html.BeginForm("Salary","Staffs"))
+{
+        <div class="form-horizontal">
+                <div class="row">
+                    Password
+                    <input type="password" id="password" name="txtPassword" class="form-control" />
+                    <br/>
+                    <input type="submit" value="Unlock your Salary" id="password" name="btnSubmit" class="btn btn-primary btn-block"/>
+                </div>
+        </div>
+}
+
+

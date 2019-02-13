@@ -67,7 +67,7 @@ namespace LegalManagementSystem.Controllers
 
                 db.Experiences.Add(experience);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create","Experiences");
             }
 
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", experience.StaffId);
@@ -106,7 +106,7 @@ namespace LegalManagementSystem.Controllers
 
                 db.Entry(experience).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Educations");
             }
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", experience.StaffId);
             return View(experience);
