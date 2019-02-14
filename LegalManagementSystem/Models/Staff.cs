@@ -23,6 +23,7 @@ namespace LegalManagementSystem.Models
             this.Experiences = new HashSet<Experience>();
             this.Files = new HashSet<File>();
             this.Libraries = new HashSet<Library>();
+            this.FileEvents = new HashSet<FileEvent>();
         }
     
         public int Id { get; set; }
@@ -71,5 +72,7 @@ namespace LegalManagementSystem.Models
         public virtual ICollection<File> Files { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Library> Libraries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FileEvent> FileEvents { get; set; }
     }
 }

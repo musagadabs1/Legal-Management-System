@@ -184,6 +184,7 @@
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\EducationsController.cs" />
     <Compile Include="Controllers\ExperiencesController.cs" />
+    <Compile Include="Controllers\FileEventsController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibrariesController.cs" />
@@ -217,6 +218,9 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\File.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileEvent.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -442,6 +446,11 @@
     <Content Include="Views\Documents\Details.cshtml" />
     <Content Include="Views\Documents\Edit.cshtml" />
     <Content Include="Views\Documents\Index.cshtml" />
+    <Content Include="Views\FileEvents\Create.cshtml" />
+    <Content Include="Views\FileEvents\Delete.cshtml" />
+    <Content Include="Views\FileEvents\Details.cshtml" />
+    <Content Include="Views\FileEvents\Edit.cshtml" />
+    <Content Include="Views\FileEvents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />

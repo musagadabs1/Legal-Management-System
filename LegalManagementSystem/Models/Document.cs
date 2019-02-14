@@ -11,19 +11,35 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Document
     {
         public int DocumentId { get; set; }
+        [Display(Name = "Document Name")]
+        //[DataType(DataType.Date)]
+        [Required]
         public string DocName { get; set; }
+        [Display(Name = "Date Assigned")]
+        [DataType(DataType.Date)]
+        [Required]
         public System.DateTime AssignedDate { get; set; }
         public string Tags { get; set; }
+        [Display(Name = "End Date")]
+        [DataType(DataType.MultilineText)]
+        //[Required]
         public string Description { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime DateCreated { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime DateModified { get; set; }
+        [Display(Name = "Document Path")]
+        //[DataType(DataType.Date)]
+        [Required]
         public string DocPath { get; set; }
+        [Display(Name = "Case link the Document")]
+        [DataType(DataType.Date)]
+        [Required]
         public string FileNumber { get; set; }
     
         public virtual File File { get; set; }

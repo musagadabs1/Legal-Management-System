@@ -11,25 +11,47 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Dependant
     {
         public int Id { get; set; }
+        [Display(Name = "First Name")]
+        [Required]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        [Required]
         public string LastName { get; set; }
-        public Nullable<int> PolicyNumber { get; set; }
+        [Display(Name = "Policy Number")]
+        //[Required]
+        public int PolicyNumber { get; set; }
+        [Display(Name = "Effective Date")]
+        [DataType(DataType.Date)]
+        [Required]
         public System.DateTime EffectiveDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
+        [Display(Name = "End Date")]
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime EndDate { get; set; }
         public string Gender { get; set; }
         public string Relationship { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
+        [Required]
+        public DateTime DateOfBirth { get; set; }
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
+        //[Required]
         public string Description { get; set; }
+        [Display(Name = "Address")]
+        [DataType(DataType.MultilineText)]
+        [Required]
         public string Address { get; set; }
         public string StaffId { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

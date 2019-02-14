@@ -11,20 +11,32 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Certification
     {
         public int Id { get; set; }
+        [Required]
+        [Display(Name ="Certification Name")]
         public string Name { get; set; }
+        //[Required]
+        [Display(Name = "Certification Name")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        [Required]
+        [Display(Name = "Certification Type")]
         public string CertificationType { get; set; }
-        public Nullable<System.DateTime> DateAchieved { get; set; }
+        [Required]
+        [Display(Name = "Date Achieved")]
+        [DataType(DataType.Date)]
+        public DateTime DateAchieved { get; set; }
+        [Display(Name ="Skilled Acquired")]
         public string Skilled { get; set; }
         public string StaffId { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string ModeifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

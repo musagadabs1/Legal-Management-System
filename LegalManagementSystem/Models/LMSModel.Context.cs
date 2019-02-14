@@ -37,5 +37,6 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
+        public virtual DbSet<FileEvent> FileEvents { get; set; }
     }
 }
