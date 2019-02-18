@@ -26,15 +26,17 @@ namespace LegalManagementSystem.Models
         }
     
         public virtual DbSet<Certification> Certifications { get; set; }
+        public virtual DbSet<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Dependant> Dependants { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
+        public virtual DbSet<FileEvent> FileEvents { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Library> Libraries { get; set; }
+        public virtual DbSet<LineManager> LineManagers { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
-        public virtual DbSet<MyCas> MyCases { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
     }

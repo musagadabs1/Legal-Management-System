@@ -11,6 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class ExperiencesController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -66,7 +67,7 @@ namespace LegalManagementSystem.Controllers
 
                 db.Experiences.Add(experience);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create","Experiences");
             }
 
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", experience.StaffId);
@@ -105,7 +106,7 @@ namespace LegalManagementSystem.Controllers
 
                 db.Entry(experience).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Educations");
             }
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", experience.StaffId);
             return View(experience);

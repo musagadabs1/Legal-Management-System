@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Certifications">
           <Key>
             <PropertyRef Name="Id" />
@@ -13,13 +13,31 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CertificationType" Type="nvarchar" MaxLength="50" />
-          <Property Name="DateAchieved" Type="datetime" />
+          <Property Name="DateAchieved" Type="datetime2" Precision="7" />
           <Property Name="Skilled" Type="nvarchar" MaxLength="50" />
           <Property Name="StaffId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="ModeifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="ClientMatterAcceptanceForms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Industry" Type="nvarchar" MaxLength="50" />
+          <Property Name="AgreedFee" Type="float" />
+          <Property Name="PaymentTerms" Type="nvarchar" MaxLength="50" />
+          <Property Name="TimeFrame" Type="int" />
+          <Property Name="MatterManager" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Clients">
           <Key>
@@ -48,31 +66,31 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PolicyNumber" Type="int" />
-          <Property Name="EffectiveDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EffectiveDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" />
           <Property Name="Gender" Type="nchar" MaxLength="1" />
           <Property Name="Relationship" Type="nvarchar" MaxLength="50" />
-          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="DateOfBirth" Type="datetime2" Precision="7" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Documents">
           <Key>
             <PropertyRef Name="DocumentId" />
           </Key>
           <Property Name="DocumentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MyCaseId" Type="int" Nullable="false" />
+          <Property Name="FileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="DocName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AssignedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Tags" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar(max)" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar(max)" />
           <Property Name="DateModified" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DocPath" Type="nvarchar(max)" />
@@ -83,19 +101,19 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="School" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="DateStart" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" />
+          <Property Name="DateStart" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" />
           <Property Name="Major" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DateAwarded" Type="datetime" />
+          <Property Name="DateAwarded" Type="datetime2" Precision="7" />
           <Property Name="Graduated" Type="bit" />
           <Property Name="Qualification" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Grade" Type="nvarchar" MaxLength="50" />
           <Property Name="StaffId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Experiences">
           <Key>
@@ -104,33 +122,52 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Employer" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" />
-          <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="StartDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Salary" Type="float" />
           <Property Name="StaffId" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="FileEvents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDate" Type="datetime2" Precision="7" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+          <Property Name="EventName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Completed" Type="nchar" MaxLength="1" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Files">
           <Key>
             <PropertyRef Name="FileNumber" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="FileName" Type="nvarchar" MaxLength="50" />
           <Property Name="FileType" Type="nvarchar" MaxLength="50" />
           <Property Name="ClientId" Type="int" />
-          <Property Name="OpeningDate" Type="datetime" />
+          <Property Name="OpeningDate" Type="datetime2" Precision="7" />
           <Property Name="FilePath" Type="nvarchar" MaxLength="50" />
           <Property Name="AdvocateId" Type="nvarchar" MaxLength="50" />
-          <Property Name="ClosingDate" Type="datetime" />
+          <Property Name="ClosingDate" Type="datetime2" Precision="7" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Libraries">
           <Key>
@@ -148,6 +185,15 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="LineManagers">
+          <Key>
+            <PropertyRef Name="LineManagerId" />
+          </Key>
+          <Property Name="LineManagerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="LoginUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -161,23 +207,6 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" />
-        </EntityType>
-        <EntityType Name="MyCases">
-          <Key>
-            <PropertyRef Name="MyCaseId" />
-          </Key>
-          <Property Name="MyCaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CaseName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CaseNumber" Type="int" Nullable="false" />
-          <Property Name="Opened" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="PracticeArea" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CaseStage" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="StatuteOfLimitation" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar(max)" />
-          <Property Name="CreatedDate" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="nvarchar(max)" />
-          <Property Name="ModifiedDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Staffs">
           <Key>
@@ -194,7 +223,7 @@
           <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DOB" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="DOE" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
           <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
           <Property Name="ImagePath" Type="nvarchar(max)" />
@@ -207,12 +236,11 @@
           <Property Name="NKEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="NKAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="Bank" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Branch" Type="nvarchar" MaxLength="50" />
           <Property Name="AccountNumber" Type="int" />
           <Property Name="NKFullName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="StaffId" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LineManager" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LineManagerId" Type="int" Nullable="false" />
           <Property Name="Department" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="YearCallToBar" Type="int" />
@@ -242,17 +270,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Documents_dbo_MyCases_MyCaseId">
-          <End Role="MyCases" Type="Self.MyCases" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForms" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MyCases">
-              <PropertyRef Name="MyCaseId" />
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
             </Principal>
-            <Dependent Role="Documents">
-              <PropertyRef Name="MyCaseId" />
+            <Dependent Role="ClientMatterAcceptanceForms">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -265,6 +291,18 @@
             </Principal>
             <Dependent Role="Dependants">
               <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Files">
+          <End Role="Files" Type="Self.Files" Multiplicity="1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Files">
+              <PropertyRef Name="FileNumber" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="FileNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -288,6 +326,30 @@
               <PropertyRef Name="StaffId" />
             </Principal>
             <Dependent Role="Experiences">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileEvents_Files">
+          <End Role="Files" Type="Self.Files" Multiplicity="0..1" />
+          <End Role="FileEvents" Type="Self.FileEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Files">
+              <PropertyRef Name="FileNumber" />
+            </Principal>
+            <Dependent Role="FileEvents">
+              <PropertyRef Name="FileNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileEvents_Staffs">
+          <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
+          <End Role="FileEvents" Type="Self.FileEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staffs">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="FileEvents">
               <PropertyRef Name="StaffId" />
             </Dependent>
           </ReferentialConstraint>
@@ -328,6 +390,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Staffs_LineManagers">
+          <End Role="LineManagers" Type="Self.LineManagers" Multiplicity="1" />
+          <End Role="Staffs" Type="Self.Staffs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LineManagers">
+              <PropertyRef Name="LineManagerId" />
+            </Principal>
+            <Dependent Role="Staffs">
+              <PropertyRef Name="LineManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Roles">
           <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
           <End Role="LoginUsers" Type="Self.LoginUsers" Multiplicity="*" />
@@ -342,28 +416,34 @@
         </Association>
         <EntityContainer Name="MyCaseNewModelStoreContainer">
           <EntitySet Name="Certifications" EntityType="Self.Certifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dependants" EntityType="Self.Dependants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Educations" EntityType="Self.Educations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experiences" EntityType="Self.Experiences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileEvents" EntityType="Self.FileEvents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Libraries" EntityType="Self.Libraries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LineManagers" EntityType="Self.LineManagers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MyCases" EntityType="Self.MyCases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Certifications" EntitySet="Certifications" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Documents_dbo_MyCases_MyCaseId" Association="Self.FK_dbo_Documents_dbo_MyCases_MyCaseId">
-            <End Role="MyCases" EntitySet="MyCases" />
-            <End Role="Documents" EntitySet="Documents" />
+          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
           </AssociationSet>
           <AssociationSet Name="FK_Dependants_Staffs" Association="Self.FK_Dependants_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Dependants" EntitySet="Dependants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Files" Association="Self.FK_Documents_Files">
+            <End Role="Files" EntitySet="Files" />
+            <End Role="Documents" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Educations_Staffs" Association="Self.FK_Educations_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
@@ -372,6 +452,14 @@
           <AssociationSet Name="FK_Experiences_Staffs" Association="Self.FK_Experiences_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Experiences" EntitySet="Experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileEvents_Files" Association="Self.FK_FileEvents_Files">
+            <End Role="Files" EntitySet="Files" />
+            <End Role="FileEvents" EntitySet="FileEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileEvents_Staffs" Association="Self.FK_FileEvents_Staffs">
+            <End Role="Staffs" EntitySet="Staffs" />
+            <End Role="FileEvents" EntitySet="FileEvents" />
           </AssociationSet>
           <AssociationSet Name="FK_Files_Clients" Association="Self.FK_Files_Clients">
             <End Role="Clients" EntitySet="Clients" />
@@ -385,12 +473,17 @@
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Libraries" EntitySet="Libraries" />
           </AssociationSet>
+          <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
+            <End Role="LineManagers" EntitySet="LineManagers" />
+            <End Role="Staffs" EntitySet="Staffs" />
+          </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="UserRoles" EntitySet="UserRoles" />
             <End Role="LoginUsers" EntitySet="LoginUsers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyCaseNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -402,14 +495,33 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CertificationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateAchieved" Type="DateTime" Precision="3" />
+          <Property Name="DateAchieved" Type="DateTime" Precision="7" />
           <Property Name="Skilled" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Certifications_Staffs" FromRole="Certifications" ToRole="Staffs" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModeifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Certifications_Staffs" FromRole="Certifications" ToRole="Staffs" />
+        </EntityType>
+        <EntityType Name="ClientMatterAcceptanceForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AgreedFee" Type="Double" />
+          <Property Name="PaymentTerms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeFrame" Type="Int32" />
+          <Property Name="MatterManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="ClientMatterAcceptanceForms" ToRole="Clients" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -429,6 +541,7 @@
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="ClientMatterAcceptanceForms" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="Clients" ToRole="ClientMatterAcceptanceForms" />
           <NavigationProperty Name="Files" Relationship="Self.FK_Files_Clients" FromRole="Clients" ToRole="Files" />
         </EntityType>
         <EntityType Name="Dependant">
@@ -439,36 +552,36 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PolicyNumber" Type="Int32" />
-          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="String" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Precision="7" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="7" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Dependants_Staffs" FromRole="Dependants" ToRole="Staffs" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Dependants_Staffs" FromRole="Dependants" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
             <PropertyRef Name="DocumentId" />
           </Key>
           <Property Name="DocumentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MyCaseId" Type="Int32" Nullable="false" />
+          <Property Name="FileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DocName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AssignedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="MyCas" Relationship="Self.FK_dbo_Documents_dbo_MyCases_MyCaseId" FromRole="Documents" ToRole="MyCases" />
+          <NavigationProperty Name="File" Relationship="Self.FK_Documents_Files" FromRole="Documents" ToRole="Files" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -476,20 +589,20 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="School" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Precision="7" />
           <Property Name="Major" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateAwarded" Type="DateTime" Precision="3" />
+          <Property Name="DateAwarded" Type="DateTime" Precision="7" />
           <Property Name="Graduated" Type="Boolean" />
           <Property Name="Qualification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Educations_Staffs" FromRole="Educations" ToRole="Staffs" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Educations_Staffs" FromRole="Educations" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Experience">
           <Key>
@@ -498,35 +611,58 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Employer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Salary" Type="Double" />
           <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Experiences_Staffs" FromRole="Experiences" ToRole="Staffs" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Experiences_Staffs" FromRole="Experiences" ToRole="Staffs" />
+        </EntityType>
+        <EntityType Name="FileEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Precision="7" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EventName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="File" Relationship="Self.FK_FileEvents_Files" FromRole="FileEvents" ToRole="Files" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_FileEvents_Staffs" FromRole="FileEvents" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="File">
           <Key>
             <PropertyRef Name="FileNumber" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClientId" Type="Int32" />
-          <Property Name="OpeningDate" Type="DateTime" Precision="3" />
+          <Property Name="OpeningDate" Type="DateTime" Precision="7" />
           <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AdvocateId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ClosingDate" Type="DateTime" Precision="3" />
+          <Property Name="ClosingDate" Type="DateTime" Precision="7" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Files_Clients" FromRole="Files" ToRole="Clients" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Files" FromRole="Files" ToRole="Documents" />
+          <NavigationProperty Name="FileEvents" Relationship="Self.FK_FileEvents_Files" FromRole="Files" ToRole="FileEvents" />
           <NavigationProperty Name="Staff" Relationship="Self.FK_Files_Staffs" FromRole="Files" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Library">
@@ -546,6 +682,16 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Staff" Relationship="Self.FK_Libraries_Staffs" FromRole="Libraries" ToRole="Staffs" />
         </EntityType>
+        <EntityType Name="LineManager">
+          <Key>
+            <PropertyRef Name="LineManagerId" />
+          </Key>
+          <Property Name="LineManagerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Staffs" Relationship="Self.FK_Staffs_LineManagers" FromRole="LineManagers" ToRole="Staffs" />
+        </EntityType>
         <EntityType Name="LoginUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -560,24 +706,6 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_Users_Roles" FromRole="LoginUsers" ToRole="UserRoles" />
-        </EntityType>
-        <EntityType Name="MyCas">
-          <Key>
-            <PropertyRef Name="MyCaseId" />
-          </Key>
-          <Property Name="MyCaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CaseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CaseNumber" Type="Int32" Nullable="false" />
-          <Property Name="Opened" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="PracticeArea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CaseStage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StatuteOfLimitation" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Documents" Relationship="Self.FK_dbo_Documents_dbo_MyCases_MyCaseId" FromRole="MyCases" ToRole="Documents" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -594,7 +722,7 @@
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DOB" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DOE" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -607,12 +735,11 @@
           <Property Name="NKEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NKAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AccountNumber" Type="Int32" />
           <Property Name="NKFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LineManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LineManagerId" Type="Int32" Nullable="false" />
           <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YearCallToBar" Type="Int32" />
@@ -621,8 +748,10 @@
           <NavigationProperty Name="Dependants" Relationship="Self.FK_Dependants_Staffs" FromRole="Staffs" ToRole="Dependants" />
           <NavigationProperty Name="Educations" Relationship="Self.FK_Educations_Staffs" FromRole="Staffs" ToRole="Educations" />
           <NavigationProperty Name="Experiences" Relationship="Self.FK_Experiences_Staffs" FromRole="Staffs" ToRole="Experiences" />
+          <NavigationProperty Name="FileEvents" Relationship="Self.FK_FileEvents_Staffs" FromRole="Staffs" ToRole="FileEvents" />
           <NavigationProperty Name="Files" Relationship="Self.FK_Files_Staffs" FromRole="Staffs" ToRole="Files" />
           <NavigationProperty Name="Libraries" Relationship="Self.FK_Libraries_Staffs" FromRole="Staffs" ToRole="Libraries" />
+          <NavigationProperty Name="LineManager" Relationship="Self.FK_Staffs_LineManagers" FromRole="Staffs" ToRole="LineManagers" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -646,6 +775,18 @@
             </Principal>
             <Dependent Role="Certifications">
               <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
+          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientMatterAcceptanceForms">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -673,17 +814,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Documents_dbo_MyCases_MyCaseId">
-          <End Role="MyCases" Type="Self.MyCas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_Documents_Files">
+          <End Role="Files" Type="Self.File" Multiplicity="1" />
           <End Role="Documents" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MyCases">
-              <PropertyRef Name="MyCaseId" />
+            <Principal Role="Files">
+              <PropertyRef Name="FileNumber" />
             </Principal>
             <Dependent Role="Documents">
-              <PropertyRef Name="MyCaseId" />
+              <PropertyRef Name="FileNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -707,6 +846,30 @@
               <PropertyRef Name="StaffId" />
             </Principal>
             <Dependent Role="Experiences">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileEvents_Files">
+          <End Role="Files" Type="Self.File" Multiplicity="0..1" />
+          <End Role="FileEvents" Type="Self.FileEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Files">
+              <PropertyRef Name="FileNumber" />
+            </Principal>
+            <Dependent Role="FileEvents">
+              <PropertyRef Name="FileNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileEvents_Staffs">
+          <End Role="Staffs" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="FileEvents" Type="Self.FileEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staffs">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="FileEvents">
               <PropertyRef Name="StaffId" />
             </Dependent>
           </ReferentialConstraint>
@@ -735,6 +898,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Staffs_LineManagers">
+          <End Role="LineManagers" Type="Self.LineManager" Multiplicity="1" />
+          <End Role="Staffs" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LineManagers">
+              <PropertyRef Name="LineManagerId" />
+            </Principal>
+            <Dependent Role="Staffs">
+              <PropertyRef Name="LineManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Roles">
           <End Role="UserRoles" Type="Self.UserRole" Multiplicity="1" />
           <End Role="LoginUsers" Type="Self.LoginUser" Multiplicity="*" />
@@ -749,20 +924,26 @@
         </Association>
         <EntityContainer Name="MyCaseNewEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Certifications" EntityType="Self.Certification" />
+          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForm" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Dependants" EntityType="Self.Dependant" />
           <EntitySet Name="Documents" EntityType="Self.Document" />
           <EntitySet Name="Educations" EntityType="Self.Education" />
           <EntitySet Name="Experiences" EntityType="Self.Experience" />
+          <EntitySet Name="FileEvents" EntityType="Self.FileEvent" />
           <EntitySet Name="Files" EntityType="Self.File" />
           <EntitySet Name="Libraries" EntityType="Self.Library" />
+          <EntitySet Name="LineManagers" EntityType="Self.LineManager" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUser" />
-          <EntitySet Name="MyCases" EntityType="Self.MyCas" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
           <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
           </AssociationSet>
           <AssociationSet Name="FK_Files_Clients" Association="Self.FK_Files_Clients">
             <End Role="Clients" EntitySet="Clients" />
@@ -772,8 +953,8 @@
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Dependants" EntitySet="Dependants" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Documents_dbo_MyCases_MyCaseId" Association="Self.FK_dbo_Documents_dbo_MyCases_MyCaseId">
-            <End Role="MyCases" EntitySet="MyCases" />
+          <AssociationSet Name="FK_Documents_Files" Association="Self.FK_Documents_Files">
+            <End Role="Files" EntitySet="Files" />
             <End Role="Documents" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Educations_Staffs" Association="Self.FK_Educations_Staffs">
@@ -784,6 +965,14 @@
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Experiences" EntitySet="Experiences" />
           </AssociationSet>
+          <AssociationSet Name="FK_FileEvents_Files" Association="Self.FK_FileEvents_Files">
+            <End Role="Files" EntitySet="Files" />
+            <End Role="FileEvents" EntitySet="FileEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileEvents_Staffs" Association="Self.FK_FileEvents_Staffs">
+            <End Role="Staffs" EntitySet="Staffs" />
+            <End Role="FileEvents" EntitySet="FileEvents" />
+          </AssociationSet>
           <AssociationSet Name="FK_Files_Staffs" Association="Self.FK_Files_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Files" EntitySet="Files" />
@@ -791,6 +980,10 @@
           <AssociationSet Name="FK_Libraries_Staffs" Association="Self.FK_Libraries_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Libraries" EntitySet="Libraries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
+            <End Role="LineManagers" EntitySet="LineManagers" />
+            <End Role="Staffs" EntitySet="Staffs" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="UserRoles" EntitySet="UserRoles" />
@@ -806,10 +999,6 @@
           <EntitySetMapping Name="Certifications">
             <EntityTypeMapping TypeName="MyCaseNewModel.Certification">
               <MappingFragment StoreEntitySet="Certifications">
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModeifiedBy" ColumnName="ModeifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -817,6 +1006,29 @@
                 <ScalarProperty Name="DateAchieved" ColumnName="DateAchieved" />
                 <ScalarProperty Name="Skilled" ColumnName="Skilled" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModeifiedBy" ColumnName="ModeifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientMatterAcceptanceForms">
+            <EntityTypeMapping TypeName="MyCaseNewModel.ClientMatterAcceptanceForm">
+              <MappingFragment StoreEntitySet="ClientMatterAcceptanceForms">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="AgreedFee" ColumnName="AgreedFee" />
+                <ScalarProperty Name="PaymentTerms" ColumnName="PaymentTerms" />
+                <ScalarProperty Name="TimeFrame" ColumnName="TimeFrame" />
+                <ScalarProperty Name="MatterManager" ColumnName="MatterManager" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -843,10 +1055,6 @@
           <EntitySetMapping Name="Dependants">
             <EntityTypeMapping TypeName="MyCaseNewModel.Dependant">
               <MappingFragment StoreEntitySet="Dependants">
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -859,6 +1067,10 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -866,7 +1078,7 @@
             <EntityTypeMapping TypeName="MyCaseNewModel.Document">
               <MappingFragment StoreEntitySet="Documents">
                 <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
-                <ScalarProperty Name="MyCaseId" ColumnName="MyCaseId" />
+                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
                 <ScalarProperty Name="DocName" ColumnName="DocName" />
                 <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
                 <ScalarProperty Name="Tags" ColumnName="Tags" />
@@ -882,10 +1094,6 @@
           <EntitySetMapping Name="Educations">
             <EntityTypeMapping TypeName="MyCaseNewModel.Education">
               <MappingFragment StoreEntitySet="Educations">
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="School" ColumnName="School" />
                 <ScalarProperty Name="DateStart" ColumnName="DateStart" />
@@ -897,16 +1105,16 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Grade" ColumnName="Grade" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Experiences">
             <EntityTypeMapping TypeName="MyCaseNewModel.Experience">
               <MappingFragment StoreEntitySet="Experiences">
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Employer" ColumnName="Employer" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
@@ -915,6 +1123,30 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileEvents">
+            <EntityTypeMapping TypeName="MyCaseNewModel.FileEvent">
+              <MappingFragment StoreEntitySet="FileEvents">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -954,6 +1186,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LineManagers">
+            <EntityTypeMapping TypeName="MyCaseNewModel.LineManager">
+              <MappingFragment StoreEntitySet="LineManagers">
+                <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LoginUsers">
             <EntityTypeMapping TypeName="MyCaseNewModel.LoginUser">
               <MappingFragment StoreEntitySet="LoginUsers">
@@ -966,24 +1208,6 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MyCases">
-            <EntityTypeMapping TypeName="MyCaseNewModel.MyCas">
-              <MappingFragment StoreEntitySet="MyCases">
-                <ScalarProperty Name="MyCaseId" ColumnName="MyCaseId" />
-                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
-                <ScalarProperty Name="CaseNumber" ColumnName="CaseNumber" />
-                <ScalarProperty Name="Opened" ColumnName="Opened" />
-                <ScalarProperty Name="PracticeArea" ColumnName="PracticeArea" />
-                <ScalarProperty Name="CaseStage" ColumnName="CaseStage" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="StatuteOfLimitation" ColumnName="StatuteOfLimitation" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1014,12 +1238,11 @@
                 <ScalarProperty Name="NKEmail" ColumnName="NKEmail" />
                 <ScalarProperty Name="NKAddress" ColumnName="NKAddress" />
                 <ScalarProperty Name="Bank" ColumnName="Bank" />
-                <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
                 <ScalarProperty Name="NKFullName" ColumnName="NKFullName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
-                <ScalarProperty Name="LineManager" ColumnName="LineManager" />
+                <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="YearCallToBar" ColumnName="YearCallToBar" />

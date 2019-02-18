@@ -11,36 +11,24 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
+            this.ClientMatterAcceptanceForms = new HashSet<ClientMatterAcceptanceForm>();
             this.Files = new HashSet<File>();
         }
     
         public int ClientId { get; set; }
-        [Display(Name ="First Name")]
-        [Required]
         public string FirstName { get; set; }
-        [Display(Name = "Middle Name")]
-        //[Required]
         public string MiddleName { get; set; }
-        [Display(Name = "Last Name")]
-        [Required]
         public string LastName { get; set; }
-        [Display(Name ="Email Address")]
-        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [Display(Name ="Mobile Number")]
-        [Required]
         public string PhoneNumber { get; set; }
-        [DataType(DataType.MultilineText)]
         public string Address { get; set; }
         public string Town { get; set; }
-        [Display(Name ="postal Code")]
         public string PostalCode { get; set; }
         public string Website { get; set; }
         public string CreatedBy { get; set; }
@@ -48,6 +36,8 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }
     }

@@ -11,6 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class CertificationsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -48,7 +49,15 @@ namespace LegalManagementSystem.Controllers
         // GET: Certifications/Create
         public ActionResult Create()
         {
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
+            ViewBag.Skilled = new List<SelectListItem>
+            {
+              new SelectListItem{Text="Advanced",Value="Advanced"},
+               new SelectListItem{Text="Beginner",Value="Beginner"},
+               new SelectListItem{Text="Intermediate",Value="Intermediate"},
+               new SelectListItem{Text="Novice",Value="Novice"},
+               new SelectListItem{Text="Expert",Value="Expert"}
+            };
             return View();
         }
 
@@ -68,10 +77,18 @@ namespace LegalManagementSystem.Controllers
 
                 db.Certifications.Add(certification);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Certifications");
             }
 
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);
+            ViewBag.Skilled = new List<SelectListItem>
+            {
+              new SelectListItem{Text="Advanced",Value="Advanced"},
+               new SelectListItem{Text="Beginner",Value="Beginner"},
+               new SelectListItem{Text="Intermediate",Value="Intermediate"},
+               new SelectListItem{Text="Novice",Value="Novice"},
+               new SelectListItem{Text="Expert",Value="Expert"}
+            };
             return View(certification);
         }
 
@@ -87,7 +104,15 @@ namespace LegalManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);
+            ViewBag.Skilled = new List<SelectListItem>
+            {
+              new SelectListItem{Text="Advanced",Value="Advanced"},
+               new SelectListItem{Text="Beginner",Value="Beginner"},
+               new SelectListItem{Text="Intermediate",Value="Intermediate"},
+               new SelectListItem{Text="Novice",Value="Novice"},
+               new SelectListItem{Text="Expert",Value="Expert"}
+            };
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);
             return View(certification);
         }
 
@@ -107,9 +132,17 @@ namespace LegalManagementSystem.Controllers
 
                 db.Entry(certification).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Dependants");
             }
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);
+            ViewBag.Skilled = new List<SelectListItem>
+            {
+              new SelectListItem{Text="Advanced",Value="Advanced"},
+               new SelectListItem{Text="Beginner",Value="Beginner"},
+               new SelectListItem{Text="Intermediate",Value="Intermediate"},
+               new SelectListItem{Text="Novice",Value="Novice"},
+               new SelectListItem{Text="Expert",Value="Expert"}
+            };
             return View(certification);
         }
 

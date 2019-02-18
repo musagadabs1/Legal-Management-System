@@ -121,6 +121,7 @@ namespace LegalManagementSystem.Controllers
                     if (IsRegisteredUser(model.Username,model.Password))
                     {
                         ViewBag.ErrorMsg = "Username already exist.";
+                        ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
                         return View(model);
                     }
 
@@ -136,16 +137,20 @@ namespace LegalManagementSystem.Controllers
                 {
 
                     ViewBag.ErrorMsg = "Something happened. please check and try again. " + ex.Message;
+                    ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
+                    return View(model);
                     //return View();
                 }
             }
             else
             {
-                return RedirectToAction("Error");
-                //ViewBag.ErrorMsg = "Please fill in the required fields . ";
-                //return View();
-            }
+                //return RedirectToAction("Error");
+                ViewBag.ErrorMsg = "Please fill in the required fields . ";
+                //ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
+                //return View(model);
 
+            }
+            ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

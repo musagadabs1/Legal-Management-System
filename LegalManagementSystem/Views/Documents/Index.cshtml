@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LegalManagementSystem.Models.Document>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Document Lists</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tags)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DocPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.File.FileName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tags)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocPath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.File.FileName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DocumentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DocumentId }) @*|
+            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })*@
+        </td>
+    </tr>
+}
+
+</table>

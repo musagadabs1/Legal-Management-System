@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>List of Files</h2>
+<h2>Filed Cases</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -33,7 +33,7 @@
             @Html.DisplayNameFor(model => model.Client.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Staff.Surname)
+            @Html.DisplayNameFor(model => model.Staff.FirstName)
         </th>
         <th></th>
     </tr>
@@ -62,7 +62,7 @@
             @Html.DisplayFor(modelItem => item.Client.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Staff.Surname)
+            @Html.DisplayFor(modelItem => item.Staff.FirstName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.FileNumber }) |

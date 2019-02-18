@@ -11,28 +11,20 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Library
     {
         public int Id { get; set; }
-        [Display(Name="Document Number")]
-        [Required]
         public string ISBN { get; set; }
-        [Display(Name ="Document Name")]
-        [Required]
         public string Name { get; set; }
-        [Display(Name ="Document Type")]
         public string Type { get; set; }
-        public DateTime UploadDate { get; set; }
-        [Display(Name ="File Path")]
+        public Nullable<System.DateTime> UploadDate { get; set; }
         public string FilePath { get; set; }
-        [Display(Name="Advocate Name")]
         public string AdvocateId { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

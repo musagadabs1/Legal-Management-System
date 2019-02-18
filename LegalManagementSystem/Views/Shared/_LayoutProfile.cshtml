@@ -1,0 +1,72 @@
+﻿<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Legal Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    @*<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>*@
+    <script src="script.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("LMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Events", "Index", "FileEvents")</li>
+                    @Html.Partial("_AdminLayout")
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+        <div id='cssmenu'>
+            <ul>
+                <li class='active'>@Html.ActionLink("Profile", "Create", "Staffs")</li>
+                <li>@Html.ActionLink("Experience", "Create", "Experiences")</li>
+                <li>@Html.ActionLink("Education", "Create", "Educations")</li>
+                <li>@Html.ActionLink("Certification", "Create", "Certifications")</li>
+                <li>@Html.ActionLink("Dependant", "Create", "Dependants")</li>
+                <li>@Html.ActionLink("Training", "Index", "Home")</li>
+                <li>@Html.ActionLink("Salary", "Salary", "Staffs")</li>
+                <li>@Html.ActionLink("Activity", "Contact", "Home")</li>
+            </ul>
+        </div>
+
+    <div class="container body-content">
+        <div class="col-md-3">
+            <img src="~/Content/Images/legal-scale-icon-21.jpg" height="100" width="100" />
+            <br />
+            <div style="margin-top:30px;">
+
+                <img src="~/Content/Images/man-user.png" width="120" height="120" />
+                <div>
+                    <input type="button" id="imageUpload" style="margin:5px; height:30px;width:70px" name="ImageFile" value="Upload" />
+                    <input type="button" style="height:30px;width:70px" value="Delete" id="imageDelete" name="btnImage" />
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+    
+

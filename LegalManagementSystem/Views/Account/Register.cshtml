@@ -5,6 +5,7 @@
 }
 <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/css/bootstrap.min.css">
 @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+<link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="~/Content/css/my-login.css">
 
 <!DOCTYPE html>
@@ -27,9 +28,6 @@
                     {
                         <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
                     }
-                        @*<div>
-                            @Html.Partial("Error")
-                        </div>*@
                     
                         <div class="card fat">
                             <div class="card-body">
@@ -42,31 +40,28 @@
                                         <h4 style="color:slategrey;margin-left:70px;">Register new User</h4>
                                         <br />
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        <div class="form-group" @*style="margin:10px;"*@>
-                                            @*@Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <div class="form-group">
                                             <div class="col-md-5">
                                                 @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
                                                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
-                                        <div class="form-group" @*style="margin:10px;"*@>
-                                            @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <div class="form-group">
                                             <div class="col-md-5">
                                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password" } })
                                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
-                                        <div class="form-group" @*style="margin:10px;"*@>
-                                            @*@Html.LabelFor(model => model.RoleId, "User Role", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <div class="form-group">
                                             <div class="col-md-5">
                                                 @Html.DropDownListFor(model => model.RoleId, (SelectList)ViewBag.RoleNames,"------ Select User Role------", new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
-                                        <div class="form-group" @*style="margin:10px;"*@>
+                                        <div class="form-group">
                                             @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-6">
                                                 <div class="checkbox">
@@ -78,7 +73,7 @@
 
                                         <div class="form-group">
                                             <div class="col-md-offset-5 col-md-7">
-                                                <input style="margin-left:0" type="submit" value="Register" class="btn btn-primary btn-group-lg" />
+                                                <input style="margin-left:0" type="submit" value="Register" id="register" class="btn btn-primary btn-group-lg" />
                                             </div>
                                         </div>
                                     </div>
@@ -100,5 +95,22 @@
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Content/js/my-login.js"></script>
+    <script src="~/Scripts/alertify.min.js"></script>
+    <script type="text/javascript">
+        $('#register').click(function () {
+            if ($("#Username").val() == "") {
+                alertify.error('User Name Is Empty !!');
+                return;
+            }
+            else if ($("#Password").val() == "") {
+                alertify.error('Password Is Empty !!');
+                return;
+            }
+            else {
+                alertify.success('Registration Successful.');
+            } 
+        });
+        //alertify.alert(@ViewBag.ErrorMsg);
+    </script>
 </body>
 </html>

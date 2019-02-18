@@ -22,6 +22,7 @@ namespace LegalManagementSystem.Models
             this.Dependants = new HashSet<Dependant>();
             this.Educations = new HashSet<Education>();
             this.Experiences = new HashSet<Experience>();
+            this.FileEvents = new HashSet<FileEvent>();
             this.Files = new HashSet<File>();
             this.Libraries = new HashSet<Library>();
         }
@@ -33,34 +34,37 @@ namespace LegalManagementSystem.Models
         //[Required]
         [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
+        [Required]
+        [Display(Name = "Gender")]
         public string Gender { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public System.DateTime ModifiedOn { get; set; }
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Required]
+        [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
-        [Display(Name ="Date of Birth")]
-        public DateTime DOB { get; set; }
-        [DataType(DataType.Date)]
+        public System.DateTime DOB { get; set; }
+        [Required]
         [Display(Name = "Date of Employment")]
-        public DateTime DOE { get; set; }
-        public string Status { get; set; }
-        [Display(Name ="Address")]
+        [DataType(DataType.Date)]
+        public System.DateTime DOE { get; set; }
+        public bool Status { get; set; }
         [DataType(DataType.MultilineText)]
+        [Required]
         public string Address { get; set; }
         [Display(Name ="Marital Status")]
         public string MaritalStatus { get; set; }
-        [Display(Name ="File Path")]
         public string ImagePath { get; set; }
-        [Display(Name ="Phone (Extension)")]
+        [Display(Name ="Office Number")]
         public string OfficeNo { get; set; }
-        [Display(Name ="Mobile No")]
+        [Display(Name = "Mobile Number")]
         [Required]
         public string MobileNo { get; set; }
-        [Display(Name ="Work Email Address")]
+        [Display(Name = "Email Address")]
         [Required]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
@@ -68,36 +72,36 @@ namespace LegalManagementSystem.Models
         //[Required]
         [DataType(DataType.EmailAddress)]
         public string PersonalEmail { get; set; }
+        [Display(Name ="Next of Kin Relationship")]
         public string Relationship { get; set; }
-        [Display(Name ="Emergency Mobile No")]
+        [Display(Name ="Next of kin Mobile Number")]
         public string KTelephone { get; set; }
-        [Display(Name ="Emergency Email")]
+        [Display(Name ="Next of kin Email Address")]
+        [DataType(DataType.EmailAddress)]
         public string NKEmail { get; set; }
-        [Display(Name ="Address")]
+        [Display(Name ="Next of kin Address")]
+        [DataType(DataType.MultilineText)]
         public string NKAddress { get; set; }
-        [Required]
         public string Bank { get; set; }
-        public string Branch { get; set; }
-        [Display(Name ="Account Number")]
-        [Required]
         public int AccountNumber { get; set; }
-        [Display(Name ="Emergency Full Name")]
+        [Display(Name ="Next of kin Full Name")]
         public string NKFullName { get; set; }
+        [Display(Name ="Profile Password")]
+        [Required]
         public string Password { get; set; }
-        [Display(Name ="Staff Number")]
+        [Display(Name ="Staff Id")]
         [Required]
         public string StaffId { get; set; }
         [Display(Name ="Line Manager")]
         [Required]
-        public string LineManager { get; set; }
-        [Display(Name ="Department")]
+        public int LineManagerId { get; set; }
         [Required]
         public string Department { get; set; }
-        [Display(Name ="Designation")]
         [Required]
         public string Designation { get; set; }
-        [Display(Name ="Year Call to bar")]
+        [Display(Name ="Year Call to Bar")]
         public Nullable<int> YearCallToBar { get; set; }
+        [Display(Name ="Location")]
         [Required]
         public string Location { get; set; }
     
@@ -110,8 +114,11 @@ namespace LegalManagementSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Experience> Experiences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FileEvent> FileEvents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Library> Libraries { get; set; }
+        public virtual LineManager LineManager { get; set; }
     }
 }

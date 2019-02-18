@@ -15,28 +15,35 @@ namespace LegalManagementSystem.Models
 
     public partial class File
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public File()
+        {
+            this.Documents = new HashSet<Document>();
+            this.FileEvents = new HashSet<FileEvent>();
+        }
+    
         public int Id { get; set; }
         [Required]
-        [Display(Name ="File Number")]
+        [Display(Name ="Case Number")]
         public string FileNumber { get; set; }
         [Required]
-        [Display(Name = "File Name")]
+        [Display(Name = "Case Name")]
         public string FileName { get; set; }
-        //[Required]
-        [Display(Name = "File Type")]
-        public string FileType { get; set; }
-        [Display(Name ="Client Name")]
-        public int ClientId { get; set; }
         [Required]
-        [Display(Name = "Opening Date")]
+        [Display(Name = "Case Type")]
+        public string FileType { get; set; }
+        [Display(Name ="Client link to the Case")]
+        [Required]
+        public int ClientId { get; set; }
+        [Display(Name ="Opening Date")]
+        [Required]
         [DataType(DataType.Date)]
         public DateTime OpeningDate { get; set; }
-        [Display(Name ="Location")]
+        [Display(Name ="Case Location")]
         public string FilePath { get; set; }
-        [Display(Name ="Advocate Name")]
         public string AdvocateId { get; set; }
-        //[Required]
         [Display(Name = "Closing Date")]
+        [Required]
         [DataType(DataType.Date)]
         public DateTime ClosingDate { get; set; }
         public string CreatedBy { get; set; }
@@ -45,6 +52,10 @@ namespace LegalManagementSystem.Models
         public DateTime ModifiedOn { get; set; }
     
         public virtual Client Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FileEvent> FileEvents { get; set; }
         public virtual Staff Staff { get; set; }
     }
 }

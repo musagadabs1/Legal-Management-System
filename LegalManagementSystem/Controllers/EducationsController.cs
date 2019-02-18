@@ -11,6 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class EducationsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -46,7 +47,26 @@ namespace LegalManagementSystem.Controllers
         // GET: Educations/Create
         public ActionResult Create()
         {
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
+            ViewBag.Qualification = new List<SelectListItem>
+            {
+              new SelectListItem{Text="PhD",Value="PhD"},
+               new SelectListItem{Text="Msc",Value="Msc"},
+               new SelectListItem{Text="Bsc",Value="Bsc"},
+               new SelectListItem{Text="PGD",Value="PGD"},
+               new SelectListItem{Text="NCE",Value="NCE"},
+               new SelectListItem{Text="ND",Value="ND"},
+               new SelectListItem{Text="HND",Value="HND"}
+            };
+            ViewBag.Grade = new List<SelectListItem>
+            {
+              new SelectListItem{Text="First Class",Value="First Class"},
+               new SelectListItem{Text="Second Class Upper",Value="Second Class Upper"},
+               new SelectListItem{Text="Second Class Lower",Value="Second Class Lower"},
+               new SelectListItem{Text="Third Class",Value="Third Class"},
+               new SelectListItem{Text="Pass",Value="Pass"},
+               new SelectListItem{Text="Not Available",Value="Not Available"}
+            };
             return View();
         }
 
@@ -66,10 +86,29 @@ namespace LegalManagementSystem.Controllers
 
                 db.Educations.Add(education);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Educations");
             }
+            ViewBag.Qualification = new List<SelectListItem>
+            {
+              new SelectListItem{Text="PhD",Value="PhD"},
+               new SelectListItem{Text="Msc",Value="Msc"},
+               new SelectListItem{Text="Bsc",Value="Bsc"},
+               new SelectListItem{Text="PGD",Value="PGD"},
+               new SelectListItem{Text="NCE",Value="NCE"},
+               new SelectListItem{Text="ND",Value="ND"},
+               new SelectListItem{Text="HND",Value="HND"}
+            };
+            ViewBag.Grade = new List<SelectListItem>
+            {
+              new SelectListItem{Text="First Class",Value="First Class"},
+               new SelectListItem{Text="Second Class Upper",Value="Second Class Upper"},
+               new SelectListItem{Text="Second Class Lower",Value="Second Class Lower"},
+               new SelectListItem{Text="Third Class",Value="Third Class"},
+               new SelectListItem{Text="Pass",Value="Pass"},
+               new SelectListItem{Text="Not Available",Value="Not Available"}
+            };
 
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", education.StaffId);
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", education.StaffId);
             return View(education);
         }
 
@@ -85,7 +124,26 @@ namespace LegalManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", education.StaffId);
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", education.StaffId);
+            ViewBag.Qualification = new List<SelectListItem>
+            {
+              new SelectListItem{Text="PhD",Value="PhD"},
+               new SelectListItem{Text="Msc",Value="Msc"},
+               new SelectListItem{Text="Bsc",Value="Bsc"},
+               new SelectListItem{Text="PGD",Value="PGD"},
+               new SelectListItem{Text="NCE",Value="NCE"},
+               new SelectListItem{Text="ND",Value="ND"},
+               new SelectListItem{Text="HND",Value="HND"}
+            };
+            ViewBag.Grade = new List<SelectListItem>
+            {
+              new SelectListItem{Text="First Class",Value="First Class"},
+               new SelectListItem{Text="Second Class Upper",Value="Second Class Upper"},
+               new SelectListItem{Text="Second Class Lower",Value="Second Class Lower"},
+               new SelectListItem{Text="Third Class",Value="Third Class"},
+               new SelectListItem{Text="Pass",Value="Pass"},
+               new SelectListItem{Text="Not Available",Value="Not Available"}
+            };
             return View(education);
         }
 
@@ -105,9 +163,28 @@ namespace LegalManagementSystem.Controllers
 
                 db.Entry(education).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Educations");
             }
-            ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", education.StaffId);
+            //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", education.StaffId);
+            ViewBag.Qualification = new List<SelectListItem>
+            {
+              new SelectListItem{Text="PhD",Value="PhD"},
+               new SelectListItem{Text="Msc",Value="Msc"},
+               new SelectListItem{Text="Bsc",Value="Bsc"},
+               new SelectListItem{Text="PGD",Value="PGD"},
+               new SelectListItem{Text="NCE",Value="NCE"},
+               new SelectListItem{Text="ND",Value="ND"},
+               new SelectListItem{Text="HND",Value="HND"}
+            };
+            ViewBag.Grade = new List<SelectListItem>
+            {
+              new SelectListItem{Text="First Class",Value="First Class"},
+               new SelectListItem{Text="Second Class Upper",Value="Second Class Upper"},
+               new SelectListItem{Text="Second Class Lower",Value="Second Class Lower"},
+               new SelectListItem{Text="Third Class",Value="Third Class"},
+               new SelectListItem{Text="Pass",Value="Pass"},
+               new SelectListItem{Text="Not Available",Value="Not Available"}
+            };
             return View(education);
         }
 
