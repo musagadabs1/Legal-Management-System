@@ -11,7 +11,8 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,13 +23,26 @@ namespace LegalManagementSystem.Models
         }
     
         public int ClientId { get; set; }
+        [Required]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
+        //[Required]
+        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Required]
+        [Display(Name = "Email Address")]
+        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
+        [Required]
+        [Display(Name ="Phone Number")]
         public string PhoneNumber { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Address { get; set; }
         public string Town { get; set; }
+        [Display(Name ="Postal Code")]
         public string PostalCode { get; set; }
         public string Website { get; set; }
         public string CreatedBy { get; set; }
