@@ -11,7 +11,8 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class File
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,18 +23,33 @@ namespace LegalManagementSystem.Models
         }
     
         public int Id { get; set; }
+        [Required]
+        [Display(Name ="Case Number")]
         public string FileNumber { get; set; }
+        [Required]
+        [Display(Name = "Case Name")]
         public string FileName { get; set; }
+        [Required]
+        [Display(Name = "Case Type")]
         public string FileType { get; set; }
-        public Nullable<int> ClientId { get; set; }
-        public Nullable<System.DateTime> OpeningDate { get; set; }
+        [Display(Name ="Client link to the Case")]
+        [Required]
+        public int ClientId { get; set; }
+        [Display(Name ="Opening Date")]
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime OpeningDate { get; set; }
+        [Display(Name ="Case Location")]
         public string FilePath { get; set; }
         public string AdvocateId { get; set; }
-        public Nullable<System.DateTime> ClosingDate { get; set; }
+        [Display(Name = "Closing Date")]
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ClosingDate { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
     
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
