@@ -1,17 +1,21 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="box box-primary">
+    <div class="box-body">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.Label("Name")
+                @Html.TextBox("CustomerName", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Comment")
+                @Html.TextArea("CustomerComment", new { @class = "textarea", rows = "10", style = "width:50%;background-color:#f8f8f8" })
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        }
+    </div>
+</div>
