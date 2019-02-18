@@ -11,7 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
-    [Authorize(Roles ="Admin,Attorney,Advocate")]
+    [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class StaffsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -19,16 +19,15 @@ namespace LegalManagementSystem.Controllers
         // GET: Staffs
         public async Task<ActionResult> Index()
         {
+
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                return View(await db.Staffs.ToListAsync());
+                var adminStaffs = db.Staffs.Include(s => s.LineManager);
+                return View(await adminStaffs.ToListAsync());
             }
-            return View(await db.Staffs.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
-        }
-        public ActionResult Salary()
-        {
-            return View();
+            var staffs = db.Staffs.Include(s => s.LineManager);
+            return View(await staffs.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
 
         // GET: Staffs/Details/5
@@ -49,20 +48,12 @@ namespace LegalManagementSystem.Controllers
         // GET: Staffs/Create
         public ActionResult Create()
         {
-            //var staffType = new List<SelectListItem>
-            //{
-            //    new SelectListItem {Value = "Staff", Text = "Staff" },
-            //    new SelectListItem{Value = "Faculty", Text = "Faculty"},
-            //    new SelectListItem{Value = "Other", Text = "Other"}
-            //};
-            //ViewBag.StaffType = staffType;
-
-            var gender= new List<SelectListItem> {
+            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name");
+            ViewBag.Gender = new List<SelectListItem> {
                 new SelectListItem{Text="Male",Value ="M"},
                 new SelectListItem{Text="Female",Value ="F"}
             };
-            ViewBag.Gender = gender;
-           var Marital=  new List<SelectListItem> {
+            ViewBag.Marital = new List<SelectListItem> {
                 new SelectListItem{Text="Divorced",Value="Divorced"},
                 new SelectListItem{Text="Married",Value="Married"},
                 new SelectListItem{Text="Single",Value="Single"},
@@ -71,7 +62,6 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
-            ViewBag.Marital = Marital;
             return View();
         }
 
@@ -80,11 +70,10 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,Branch,AccountNumber,NKFullName,Password,StaffId,LineManager,Department,Designation,YearCallToBar,Location")] Staff staff)
+        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,AccountNumber,NKFullName,Password,StaffId,Department,Designation,YearCallToBar,Location,LineManagerId")] Staff staff)
         {
             if (ModelState.IsValid)
             {
-
                 try
                 {
                     var staffId = string.Empty;
@@ -92,9 +81,8 @@ namespace LegalManagementSystem.Controllers
                     staff.CreatedBy = user;
                     staff.CreatedOn = DateTime.Today;
                     staffId = staff.StaffId.ToUpper();
-                    LegalGuideUtility.StaffId = staffId; //ViewBag.StaffId=staff.StaffId;
-                    staff.Status = "Active";
-                    //staff.Branch = "Abuja";
+                    LegalGuideUtility.StaffId = staffId; 
+                    staff.Status = true;
 
                     db.Staffs.Add(staff);
                     await db.SaveChangesAsync();
@@ -110,11 +98,12 @@ namespace LegalManagementSystem.Controllers
             {
                 ViewBag.Error = "Can't Save Profile, Some fields are missing";
             }
+
+            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name", staff.LineManagerId);
             ViewBag.Gender = new List<SelectListItem> {
                 new SelectListItem{Text="Male",Value ="M"},
                 new SelectListItem{Text="Female",Value ="F"}
             };
-             //= gender;
             ViewBag.Marital = new List<SelectListItem> {
                 new SelectListItem{Text="Divorced",Value="Divorced"},
                 new SelectListItem{Text="Married",Value="Married"},
@@ -124,7 +113,6 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
-             //= Marital;
             return View(staff);
         }
 
@@ -135,9 +123,14 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Staff staff = await db.Staffs.FindAsync(id);
+            if (staff == null)
+            {
+                return HttpNotFound();
+            }
             ViewBag.Gender = new List<SelectListItem> {
-                new SelectListItem{Text="Male",Value="M"},
-                new SelectListItem{Text="Female",Value="F"}
+                new SelectListItem{Text="Male",Value ="M"},
+                new SelectListItem{Text="Female",Value ="F"}
             };
             ViewBag.Marital = new List<SelectListItem> {
                 new SelectListItem{Text="Divorced",Value="Divorced"},
@@ -148,11 +141,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
-            Staff staff = await db.Staffs.FindAsync(id);
-            if (staff == null)
-            {
-                return HttpNotFound();
-            }
+            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name", staff.LineManagerId);
             return View(staff);
         }
 
@@ -161,7 +150,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,Branch,AccountNumber,NKFullName,Password,StaffId,LineManager,Department,Designation,YearCallToBar,Location")] Staff staff)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,AccountNumber,NKFullName,Password,StaffId,Department,Designation,YearCallToBar,Location,LineManagerId")] Staff staff)
         {
             try
             {
@@ -174,8 +163,7 @@ namespace LegalManagementSystem.Controllers
                     staffId = staff.StaffId.ToUpper();
                     staff.ModifiedOn = DateTime.Today;
                     LegalGuideUtility.StaffId = staffId; //ViewBag.StaffId=staff.StaffId;
-                    staff.Status = LegalGuideUtility.Status;
-                    //staff.Branch = "Abuja";
+                    staff.Status = true;
 
                     db.Entry(staff).State = EntityState.Modified;
                     await db.SaveChangesAsync();
@@ -188,7 +176,7 @@ namespace LegalManagementSystem.Controllers
                         new SelectListItem{Text="Male",Value ="M"},
                         new SelectListItem{Text="Female",Value ="F"}
                     };
-                     ViewBag.Marital = new List<SelectListItem> {
+                    ViewBag.Marital = new List<SelectListItem> {
                             new SelectListItem{Text="Divorced",Value="Divorced"},
                             new SelectListItem{Text="Married",Value="Married"},
                             new SelectListItem{Text="Single",Value="Single"},
@@ -197,7 +185,7 @@ namespace LegalManagementSystem.Controllers
                             new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
                      };
-                     //= Marital;
+                    //= Marital;
                     return View(staff);
                 }
             }
@@ -206,11 +194,11 @@ namespace LegalManagementSystem.Controllers
                 ViewBag.Error = "Can't Save Profile please check and try again." + ex.Message;
                 //throw;
             }
+            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name", staff.LineManagerId);
             ViewBag.Gender = new List<SelectListItem> {
                 new SelectListItem{Text="Male",Value ="M"},
                 new SelectListItem{Text="Female",Value ="F"}
             };
-            //= gender;
             ViewBag.Marital = new List<SelectListItem> {
                 new SelectListItem{Text="Divorced",Value="Divorced"},
                 new SelectListItem{Text="Married",Value="Married"},
@@ -220,7 +208,6 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
-             //= Marital;
             return View(staff);
         }
 

@@ -188,6 +188,7 @@
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibrariesController.cs" />
+    <Compile Include="Controllers\LineManagersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\SweetController.cs" />
@@ -226,6 +227,9 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LegalGuideUtility.cs" />
     <Compile Include="Models\Library.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LineManager.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LMSModel.Context.cs">
@@ -329,13 +333,6 @@
     <Content Include="Content\bootstrap\css\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap.min.css.map" />
-    <EntityDeploy Include="Models\LMSModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LMSModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\LMSModel.edmx.diagram">
-      <DependentUpon>LMSModel.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -346,6 +343,13 @@
     <Content Include="Content\sweetalert\sweet-alert-animations.less" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\mixins.less" />
+    <EntityDeploy Include="Models\LMSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LMSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LMSModel.edmx.diagram">
+      <DependentUpon>LMSModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ExpandCollapse.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -427,11 +431,6 @@
     <Content Include="Views\Experiences\Details.cshtml" />
     <Content Include="Views\Experiences\Edit.cshtml" />
     <Content Include="Views\Experiences\Index.cshtml" />
-    <Content Include="Views\Staffs\Create.cshtml" />
-    <Content Include="Views\Staffs\Delete.cshtml" />
-    <Content Include="Views\Staffs\Details.cshtml" />
-    <Content Include="Views\Staffs\Edit.cshtml" />
-    <Content Include="Views\Staffs\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutProfile.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Sweet\Alert.cshtml" />
@@ -440,7 +439,6 @@
     <Content Include="Views\Files\Details.cshtml" />
     <Content Include="Views\Files\Edit.cshtml" />
     <Content Include="Views\Files\Index.cshtml" />
-    <Content Include="Views\Staffs\Salary.cshtml" />
     <Content Include="Views\Documents\Create.cshtml" />
     <Content Include="Views\Documents\Delete.cshtml" />
     <Content Include="Views\Documents\Details.cshtml" />
@@ -451,10 +449,19 @@
     <Content Include="Views\FileEvents\Details.cshtml" />
     <Content Include="Views\FileEvents\Edit.cshtml" />
     <Content Include="Views\FileEvents\Index.cshtml" />
+    <Content Include="Views\Staffs\Create.cshtml" />
+    <Content Include="Views\Staffs\Delete.cshtml" />
+    <Content Include="Views\Staffs\Details.cshtml" />
+    <Content Include="Views\Staffs\Edit.cshtml" />
+    <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\LineManagers\Create.cshtml" />
+    <Content Include="Views\LineManagers\Delete.cshtml" />
+    <Content Include="Views\LineManagers\Details.cshtml" />
+    <Content Include="Views\LineManagers\Edit.cshtml" />
+    <Content Include="Views\LineManagers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />
-    <Folder Include="CustomUI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

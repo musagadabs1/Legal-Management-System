@@ -36,10 +36,10 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     
         public virtual Client Client { get; set; }
-        public virtual Staff Staff { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Documents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileEvent> FileEvents { get; set; }
+        public virtual Staff Staff { get; set; }
     }
 }

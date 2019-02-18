@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -84,9 +85,6 @@
             @Html.DisplayNameFor(model => model.Bank)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Branch)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.AccountNumber)
         </th>
         <th>
@@ -94,9 +92,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LineManager)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Department)
@@ -109,6 +104,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineManager1.Name)
         </th>
         <th></th>
     </tr>
@@ -188,9 +186,6 @@
             @Html.DisplayFor(modelItem => item.Bank)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Branch)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.AccountNumber)
         </td>
         <td>
@@ -198,9 +193,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LineManager)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Department)
@@ -213,6 +205,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineManager1.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.StaffId }) |

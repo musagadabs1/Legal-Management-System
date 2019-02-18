@@ -11,41 +11,24 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.Files = new HashSet<File>();
             this.ClientMatterAcceptanceForms = new HashSet<ClientMatterAcceptanceForm>();
+            this.Files = new HashSet<File>();
         }
     
         public int ClientId { get; set; }
-        [Required]
-        [Display(Name ="First Name")]
         public string FirstName { get; set; }
-        //[Required]
-        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
-        [Required]
-        [Display(Name = "last Name")]
         public string LastName { get; set; }
-        [Required]
-        [Display(Name = "Email Address")]
-        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [Required]
-        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        [Required]
-        [Display(Name = "Address")]
-        [DataType(DataType.MultilineText)]
         public string Address { get; set; }
         public string Town { get; set; }
-        //[Required]
-        [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
         public string Website { get; set; }
         public string CreatedBy { get; set; }
@@ -54,8 +37,8 @@ namespace LegalManagementSystem.Models
         public System.DateTime ModifiedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<File> Files { get; set; }
     }
 }

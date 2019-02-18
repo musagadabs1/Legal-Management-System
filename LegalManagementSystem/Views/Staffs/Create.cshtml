@@ -1,8 +1,6 @@
 ﻿@model LegalManagementSystem.Models.Staff
 @using LegalManagementSystem.Helpers
 @{
-    /**/
-
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
@@ -65,8 +63,6 @@
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <br />
                     <br />
                     <br />
                     <div class="panel panel-primary">
@@ -134,9 +130,9 @@
                                     @Html.ValidationMessageFor(model => model.DOE, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.LineManager, "Line Manager", htmlAttributes: new { @class = "control-label" })
-                                    @Html.EditorFor(model => model.LineManager, new { htmlAttributes = new { @class = "form-control", @placeholder = "Search for Manager" } })
-                                    @Html.ValidationMessageFor(model => model.LineManager, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(model => model.LineManagerId, "Line Manager", htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("LineManagerId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -338,13 +334,13 @@
                             <div class="form-group">
                                 <div class="col-md-6">
                                     @Html.LabelForRequired(model => model.DOE, "Date of Employment", htmlAttributes: new { @class = "control-label" })
-                                    @Html.EditorFor(model => model.DOE, new { htmlAttributes = new { @class = "form-control", @placeholder = "09 Feb 2019",disabled="disabled" } })
+                                    @Html.EditorFor(model => model.DOE, new { htmlAttributes = new { @class = "form-control", @placeholder = "09 Feb 2019", disabled = "disabled" } })
                                     @Html.ValidationMessageFor(model => model.DOE, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.LineManager, "Line Manager", htmlAttributes: new { @class = "control-label" })
-                                    @Html.EditorFor(model => model.LineManager, new { htmlAttributes = new { @class = "form-control", @placeholder = "Search for Manager", disabled = "disabled" } })
-                                    @Html.ValidationMessageFor(model => model.LineManager, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(model => model.LineManagerId, "Line Manager", htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("LineManagerId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                    @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -421,14 +417,13 @@
                             </div>
                         </div>
                     </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Add" class="btn btn-primary btn-block" />
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Add" class="btn btn-primary btn-block" />
                         </div>
+                    </div>
                 </div>
             </div>
         }
     }
 }
-
