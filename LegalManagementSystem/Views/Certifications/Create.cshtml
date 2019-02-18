@@ -1,5 +1,5 @@
 ﻿@model LegalManagementSystem.Models.Certification
-
+@using LegalManagementSystem.Helpers
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -34,12 +34,12 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
                                 <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label " })
+                                    @Html.LabelForRequired(model => model.Name,"Certification Name", htmlAttributes: new { @class = "control-label " })
                                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Name" } })
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-6">
-                                    @Html.LabelFor(model => model.CertificationType, htmlAttributes: new { @class = "control-label " })
+                                    @Html.LabelForRequired(model => model.CertificationType,"Certification Type", htmlAttributes: new { @class = "control-label " })
                                     @Html.EditorFor(model => model.CertificationType, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Type" } })
                                     @Html.ValidationMessageFor(model => model.CertificationType, "", new { @class = "text-danger" })
                                 </div>
@@ -52,14 +52,14 @@
                                     @Html.ValidationMessageFor(model => model.DateAchieved, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Skilled, htmlAttributes: new { @class = "control-label " })
+                                    @Html.LabelForRequired(model => model.Skilled,"Date Achieved", htmlAttributes: new { @class = "control-label " })
                                     @Html.DropDownListFor(model => model.Skilled, new SelectList(ViewBag.Skilled, "Value", "Text"), "--- Select Skilled ---", htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Skilled, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                
+
                                 <div>
                                     @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label " })
                                     @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Description" } })

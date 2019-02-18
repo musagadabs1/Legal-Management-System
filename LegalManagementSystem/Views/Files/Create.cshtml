@@ -1,15 +1,15 @@
 ﻿@model LegalManagementSystem.Models.File
-
+@using LegalManagementSystem.Helpers
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>File a Case</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -82,5 +82,5 @@
 }
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

@@ -37,7 +37,7 @@
                                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.LastName,"Last Name" htmlAttributes: new { @class = "control-label" })
+                                    @Html.LabelForRequired(model => model.LastName,"Last Name", htmlAttributes: new { @class = "control-label" })
                                     @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
                                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                                 </div>
