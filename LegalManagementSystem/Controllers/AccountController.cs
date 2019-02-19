@@ -167,6 +167,7 @@ namespace LegalManagementSystem.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
+            //return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

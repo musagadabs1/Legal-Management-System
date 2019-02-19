@@ -4,67 +4,139 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Completed)
-        </th>
-        <th></th>
-    </tr>
+<h2>Event Calendar</h2>
+<div id="calender"></div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Completed)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-        </td>
-    </tr>
-}
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
 
-</table>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/fullcalendar.min.js"></script>
+@*@section("scripts"){
+    }*@
+<script>
+    $(document).ready(function () {
+
+        $('#calender').fullCalendar({
+            defaultDate: new Date(),
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'Event Title1',
+                    start: '2015-03-17T13:13:55.008',
+                    end: '2015-03-19T13:13:55.008'
+                },
+                {
+                    title: 'Event Title2',
+                    start: '2015-03-17T13:13:55-0400',
+                    end: '2015-03-19T13:13:55-0400'
+                }
+            ]
+        });
+        @*var events = [];
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetEvents", "FileEvents")',
+            success: function (data) {
+                $.each(data, function (i, v) {
+                    events.push({
+                        title: v.Title,
+                        description: v.Description,
+                        start: moment(v.Start),
+                        end: v.EndDate != null ? moment(v.End) : null,
+                        allDay: false,
+                        color: '#378006'
+
+                    });
+                });
+                GenerateCalendar(events);
+            },
+            error: function (err) {
+                alert(err.Message);
+            }
+        })*@
+
+        //function GenerateCalendar(events) {
+        //    $('#calender').fullCalendar('destroy');
+        //    $('#calender').fullCalendar({
+        //        contentHeight: 400,
+        //        defaultDate: new Date(),
+        //        timeFormat: 'h(:mm)a',
+        //        header: {
+        //            left: 'prev,next today',
+        //            center: title,
+        //            right:'month,basicWeek,basicDay,agenda'
+        //        },
+        //        eventLimit: true,
+        //        eventColor: '#378006',
+        //        events:events
+        //    })
+        //}
+    })
+</script>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) @*|
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+@*</td>
+        </tr>
+    }
+
+    </table>*@

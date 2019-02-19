@@ -19,6 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="~/admin-lte/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/admin-lte/bower_components/Ionicons/css/ionicons.min.css">
+    <link href="~/Content/styles.css" rel="stylesheet" />
     <!-- Theme style -->
     @*<link rel="stylesheet" href="dist/css/AdminLTE.min.css">*@
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -55,7 +56,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue fixed">
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
@@ -92,7 +93,8 @@ desired effect
                                             <a href="#">
                                                 <div class="pull-left">
                                                     <!-- User Image -->
-                                                    <img src="~/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                    @*<img src="~/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">*@
+                                                    <img src="~/Content/Images/legal-scale-icon-5.jpg" class="img-circle" alt="User Image" />
                                                 </div>
                                                 <!-- Message title and timestamp -->
                                                 <h4>
@@ -179,13 +181,15 @@ desired effect
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
                                 @*<img src="~/admin-lte/img/user2-160x160.jpg" class="user-image" alt="User Image">*@
+                                @*<img src="~/Content/Images/legal-scale-icon-5.jpg" class="img-circle" alt="User Image" />*@
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">@HttpContext.Current.User.Identity.Name</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
-                                    <img src="~/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    @*<img src="~/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">*@
+                                    <img src="~/Content/Images/legal-scale-icon-5.jpg" class="img-circle" alt="User Image" />
                                     <p>
                                         @HttpContext.Current.User.Identity.Name
                                         <small>Member since @DateTime.Now.Year</small>
@@ -193,17 +197,17 @@ desired effect
                                 </li>
                                 <!-- Menu Body -->
                                 <li class="user-body">
-                                    <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Followers</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Sales</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Friends</a>
-                                        </div>
-                                    </div>
+                                    @*<div class="row">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </div>*@
                                     <!-- /.row -->
                                 </li>
                                 <!-- Menu Footer-->
@@ -212,8 +216,9 @@ desired effect
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
+                                        @*<a href="@Html.Action("LogOff","Account")" class="btn btn-default btn-flat">Sign Out</a>*@
                                         <a href="#" class="btn btn-default btn-flat">Sign Out</a>
-                                        
+
                                     </div>
                                 </li>
                             </ul>
@@ -233,7 +238,8 @@ desired effect
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="~/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        @*<img src="~/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">*@
+                        <img src="~/Content/Images/legal-scale-icon-5.jpg" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
                         @*@Html.Partial("_LoginPartial")*@
@@ -285,8 +291,8 @@ desired effect
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Page Header
-                    <small>Optional description</small>
+                    LMS
+                    <small>Legal Management System</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -296,9 +302,6 @@ desired effect
             <!-- Main content -->
             <section class="content container-fluid">
                 @RenderBody()
-                <!--------------------------
-                    | Your Page Content Here |
-                -------------------------->
             </section>
             <!-- /.content -->
         </div>
@@ -307,7 +310,7 @@ desired effect
         <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
-                Anything you want
+                <p>www,shrishSystems.com</p>
             </div>
             <!-- Default to the left -->
             <strong>&copy; @DateTime.Now.Year - LMS</strong> All rights reserved.
@@ -388,12 +391,9 @@ desired effect
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/admin-lte/js")
+
+    @*<script src="script.js"></script>*@
     @RenderSection("scripts", required: false)
-    @*<script src="bower_components/jquery/dist/jquery.min.js"></script>*@
-    <!-- Bootstrap 3.3.7 -->
-    @*<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>*@
-    <!-- AdminLTE App -->
-    @*<script src="dist/js/adminlte.min.js"></script>*@
     <script>
         //bootstrap WYSIHTML5 - text editor
         $(".textarea").wysihtml5();

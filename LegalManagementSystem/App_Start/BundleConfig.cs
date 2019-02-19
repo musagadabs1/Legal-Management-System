@@ -19,6 +19,10 @@ namespace LegalManagementSystem
              "~/admin-lte/plugins/fastclick/fastclick.js",
              "~/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"
              ));
+            //bundles.Add(new ScriptBundle("~/fullCalendar/js").Include(
+            //    "~/Scripts/moment.min.js",
+            //    "~/Scripts/fullcalendar.min.js"
+            // ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.

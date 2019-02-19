@@ -1,13 +1,12 @@
-﻿using System;
+﻿using LegalManagementSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -18,8 +17,16 @@ namespace LegalManagementSystem.Controllers
         // GET: FileEvents
         public async Task<ActionResult> Index()
         {
+            //var fileEvents = db.FileEvents.Include(f => f.File).Include(f => f.Staff);
+            // View(await fileEvents.ToListAsync());
+            var user = User.Identity.Name;
+            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            {
+                var adminFileEvents = db.FileEvents.Include(f => f.File).Include(f => f.Staff);
+                return View(await adminFileEvents.ToListAsync());
+            }
             var fileEvents = db.FileEvents.Include(f => f.File).Include(f => f.Staff);
-            return View(await fileEvents.ToListAsync());
+            return View(await fileEvents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
 
         // GET: FileEvents/Details/5
@@ -36,8 +43,51 @@ namespace LegalManagementSystem.Controllers
             }
             return View(fileEvent);
         }
+        public JsonResult GetEvents()
+        {
+            //var adminFileEvents
+            db.Configuration.ProxyCreationEnabled = false;
+            var user = User.Identity.Name;
+            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            {
+                var eventForAdmin = db.FileEvents.ToList();
+                List<EventForView> events = new List<EventForView>();
+                foreach (var item in eventForAdmin)
+                {
+                    events.Add(new EventForView
+                    {
+                        Title = item.EventName,
+                        Start = (DateTime)item.StartDate,
+                        End = (DateTime)item.EndDate,
+                        Description=item.Description
 
-        // GET: FileEvents/Create
+                    });
+                }
+                return Json(events, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<EventForView> events = new List<EventForView>();
+                var eventsForUser = db.FileEvents.Where(x => x.CreatedBy.Equals(user)).ToList();
+                foreach (var item in eventsForUser)
+                {
+                    events.Add(new EventForView
+                    {
+                        Title = item.EventName,
+                        Start = (DateTime)item.StartDate,
+                        End = (DateTime)item.EndDate,
+                        Description = item.Description
+
+                    });
+                }
+                return Json(events, JsonRequestBehavior.AllowGet);
+            }
+
+
+            //return new JsonResult(adm)
+        }
+
+        // GET: FileEvents/Createad
         public ActionResult Create()
         {
             ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName");
@@ -142,5 +192,13 @@ namespace LegalManagementSystem.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+    public class EventForView
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+
     }
 }
