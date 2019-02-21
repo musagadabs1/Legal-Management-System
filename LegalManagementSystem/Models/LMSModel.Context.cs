@@ -12,6 +12,8 @@ namespace LegalManagementSystem.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MyCaseNewEntities : DbContext
     {
@@ -25,9 +27,12 @@ namespace LegalManagementSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Calendar> Calendars { get; set; }
+        public virtual DbSet<CalendarStaff> CalendarStaffs { get; set; }
         public virtual DbSet<Certification> Certifications { get; set; }
         public virtual DbSet<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Dependant> Dependants { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
@@ -36,8 +41,50 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Library> Libraries { get; set; }
         public virtual DbSet<LineManager> LineManagers { get; set; }
+        public virtual DbSet<LMSTask> LMSTasks { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
+        public virtual DbSet<Matter> Matters { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+    
+        public virtual ObjectResult<GetAllCalendarForDropdown_Result> GetAllCalendarForDropdown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCalendarForDropdown_Result>("GetAllCalendarForDropdown");
+        }
+    
+        public virtual ObjectResult<GetAllClientForDropDown_Result> GetAllClientForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClientForDropDown_Result>("GetAllClientForDropDown");
+        }
+    
+        public virtual ObjectResult<GetAllCompaniesForDropDown_Result> GetAllCompaniesForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCompaniesForDropDown_Result>("GetAllCompaniesForDropDown");
+        }
+    
+        public virtual ObjectResult<GetAllMattersForDropDown_Result> GetAllMattersForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllMattersForDropDown_Result>("GetAllMattersForDropDown");
+        }
+    
+        public virtual ObjectResult<GetAllStaffForDropDown_Result> GetAllStaffForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllStaffForDropDown_Result>("GetAllStaffForDropDown");
+        }
+    
+        public virtual ObjectResult<GetAllTasksForDropDown_Result> GetAllTasksForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllTasksForDropDown_Result>("GetAllTasksForDropDown");
+        }
+    
+        public virtual ObjectResult<GEtListOfDocuments_Result> GEtListOfDocuments()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GEtListOfDocuments_Result>("GEtListOfDocuments");
+        }
+    
+        public virtual ObjectResult<sp_GetLineManagers_Result> sp_GetLineManagers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetLineManagers_Result>("sp_GetLineManagers");
+        }
     }
 }

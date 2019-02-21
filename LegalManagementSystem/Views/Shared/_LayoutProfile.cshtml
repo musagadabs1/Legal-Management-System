@@ -2,6 +2,16 @@
   @{ 
       Layout = "~/Views/Shared/_Layout.cshtml";
   }
+<style>
+    #modal-container .modal-body {
+        max-height: 100px;
+    }
+    #upload-image {
+        width: 300px;
+        /*margin-left: -300px;*/
+        /*margin-right: -300px;*/
+    }
+</style>
         <div id='cssmenu'>
             <ul>
                 <li class='active'>@Html.ActionLink("Profile", "Create", "Staffs")</li>
@@ -11,28 +21,44 @@
                 <li>@Html.ActionLink("Dependant", "Create", "Dependants")</li>
                 <li>@Html.ActionLink("Training", "Index", "Home")</li>
                 <li>@Html.ActionLink("Salary", "Salary", "Staffs")</li>
-                <li>@Html.ActionLink("Activity", "Contact", "Home")</li>
+                <li>@Html.ActionLink("Activity", "Index", "FileEvents")</li>
             </ul>
         </div>
 
-    <div class="container body-content">
-        <div class="col-md-3">
-            <img src="~/Content/Images/legal-scale-icon-21.jpg" height="100" width="100" />
-            <br />
-            <div style="margin-top:30px;">
+        <div class="container body-content" style="margin:5px;">
+            <div class="col-md-3">
+                <img src="~/Content/Images/legal-scale-icon-21.jpg" height="100" width="100" />
+                <br />
+                <div style="margin-top:30px;">
 
-                <img src="~/Content/Images/man-user.png" width="120" height="120" />
-                <div>
-                    <input type="button" id="imageUpload" style="margin:5px; height:30px;width:70px" name="ImageFile" value="Upload" />
-                    <input type="button" style="height:30px;width:70px" value="Delete" id="imageDelete" name="btnImage" />
+                    <img src="~/Content/Images/man-user.png" width="120" height="120" style="margin:20px;" />
+                    <div>
+                        <a type="button" class="btn btn-primary" id="imageUpload" href="#upload-image" data-toggle="modal">Upload Image</a>
+                        <a type="button" class="btn btn-primary" href="#" id="imageDelete" data-toggle="modal">Delete</a>
+                    </div>
+
                 </div>
-                
-            </div>
-            
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-    </div>
-    
 
+            </div>
+            <div id="modal-container">
+                <div class="modal fade" id="upload-image">
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">&times;</a>
+                        <h3>Upload Image</h3>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" name="file" id="file" class="form-control" />
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary">Upload</a>
+                        <a href="#" class="btn btn-danger" data-dismiss="modal">Close</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-9" >
+                @RenderBody()
+            </div>
+        </div>
+    

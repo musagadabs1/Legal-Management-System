@@ -18,7 +18,13 @@ namespace LegalManagementSystem.Controllers
         // GET: LineManagers
         public async Task<ActionResult> Index()
         {
-            return View(await db.LineManagers.ToListAsync());
+            
+            var user = User.Identity.Name;
+            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            {
+                return View(await db.LineManagers.ToListAsync());
+            }
+            return View(await db.LineManagers.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
 
         // GET: LineManagers/Details/5

@@ -11,8 +11,7 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class LineManager
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,15 +21,13 @@ namespace LegalManagementSystem.Models
         }
     
         public int LineManagerId { get; set; }
-        [Required]
-        [Display(Name="Line Manager's Name")]
         public string Name { get; set; }
-        [Required]
-        [Display(Name = "Line Manager's Department")]
         public string Department { get; set; }
-        [Required]
-        [Display(Name = "Line Manager's Designation")]
         public string Designation { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime ModifiedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Staff> Staffs { get; set; }

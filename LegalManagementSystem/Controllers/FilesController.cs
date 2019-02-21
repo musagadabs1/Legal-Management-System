@@ -27,9 +27,6 @@ namespace LegalManagementSystem.Controllers
             }
             var files = db.Files.Include(f => f.Client).Include(f => f.Staff);
             return View(await files.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
-
-            //var files = db.Files.Include(f => f.Client).Include(f => f.Staff);
-            //return View(await files.ToListAsync());
         }
 
         // GET: Files/Details/5

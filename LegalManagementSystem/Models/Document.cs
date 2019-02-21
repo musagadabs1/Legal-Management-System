@@ -17,22 +17,20 @@ namespace LegalManagementSystem.Models
     {
         public int DocumentId { get; set; }
         [Required]
-        [Display(Name ="Case Number")]
+        [Display(Name ="Matter Number *")]
         public string FileNumber { get; set; }
+        [Display(Name ="Document Name")]
         [Required]
-        [Display(Name = "Document Name")]
         public string DocName { get; set; }
-        [Display(Name ="Date Assigned")]
+        [Display(Name ="Assigned Date")]
         [DataType(DataType.Date)]
         public System.DateTime AssignedDate { get; set; }
         public string Tags { get; set; }
-        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime DateCreated { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime DateModified { get; set; }
-        [Display(Name ="Document Path")]
         public string DocPath { get; set; }
     
         public virtual File File { get; set; }

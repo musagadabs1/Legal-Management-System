@@ -4,10 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b09ed6dd5c894ce0ba0a870bc4be346d" Name="Diagram1" ZoomLevel="85">
+      <Diagram DiagramId="453ee2b2891c4e76bb9727123a6e09ac" Name="Diagram1">
+        <EntityTypeShape EntityType="MyCaseNewModel.Calendar" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.CalendarStaff" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Certification" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.ClientMatterAcceptanceForm" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Client" Width="1.5" PointX="6" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.Company" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Dependant" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Document" Width="1.5" PointX="10.5" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Education" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
@@ -15,8 +18,10 @@
         <EntityTypeShape EntityType="MyCaseNewModel.FileEvent" Width="1.5" PointX="8.25" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.File" Width="1.5" PointX="8.25" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Library" Width="1.5" PointX="5.25" PointY="35.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyCaseNewModel.LineManager" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.LineManager" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.LMSTask" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.LoginUser" Width="1.5" PointX="11" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyCaseNewModel.Matter" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.Staff" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MyCaseNewModel.UserRole" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="MyCaseNewModel.FK_Certifications_Staffs" ManuallyRouted="false" />

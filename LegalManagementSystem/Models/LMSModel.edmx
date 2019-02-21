@@ -5,6 +5,33 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Calendars">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="From" Type="datetime" Nullable="false" />
+          <Property Name="To" Type="datetime" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Locations" Type="nvarchar" MaxLength="50" />
+          <Property Name="Priority" Type="nvarchar" MaxLength="50" />
+          <Property Name="MeetingType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CalendarStaffs">
+          <Key>
+            <PropertyRef Name="CalendarId" />
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalendarId" Type="int" Nullable="false" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Certifications">
           <Key>
             <PropertyRef Name="Id" />
@@ -57,6 +84,32 @@
           <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar(max)" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyLegalType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyGroup" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Website" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyLawyer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Capital" Type="float" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="Dependants">
           <Key>
@@ -190,9 +243,31 @@
             <PropertyRef Name="LineManagerId" />
           </Key>
           <Property Name="LineManagerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Department" Type="nvarchar" MaxLength="50" />
-          <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LMSTasks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NotifyDays" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Priority" Type="nvarchar" MaxLength="50" />
+          <Property Name="Reporter" Type="nvarchar" MaxLength="50" />
+          <Property Name="Assignee" Type="nvarchar" MaxLength="50" />
+          <Property Name="DueDate" Type="datetime" />
         </EntityType>
         <EntityType Name="LoginUsers">
           <Key>
@@ -207,6 +282,31 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Matters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="AreaOfPractice" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Assignee" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArrivalDate" Type="datetime" />
+          <Property Name="FiledOn" Type="datetime" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Priority" Type="nvarchar" MaxLength="50" />
+          <Property Name="MatterStage" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="MatterValue" Type="nvarchar" MaxLength="50" />
+          <Property Name="EstimatedEffort" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="Staffs">
           <Key>
@@ -414,10 +514,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetAllCalendarForDropdown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllClientForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllCompaniesForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllMattersForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllStaffForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllTasksForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GEtListOfDocuments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetLineManagers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MyCaseNewModelStoreContainer">
+          <EntitySet Name="Calendars" EntityType="Self.Calendars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarStaffs" EntityType="Self.CalendarStaffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Certifications" EntityType="Self.Certifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dependants" EntityType="Self.Dependants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Educations" EntityType="Self.Educations" Schema="dbo" store:Type="Tables" />
@@ -426,7 +537,9 @@
           <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Libraries" EntityType="Self.Libraries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LineManagers" EntityType="Self.LineManagers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LMSTasks" EntityType="Self.LMSTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matters" EntityType="Self.Matters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
@@ -487,6 +600,33 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyCaseNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Calendar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="From" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="To" Type="DateTime" Precision="3" />
+          <Property Name="MatterNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Locations" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MeetingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CalendarStaff">
+          <Key>
+            <PropertyRef Name="CalendarId" />
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalendarId" Type="Int32" Nullable="false" />
+          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Certification">
           <Key>
             <PropertyRef Name="Id" />
@@ -543,6 +683,32 @@
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="ClientMatterAcceptanceForms" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="Clients" ToRole="ClientMatterAcceptanceForms" />
           <NavigationProperty Name="Files" Relationship="Self.FK_Files_Clients" FromRole="Clients" ToRole="Files" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyLegalType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyLawyer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Capital" Type="Double" />
+          <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Dependant">
           <Key>
@@ -687,10 +853,32 @@
             <PropertyRef Name="LineManagerId" />
           </Key>
           <Property Name="LineManagerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Staffs" Relationship="Self.FK_Staffs_LineManagers" FromRole="LineManagers" ToRole="Staffs" />
+        </EntityType>
+        <EntityType Name="LMSTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatterNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NotifyDays" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reporter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Assignee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="LoginUser">
           <Key>
@@ -706,6 +894,31 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_Users_Roles" FromRole="LoginUsers" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="Matter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaOfPractice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Assignee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <Property Name="FiledOn" Type="DateTime" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="MatterNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatterStage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatterValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EstimatedEffort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -923,9 +1136,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MyCaseNewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Calendars" EntityType="Self.Calendar" />
+          <EntitySet Name="CalendarStaffs" EntityType="Self.CalendarStaff" />
           <EntitySet Name="Certifications" EntityType="Self.Certification" />
           <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForm" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="Dependants" EntityType="Self.Dependant" />
           <EntitySet Name="Documents" EntityType="Self.Document" />
           <EntitySet Name="Educations" EntityType="Self.Education" />
@@ -934,7 +1150,9 @@
           <EntitySet Name="Files" EntityType="Self.File" />
           <EntitySet Name="Libraries" EntityType="Self.Library" />
           <EntitySet Name="LineManagers" EntityType="Self.LineManager" />
+          <EntitySet Name="LMSTasks" EntityType="Self.LMSTask" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUser" />
+          <EntitySet Name="Matters" EntityType="Self.Matter" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
           <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
@@ -989,13 +1207,81 @@
             <End Role="UserRoles" EntitySet="UserRoles" />
             <End Role="LoginUsers" EntitySet="LoginUsers" />
           </AssociationSet>
+          <FunctionImport Name="GetAllCalendarForDropdown" ReturnType="Collection(MyCaseNewModel.GetAllCalendarForDropdown_Result)" />
+          <FunctionImport Name="GetAllClientForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllClientForDropDown_Result)" />
+          <FunctionImport Name="GetAllCompaniesForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllCompaniesForDropDown_Result)" />
+          <FunctionImport Name="GetAllMattersForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllMattersForDropDown_Result)" />
+          <FunctionImport Name="GetAllStaffForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllStaffForDropDown_Result)" />
+          <FunctionImport Name="GetAllTasksForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllTasksForDropDown_Result)" />
+          <FunctionImport Name="GEtListOfDocuments" ReturnType="Collection(MyCaseNewModel.GEtListOfDocuments_Result)" />
+          <FunctionImport Name="sp_GetLineManagers" ReturnType="Collection(MyCaseNewModel.sp_GetLineManagers_Result)" />
         </EntityContainer>
+        <ComplexType Name="GetAllCalendarForDropdown_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="CalendarName" Nullable="true" MaxLength="83" />
+        </ComplexType>
+        <ComplexType Name="GetAllClientForDropDown_Result">
+          <Property Type="Int32" Name="ClientId" Nullable="false" />
+          <Property Type="String" Name="ClientName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllCompaniesForDropDown_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="101" />
+        </ComplexType>
+        <ComplexType Name="GetAllMattersForDropDown_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="84" />
+        </ComplexType>
+        <ComplexType Name="GetAllStaffForDropDown_Result">
+          <Property Type="String" Name="StaffId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="StaffName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllTasksForDropDown_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="TaskName" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GEtListOfDocuments_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="DOCNAME" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetLineManagers_Result">
+          <Property Type="Int32" Name="LineManagerId" Nullable="false" />
+          <Property Type="String" Name="ManagerName" Nullable="false" MaxLength="102" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MyCaseNewModelStoreContainer" CdmEntityContainer="MyCaseNewEntities">
+          <EntitySetMapping Name="Calendars">
+            <EntityTypeMapping TypeName="MyCaseNewModel.Calendar">
+              <MappingFragment StoreEntitySet="Calendars">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="MatterNumber" ColumnName="MatterNumber" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Locations" ColumnName="Locations" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="MeetingType" ColumnName="MeetingType" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarStaffs">
+            <EntityTypeMapping TypeName="MyCaseNewModel.CalendarStaff">
+              <MappingFragment StoreEntitySet="CalendarStaffs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CalendarId" ColumnName="CalendarId" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Certifications">
             <EntityTypeMapping TypeName="MyCaseNewModel.Certification">
               <MappingFragment StoreEntitySet="Certifications">
@@ -1045,6 +1331,33 @@
                 <ScalarProperty Name="Town" ColumnName="Town" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="MyCaseNewModel.Company">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="CompanyLegalType" ColumnName="CompanyLegalType" />
+                <ScalarProperty Name="CompanyGroup" ColumnName="CompanyGroup" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="CompanyLawyer" ColumnName="CompanyLawyer" />
+                <ScalarProperty Name="Capital" ColumnName="Capital" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1193,6 +1506,29 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LMSTasks">
+            <EntityTypeMapping TypeName="MyCaseNewModel.LMSTask">
+              <MappingFragment StoreEntitySet="LMSTasks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TaskType" ColumnName="TaskType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MatterNumber" ColumnName="MatterNumber" />
+                <ScalarProperty Name="NotifyDays" ColumnName="NotifyDays" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Reporter" ColumnName="Reporter" />
+                <ScalarProperty Name="Assignee" ColumnName="Assignee" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1208,6 +1544,32 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matters">
+            <EntityTypeMapping TypeName="MyCaseNewModel.Matter">
+              <MappingFragment StoreEntitySet="Matters">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AreaOfPractice" ColumnName="AreaOfPractice" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Assignee" ColumnName="Assignee" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="FiledOn" ColumnName="FiledOn" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="MatterNumber" ColumnName="MatterNumber" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="MatterStage" ColumnName="MatterStage" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="MatterValue" ColumnName="MatterValue" />
+                <ScalarProperty Name="EstimatedEffort" ColumnName="EstimatedEffort" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1263,6 +1625,70 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCalendarForDropdown" FunctionName="MyCaseNewModel.Store.GetAllCalendarForDropdown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCalendarForDropdown_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CalendarName" ColumnName="CalendarName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllClientForDropDown" FunctionName="MyCaseNewModel.Store.GetAllClientForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllClientForDropDown_Result">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCompaniesForDropDown" FunctionName="MyCaseNewModel.Store.GetAllCompaniesForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCompaniesForDropDown_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllMattersForDropDown" FunctionName="MyCaseNewModel.Store.GetAllMattersForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllMattersForDropDown_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllStaffForDropDown" FunctionName="MyCaseNewModel.Store.GetAllStaffForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllStaffForDropDown_Result">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllTasksForDropDown" FunctionName="MyCaseNewModel.Store.GetAllTasksForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllTasksForDropDown_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GEtListOfDocuments" FunctionName="MyCaseNewModel.Store.GEtListOfDocuments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GEtListOfDocuments_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DOCNAME" ColumnName="DOCNAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetLineManagers" FunctionName="MyCaseNewModel.Store.sp_GetLineManagers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.sp_GetLineManagers_Result">
+                <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

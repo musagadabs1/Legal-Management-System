@@ -19,8 +19,14 @@ namespace LegalManagementSystem.Controllers
         // GET: Documents
         public async Task<ActionResult> Index()
         {
+            var user = User.Identity.Name;
+            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            {
+                var adminDocuments = db.Documents.Include(d => d.File);
+                return View(await adminDocuments.ToListAsync());
+            }
             var documents = db.Documents.Include(d => d.File);
-            return View(await documents.ToListAsync());
+            return View(await documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
 
         // GET: Documents/Details/5

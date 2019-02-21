@@ -24,25 +24,28 @@ namespace LegalManagementSystem.Models
     
         public int ClientId { get; set; }
         [Required]
-        [Display(Name ="First Name")]
+        [Display(Name ="First Name *")]
         public string FirstName { get; set; }
         //[Required]
-        [Display(Name = "Middle Name")]
+        [Display(Name = "Middle Name *")]
         public string MiddleName { get; set; }
         [Required]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Last Name *")]
         public string LastName { get; set; }
         [Required]
-        [Display(Name = "Email Address")]
+        [Display(Name = "Email Address *")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [Required]
-        [Display(Name ="Phone Number")]
+        [Display(Name = "Phone Number *")]
+        //[DataType(DataType.EmailAddress)]
         public string PhoneNumber { get; set; }
         [DataType(DataType.MultilineText)]
         public string Address { get; set; }
         public string Town { get; set; }
-        [Display(Name ="Postal Code")]
+        //[Required]
+        [Display(Name = "Postal Code")]
+        //[DataType(DataType.EmailAddress)]
         public string PostalCode { get; set; }
         public string Website { get; set; }
         public string CreatedBy { get; set; }

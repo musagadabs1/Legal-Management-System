@@ -17,28 +17,28 @@ namespace LegalManagementSystem.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name ="First Name")]
+        [Display(Name ="First Name *")]
         public string FirstName { get; set; }
         [Required]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Last Name *")]
         public string LastName { get; set; }
-        [Display(Name ="Policy Number")]
+        //[Required]
+        [Display(Name = "Policy Number *")]
         public int PolicyNumber { get; set; }
         //[Required]
-        [Display(Name = "Effective Date")]
+        [Display(Name = "Effective Date *")]
         [DataType(DataType.Date)]
         public System.DateTime EffectiveDate { get; set; }
-        //[Required]
-        [Display(Name = "End Date")]
+        [Display(Name = "End Date *")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
         public string Gender { get; set; }
         public string Relationship { get; set; }
-        //[Required]
-        [Display(Name = "Date of Birth")]
+        [Display(Name = "Date of Birth*")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         public string Description { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Address { get; set; }
         public string StaffId { get; set; }
         public string CreatedBy { get; set; }

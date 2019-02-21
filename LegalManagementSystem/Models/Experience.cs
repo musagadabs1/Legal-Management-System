@@ -17,20 +17,16 @@ namespace LegalManagementSystem.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name ="Employer Name")]
+        [Display(Name ="Employer *")]
         public string Employer { get; set; }
-        [Required]
-        [Display(Name = "Designation")]
+        [Display(Name ="Designation *")]
         public string Designation { get; set; }
-        //[Required]
-        [Display(Name = "Start Date")]
+        [Display(Name ="Start Date *")]
         [DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
-        [Display(Name = "End Date")]
+        [Display(Name = "End Date *")]
         [DataType(DataType.Date)]
         public System.DateTime EndDate { get; set; }
-        [Display(Name = "Start Date")]
-        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public double Salary { get; set; }
         public string StaffId { get; set; }

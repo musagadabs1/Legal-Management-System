@@ -181,8 +181,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalendarsController.cs" />
     <Compile Include="Controllers\CertificationsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DependantsController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\EducationsController.cs" />
@@ -192,7 +194,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibrariesController.cs" />
     <Compile Include="Controllers\LineManagersController.cs" />
+    <Compile Include="Controllers\LMSTasksController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MattersController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\SweetController.cs" />
     <Compile Include="Global.asax.cs">
@@ -200,6 +204,12 @@
     </Compile>
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Calendar.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CalendarStaff.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Certification.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -207,6 +217,9 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientMatterAcceptanceForm.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Dependant.cs">
@@ -225,6 +238,27 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FileEvent.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCalendarForDropdown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllClientForDropDown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCompaniesForDropDown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllMattersForDropDown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllStaffForDropDown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllTasksForDropDown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GEtListOfDocuments_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -250,10 +284,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LMSModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LMSTask.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LoginUser.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Matter.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetLineManagers_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Staff.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -6818,14 +6861,6 @@
     <Content Include="Content\sweetalert\docs.css" />
     <Content Include="Content\sweetalert\sweet-alert.css" />
     <Content Include="Content\sweetalert\thumbs-up.jpg" />
-    <Content Include="Content\tether\tether-theme-arrows-dark.css" />
-    <Content Include="Content\tether\tether-theme-arrows-dark.min.css" />
-    <Content Include="Content\tether\tether-theme-arrows.css" />
-    <Content Include="Content\tether\tether-theme-arrows.min.css" />
-    <Content Include="Content\tether\tether-theme-basic.css" />
-    <Content Include="Content\tether\tether-theme-basic.min.css" />
-    <Content Include="Content\tether\tether.css" />
-    <Content Include="Content\tether\tether.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -6861,13 +6896,6 @@
     <Content Include="Content\sweetalert\sweet-alert-animations.less" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\mixins.less" />
-    <EntityDeploy Include="Models\LMSModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LMSModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\LMSModel.edmx.diagram">
-      <DependentUpon>LMSModel.edmx</DependentUpon>
-    </Content>
     <Content Include="admin-lte\css\adminlte.min.css.map" />
     <Content Include="admin-lte\css\adminlte.css.map" />
     <Content Include="admin-lte\plugins\input-mask\phone-codes\phone-be.json" />
@@ -7345,6 +7373,13 @@
     <Content Include="admin-lte\bower_components\select2\src\scss\_dropdown.scss" />
     <Content Include="admin-lte\bower_components\select2\src\scss\_multiple.scss" />
     <Content Include="admin-lte\bower_components\select2\src\scss\_single.scss" />
+    <EntityDeploy Include="Models\LMSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LMSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LMSModel.edmx.diagram">
+      <DependentUpon>LMSModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ExpandCollapse.js" />
     <Content Include="Scripts\fullcalendar.helper.js" />
@@ -7455,12 +7490,6 @@
     <Content Include="Scripts\locale\zh-tw.js" />
     <Content Include="Scripts\MenuScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\tether.js" />
-    <Content Include="Scripts\tether.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -7555,8 +7584,27 @@
     <Content Include="Views\LineManagers\Details.cshtml" />
     <Content Include="Views\LineManagers\Edit.cshtml" />
     <Content Include="Views\LineManagers\Index.cshtml" />
-    <Content Include="Views\FileEvents\GetEvente.cshtml" />
     <Content Include="Views\Shared\EventCalendar.cshtml" />
+    <Content Include="Views\Calendars\Create.cshtml" />
+    <Content Include="Views\Calendars\Delete.cshtml" />
+    <Content Include="Views\Calendars\Details.cshtml" />
+    <Content Include="Views\Calendars\Edit.cshtml" />
+    <Content Include="Views\Calendars\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Delete.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\LMSTasks\Create.cshtml" />
+    <Content Include="Views\LMSTasks\Delete.cshtml" />
+    <Content Include="Views\LMSTasks\Details.cshtml" />
+    <Content Include="Views\LMSTasks\Edit.cshtml" />
+    <Content Include="Views\LMSTasks\Index.cshtml" />
+    <Content Include="Views\Matters\Create.cshtml" />
+    <Content Include="Views\Matters\Delete.cshtml" />
+    <Content Include="Views\Matters\Details.cshtml" />
+    <Content Include="Views\Matters\Edit.cshtml" />
+    <Content Include="Views\Matters\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />

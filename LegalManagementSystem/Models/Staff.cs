@@ -29,13 +29,14 @@ namespace LegalManagementSystem.Models
     
         public int Id { get; set; }
         [Required]
-        [Display(Name ="First Name")]
+        [Display(Name = "First Name")]
+        //[DataType(DataType.Date)]
         public string FirstName { get; set; }
         //[Required]
         [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
-        [Required]
-        [Display(Name = "Gender")]
+        //[Required]
+        //[Display(Name = "First Name")]
         public string Gender { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
@@ -54,55 +55,57 @@ namespace LegalManagementSystem.Models
         public System.DateTime DOE { get; set; }
         public bool Status { get; set; }
         [DataType(DataType.MultilineText)]
-        [Required]
         public string Address { get; set; }
-        [Display(Name ="Marital Status")]
+        //[Required]
+        [Display(Name = "Marital Status")]
+        //[DataType(DataType.Date)]
         public string MaritalStatus { get; set; }
         public string ImagePath { get; set; }
-        [Display(Name ="Office Number")]
+        //[Required]
+        [Display(Name = "Office Number")]
+        //[DataType(DataType.Date)]
         public string OfficeNo { get; set; }
+        [Required]
         [Display(Name = "Mobile Number")]
-        [Required]
+        //[DataType(DataType.Date)]
         public string MobileNo { get; set; }
-        [Display(Name = "Email Address")]
         [Required]
+        [Display(Name = "Email Address")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [Display(Name = "Personal Email Address")]
-        //[Required]
         [DataType(DataType.EmailAddress)]
         public string PersonalEmail { get; set; }
-        [Display(Name ="Next of Kin Relationship")]
         public string Relationship { get; set; }
-        [Display(Name ="Next of kin Mobile Number")]
+        [Display(Name = "Next of kin Phone Number")]
+        //[DataType(DataType.EmailAddress)]
         public string KTelephone { get; set; }
-        [Display(Name ="Next of kin Email Address")]
+        [Display(Name = "Next of Kin Email Address")]
         [DataType(DataType.EmailAddress)]
         public string NKEmail { get; set; }
-        [Display(Name ="Next of kin Address")]
-        [DataType(DataType.MultilineText)]
+        [Display(Name = "Next of Kin Address")]
+        //[DataType(DataType.EmailAddress)]
         public string NKAddress { get; set; }
         public string Bank { get; set; }
+        [Display(Name = "Account Number")]
+        //[DataType(DataType.EmailAddress)]
         public int AccountNumber { get; set; }
-        [Display(Name ="Next of kin Full Name")]
+        [Display(Name = "Next of Kin Full Name")]
+        //[DataType(DataType.EmailAddress)]
         public string NKFullName { get; set; }
-        [Display(Name ="Profile Password")]
-        [Required]
+        [Display(Name = "Password *")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Display(Name ="Staff Id")]
+        [Display(Name ="Advocate Id")]
         [Required]
         public string StaffId { get; set; }
-        [Display(Name ="Line Manager")]
-        [Required]
+        [Display(Name ="Line Manager *")]
         public int LineManagerId { get; set; }
-        [Required]
         public string Department { get; set; }
-        [Required]
         public string Designation { get; set; }
-        [Display(Name ="Year Call to Bar")]
-        public Nullable<int> YearCallToBar { get; set; }
-        [Display(Name ="Location")]
+        [Display(Name ="Year Call to Bar *")]
         [Required]
+        public int YearCallToBar { get; set; }
         public string Location { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

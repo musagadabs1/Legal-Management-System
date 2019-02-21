@@ -17,24 +17,23 @@ namespace LegalManagementSystem.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name ="School Attended")]
+        [Display(Name ="School Name *")]
         public string School { get; set; }
         [Required]
-        [Display(Name = "Date Start")]
+        [Display(Name = "Start Date *")]
         [DataType(DataType.Date)]
         public System.DateTime DateStart { get; set; }
         [Required]
-        [Display(Name = "End Date")]
+        [Display(Name = "End Date *")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
         public string Major { get; set; }
         [Required]
-        [Display(Name = "Date Awarded")]
+        [Display(Name = "Date Awarded *")]
         [DataType(DataType.Date)]
         public DateTime DateAwarded { get; set; }
         public bool Graduated { get; set; }
         public string Qualification { get; set; }
-        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string Grade { get; set; }
         public string StaffId { get; set; }
