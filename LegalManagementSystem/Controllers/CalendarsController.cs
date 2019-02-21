@@ -66,7 +66,7 @@ namespace LegalManagementSystem.Controllers
 
                     db.Calendars.Add(calendar);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Dashboards");
                 }
                 catch (Exception)
                 {

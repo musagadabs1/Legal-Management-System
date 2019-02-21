@@ -44,8 +44,8 @@ namespace LegalManagementSystem.Controllers
         // GET: Matters/Create
         public ActionResult Create()
         {
-            ViewBag.Client = new SelectList( db.GetAllClientForDropDown(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown(), "StaffId", "StaffName");
+            ViewBag.Client = new SelectList( db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace LegalManagementSystem.Controllers
 
                     db.Matters.Add(matter);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
                 catch (Exception)
                 {
@@ -79,12 +79,12 @@ namespace LegalManagementSystem.Controllers
             else
             {
                 ViewBag.Error = "Fill in the required fields to continue";
-                ViewBag.Client = new SelectList(db.GetAllClientForDropDown(), "ClientId", "ClientName");
-                ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown(), "StaffId", "StaffName");
+                ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+                ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
                 return View(matter);
             }
-            ViewBag.Client = new SelectList(db.GetAllClientForDropDown(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown(), "StaffId", "StaffName");
+            ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
             return View(matter);
         }
 
@@ -95,8 +95,8 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.Client = new SelectList(db.GetAllClientForDropDown(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown(), "StaffId", "StaffName");
+            ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
             Matter matter = await db.Matters.FindAsync(id);
             if (matter == null)
             {
@@ -134,12 +134,12 @@ namespace LegalManagementSystem.Controllers
             else
             {
                 ViewBag.Error = "Fill in the required fields to continue";
-                ViewBag.Client = new SelectList(db.GetAllClientForDropDown(), "ClientId", "ClientName");
-                ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown(), "StaffId", "StaffName");
+                ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+                ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
                 return View(matter);
             }
-            ViewBag.Client = new SelectList(db.GetAllClientForDropDown(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown(), "StaffId", "StaffName");
+            ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
             return View(matter);
         }
 

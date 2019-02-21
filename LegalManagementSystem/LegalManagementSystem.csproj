@@ -185,6 +185,7 @@
     <Compile Include="Controllers\CertificationsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\DashboardsController.cs" />
     <Compile Include="Controllers\DependantsController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\EducationsController.cs" />
@@ -6849,10 +6850,16 @@
     <Content Include="Content\fullcalendar.min.css" />
     <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\fullcalendar.print.min.css" />
+    <Content Include="Content\Images\calendar-icon-13.png" />
     <Content Include="Content\Images\clipart43844.png" />
+    <Content Include="Content\Images\company-business.png" />
+    <Content Include="Content\Images\computer-icons-company-.png" />
+    <Content Include="Content\Images\custodian-secure-email-manager.png" />
+    <Content Include="Content\Images\smile-circle-clip-art-contacts.png" />
     <Content Include="Content\Images\legal-scale-icon-21.jpg" />
     <Content Include="Content\Images\legal-scale-icon-5.jpg" />
     <Content Include="Content\Images\man-user.png" />
+    <Content Include="Content\Images\Task.png" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\my-login.js" />
     <Content Include="Content\MenuStyle.css" />
@@ -7605,6 +7612,7 @@
     <Content Include="Views\Matters\Details.cshtml" />
     <Content Include="Views\Matters\Edit.cshtml" />
     <Content Include="Views\Matters\Index.cshtml" />
+    <Content Include="Views\Dashboards\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />

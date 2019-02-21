@@ -45,14 +45,14 @@ namespace LegalManagementSystem.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = "Company Lawyer")]
         public string CompanyLawyer { get; set; }
         public double Capital { get; set; }
         public string Currency { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
     }
 }

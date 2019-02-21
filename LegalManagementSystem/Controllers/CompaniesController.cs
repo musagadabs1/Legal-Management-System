@@ -89,7 +89,7 @@ namespace LegalManagementSystem.Controllers
 
                     db.Companies.Add(company);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
                 catch (Exception)
                 {
