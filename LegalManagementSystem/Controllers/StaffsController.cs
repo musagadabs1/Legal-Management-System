@@ -48,7 +48,7 @@ namespace LegalManagementSystem.Controllers
         // GET: Staffs/Create
         public ActionResult Create()
         {
-            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name");
+            ViewBag.LineManagerId = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
             ViewBag.Gender = new List<SelectListItem> {
                 new SelectListItem{Text="Male",Value ="M"},
                 new SelectListItem{Text="Female",Value ="F"}
@@ -99,7 +99,7 @@ namespace LegalManagementSystem.Controllers
                 ViewBag.Error = "Can't Save Profile, Some fields are missing";
             }
 
-            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name", staff.LineManagerId);
+            ViewBag.LineManagerId = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
             ViewBag.Gender = new List<SelectListItem> {
                 new SelectListItem{Text="Male",Value ="M"},
                 new SelectListItem{Text="Female",Value ="F"}
@@ -141,7 +141,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
-            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name", staff.LineManagerId);
+            ViewBag.LineManagerId = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
             return View(staff);
         }
 
@@ -185,6 +185,7 @@ namespace LegalManagementSystem.Controllers
                             new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
                      };
+                    ViewBag.LineManagerId = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
                     //= Marital;
                     return View(staff);
                 }
@@ -194,7 +195,7 @@ namespace LegalManagementSystem.Controllers
                 ViewBag.Error = "Can't Save Profile please check and try again." + ex.Message;
                 //throw;
             }
-            ViewBag.LineManagerId = new SelectList(db.LineManagers, "LineManagerId", "Name", staff.LineManagerId);
+            ViewBag.LineManagerId = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
             ViewBag.Gender = new List<SelectListItem> {
                 new SelectListItem{Text="Male",Value ="M"},
                 new SelectListItem{Text="Female",Value ="F"}

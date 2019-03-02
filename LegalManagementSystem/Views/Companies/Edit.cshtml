@@ -16,7 +16,9 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @if (ViewBag.Error != null)
     {
-        <span style="color:red;">@ViewBag.Error.ToString()</span>
+        <div class="alert alert-danger">
+            <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
+        </div>
     }
     @Html.HiddenFor(model => model.Id)
 

@@ -57,6 +57,8 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                lineManager.CreatedBy = User.Identity.Name;
+                lineManager.CreatedOn = DateTime.Today;
                 db.LineManagers.Add(lineManager);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -89,6 +91,8 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                lineManager.ModifiedBy = User.Identity.Name;
+                lineManager.ModifiedOn = DateTime.Today;
                 db.Entry(lineManager).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
