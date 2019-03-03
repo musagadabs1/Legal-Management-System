@@ -26,7 +26,7 @@ namespace LegalManagementSystem.Controllers
             }
             return View(await db.Clients.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
-
+        
         // GET: Clients/Details/5
         public async Task<ActionResult> Details(int? id)
         {

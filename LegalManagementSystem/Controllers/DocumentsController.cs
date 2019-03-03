@@ -12,6 +12,7 @@ using System.IO;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class DocumentsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class FileEventsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();

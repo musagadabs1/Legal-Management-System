@@ -11,6 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin, Attorney, Advocate")]
     public class MattersController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -40,12 +41,89 @@ namespace LegalManagementSystem.Controllers
             }
             return View(matter);
         }
+        public JsonResult GetClientForDropDown(string searchKey)
+        {
+            //var getData = context.GetAllAdvocateGroups().ToList();
+            var getData = db.GetAllClientForDropDown().ToList();
+            //var data = null;
 
+            if (searchKey != null)
+            {
+                getData = db.GetAllClientForDropDown().Where(x => x.ClientName.Contains(searchKey)).ToList();
+            }
+            var ModifiedData = getData.Select(x => new
+            {
+                id = x.ClientId,
+                text = x.ClientName
+            });
+
+            return Json(ModifiedData, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetStaffForDropDown(string searchKey)
+        {
+            //var getData = context.GetAllAdvocateGroups().ToList();
+            var getData = db.GetAllStaffForDropDown().ToList();
+            //var data = null;
+
+            if (searchKey != null)
+            {
+                getData = db.GetAllStaffForDropDown().Where(x => x.StaffName.Contains(searchKey)).ToList();
+            }
+            var ModifiedData = getData.Select(x => new
+            {
+                id = x.StaffId,
+                text = x.StaffName
+            });
+
+            return Json(ModifiedData, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetLineManagerForDropDown(string searchKey)
+        {
+            //var getData = context.GetAllAdvocateGroups().ToList();
+            var getData = db.sp_GetLineManagers().ToList();
+            //var data = null;
+
+            if (searchKey != null)
+            {
+                getData = db.sp_GetLineManagers().Where(x => x.ManagerName.Contains(searchKey)).ToList();
+            }
+            var ModifiedData = getData.Select(x => new
+            {
+                id = x.LineManagerId,
+                text = x.ManagerName
+            });
+
+            return Json(ModifiedData, JsonRequestBehavior.AllowGet);
+        }
         // GET: Matters/Create
         public ActionResult Create()
         {
-            ViewBag.Client = new SelectList( db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+            //ViewBag.Client = new SelectList( db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+            //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+            //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
+            ViewBag.Priority = new List<SelectListItem>{
+                new SelectListItem { Value="Critical",Text="Critical"},
+                new SelectListItem { Value="High",Text="High"},
+                new SelectListItem { Value="Medium",Text="Medium"},
+                new SelectListItem { Value="Low",Text="Low"}
+            };
+            ViewBag.PracticeArea = new List<SelectListItem>{
+                new SelectListItem { Value="None",Text="None"},
+                new SelectListItem { Value="Acquisition",Text="Acquisition"},
+                new SelectListItem { Value="Administrative",Text="Administrative"},
+                new SelectListItem { Value="Audit",Text="Audit"},
+                new SelectListItem { Value="Civil",Text="Civil"},
+                new SelectListItem { Value="Commercial",Text="Commercial"},
+                new SelectListItem { Value="Consultation",Text="Consultation"},
+                new SelectListItem { Value="Corporate",Text="Corporate"},
+                new SelectListItem { Value="Criminal",Text="Criminal"},
+                new SelectListItem { Value="Dispute",Text="Dispute"},
+                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
+                new SelectListItem { Value="Labour",Text="Labour"},
+                new SelectListItem { Value="Real Estate",Text="Real Estate"},
+                new SelectListItem { Value="Sharia",Text="Sharia"},
+                new SelectListItem { Value="Agreement",Text="Agreement"}
+            };
             return View();
         }
 
@@ -81,10 +159,58 @@ namespace LegalManagementSystem.Controllers
                 ViewBag.Error = "Fill in the required fields to continue";
                 ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
                 ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+                ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
+                ViewBag.Priority = new List<SelectListItem>{
+                new SelectListItem { Value="Critical",Text="Critical"},
+                new SelectListItem { Value="High",Text="High"},
+                new SelectListItem { Value="Medium",Text="Medium"},
+                new SelectListItem { Value="Low",Text="Low"}
+            };
+                ViewBag.PracticeArea = new List<SelectListItem>{
+                new SelectListItem { Value="None",Text="None"},
+                new SelectListItem { Value="Acquisition",Text="Acquisition"},
+                new SelectListItem { Value="Administrative",Text="Administrative"},
+                new SelectListItem { Value="Audit",Text="Audit"},
+                new SelectListItem { Value="Civil",Text="Civil"},
+                new SelectListItem { Value="Commercial",Text="Commercial"},
+                new SelectListItem { Value="Consultation",Text="Consultation"},
+                new SelectListItem { Value="Corporate",Text="Corporate"},
+                new SelectListItem { Value="Criminal",Text="Criminal"},
+                new SelectListItem { Value="Dispute",Text="Dispute"},
+                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
+                new SelectListItem { Value="Labour",Text="Labour"},
+                new SelectListItem { Value="Real Estate",Text="Real Estate"},
+                new SelectListItem { Value="Sharia",Text="Sharia"},
+                new SelectListItem { Value="Agreement",Text="Agreement"}
+            };
                 return View(matter);
             }
             ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
             ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+            ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
+            ViewBag.Priority = new List<SelectListItem>{
+                new SelectListItem { Value="Critical",Text="Critical"},
+                new SelectListItem { Value="High",Text="High"},
+                new SelectListItem { Value="Medium",Text="Medium"},
+                new SelectListItem { Value="Low",Text="Low"}
+            };
+            ViewBag.PracticeArea = new List<SelectListItem>{
+                new SelectListItem { Value="None",Text="None"},
+                new SelectListItem { Value="Acquisition",Text="Acquisition"},
+                new SelectListItem { Value="Administrative",Text="Administrative"},
+                new SelectListItem { Value="Audit",Text="Audit"},
+                new SelectListItem { Value="Civil",Text="Civil"},
+                new SelectListItem { Value="Commercial",Text="Commercial"},
+                new SelectListItem { Value="Consultation",Text="Consultation"},
+                new SelectListItem { Value="Corporate",Text="Corporate"},
+                new SelectListItem { Value="Criminal",Text="Criminal"},
+                new SelectListItem { Value="Dispute",Text="Dispute"},
+                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
+                new SelectListItem { Value="Labour",Text="Labour"},
+                new SelectListItem { Value="Real Estate",Text="Real Estate"},
+                new SelectListItem { Value="Sharia",Text="Sharia"},
+                new SelectListItem { Value="Agreement",Text="Agreement"}
+            };
             return View(matter);
         }
 
@@ -95,8 +221,32 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+            //ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+            //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+            //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
+            ViewBag.Priority = new List<SelectListItem>{
+                new SelectListItem { Value="Critical",Text="Critical"},
+                new SelectListItem { Value="High",Text="High"},
+                new SelectListItem { Value="Medium",Text="Medium"},
+                new SelectListItem { Value="Low",Text="Low"}
+            };
+            ViewBag.PracticeArea = new List<SelectListItem>{
+                new SelectListItem { Value="None",Text="None"},
+                new SelectListItem { Value="Acquisition",Text="Acquisition"},
+                new SelectListItem { Value="Administrative",Text="Administrative"},
+                new SelectListItem { Value="Audit",Text="Audit"},
+                new SelectListItem { Value="Civil",Text="Civil"},
+                new SelectListItem { Value="Commercial",Text="Commercial"},
+                new SelectListItem { Value="Consultation",Text="Consultation"},
+                new SelectListItem { Value="Corporate",Text="Corporate"},
+                new SelectListItem { Value="Criminal",Text="Criminal"},
+                new SelectListItem { Value="Dispute",Text="Dispute"},
+                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
+                new SelectListItem { Value="Labour",Text="Labour"},
+                new SelectListItem { Value="Real Estate",Text="Real Estate"},
+                new SelectListItem { Value="Sharia",Text="Sharia"},
+                new SelectListItem { Value="Agreement",Text="Agreement"}
+            };
             Matter matter = await db.Matters.FindAsync(id);
             if (matter == null)
             {
@@ -134,13 +284,66 @@ namespace LegalManagementSystem.Controllers
             else
             {
                 ViewBag.Error = "Fill in the required fields to continue";
-                ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-                ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+                //ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+                //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+                //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
+                ViewBag.Priority = new List<SelectListItem>{
+                new SelectListItem { Value="Critical",Text="Critical"},
+                new SelectListItem { Value="High",Text="High"},
+                new SelectListItem { Value="Medium",Text="Medium"},
+                new SelectListItem { Value="Low",Text="Low"}
+            };
+                ViewBag.PracticeArea = new List<SelectListItem>{
+                new SelectListItem { Value="None",Text="None"},
+                new SelectListItem { Value="Acquisition",Text="Acquisition"},
+                new SelectListItem { Value="Administrative",Text="Administrative"},
+                new SelectListItem { Value="Audit",Text="Audit"},
+                new SelectListItem { Value="Civil",Text="Civil"},
+                new SelectListItem { Value="Commercial",Text="Commercial"},
+                new SelectListItem { Value="Consultation",Text="Consultation"},
+                new SelectListItem { Value="Corporate",Text="Corporate"},
+                new SelectListItem { Value="Criminal",Text="Criminal"},
+                new SelectListItem { Value="Dispute",Text="Dispute"},
+                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
+                new SelectListItem { Value="Labour",Text="Labour"},
+                new SelectListItem { Value="Real Estate",Text="Real Estate"},
+                new SelectListItem { Value="Sharia",Text="Sharia"},
+                new SelectListItem { Value="Agreement",Text="Agreement"}
+            };
                 return View(matter);
             }
-            ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+            //ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
+            //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
+            //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
+            ViewBag.Priority = new List<SelectListItem>{
+                new SelectListItem { Value="Critical",Text="Critical"},
+                new SelectListItem { Value="High",Text="High"},
+                new SelectListItem { Value="Medium",Text="Medium"},
+                new SelectListItem { Value="Low",Text="Low"}
+            };
+            ViewBag.PracticeArea = new List<SelectListItem>{
+                new SelectListItem { Value="None",Text="None"},
+                new SelectListItem { Value="Acquisition",Text="Acquisition"},
+                new SelectListItem { Value="Administrative",Text="Administrative"},
+                new SelectListItem { Value="Audit",Text="Audit"},
+                new SelectListItem { Value="Civil",Text="Civil"},
+                new SelectListItem { Value="Commercial",Text="Commercial"},
+                new SelectListItem { Value="Consultation",Text="Consultation"},
+                new SelectListItem { Value="Corporate",Text="Corporate"},
+                new SelectListItem { Value="Criminal",Text="Criminal"},
+                new SelectListItem { Value="Dispute",Text="Dispute"},
+                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
+                new SelectListItem { Value="Labour",Text="Labour"},
+                new SelectListItem { Value="Real Estate",Text="Real Estate"},
+                new SelectListItem { Value="Sharia",Text="Sharia"},
+                new SelectListItem { Value="Agreement",Text="Agreement"}
+            };
             return View(matter);
+        }
+        [HttpPost]
+        public JsonResult AddAssignee()
+        {
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         // GET: Matters/Delete/5

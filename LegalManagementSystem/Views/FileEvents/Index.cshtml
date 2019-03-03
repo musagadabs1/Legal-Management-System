@@ -4,39 +4,23 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <h2>Event Calendar</h2>
 <div id="calender"></div>
 
-<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
-<link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
 
-<script src="~/Scripts/lib/jquery.min.js"></script>
+@*<script src="~/Scripts/lib/jquery.min.js"></script>*@
 <script src="~/Scripts/lib/moment.min.js"></script>
 <script src="~/Scripts/fullcalendar.min.js"></script>
 <script>
     $(document).ready(function () {
 
-        $('#calender').fullCalendar({
-            defaultDate: new Date(),
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            events: [
-                {
-                    title: 'Event Title1',
-                    start: '2015-03-17T13:13:55.008',
-                    end: '2015-03-19T13:13:55.008'
-                },
-                {
-                    title: 'Event Title2',
-                    start: '2015-03-17T13:13:55-0400',
-                    end: '2015-03-19T13:13:55-0400'
-                }
-            ]
-        });
-        @*var events = [];
+        var events = [];
         $.ajax({
             type: 'GET',
             url: '@Url.Action("GetEvents", "FileEvents")',
@@ -57,24 +41,24 @@
             error: function (err) {
                 alert(err.Message);
             }
-        })*@
+        })
 
-        //function GenerateCalendar(events) {
-        //    $('#calender').fullCalendar('destroy');
-        //    $('#calender').fullCalendar({
-        //        contentHeight: 400,
-        //        defaultDate: new Date(),
-        //        timeFormat: 'h(:mm)a',
-        //        header: {
-        //            left: 'prev,next today',
-        //            center: title,
-        //            right:'month,basicWeek,basicDay,agenda'
-        //        },
-        //        eventLimit: true,
-        //        eventColor: '#378006',
-        //        events:events
-        //    })
-        //}
+        function GenerateCalendar(events) {
+            $('#calender').fullCalendar('destroy');
+            $('#calender').fullCalendar({
+                contentHeight: 400,
+                defaultDate: new Date(),
+                timeFormat: 'h(:mm)a',
+                header: {
+                    left: 'prev,next today',
+                    //center: title,
+                    right:'month,basicWeek,basicDay,agenda'
+                },
+                eventLimit: true,
+                eventColor: '#378006',
+                events:events
+            })
+        }
     })
 </script>
 @*<p>

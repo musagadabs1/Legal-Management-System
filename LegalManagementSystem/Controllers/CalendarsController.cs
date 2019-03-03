@@ -11,6 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class CalendarsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
