@@ -67,7 +67,7 @@ namespace LegalManagementSystem.Controllers
 
                 db.Experiences.Add(experience);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Create","Experiences");
+                return RedirectToAction("Create","Educations");
             }
 
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", experience.StaffId);

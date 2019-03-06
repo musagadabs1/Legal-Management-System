@@ -11,128 +11,122 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
-    [Authorize(Roles ="Admin,Attorney,Advocate")]
-    public class LibrariesController : Controller
+    public class CourtActivitiesController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
 
-        // GET: Libraries
+        // GET: CourtActivities
         public async Task<ActionResult> Index()
         {
-            
+           
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminLibraries = db.Libraries.Include(l => l.Staff);
-                return View(await adminLibraries.ToListAsync());
+                return View(await db.CourtActivities.ToListAsync());
             }
-            var libraries = db.Libraries.Include(l => l.Staff);
-            return View(await libraries.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            return View(await db.CourtActivities.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            //return View(await certifications.ToListAsync());
         }
 
-        // GET: Libraries/Details/5
-        public async Task<ActionResult> Details(string id)
+        // GET: CourtActivities/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Library library = await db.Libraries.FindAsync(id);
-            if (library == null)
+            CourtActivity courtActivity = await db.CourtActivities.FindAsync(id);
+            if (courtActivity == null)
             {
                 return HttpNotFound();
             }
-            return View(library);
+            return View(courtActivity);
         }
 
-        // GET: Libraries/Create
+        // GET: CourtActivities/Create
         public ActionResult Create()
         {
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname");
             return View();
         }
 
-        // POST: Libraries/Create
+        // POST: CourtActivities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,ISBN,Name,Type,UploadDate,FilePath,AdvocateId,CreatedBy,ModifiedBy,CreatedOn,ModifiedOn")] Library library)
+        public async Task<ActionResult> Create([Bind(Include = "Id,MatterNumber,DateHeared,CourtName,Location,StaffId,Status,AdvocateArgument,OpponentArgument,AdvocateNote,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] CourtActivity courtActivity)
         {
             if (ModelState.IsValid)
             {
                 var user = User.Identity.Name;
-                library.CreatedBy = user;
-                library.CreatedOn = DateTime.Today;
+                courtActivity.CreatedBy = user;
+                courtActivity.CreatedOn = DateTime.Today;
 
-                db.Libraries.Add(library);
+                db.CourtActivities.Add(courtActivity);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname", library.AdvocateId);
-            return View(library);
+            return View(courtActivity);
         }
 
-        // GET: Libraries/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        // GET: CourtActivities/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Library library = await db.Libraries.FindAsync(id);
-            if (library == null)
+            CourtActivity courtActivity = await db.CourtActivities.FindAsync(id);
+            if (courtActivity == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname", library.AdvocateId);
-            return View(library);
+            return View(courtActivity);
         }
 
-        // POST: Libraries/Edit/5
+        // POST: CourtActivities/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,ISBN,Name,Type,UploadDate,FilePath,AdvocateId,CreatedBy,ModifiedBy,CreatedOn,ModifiedOn")] Library library)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,MatterNumber,DateHeared,CourtName,Location,StaffId,Status,AdvocateArgument,OpponentArgument,AdvocateNote,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] CourtActivity courtActivity)
         {
             if (ModelState.IsValid)
             {
                 var user = User.Identity.Name;
-                library.ModifiedBy = user;
-                library.ModifiedOn = DateTime.Today;
+                courtActivity.ModifiedBy = user;
+                courtActivity.ModifiedOn = DateTime.Today;
 
-                db.Entry(library).State = EntityState.Modified;
+                db.Entry(courtActivity).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.AdvocateId = new SelectList(db.Staffs, "StaffId", "Surname", library.AdvocateId);
-            return View(library);
+            return View(courtActivity);
         }
 
-        // GET: Libraries/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        // GET: CourtActivities/Delete/5
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Library library = await db.Libraries.FindAsync(id);
-            if (library == null)
+            CourtActivity courtActivity = await db.CourtActivities.FindAsync(id);
+            if (courtActivity == null)
             {
                 return HttpNotFound();
             }
-            return View(library);
+            return View(courtActivity);
         }
 
-        // POST: Libraries/Delete/5
+        // POST: CourtActivities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Library library = await db.Libraries.FindAsync(id);
-            db.Libraries.Remove(library);
+            CourtActivity courtActivity = await db.CourtActivities.FindAsync(id);
+            db.CourtActivities.Remove(courtActivity);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

@@ -27,7 +27,7 @@ namespace LegalManagementSystem.Controllers
                 var adminCertifications = db.Certifications.Include(c => c.Staff);
                 return View(await adminCertifications.ToListAsync());
             }
-            var certifications = db.Files.Include(f => f.Client).Include(f => f.Staff);
+            var certifications = db.Certifications.Include(c => c.Staff);
             return View(await certifications.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
 
@@ -77,7 +77,7 @@ namespace LegalManagementSystem.Controllers
 
                 db.Certifications.Add(certification);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Create", "Certifications");
+                return RedirectToAction("Create", "Dependants");
             }
 
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);

@@ -51,11 +51,11 @@ desired effect
         <!-- Main Header -->
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="@Url.Action("Index","Home")" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>L</b>MS</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b>LMS</span>
+                <span class="logo-lg"><b>LMS</b></span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -206,8 +206,8 @@ desired effect
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        @*<a href="@Html.Action("LogOff","Account")" class="btn btn-default btn-flat">Sign Out</a>*@
-                                        <a href="#" class="btn btn-default btn-flat">Sign Out</a>
+                                        @*<a href="@Html.Action("","")" class="btn btn-default btn-flat">Sign Out</a>*@
+                                        <a href="@Url.Action("Login","Account")" class="btn btn-default btn-flat">Sign Out</a>
 
                                     </div>
                                 </li>
@@ -235,7 +235,7 @@ desired effect
                         @*@Html.Partial("_LoginPartial")*@
                         @HttpContext.Current.User.Identity.Name
                         <!-- Status -->
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <a href="@Url.Action("Index","Home")"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
                 <!-- search form (Optional) -->
@@ -284,10 +284,10 @@ desired effect
                     LMS
                     <small>Legal Management System</small>
                 </h1>
-                <ol class="breadcrumb">
+                @*<ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                     <li class="active">Here</li>
-                </ol>
+                </ol>*@
             </section>
             <!-- Main content -->
             <section class="content container-fluid">

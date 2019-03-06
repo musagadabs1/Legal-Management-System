@@ -1,0 +1,89 @@
+﻿@model LegalManagementSystem.Models.CourtActivity
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Court Activity Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MatterNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatterNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateHeared)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateHeared)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourtName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourtName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvocateArgument)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvocateArgument)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpponentArgument)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpponentArgument)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvocateNote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvocateNote)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) @*|
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

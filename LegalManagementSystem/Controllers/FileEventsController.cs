@@ -23,10 +23,10 @@ namespace LegalManagementSystem.Controllers
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminFileEvents = db.FileEvents.Include(f => f.File).Include(f => f.Staff);
+                var adminFileEvents = db.FileEvents.Include(f => f.Staff);
                 return View(await adminFileEvents.ToListAsync());
             }
-            var fileEvents = db.FileEvents.Include(f => f.File).Include(f => f.Staff);
+            var fileEvents = db.FileEvents.Include(f => f.Staff);
             return View(await fileEvents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
 
@@ -83,15 +83,12 @@ namespace LegalManagementSystem.Controllers
                 }
                 return Json(events, JsonRequestBehavior.AllowGet);
             }
-
-
-            //return new JsonResult(adm)
         }
 
         // GET: FileEvents/Createad
         public ActionResult Create()
         {
-            ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName");
+            //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName");
             ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
             return View();
         }
@@ -115,7 +112,7 @@ namespace LegalManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", fileEvent.FileNumber);
+            //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", fileEvent.FileNumber);
             ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", fileEvent.StaffId);
             return View(fileEvent);
         }
@@ -132,7 +129,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", fileEvent.FileNumber);
+            //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", fileEvent.FileNumber);
             ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", fileEvent.StaffId);
             return View(fileEvent);
         }
@@ -154,7 +151,7 @@ namespace LegalManagementSystem.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", fileEvent.FileNumber);
+            //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", fileEvent.FileNumber);
             ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", fileEvent.StaffId);
             return View(fileEvent);
         }

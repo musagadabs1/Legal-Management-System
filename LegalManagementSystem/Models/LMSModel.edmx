@@ -4,7 +4,19 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdvocateGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Calendars">
           <Key>
             <PropertyRef Name="Id" />
@@ -46,24 +58,6 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="ModeifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-        </EntityType>
-        <EntityType Name="ClientMatterAcceptanceForms">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientId" Type="int" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Industry" Type="nvarchar" MaxLength="50" />
-          <Property Name="AgreedFee" Type="float" />
-          <Property Name="PaymentTerms" Type="nvarchar" MaxLength="50" />
-          <Property Name="TimeFrame" Type="int" />
-          <Property Name="MatterManager" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
-          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Clients">
@@ -111,6 +105,25 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="CourtActivities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateHeared" Type="datetime" />
+          <Property Name="CourtName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdvocateArgument" Type="nvarchar(max)" />
+          <Property Name="OpponentArgument" Type="nvarchar(max)" />
+          <Property Name="AdvocateNote" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Dependants">
           <Key>
             <PropertyRef Name="Id" />
@@ -137,7 +150,7 @@
             <PropertyRef Name="DocumentId" />
           </Key>
           <Property Name="DocumentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="DocName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AssignedDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Tags" Type="nvarchar(max)" />
@@ -204,40 +217,6 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
-        <EntityType Name="Files">
-          <Key>
-            <PropertyRef Name="FileNumber" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
-          <Property Name="FileType" Type="nvarchar" MaxLength="50" />
-          <Property Name="ClientId" Type="int" />
-          <Property Name="OpeningDate" Type="datetime2" Precision="7" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdvocateId" Type="nvarchar" MaxLength="50" />
-          <Property Name="ClosingDate" Type="datetime2" Precision="7" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
-          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-        </EntityType>
-        <EntityType Name="Libraries">
-          <Key>
-            <PropertyRef Name="ISBN" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Type" Type="nvarchar" MaxLength="50" />
-          <Property Name="UploadDate" Type="datetime" />
-          <Property Name="FilePath" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdvocateId" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime" />
-          <Property Name="ModifiedOn" Type="datetime" />
-        </EntityType>
         <EntityType Name="LineManagers">
           <Key>
             <PropertyRef Name="LineManagerId" />
@@ -266,7 +245,7 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="Priority" Type="nvarchar" MaxLength="50" />
           <Property Name="Reporter" Type="nvarchar" MaxLength="50" />
-          <Property Name="Assignee" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdvocateGroupId" Type="int" />
           <Property Name="DueDate" Type="datetime" />
         </EntityType>
         <EntityType Name="LoginUsers">
@@ -282,22 +261,24 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdvocateGroupId" Type="int" />
         </EntityType>
         <EntityType Name="Matters">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="MatterNumber" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="AreaOfPractice" Type="nvarchar" MaxLength="50" />
           <Property Name="ClientId" Type="int" />
-          <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
-          <Property Name="Assignee" Type="nvarchar" MaxLength="50" />
+          <Property Name="LineManagerId" Type="int" />
           <Property Name="ArrivalDate" Type="datetime" />
           <Property Name="FiledOn" Type="datetime" />
           <Property Name="DueDate" Type="datetime" />
-          <Property Name="MatterNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Priority" Type="nvarchar" MaxLength="50" />
           <Property Name="MatterStage" Type="nvarchar" MaxLength="50" />
           <Property Name="RequestedBy" Type="nvarchar" MaxLength="50" />
@@ -307,6 +288,23 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="CaseNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StaffGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
+          <Property Name="GroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="StaffMatters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Staffs">
           <Key>
@@ -335,16 +333,17 @@
           <Property Name="KTelephone" Type="nvarchar" MaxLength="50" />
           <Property Name="NKEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="NKAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="Bank" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bank" Type="nvarchar" MaxLength="50" />
           <Property Name="AccountNumber" Type="int" />
           <Property Name="NKFullName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="StaffId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LineManagerId" Type="int" Nullable="false" />
           <Property Name="Department" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="YearCallToBar" Type="int" />
           <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdvocateGroupId" Type="int" />
         </EntityType>
         <EntityType Name="UserRoles">
           <Key>
@@ -370,18 +369,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForms" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="ClientMatterAcceptanceForms">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Dependants_Staffs">
           <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
           <End Role="Dependants" Type="Self.Dependants" Multiplicity="*" />
@@ -394,15 +381,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documents_Files">
-          <End Role="Files" Type="Self.Files" Multiplicity="1" />
+        <Association Name="FK_Documents_Matters">
+          <End Role="Matters" Type="Self.Matters" Multiplicity="1" />
           <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Files">
-              <PropertyRef Name="FileNumber" />
+            <Principal Role="Matters">
+              <PropertyRef Name="MatterNumber" />
             </Principal>
             <Dependent Role="Documents">
-              <PropertyRef Name="FileNumber" />
+              <PropertyRef Name="MatterNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -430,18 +417,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FileEvents_Files">
-          <End Role="Files" Type="Self.Files" Multiplicity="0..1" />
-          <End Role="FileEvents" Type="Self.FileEvents" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Files">
-              <PropertyRef Name="FileNumber" />
-            </Principal>
-            <Dependent Role="FileEvents">
-              <PropertyRef Name="FileNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FileEvents_Staffs">
           <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
           <End Role="FileEvents" Type="Self.FileEvents" Multiplicity="*" />
@@ -451,42 +426,6 @@
             </Principal>
             <Dependent Role="FileEvents">
               <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Files_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="Files" Type="Self.Files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Files">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Files_Staffs">
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
-          <End Role="Files" Type="Self.Files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Files">
-              <PropertyRef Name="AdvocateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Libraries_Staffs">
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
-          <End Role="Libraries" Type="Self.Libraries" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Libraries">
-              <PropertyRef Name="AdvocateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -514,6 +453,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetAllAdvocateGroups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCalendarForDropdown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllClientForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCompaniesForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -523,39 +463,36 @@
         <Function Name="GEtListOfDocuments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetLineManagers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MyCaseNewModelStoreContainer">
+          <EntitySet Name="AdvocateGroups" EntityType="Self.AdvocateGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calendars" EntityType="Self.Calendars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarStaffs" EntityType="Self.CalendarStaffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Certifications" EntityType="Self.Certifications" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourtActivities" EntityType="Self.CourtActivities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dependants" EntityType="Self.Dependants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Educations" EntityType="Self.Educations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experiences" EntityType="Self.Experiences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileEvents" EntityType="Self.FileEvents" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Libraries" EntityType="Self.Libraries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LineManagers" EntityType="Self.LineManagers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LMSTasks" EntityType="Self.LMSTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matters" EntityType="Self.Matters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaffGroups" EntityType="Self.StaffGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaffMatters" EntityType="Self.StaffMatters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Certifications" EntitySet="Certifications" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
-          </AssociationSet>
           <AssociationSet Name="FK_Dependants_Staffs" Association="Self.FK_Dependants_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Dependants" EntitySet="Dependants" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documents_Files" Association="Self.FK_Documents_Files">
-            <End Role="Files" EntitySet="Files" />
+          <AssociationSet Name="FK_Documents_Matters" Association="Self.FK_Documents_Matters">
+            <End Role="Matters" EntitySet="Matters" />
             <End Role="Documents" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Educations_Staffs" Association="Self.FK_Educations_Staffs">
@@ -566,25 +503,9 @@
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Experiences" EntitySet="Experiences" />
           </AssociationSet>
-          <AssociationSet Name="FK_FileEvents_Files" Association="Self.FK_FileEvents_Files">
-            <End Role="Files" EntitySet="Files" />
-            <End Role="FileEvents" EntitySet="FileEvents" />
-          </AssociationSet>
           <AssociationSet Name="FK_FileEvents_Staffs" Association="Self.FK_FileEvents_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="FileEvents" EntitySet="FileEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Files_Clients" Association="Self.FK_Files_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Files" EntitySet="Files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Files_Staffs" Association="Self.FK_Files_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Files" EntitySet="Files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Libraries_Staffs" Association="Self.FK_Libraries_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Libraries" EntitySet="Libraries" />
           </AssociationSet>
           <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
             <End Role="LineManagers" EntitySet="LineManagers" />
@@ -595,11 +516,22 @@
             <End Role="LoginUsers" EntitySet="LoginUsers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyCaseNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdvocateGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="Id" />
@@ -644,25 +576,6 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <NavigationProperty Name="Staff" Relationship="Self.FK_Certifications_Staffs" FromRole="Certifications" ToRole="Staffs" />
         </EntityType>
-        <EntityType Name="ClientMatterAcceptanceForm">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientId" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AgreedFee" Type="Double" />
-          <Property Name="PaymentTerms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TimeFrame" Type="Int32" />
-          <Property Name="MatterManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="ClientMatterAcceptanceForms" ToRole="Clients" />
-        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientId" />
@@ -681,8 +594,6 @@
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="ClientMatterAcceptanceForms" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="Clients" ToRole="ClientMatterAcceptanceForms" />
-          <NavigationProperty Name="Files" Relationship="Self.FK_Files_Clients" FromRole="Clients" ToRole="Files" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -737,7 +648,7 @@
             <PropertyRef Name="DocumentId" />
           </Key>
           <Property Name="DocumentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatterNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DocName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AssignedDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -747,7 +658,7 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="DocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="File" Relationship="Self.FK_Documents_Files" FromRole="Documents" ToRole="Files" />
+          <NavigationProperty Name="Matter" Relationship="Self.FK_Documents_Matters" FromRole="Documents" ToRole="Matters" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -806,47 +717,7 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="File" Relationship="Self.FK_FileEvents_Files" FromRole="FileEvents" ToRole="Files" />
           <NavigationProperty Name="Staff" Relationship="Self.FK_FileEvents_Staffs" FromRole="FileEvents" ToRole="Staffs" />
-        </EntityType>
-        <EntityType Name="File">
-          <Key>
-            <PropertyRef Name="FileNumber" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ClientId" Type="Int32" />
-          <Property Name="OpeningDate" Type="DateTime" Precision="7" />
-          <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdvocateId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ClosingDate" Type="DateTime" Precision="7" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Files_Clients" FromRole="Files" ToRole="Clients" />
-          <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Files" FromRole="Files" ToRole="Documents" />
-          <NavigationProperty Name="FileEvents" Relationship="Self.FK_FileEvents_Files" FromRole="Files" ToRole="FileEvents" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Files_Staffs" FromRole="Files" ToRole="Staffs" />
-        </EntityType>
-        <EntityType Name="Library">
-          <Key>
-            <PropertyRef Name="ISBN" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UploadDate" Type="DateTime" Precision="3" />
-          <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdvocateId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Libraries_Staffs" FromRole="Libraries" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="LineManager">
           <Key>
@@ -877,7 +748,7 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Reporter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Assignee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdvocateGroupId" Type="Int32" />
           <Property Name="DueDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="LoginUser">
@@ -893,23 +764,24 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AdvocateGroupId" Type="Int32" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_Users_Roles" FromRole="LoginUsers" ToRole="UserRoles" />
         </EntityType>
         <EntityType Name="Matter">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="MatterNumber" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AreaOfPractice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClientId" Type="Int32" />
-          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Assignee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
           <Property Name="FiledOn" Type="DateTime" Precision="3" />
-          <Property Name="DueDate" Type="DateTime" Precision="3" />
-          <Property Name="MatterNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" Nullable="true" />
+          <Property Name="MatterNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MatterStage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RequestedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -919,6 +791,25 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="CaseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Matters" FromRole="Matters" ToRole="Documents" />
+          <Property Name="LineManagerId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="StaffGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroupId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="StaffMatter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatterNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -947,23 +838,22 @@
           <Property Name="KTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NKEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NKAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AccountNumber" Type="Int32" />
           <Property Name="NKFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LineManagerId" Type="Int32" Nullable="false" />
           <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YearCallToBar" Type="Int32" />
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdvocateGroupId" Type="Int32" />
           <NavigationProperty Name="Certifications" Relationship="Self.FK_Certifications_Staffs" FromRole="Staffs" ToRole="Certifications" />
           <NavigationProperty Name="Dependants" Relationship="Self.FK_Dependants_Staffs" FromRole="Staffs" ToRole="Dependants" />
           <NavigationProperty Name="Educations" Relationship="Self.FK_Educations_Staffs" FromRole="Staffs" ToRole="Educations" />
           <NavigationProperty Name="Experiences" Relationship="Self.FK_Experiences_Staffs" FromRole="Staffs" ToRole="Experiences" />
           <NavigationProperty Name="FileEvents" Relationship="Self.FK_FileEvents_Staffs" FromRole="Staffs" ToRole="FileEvents" />
-          <NavigationProperty Name="Files" Relationship="Self.FK_Files_Staffs" FromRole="Staffs" ToRole="Files" />
-          <NavigationProperty Name="Libraries" Relationship="Self.FK_Libraries_Staffs" FromRole="Staffs" ToRole="Libraries" />
           <NavigationProperty Name="LineManager" Relationship="Self.FK_Staffs_LineManagers" FromRole="Staffs" ToRole="LineManagers" />
         </EntityType>
         <EntityType Name="UserRole">
@@ -991,30 +881,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
-          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="ClientMatterAcceptanceForms">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Files_Clients">
-          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="Files" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Files">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Dependants_Staffs">
           <End Role="Staffs" Type="Self.Staff" Multiplicity="0..1" />
           <End Role="Dependants" Type="Self.Dependant" Multiplicity="*" />
@@ -1027,15 +893,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Documents_Files">
-          <End Role="Files" Type="Self.File" Multiplicity="1" />
+        <Association Name="FK_Documents_Matters">
+          <End Role="Matters" Type="Self.Matter" Multiplicity="1" />
           <End Role="Documents" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Files">
-              <PropertyRef Name="FileNumber" />
+            <Principal Role="Matters">
+              <PropertyRef Name="MatterNumber" />
             </Principal>
             <Dependent Role="Documents">
-              <PropertyRef Name="FileNumber" />
+              <PropertyRef Name="MatterNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1063,18 +929,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FileEvents_Files">
-          <End Role="Files" Type="Self.File" Multiplicity="0..1" />
-          <End Role="FileEvents" Type="Self.FileEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Files">
-              <PropertyRef Name="FileNumber" />
-            </Principal>
-            <Dependent Role="FileEvents">
-              <PropertyRef Name="FileNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FileEvents_Staffs">
           <End Role="Staffs" Type="Self.Staff" Multiplicity="0..1" />
           <End Role="FileEvents" Type="Self.FileEvent" Multiplicity="*" />
@@ -1084,30 +938,6 @@
             </Principal>
             <Dependent Role="FileEvents">
               <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Files_Staffs">
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="0..1" />
-          <End Role="Files" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Files">
-              <PropertyRef Name="AdvocateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Libraries_Staffs">
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="0..1" />
-          <End Role="Libraries" Type="Self.Library" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Libraries">
-              <PropertyRef Name="AdvocateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1136,10 +966,10 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MyCaseNewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdvocateGroups" EntityType="Self.AdvocateGroup" />
           <EntitySet Name="Calendars" EntityType="Self.Calendar" />
           <EntitySet Name="CalendarStaffs" EntityType="Self.CalendarStaff" />
           <EntitySet Name="Certifications" EntityType="Self.Certification" />
-          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForm" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="Dependants" EntityType="Self.Dependant" />
@@ -1147,32 +977,24 @@
           <EntitySet Name="Educations" EntityType="Self.Education" />
           <EntitySet Name="Experiences" EntityType="Self.Experience" />
           <EntitySet Name="FileEvents" EntityType="Self.FileEvent" />
-          <EntitySet Name="Files" EntityType="Self.File" />
-          <EntitySet Name="Libraries" EntityType="Self.Library" />
           <EntitySet Name="LineManagers" EntityType="Self.LineManager" />
           <EntitySet Name="LMSTasks" EntityType="Self.LMSTask" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUser" />
           <EntitySet Name="Matters" EntityType="Self.Matter" />
+          <EntitySet Name="StaffGroups" EntityType="Self.StaffGroup" />
+          <EntitySet Name="StaffMatters" EntityType="Self.StaffMatter" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
           <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Certifications" EntitySet="Certifications" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Files_Clients" Association="Self.FK_Files_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Files" EntitySet="Files" />
-          </AssociationSet>
           <AssociationSet Name="FK_Dependants_Staffs" Association="Self.FK_Dependants_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Dependants" EntitySet="Dependants" />
           </AssociationSet>
-          <AssociationSet Name="FK_Documents_Files" Association="Self.FK_Documents_Files">
-            <End Role="Files" EntitySet="Files" />
+          <AssociationSet Name="FK_Documents_Matters" Association="Self.FK_Documents_Matters">
+            <End Role="Matters" EntitySet="Matters" />
             <End Role="Documents" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Educations_Staffs" Association="Self.FK_Educations_Staffs">
@@ -1183,21 +1005,9 @@
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Experiences" EntitySet="Experiences" />
           </AssociationSet>
-          <AssociationSet Name="FK_FileEvents_Files" Association="Self.FK_FileEvents_Files">
-            <End Role="Files" EntitySet="Files" />
-            <End Role="FileEvents" EntitySet="FileEvents" />
-          </AssociationSet>
           <AssociationSet Name="FK_FileEvents_Staffs" Association="Self.FK_FileEvents_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="FileEvents" EntitySet="FileEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Files_Staffs" Association="Self.FK_Files_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Files" EntitySet="Files" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Libraries_Staffs" Association="Self.FK_Libraries_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Libraries" EntitySet="Libraries" />
           </AssociationSet>
           <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
             <End Role="LineManagers" EntitySet="LineManagers" />
@@ -1207,6 +1017,7 @@
             <End Role="UserRoles" EntitySet="UserRoles" />
             <End Role="LoginUsers" EntitySet="LoginUsers" />
           </AssociationSet>
+          <FunctionImport Name="GetAllAdvocateGroups" ReturnType="Collection(MyCaseNewModel.GetAllAdvocateGroups_Result)" />
           <FunctionImport Name="GetAllCalendarForDropdown" ReturnType="Collection(MyCaseNewModel.GetAllCalendarForDropdown_Result)" />
           <FunctionImport Name="GetAllClientForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllClientForDropDown_Result)" />
           <FunctionImport Name="GetAllCompaniesForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllCompaniesForDropDown_Result)" />
@@ -1215,7 +1026,12 @@
           <FunctionImport Name="GetAllTasksForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllTasksForDropDown_Result)" />
           <FunctionImport Name="GEtListOfDocuments" ReturnType="Collection(MyCaseNewModel.GEtListOfDocuments_Result)" />
           <FunctionImport Name="sp_GetLineManagers" ReturnType="Collection(MyCaseNewModel.sp_GetLineManagers_Result)" />
+          <EntitySet Name="CourtActivities" EntityType="MyCaseNewModel.CourtActivity" />
         </EntityContainer>
+        <ComplexType Name="GetAllAdvocateGroups_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="84" />
+        </ComplexType>
         <ComplexType Name="GetAllCalendarForDropdown_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="CalendarName" Nullable="true" MaxLength="83" />
@@ -1226,11 +1042,11 @@
         </ComplexType>
         <ComplexType Name="GetAllCompaniesForDropDown_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="104" />
         </ComplexType>
         <ComplexType Name="GetAllMattersForDropDown_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Subject" Nullable="true" MaxLength="84" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="86" />
         </ComplexType>
         <ComplexType Name="GetAllStaffForDropDown_Result">
           <Property Type="String" Name="StaffId" Nullable="false" MaxLength="50" />
@@ -1246,14 +1062,46 @@
         </ComplexType>
         <ComplexType Name="sp_GetLineManagers_Result">
           <Property Type="Int32" Name="LineManagerId" Nullable="false" />
-          <Property Type="String" Name="ManagerName" Nullable="false" MaxLength="102" />
+          <Property Type="String" Name="ManagerName" Nullable="false" MaxLength="104" />
         </ComplexType>
+        <EntityType Name="CourtActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatterNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DateHeared" Type="DateTime" Precision="3" />
+          <Property Name="CourtName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdvocateArgument" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OpponentArgument" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdvocateNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MyCaseNewModelStoreContainer" CdmEntityContainer="MyCaseNewEntities">
+          <EntitySetMapping Name="AdvocateGroups">
+            <EntityTypeMapping TypeName="MyCaseNewModel.AdvocateGroup">
+              <MappingFragment StoreEntitySet="AdvocateGroups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Calendars">
             <EntityTypeMapping TypeName="MyCaseNewModel.Calendar">
               <MappingFragment StoreEntitySet="Calendars">
@@ -1295,25 +1143,6 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModeifiedBy" ColumnName="ModeifiedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClientMatterAcceptanceForms">
-            <EntityTypeMapping TypeName="MyCaseNewModel.ClientMatterAcceptanceForm">
-              <MappingFragment StoreEntitySet="ClientMatterAcceptanceForms">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Industry" ColumnName="Industry" />
-                <ScalarProperty Name="AgreedFee" ColumnName="AgreedFee" />
-                <ScalarProperty Name="PaymentTerms" ColumnName="PaymentTerms" />
-                <ScalarProperty Name="TimeFrame" ColumnName="TimeFrame" />
-                <ScalarProperty Name="MatterManager" ColumnName="MatterManager" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1391,7 +1220,7 @@
             <EntityTypeMapping TypeName="MyCaseNewModel.Document">
               <MappingFragment StoreEntitySet="Documents">
                 <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
-                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+                <ScalarProperty Name="MatterNumber" ColumnName="MatterNumber" />
                 <ScalarProperty Name="DocName" ColumnName="DocName" />
                 <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
                 <ScalarProperty Name="Tags" ColumnName="Tags" />
@@ -1463,42 +1292,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Files">
-            <EntityTypeMapping TypeName="MyCaseNewModel.File">
-              <MappingFragment StoreEntitySet="Files">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="FileType" ColumnName="FileType" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="OpeningDate" ColumnName="OpeningDate" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
-                <ScalarProperty Name="AdvocateId" ColumnName="AdvocateId" />
-                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Libraries">
-            <EntityTypeMapping TypeName="MyCaseNewModel.Library">
-              <MappingFragment StoreEntitySet="Libraries">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
-                <ScalarProperty Name="AdvocateId" ColumnName="AdvocateId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LineManagers">
             <EntityTypeMapping TypeName="MyCaseNewModel.LineManager">
               <MappingFragment StoreEntitySet="LineManagers">
@@ -1527,7 +1320,7 @@
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Reporter" ColumnName="Reporter" />
-                <ScalarProperty Name="Assignee" ColumnName="Assignee" />
+                <ScalarProperty Name="AdvocateGroupId" ColumnName="AdvocateGroupId" />
                 <ScalarProperty Name="DueDate" ColumnName="DueDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1544,19 +1337,21 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="AdvocateGroupId" ColumnName="AdvocateGroupId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Matters">
             <EntityTypeMapping TypeName="MyCaseNewModel.Matter">
               <MappingFragment StoreEntitySet="Matters">
+                <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AreaOfPractice" ColumnName="AreaOfPractice" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
-                <ScalarProperty Name="Assignee" ColumnName="Assignee" />
                 <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
                 <ScalarProperty Name="FiledOn" ColumnName="FiledOn" />
                 <ScalarProperty Name="DueDate" ColumnName="DueDate" />
@@ -1570,6 +1365,25 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CaseNumber" ColumnName="CaseNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffGroups">
+            <EntityTypeMapping TypeName="MyCaseNewModel.StaffGroup">
+              <MappingFragment StoreEntitySet="StaffGroups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffMatters">
+            <EntityTypeMapping TypeName="MyCaseNewModel.StaffMatter">
+              <MappingFragment StoreEntitySet="StaffMatters">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MatterNumber" ColumnName="MatterNumber" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1609,6 +1423,7 @@
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="YearCallToBar" ColumnName="YearCallToBar" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AdvocateGroupId" ColumnName="AdvocateGroupId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1625,6 +1440,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllAdvocateGroups" FunctionName="MyCaseNewModel.Store.GetAllAdvocateGroups">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllAdvocateGroups_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetAllCalendarForDropdown" FunctionName="MyCaseNewModel.Store.GetAllCalendarForDropdown">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCalendarForDropdown_Result">
@@ -1689,6 +1512,26 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="CourtActivities">
+            <EntityTypeMapping TypeName="MyCaseNewModel.CourtActivity">
+              <MappingFragment StoreEntitySet="CourtActivities">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AdvocateNote" ColumnName="AdvocateNote" />
+                <ScalarProperty Name="OpponentArgument" ColumnName="OpponentArgument" />
+                <ScalarProperty Name="AdvocateArgument" ColumnName="AdvocateArgument" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="CourtName" ColumnName="CourtName" />
+                <ScalarProperty Name="DateHeared" ColumnName="DateHeared" />
+                <ScalarProperty Name="MatterNumber" ColumnName="MatterNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

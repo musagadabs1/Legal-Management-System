@@ -11,7 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
-    [Authorize(Roles = "Admin,Attorney,Advocate")]
+    [Authorize(Roles = "Admin")]
     public class LineManagersController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -25,7 +25,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return View(await db.LineManagers.ToListAsync());
             }
-            return View(await db.LineManagers.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            return View(await db.LineManagers.ToListAsync());
         }
 
         // GET: LineManagers/Details/5
@@ -54,15 +54,31 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "LineManagerId,Name,Department,Designation")] LineManager lineManager)
+        public async Task<ActionResult> Create([Bind(Include = "LineManagerId,Name,Department,Designation,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] LineManager lineManager)
         {
-            if (ModelState.IsValid)
+            try
             {
-                lineManager.CreatedBy = User.Identity.Name;
-                lineManager.CreatedOn = DateTime.Today;
-                db.LineManagers.Add(lineManager);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var user = User.Identity;
+                    lineManager.CreatedBy = user.Name;
+                    lineManager.CreatedOn = DateTime.Today;
+
+                    db.LineManagers.Add(lineManager);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
+                    return View(lineManager);
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = "Can't add Line Manager. Fill in the required Fields. " + ex.Message;
             }
 
             return View(lineManager);
@@ -88,15 +104,30 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "LineManagerId,Name,Department,Designation")] LineManager lineManager)
+        public async Task<ActionResult> Edit([Bind(Include = "LineManagerId,Name,Department,Designation,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] LineManager lineManager)
         {
-            if (ModelState.IsValid)
+            try
             {
-                lineManager.ModifiedBy = User.Identity.Name;
-                lineManager.ModifiedOn = DateTime.Today;
-                db.Entry(lineManager).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var user = User.Identity;
+                    lineManager.ModifiedBy = user.Name;
+                    lineManager.ModifiedOn = DateTime.Today;
+
+                    db.Entry(lineManager).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
+                    return View(lineManager);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Can't add Line Manager. Fill in the required Fields. " + ex.Message;
             }
             return View(lineManager);
         }

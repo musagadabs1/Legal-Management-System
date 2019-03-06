@@ -8,183 +8,197 @@
         height: 80px;
         width: 80px;
     }
-</style>
+    .index-item a {
+        font-size: large;
+    }
 
-<div class="jumbotron">
+</style>
+@*class="jumbotron"*@
+<div style="margin-bottom:50px;">
     <h1>LMS</h1>
     <p class="lead">
         Law Management System is a software that enables the law firms manage
         their clients, cases, events reminder and many more.
     </p>
-    <p><a href="https://shrishsystems.com" class="btn btn-primary btn-lg">Shrish Systems &raquo;</a></p>
+    @*<p><a href="https://shrishsystems.com" class="btn btn-primary btn-lg">Shrish Systems &raquo;</a></p>*@
 </div>
 
 <div class="row">
     <div class="col-md-6">
         <div class="col-md-4">
-            <div class="col-sm-8 no-padding-left">
-                <a href="@Url.Action("Create","Companies")" @*data-toggle="modal"*@><span>1. Add your first <p class="bolder">Company</p></span></a>
+            @*class="col-sm-8 no-padding-left" <p class="bolder">Company</p> *@
+            <div class="index-item">
+                <a href="@Url.Action("Index","Companies")" @*data-toggle="modal"*@><span>1. Add your first Company </span></a>
             </div>
-            <div class="col-sm-4">
-                <a href="@Url.Action("Create","Companies")" @*data-toggle="modal"*@><img class='section-img' src="~/Content/Images/company-business.png" onclick="companyAddForm()" /></a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="col-sm-8 no-padding-left">
-                <a href="@Url.Action("Create","Clients")" @*data-toggle="modal"*@><span onclick="contactAddForm()">2. Add your first <p class="bolder">Contact</p></span></a>
-            </div>
-            <div class="col-sm-4">
-                <a href="@Url.Action("Create","Clients")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/smile-circle-clip-art-contacts.png" onclick="contactAddForm()" /></a>
+            <div>
+                @*class="col-sm-4"*@
+                <a href="@Url.Action("Index","Companies")" @*data-toggle="modal"*@><img class='section-img' src="~/Content/Images/company-business.png" onclick="companyAddForm()" /></a>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="col-sm-8 no-padding-left">
-                <a href="@Url.Action("Create","Matters")" @*data-toggle="modal"*@><span onclick="legalMatterAddForm()">3. Add your first <p class="bolder">Matter</p></span></a>
+            @*class="col-sm-8 no-padding-left"*@
+            <div class="index-item">
+                <a href="@Url.Action("Index","Clients")" @*data-toggle="modal"*@><span onclick="contactAddForm()">2. Add your first <p class="bolder">Contact</p></span></a>
             </div>
-            <div class="col-sm-4">
-                <a href="@Url.Action("Create","Matters")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/custodian-secure-email-manager.png" onclick="legalMatterAddForm()" /></a>
+            @*class="col-sm-4"*@
+            <div>
+                <a href="@Url.Action("Index","Clients")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/smile-circle-clip-art-contacts.png" onclick="contactAddForm()" /></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            @*class="col-sm-8 " style="margin-left:5px;"*@
+            <div class="index-item">
+                <a href="@Url.Action("Index","Matters")" @*data-toggle="modal"*@><span onclick="legalMatterAddForm()">3. Add your first <p class="bolder">Matter</p></span></a>
+            </div>
+            @*class="col-sm-3"*@
+            <div>
+                <a href="@Url.Action("Index","Matters")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/custodian-secure-email-manager.png" onclick="legalMatterAddForm()" /></a>
             </div>
         </div>
 
     </div>
     <div class="col-md-6">
         <div class="col-md-4">
-            <div class="col-sm-8 no-padding-left">
-                <a href="@Url.Action("Create","LMSTasks")" @*data-toggle="modal"*@><span onclick="taskAddForm()">4. Add your first <p class="bolder">Task</p></span></a>
+            <div class="index-item">
+                @*class="col-sm-8"*@
+                <a href="@Url.Action("Index","LMSTasks")" @*data-toggle="modal"*@><span onclick="taskAddForm()">4. Add your first <p class="bolder">Task</p></span></a>
             </div>
-            <div class="col-sm-4">
-                <a href="@Url.Action("Create","LMSTasks")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/Task.png" onclick="taskAddForm()" /></a>
+            <div>
+                @*class="col-sm-4"*@
+                <a href="@Url.Action("Index","LMSTasks")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/Task.png" onclick="taskAddForm()" /></a>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="col-sm-8 no-padding-left">
-                <a href="@Url.Action("Create","Calendars")" @*data-toggle="modal"*@><span onclick="meetingForm()">5. Add your first <p class="bolder">Calendar Meeting</p></span></a>
+            <div class="index-item">
+                @*class="col-sm-8 "*@
+                <a href="@Url.Action("Index","Calendars")" @*data-toggle="modal"*@><span onclick="meetingForm()">5. Add your first <p class="bolder">Calendar Meeting</p></span></a>
             </div>
-            <div class="col-sm-4">
-                <a href="@Url.Action("Create","Calendars")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/calendar-icon-13.png" onclick="meetingForm()" /></a>
+            <div class="index-item">
+                @*class="col-sm-4"*@
+                <a href="@Url.Action("Index","Calendars")" @*data-toggle="modal"*@> <img class='section-img' src="~/Content/Images/calendar-icon-13.png" onclick="meetingForm()" /></a>
             </div>
         </div>
     </div>
 </div>
 
 @*<!-- The Company Modal -->
-<div class="modal fade" id="myCompany">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal fade" id="myCompany">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Company</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Company</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Company Content
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" id="btnSaveCompany" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                Company Content
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="submit" id="btnSaveCompany" class="btn btn-primary">Add</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- The Contact Modal -->
 @*<div class="modal fade" id="myContact">
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Contact</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Contact</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Modal body..
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                Modal body..
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- The Matter Modal -->
 @*<div class="modal fade" id="myMatter">
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Matter</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Matter</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Modal body..
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                Modal body..
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- The Task Modal -->
 @*<div class="modal fade" id="myTask">
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Task</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Task</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Modal body..
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                Modal body..
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- The Calendar Modal -->
 @*<div class="modal fade" id="myCalendar">
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Add Calendar Meeting</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Calendar Meeting</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Modal body..
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                Modal body..
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
-    </div>
-</div>*@
+    </div>*@

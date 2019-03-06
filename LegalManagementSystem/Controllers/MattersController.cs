@@ -20,11 +20,103 @@ namespace LegalManagementSystem.Controllers
         public async Task<ActionResult> Index()
         {
             var user = User.Identity.Name;
+            var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+            var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
                 return View(await db.Matters.ToListAsync());
             }
-            return View(await db.Matters.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            return View(await db.Matters.Where(x => x.CreatedBy.Equals(user) || IsSelectedForTheCase(staffId)).ToListAsync());
+
+
+        }
+        public JsonResult GetMatterForEvents()
+        {
+            try
+            {
+                //var adminFileEvents
+                db.Configuration.ProxyCreationEnabled = false;
+                var user = User.Identity.Name;
+                var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+                var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+
+                //var staffIdInStaffMatters = db.StaffMatters.Where(x => x.MatterNumber.Equals(LegalGuideUtility.MatterId)).Distinct();
+
+                if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+                {
+                    var eventForAdmin = db.Matters.ToList();
+                    List<EventForView> events = new List<EventForView>();
+                    foreach (var item in eventForAdmin)
+                    {
+                        events.Add(new EventForView
+                        {
+                            Title = item.Subject,
+                            Start = (DateTime)item.FiledOn,
+                            //End = (DateTime)item.DueDate,
+                            Description = item.Description
+
+                        });
+                    }
+                    return Json(events, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    List<EventForView> events = new List<EventForView>();
+                    var eventsForUser = db.Matters.Where(x => x.CreatedBy.Equals(user) || IsSelectedForTheCase(staffId)).ToList();
+                    foreach (var item in eventsForUser)
+                    {
+                        events.Add(new EventForView
+                        {
+                            Title = item.Subject,
+                            Start = (DateTime)item.FiledOn,
+                            //End = (DateTime)item.DueDate,
+                            Description = item.Description
+
+                        });
+                    }
+                    return Json(events, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private bool IsSelectedForTheCase(string staffId)
+        {
+            try
+            {
+                //var user = User.Identity.Name;
+                //var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+                //var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+
+                var staffIdInStaffMatters = db.StaffMatters.Where(x => x.MatterNumber.Equals(LegalGuideUtility.MatterId)).Distinct().FirstOrDefault().StaffId;
+                if (staffId == staffIdInStaffMatters)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private int GetCurrentId()
+        {
+            try
+            {
+                return (db.Matters.Max(x => x.Id));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // GET: Matters/Details/5
@@ -98,14 +190,19 @@ namespace LegalManagementSystem.Controllers
         // GET: Matters/Create
         public ActionResult Create()
         {
-            //ViewBag.Client = new SelectList( db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-            //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
-            //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
             ViewBag.Priority = new List<SelectListItem>{
                 new SelectListItem { Value="Critical",Text="Critical"},
                 new SelectListItem { Value="High",Text="High"},
                 new SelectListItem { Value="Medium",Text="Medium"},
                 new SelectListItem { Value="Low",Text="Low"}
+            };
+            ViewBag.Stage = new List<SelectListItem>{
+                new SelectListItem { Value="Discovery",Text="Discovery"},
+                new SelectListItem { Value="Trial",Text="Trial"},
+                new SelectListItem { Value="Apeal",Text="Apeal"},
+                new SelectListItem { Value="Motions",Text="Motions"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Pleading",Text="Pleading"}
             };
             ViewBag.PracticeArea = new List<SelectListItem>{
                 new SelectListItem { Value="None",Text="None"},
@@ -132,20 +229,26 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,StaffId,Assignee,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] Matter matter)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,LineManagerId,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,CaseNumber")] Matter matter)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    int nextId = GetCurrentId() + 1;
+
+                    string matterId = "CASE-" + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
 
                     var user = User.Identity.Name;
                     matter.CreatedBy = user;
                     matter.CreatedOn = DateTime.Today;
-
+                    matter.CaseNumber = matterId; //"01_05-03-2019";
+                    LegalGuideUtility.MatterId = matter.MatterNumber;
+                    //matter.ass
 
                     db.Matters.Add(matter);
                     await db.SaveChangesAsync();
+                    
                     return RedirectToAction("Index","Home");
                 }
                 catch (Exception)
@@ -157,9 +260,6 @@ namespace LegalManagementSystem.Controllers
             else
             {
                 ViewBag.Error = "Fill in the required fields to continue";
-                ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-                ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
-                ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
                 ViewBag.Priority = new List<SelectListItem>{
                 new SelectListItem { Value="Critical",Text="Critical"},
                 new SelectListItem { Value="High",Text="High"},
@@ -183,11 +283,24 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
+                ViewBag.Stage = new List<SelectListItem>{
+                new SelectListItem { Value="Discovery",Text="Discovery"},
+                new SelectListItem { Value="Trial",Text="Trial"},
+                new SelectListItem { Value="Apeal",Text="Apeal"},
+                new SelectListItem { Value="Motions",Text="Motions"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Pleading",Text="Pleading"}
+            };
                 return View(matter);
             }
-            ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-            ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
-            ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
+            ViewBag.Stage = new List<SelectListItem>{
+                new SelectListItem { Value="Discovery",Text="Discovery"},
+                new SelectListItem { Value="Trial",Text="Trial"},
+                new SelectListItem { Value="Apeal",Text="Apeal"},
+                new SelectListItem { Value="Motions",Text="Motions"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Pleading",Text="Pleading"}
+            };
             ViewBag.Priority = new List<SelectListItem>{
                 new SelectListItem { Value="Critical",Text="Critical"},
                 new SelectListItem { Value="High",Text="High"},
@@ -221,9 +334,6 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-            //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
-            //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
             ViewBag.Priority = new List<SelectListItem>{
                 new SelectListItem { Value="Critical",Text="Critical"},
                 new SelectListItem { Value="High",Text="High"},
@@ -247,6 +357,14 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
+            ViewBag.Stage = new List<SelectListItem>{
+                new SelectListItem { Value="Discovery",Text="Discovery"},
+                new SelectListItem { Value="Trial",Text="Trial"},
+                new SelectListItem { Value="Apeal",Text="Apeal"},
+                new SelectListItem { Value="Motions",Text="Motions"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Pleading",Text="Pleading"}
+            };
             Matter matter = await db.Matters.FindAsync(id);
             if (matter == null)
             {
@@ -260,7 +378,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,StaffId,Assignee,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] Matter matter)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,LineManagerId,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,CaseNumber")] Matter matter)
         {
             if (ModelState.IsValid)
             {
@@ -284,9 +402,6 @@ namespace LegalManagementSystem.Controllers
             else
             {
                 ViewBag.Error = "Fill in the required fields to continue";
-                //ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-                //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
-                //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
                 ViewBag.Priority = new List<SelectListItem>{
                 new SelectListItem { Value="Critical",Text="Critical"},
                 new SelectListItem { Value="High",Text="High"},
@@ -310,11 +425,16 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
+                ViewBag.Stage = new List<SelectListItem>{
+                new SelectListItem { Value="Discovery",Text="Discovery"},
+                new SelectListItem { Value="Trial",Text="Trial"},
+                new SelectListItem { Value="Apeal",Text="Apeal"},
+                new SelectListItem { Value="Motions",Text="Motions"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Pleading",Text="Pleading"}
+            };
                 return View(matter);
             }
-            //ViewBag.Client = new SelectList(db.GetAllClientForDropDown().ToList(), "ClientId", "ClientName");
-            //ViewBag.Staff = new SelectList(db.GetAllStaffForDropDown().ToList(), "StaffId", "StaffName");
-            //ViewBag.LineManager = new SelectList(db.sp_GetLineManagers().ToList(), "LineManagerId", "ManagerName");
             ViewBag.Priority = new List<SelectListItem>{
                 new SelectListItem { Value="Critical",Text="Critical"},
                 new SelectListItem { Value="High",Text="High"},
@@ -338,12 +458,30 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
+            ViewBag.Stage = new List<SelectListItem>{
+                new SelectListItem { Value="Discovery",Text="Discovery"},
+                new SelectListItem { Value="Trial",Text="Trial"},
+                new SelectListItem { Value="Apeal",Text="Apeal"},
+                new SelectListItem { Value="Motions",Text="Motions"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Pleading",Text="Pleading"}
+            };
             return View(matter);
         }
         [HttpPost]
-        public JsonResult AddAssignee()
+        public JsonResult AddAssignee(string data,string matterNumber)
         {
-            return Json("", JsonRequestBehavior.AllowGet);
+            //List<string> assigneeList = new List<string>();
+           string[] assigneeStaffList = data.Split(',');
+            StaffMatter staffMatter = new StaffMatter();
+            foreach (var staffId in assigneeStaffList)
+            {
+                staffMatter.MatterNumber = matterNumber;
+                staffMatter.StaffId = staffId;
+                db.StaffMatters.Add(staffMatter);
+                db.SaveChanges();
+            }
+            return Json(0, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Matters/Delete/5

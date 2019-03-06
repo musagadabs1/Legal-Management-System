@@ -23,6 +23,9 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string FullName { get; set; }
+        public string EmailAddress { get; set; }
+        public Nullable<int> AdvocateGroupId { get; set; }
     
         public virtual UserRole UserRole { get; set; }
     }

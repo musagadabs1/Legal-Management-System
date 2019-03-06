@@ -11,61 +11,37 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Matter
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Matter()
+        {
+            this.Documents = new HashSet<Document>();
+        }
+    
         public int Id { get; set; }
-        [Required]
-        [Display(Name ="Subject *")]
         public string Subject { get; set; }
-        [Display(Name ="Description *")]
-        [Required]
         public string Description { get; set; }
-        [Display(Name ="Practice Area")]
         public string AreaOfPractice { get; set; }
-        [Required]
-        [Display(Name ="Client Name *")]
-        public int ClientId { get; set; }
-        [Required]
-        [Display(Name ="Advocate on the Matter")]
-        public string StaffId { get; set; }
-        public string Assignee { get; set; }
-        [Required]
-        [Display(Name ="Arrival Date")]
-        [DataType(DataType.Date)]
-        public DateTime ArrivalDate { get; set; }
-        [Required]
-        [Display(Name = "Filed On *")]
-        [DataType(DataType.Date)]
-        public DateTime FiledOn { get; set; }
-        //[Required]
-        [Display(Name = "Due Date *")]
-        [DataType(DataType.Date)]
-        public DateTime DueDate { get; set; }
-        [Required]
-        [Display(Name ="Matter Number")]
+        public Nullable<int> ClientId { get; set; }
+        public Nullable<System.DateTime> ArrivalDate { get; set; }
+        public Nullable<System.DateTime> FiledOn { get; set; }
+        public Nullable<System.DateTime> DueDate { get; set; }
         public string MatterNumber { get; set; }
         public string Priority { get; set; }
-        //[Required]
-        [Display(Name = "Matter Stage")]
-        //[DataType(DataType.Date)]
         public string MatterStage { get; set; }
-        //[Required]
-        [Display(Name = "Requested By")]
-        //[DataType(DataType.Date)]
         public string RequestedBy { get; set; }
-        //[Required]
-        [Display(Name = "Matter Value")]
-        //[DataType(DataType.Date)]
         public string MatterValue { get; set; }
-        //[Required]
-        [Display(Name = "Estimated Effort")]
-        //[DataType(DataType.Date)]
         public string EstimatedEffort { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public string CaseNumber { get; set; }
+        public Nullable<int> LineManagerId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

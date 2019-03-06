@@ -86,7 +86,7 @@ namespace LegalManagementSystem.Controllers
 
                 db.Educations.Add(education);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Create", "Educations");
+                return RedirectToAction("Create", "Certifications");
             }
             ViewBag.Qualification = new List<SelectListItem>
             {

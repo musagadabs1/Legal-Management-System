@@ -11,19 +11,12 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Document
     {
         public int DocumentId { get; set; }
-        [Required]
-        [Display(Name ="Matter Number *")]
-        public string FileNumber { get; set; }
-        [Display(Name ="Document Name")]
-        [Required]
+        public string MatterNumber { get; set; }
         public string DocName { get; set; }
-        [Display(Name ="Assigned Date")]
-        [DataType(DataType.Date)]
         public System.DateTime AssignedDate { get; set; }
         public string Tags { get; set; }
         public string Description { get; set; }
@@ -33,6 +26,6 @@ namespace LegalManagementSystem.Models
         public System.DateTime DateModified { get; set; }
         public string DocPath { get; set; }
     
-        public virtual File File { get; set; }
+        public virtual Matter Matter { get; set; }
     }
 }

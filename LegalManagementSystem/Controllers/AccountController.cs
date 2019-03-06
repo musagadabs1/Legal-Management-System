@@ -13,7 +13,7 @@ using System.Web.Security;
 
 namespace LegalManagementSystem.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         MyCaseNewEntities _context = new MyCaseNewEntities();
@@ -83,10 +83,11 @@ namespace LegalManagementSystem.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult Register()
         {
             ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
+            ViewBag.AdvocateGroups=new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
             return View();
         }
         private bool IsRegisteredUser(string username,string password)
@@ -109,7 +110,7 @@ namespace LegalManagementSystem.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Register(LoginUser model)
         {
@@ -122,6 +123,7 @@ namespace LegalManagementSystem.Controllers
                     {
                         ViewBag.ErrorMsg = "Username already exist.";
                         ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
+                        ViewBag.AdvocateGroups = new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
                         return View(model);
                     }
 
@@ -138,6 +140,7 @@ namespace LegalManagementSystem.Controllers
 
                     ViewBag.ErrorMsg = "Something happened. please check and try again. " + ex.Message;
                     ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
+                    ViewBag.AdvocateGroups = new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
                     return View(model);
                     //return View();
                 }
@@ -151,6 +154,7 @@ namespace LegalManagementSystem.Controllers
 
             }
             ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
+            ViewBag.AdvocateGroups = new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

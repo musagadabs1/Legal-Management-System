@@ -1,0 +1,94 @@
+﻿@model LegalManagementSystem.Models.CourtActivity
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Court Activity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MatterNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatterNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateHeared)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateHeared)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourtName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourtName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvocateArgument)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvocateArgument)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpponentArgument)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpponentArgument)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvocateNote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvocateNote)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> @*|
+            @Html.ActionLink("Back to List", "Index")*@
+        </div>
+    }
+</div>

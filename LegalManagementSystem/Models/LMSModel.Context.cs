@@ -27,10 +27,10 @@ namespace LegalManagementSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AdvocateGroup> AdvocateGroups { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<CalendarStaff> CalendarStaffs { get; set; }
         public virtual DbSet<Certification> Certifications { get; set; }
-        public virtual DbSet<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Dependant> Dependants { get; set; }
@@ -38,14 +38,20 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
         public virtual DbSet<FileEvent> FileEvents { get; set; }
-        public virtual DbSet<File> Files { get; set; }
-        public virtual DbSet<Library> Libraries { get; set; }
         public virtual DbSet<LineManager> LineManagers { get; set; }
         public virtual DbSet<LMSTask> LMSTasks { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
         public virtual DbSet<Matter> Matters { get; set; }
+        public virtual DbSet<StaffGroup> StaffGroups { get; set; }
+        public virtual DbSet<StaffMatter> StaffMatters { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<CourtActivity> CourtActivities { get; set; }
+    
+        public virtual ObjectResult<GetAllAdvocateGroups_Result> GetAllAdvocateGroups()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllAdvocateGroups_Result>("GetAllAdvocateGroups");
+        }
     
         public virtual ObjectResult<GetAllCalendarForDropdown_Result> GetAllCalendarForDropdown()
         {

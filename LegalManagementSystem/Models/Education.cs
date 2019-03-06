@@ -11,36 +11,24 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Education
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name ="School Name *")]
         public string School { get; set; }
-        [Required]
-        [Display(Name = "Start Date *")]
-        [DataType(DataType.Date)]
         public System.DateTime DateStart { get; set; }
-        [Required]
-        [Display(Name = "End Date *")]
-        [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
         public string Major { get; set; }
-        [Required]
-        [Display(Name = "Date Awarded *")]
-        [DataType(DataType.Date)]
-        public DateTime DateAwarded { get; set; }
-        public bool Graduated { get; set; }
+        public Nullable<System.DateTime> DateAwarded { get; set; }
+        public Nullable<bool> Graduated { get; set; }
         public string Qualification { get; set; }
         public string Description { get; set; }
         public string Grade { get; set; }
         public string StaffId { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

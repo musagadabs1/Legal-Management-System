@@ -29,7 +29,6 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     
-        public virtual File File { get; set; }
         public virtual Staff Staff { get; set; }
     }
 }

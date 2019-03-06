@@ -18,10 +18,6 @@
     <section class="h-100">
         <div class="container h-100">
             <div class="row justify-content-md-center h-100">
-                @if (ViewBag.ErrorMsg != null)
-                {
-                    <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
-                }
                     <div class="card-wrapper">
                         
                         <div class="card fat">
@@ -44,6 +40,10 @@
                                     <div class="form-group no-margin">
                                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                                     </div>
+                                    if (ViewBag.ErrorMsg != null)
+                                    {
+                                        <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
+                                    }
                                     <br />
                                     <p style="text-align:center">
                                         Don't have an Account ?

@@ -11,8 +11,7 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Staff
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,90 +22,42 @@ namespace LegalManagementSystem.Models
             this.Educations = new HashSet<Education>();
             this.Experiences = new HashSet<Experience>();
             this.FileEvents = new HashSet<FileEvent>();
-            this.Files = new HashSet<File>();
-            this.Libraries = new HashSet<Library>();
         }
     
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "First Name")]
-        //[DataType(DataType.Date)]
         public string FirstName { get; set; }
-        //[Required]
-        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
-        //[Required]
-        //[Display(Name = "First Name")]
         public string Gender { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
-        [Required]
-        [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        [Required]
-        [Display(Name = "Date of Birth")]
-        [DataType(DataType.Date)]
         public System.DateTime DOB { get; set; }
-        [Required]
-        [Display(Name = "Date of Employment")]
-        [DataType(DataType.Date)]
         public System.DateTime DOE { get; set; }
-        public bool Status { get; set; }
-        [DataType(DataType.MultilineText)]
+        public Nullable<bool> Status { get; set; }
         public string Address { get; set; }
-        //[Required]
-        [Display(Name = "Marital Status")]
-        //[DataType(DataType.Date)]
         public string MaritalStatus { get; set; }
         public string ImagePath { get; set; }
-        //[Required]
-        [Display(Name = "Office Number")]
-        //[DataType(DataType.Date)]
         public string OfficeNo { get; set; }
-        [Required]
-        [Display(Name = "Mobile Number")]
-        //[DataType(DataType.Date)]
         public string MobileNo { get; set; }
-        [Required]
-        [Display(Name = "Email Address")]
-        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [Display(Name = "Personal Email Address")]
-        [DataType(DataType.EmailAddress)]
         public string PersonalEmail { get; set; }
         public string Relationship { get; set; }
-        [Display(Name = "Next of kin Phone Number")]
-        //[DataType(DataType.EmailAddress)]
         public string KTelephone { get; set; }
-        [Display(Name = "Next of Kin Email Address")]
-        [DataType(DataType.EmailAddress)]
         public string NKEmail { get; set; }
-        [Display(Name = "Next of Kin Address")]
-        //[DataType(DataType.EmailAddress)]
         public string NKAddress { get; set; }
         public string Bank { get; set; }
-        [Display(Name = "Account Number")]
-        //[DataType(DataType.EmailAddress)]
-        public int AccountNumber { get; set; }
-        [Display(Name = "Next of Kin Full Name")]
-        //[DataType(DataType.EmailAddress)]
+        public Nullable<int> AccountNumber { get; set; }
         public string NKFullName { get; set; }
-        [Display(Name = "Password *")]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Display(Name ="Advocate Id")]
-        [Required]
         public string StaffId { get; set; }
-        [Display(Name ="Line Manager *")]
         public int LineManagerId { get; set; }
         public string Department { get; set; }
         public string Designation { get; set; }
-        [Display(Name ="Year Call to Bar *")]
-        [Required]
-        public int YearCallToBar { get; set; }
+        public Nullable<int> YearCallToBar { get; set; }
         public string Location { get; set; }
+        public Nullable<int> AdvocateGroupId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Certification> Certifications { get; set; }
@@ -118,10 +69,6 @@ namespace LegalManagementSystem.Models
         public virtual ICollection<Experience> Experiences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileEvent> FileEvents { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Library> Libraries { get; set; }
         public virtual LineManager LineManager { get; set; }
     }
 }

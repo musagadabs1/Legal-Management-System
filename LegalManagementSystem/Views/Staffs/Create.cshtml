@@ -1,27 +1,28 @@
 ﻿@model LegalManagementSystem.Models.Staff
 @using LegalManagementSystem.Helpers
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Staff Info";
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
+<link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
 <h2>Profile</h2>
-
 @if (User.Identity.IsAuthenticated)
 {
     if (User.IsInRole("Admin"))
     {
+        //"Create", "Staffs", FormMethod.Post, FormMethod.Post, new { @enctype = "multipart/form-data" }
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="row form-horizontal">
+            <div class="row form-horizontal" style="padding-right:17px;">
                 <div class="col-md-6">
                     @if (ViewBag.Error != null)
                     {
                         <span style="color:red;">@ViewBag.Error.ToString()</span>
                     }
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary" style="height:380px;">
                         <div class="panel-heading">PERSONAL DATA</div>
                         <div class="panel-body">
                             <div class="form-group">
@@ -63,8 +64,6 @@
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <br />
                     <div class="panel panel-primary">
                         <div class="panel-heading">ADDRESS & CONTACT INFORMATION</div>
                         <div class="panel-body">
@@ -131,7 +130,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     @Html.LabelFor(model => model.LineManagerId, "Line Manager", htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownList("LineManagerId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control",id = "lineMger" })
                                     @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -155,7 +154,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     @Html.LabelForRequired(model => model.Location, "Location", htmlAttributes: new { @class = "control-label" })
-                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @placeholder = "Abuja" } })
+                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @placeholder = "Call to Bar location" } })
                                     @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -173,7 +172,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary" style="height:380px;">
                         <div class="panel-heading">EMERGENCY CONTACT</div>
                         <div class="panel-body">
                             <div class="form-group">
@@ -217,17 +216,17 @@
                 </div>
             </div>
         }
-
     }
     else
     {
+        //"Create", "Staffs", FormMethod.Post, FormMethod.Post, new { @enctype = "multipart/form-data" }
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="row form-horizontal">
+            <div class="row form-horizontal" style="padding-right:17px;">
                 <div class="col-md-6">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary" style="height:380px;">
                         <div class="panel-heading">PERSONAL DATA</div>
                         <div class="panel-body">
                             <div class="form-group">
@@ -269,10 +268,6 @@
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                     <div class="panel panel-primary">
                         <div class="panel-heading">ADDRESS & CONTACT INFORMATION</div>
                         <div class="panel-body">
@@ -339,7 +334,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     @Html.LabelFor(model => model.LineManagerId, "Line Manager", htmlAttributes: new { @class = "control-label" })
-                                    @Html.DropDownList("LineManagerId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                    @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", disabled = "disabled", id = "lineMger" })
                                     @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -363,7 +358,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     @Html.LabelForRequired(model => model.Location, "Location", htmlAttributes: new { @class = "control-label" })
-                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @placeholder = "Abuja" } })
+                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @placeholder = "Call to Bar location" } })
                                     @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -381,11 +376,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary" style="height:380px;">
                         <div class="panel-heading">EMERGENCY CONTACT</div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <div class="col-md-6">
+                                <div class="col-md- 6">
                                     @Html.LabelFor(model => model.NKFullName, htmlAttributes: new { @class = "control-label " })
                                     @Html.EditorFor(model => model.NKFullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Full Name" } })
                                     @Html.ValidationMessageFor(model => model.NKFullName, "", new { @class = "text-danger" })
@@ -427,3 +422,57 @@
         }
     }
 }
+<script src="~/Scripts/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        //select2DropDown('ClientId', '@Url.Action("GetClientForDropDown", "Matters")', "Select Client");
+        select2DropDown('advocateGroup', '@Url.Action("GetAdvocateGroupForDropDown", "Staffs")', "Select Advocate Group");
+        select2DropDown('lineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");
+
+    });
+
+
+    function select2DropDown(elementId,url,placeholder) {
+        $('#' + elementId).select2({
+            placeholder: placeholder,
+            //minimumInputLength:3,
+            allowclear: true,
+            theme: "classic",
+            ajax: {
+                url: url,
+                datatype: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchKey: params.term
+                    };
+                },
+                processResults: function (data,params) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+    }
+</script>
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Status)
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>*@
+
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
+        </div>
+    </div>*@

@@ -12,20 +12,21 @@ namespace LegalManagementSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Library
+    public partial class CourtActivity
     {
         public int Id { get; set; }
-        public string ISBN { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public Nullable<System.DateTime> UploadDate { get; set; }
-        public string FilePath { get; set; }
-        public string AdvocateId { get; set; }
+        public string MatterNumber { get; set; }
+        public Nullable<System.DateTime> DateHeared { get; set; }
+        public string CourtName { get; set; }
+        public string Location { get; set; }
+        public string StaffId { get; set; }
+        public string Status { get; set; }
+        public string AdvocateArgument { get; set; }
+        public string OpponentArgument { get; set; }
+        public string AdvocateNote { get; set; }
         public string CreatedBy { get; set; }
-        public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
-        public virtual Staff Staff { get; set; }
     }
 }

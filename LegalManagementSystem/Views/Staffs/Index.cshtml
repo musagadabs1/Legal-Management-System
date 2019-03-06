@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -94,6 +93,9 @@
             @Html.DisplayNameFor(model => model.Password)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.LineManagerId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Department)
         </th>
         <th>
@@ -106,7 +108,7 @@
             @Html.DisplayNameFor(model => model.Location)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LineManager1.Name)
+            @Html.DisplayNameFor(model => model.AdvocateGroupId)
         </th>
         <th></th>
     </tr>
@@ -195,6 +197,9 @@
             @Html.DisplayFor(modelItem => item.Password)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.LineManagerId)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Department)
         </td>
         <td>
@@ -207,7 +212,7 @@
             @Html.DisplayFor(modelItem => item.Location)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LineManager1.Name)
+            @Html.DisplayFor(modelItem => item.AdvocateGroupId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.StaffId }) |

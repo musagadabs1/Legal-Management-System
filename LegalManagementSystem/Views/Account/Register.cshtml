@@ -24,17 +24,12 @@
                         <img src="~/Content/Images/legal-scale-icon-5.jpg" />">
                     </div>
 
-                    @if (ViewBag.ErrorMsg != null)
-                    {
-                        <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
-                    }
-                    
-                        <div class="card fat">
-                            <div class="card-body">
+                    <div class="card fat">
+                        <div class="card-body">
 
-                                @using (Html.BeginForm())
-                                {
-                                    @Html.AntiForgeryToken()
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
                                 <div style="width:740px; margin:0 auto;">
                                     <div class="form-horizontal">
                                         <h4 style="color:slategrey;margin-left:70px;">Register new User</h4>
@@ -43,26 +38,43 @@
                                         <div class="form-group">
                                             <div class="col-md-5">
                                                 @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
-                                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-                   danger" })
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <div class="col-md-5">
+                                                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email Address" } })
+                                                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-5">
+                                                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "User Full Name" } })
+                                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-                   danger" })
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div class="col-md-5">
                                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password" } })
-                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-                   danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-md-5">
-                                                @Html.DropDownListFor(model => model.RoleId, (SelectList)ViewBag.RoleNames,"------ Select User Role------", new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.RoleId, (SelectList)ViewBag.RoleNames, "------ Select User Role------", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-                     danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-5">
+                                                @Html.DropDownListFor(model => model.AdvocateGroupId, (SelectList)ViewBag.AdvocateGroups, "------ Select Advocate Group------", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.AdvocateGroupId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-                label col-md-2" })
                                             <div class="col-md-6">
                                                 <div class="checkbox">
                                                     @Html.EditorFor(model => model.IsActive)
@@ -76,18 +88,23 @@
                                                 <input style="margin-left:0" type="submit" value="Register" id="register" class="btn btn-primary btn-group-lg" />
                                             </div>
                                         </div>
-                                    </div>
-                                    </div>
 
-                                    }
+                                    </div>
                                 </div>
+
+                            }
+                            @if (ViewBag.ErrorMsg != null)
+                            {
+                                <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
+                            }
                         </div>
+                        
+                    </div>
                         <div class="footer">
                             <strong>Copyright &copy; @DateTime.Now.Year <a href="https://www.shrishsystems.com">Shrish Systems Private Limited</a>.</strong> All rights reserved.
                         </div>
                 </div>
             </div>
-            
         </div>
         
     </section>
@@ -96,6 +113,7 @@
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Content/js/my-login.js"></script>
     <script src="~/Scripts/alertify.min.js"></script>
+    
     <script type="text/javascript">
         $('#register').click(function () {
             if ($("#Username").val() == "") {

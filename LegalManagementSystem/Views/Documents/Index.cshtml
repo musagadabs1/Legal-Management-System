@@ -2,10 +2,9 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Document Lists</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -25,10 +24,22 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.DocPath)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.File.FileName)
+            @Html.DisplayNameFor(model => model.Matter.Subject)
         </th>
         <th></th>
     </tr>
@@ -48,15 +59,27 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateModified)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.DocPath)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.File.FileName)
+            @Html.DisplayFor(modelItem => item.Matter.Subject)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DocumentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DocumentId }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })*@
+            @Html.ActionLink("Details", "Details", new { id=item.DocumentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })
         </td>
     </tr>
 }

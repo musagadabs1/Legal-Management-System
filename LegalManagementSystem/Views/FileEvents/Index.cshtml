@@ -23,7 +23,7 @@
         var events = [];
         $.ajax({
             type: 'GET',
-            url: '@Url.Action("GetEvents", "FileEvents")',
+            url: '@Url.Action("GetMatterForEvents", "Matters")',
             success: function (data) {
                 $.each(data, function (i, v) {
                     events.push({
