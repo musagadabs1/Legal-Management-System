@@ -46,6 +46,12 @@ namespace LegalManagementSystem.Controllers
         // GET: CourtActivities/Create
         public ActionResult Create()
         {
+            ViewBag.Status = new List<SelectListItem>{
+                new SelectListItem { Value="Adjoined",Text="Adjoined"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Dismissed",Text="Dismissed"}
+            };
+            //,,
             return View();
         }
 
@@ -62,11 +68,20 @@ namespace LegalManagementSystem.Controllers
                 courtActivity.CreatedBy = user;
                 courtActivity.CreatedOn = DateTime.Today;
 
+                var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+                var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+
+                courtActivity.StaffId = staffId;
+
                 db.CourtActivities.Add(courtActivity);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.Status = new List<SelectListItem>{
+                new SelectListItem { Value="Adjoined",Text="Adjoined"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Dismissed",Text="Dismissed"}
+            };
             return View(courtActivity);
         }
 
@@ -78,6 +93,11 @@ namespace LegalManagementSystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CourtActivity courtActivity = await db.CourtActivities.FindAsync(id);
+            ViewBag.Status = new List<SelectListItem>{
+                new SelectListItem { Value="Adjoined",Text="Adjoined"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Dismissed",Text="Dismissed"}
+            };
             if (courtActivity == null)
             {
                 return HttpNotFound();
@@ -98,10 +118,20 @@ namespace LegalManagementSystem.Controllers
                 courtActivity.ModifiedBy = user;
                 courtActivity.ModifiedOn = DateTime.Today;
 
+                var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+                var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+
+                courtActivity.StaffId = staffId;
+
                 db.Entry(courtActivity).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.Status = new List<SelectListItem>{
+                new SelectListItem { Value="Adjoined",Text="Adjoined"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Dismissed",Text="Dismissed"}
+            };
             return View(courtActivity);
         }
 

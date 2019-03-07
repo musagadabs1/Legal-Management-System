@@ -11,7 +11,8 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class LineManager
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +22,14 @@ namespace LegalManagementSystem.Models
         }
     
         public int LineManagerId { get; set; }
+        [Display(Name = "Line Manager Name")]
+        [Required]
         public string Name { get; set; }
+        [Display(Name = "Department")]
+        [Required]
         public string Department { get; set; }
+        [Display(Name = "Designation")]
+        [Required]
         public string Designation { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

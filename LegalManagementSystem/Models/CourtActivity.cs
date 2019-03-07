@@ -11,18 +11,35 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CourtActivity
     {
         public int Id { get; set; }
+        [Required]
+        [Display(Name = "Case Number ")]
         public string MatterNumber { get; set; }
+        [Required]
+        [Display(Name = "Date Heard ")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> DateHeared { get; set; }
+        [Required]
+        [Display(Name = "Court Name ")]
         public string CourtName { get; set; }
         public string Location { get; set; }
+        [Required]
+        [Display(Name = "Advocate on the Case")]
         public string StaffId { get; set; }
         public string Status { get; set; }
+        [Display(Name = "Advocate Argument ")]
+        [DataType(DataType.MultilineText)]
+        [Required]
         public string AdvocateArgument { get; set; }
+        [Display(Name = "Opponent's Argument")]
+        [DataType(DataType.MultilineText)]
         public string OpponentArgument { get; set; }
+        [Display(Name = "Advocate Note")]
+        [DataType(DataType.MultilineText)]
         public string AdvocateNote { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

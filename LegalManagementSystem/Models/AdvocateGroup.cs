@@ -11,11 +11,17 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class AdvocateGroup
     {
         public int Id { get; set; }
+        [Required]
+        [Display(Name ="Group Name")]
         public string GroupName { get; set; }
+        //[Required]
+        [Display(Name = "Group Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

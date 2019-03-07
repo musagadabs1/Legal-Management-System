@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.MatterNumber)
@@ -23,9 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Location)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.StaffId)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
@@ -55,9 +55,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Location)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.StaffId)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>

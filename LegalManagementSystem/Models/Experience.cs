@@ -11,13 +11,20 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Experience
     {
         public int Id { get; set; }
+        [Display(Name = "Employer Name")]
+        [Required]
         public string Employer { get; set; }
         public string Designation { get; set; }
+        [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
+        [Display(Name = "End Date")]
+        [DataType(DataType.Date)]
         public System.DateTime EndDate { get; set; }
         public string Description { get; set; }
         public Nullable<double> Salary { get; set; }

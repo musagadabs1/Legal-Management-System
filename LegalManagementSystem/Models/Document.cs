@@ -11,14 +11,23 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Document
     {
         public int DocumentId { get; set; }
+        [Display(Name = "Matter Number")]
+        [Required]
         public string MatterNumber { get; set; }
+        [Display(Name = "Document Name")]
+        [Required]
         public string DocName { get; set; }
+        [Display(Name = "Assigned Date")]
+        [DataType(DataType.Date)]
         public System.DateTime AssignedDate { get; set; }
         public string Tags { get; set; }
+        [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime DateCreated { get; set; }
