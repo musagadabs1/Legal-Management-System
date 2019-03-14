@@ -16,29 +16,27 @@ namespace LegalManagementSystem.Models
     public partial class Dependant
     {
         public int Id { get; set; }
+        [Required]
         [Display(Name = "First Name")]
-        [Required]
         public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
         [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        //[Required]
         [Display(Name = "Policy Number")]
         public Nullable<int> PolicyNumber { get; set; }
+        [DataType(DataType.Date)]
         [Display(Name = "Effective Date")]
-        [DataType(DataType.Date)]
         public System.DateTime EffectiveDate { get; set; }
-        [Display(Name = "End Date")]
         [DataType(DataType.Date)]
+        [Display(Name = "End Date")]
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Gender { get; set; }
         public string Relationship { get; set; }
-        [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
-        [Display(Name = "Description")]
-        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-        [Display(Name = "Address")]
         [DataType(DataType.MultilineText)]
         public string Address { get; set; }
         public string StaffId { get; set; }
@@ -46,7 +44,7 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
+
         public virtual Staff Staff { get; set; }
     }
 }

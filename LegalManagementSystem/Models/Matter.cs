@@ -7,60 +7,64 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LegalManagementSystem.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Matter
+    namespace LegalManagementSystem.Models
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Matter()
+        using System;
+        using System.Collections.Generic;
+        using System.ComponentModel.DataAnnotations;
+
+        public partial class Matter
         {
-            this.Documents = new HashSet<Document>();
+
+            public int Id { get; set; }
+            [Required]
+            [Display(Name = "Case Name")]
+            public string Subject { get; set; }
+            //[Required]
+            [Display(Name = "Case Description")]
+            public string Description { get; set; }
+            //[Required]
+            [Display(Name = "Practice Area")]
+            public string AreaOfPractice { get; set; }
+            [Required]
+            [Display(Name = "Client")]
+            public Nullable<int> ClientId { get; set; }
+            [DataType(DataType.Date)]
+            [Display(Name = "Date Arrive")]
+            public Nullable<System.DateTime> ArrivalDate { get; set; }
+            [DataType(DataType.Date)]
+            [Display(Name = "Filed On")]
+            public Nullable<System.DateTime> FiledOn { get; set; }
+            [DataType(DataType.Date)]
+            [Display(Name = "Due Date")]
+            public Nullable<System.DateTime> DueDate { get; set; }
+            [Required]
+            [Display(Name = "Case Number")]
+            public string MatterNumber { get; set; }
+            public string Priority { get; set; }
+            //[Required]
+            [Display(Name = "Case Stage")]
+            public string MatterStage { get; set; }
+            //[Required]
+            [Display(Name = "Requested By")]
+            public string RequestedBy { get; set; }
+            //[Required]
+            [Display(Name = "Case Value")]
+            public string MatterValue { get; set; }
+            [Required]
+            [Display(Name = "Case Estimnated Effort")]
+            public string EstimatedEffort { get; set; }
+            public string CreatedBy { get; set; }
+            public Nullable<System.DateTime> CreatedOn { get; set; }
+            public string ModifiedBy { get; set; }
+            public Nullable<System.DateTime> ModifiedOn { get; set; }
+            public string CaseNumber { get; set; }
+            [Required]
+            [Display(Name = "Line Manager")]
+            public Nullable<int> LineManagerId { get; set; }
         }
-    
-        public int Id { get; set; }
-        [Display(Name = "Case Title")]
-        [Required]
-        public string Subject { get; set; }
-        public string Description { get; set; }
-        [Display(Name = "Area of Practice")]
-        public string AreaOfPractice { get; set; }
-        [Display(Name = "Client Name")]
-        [Required]
-        public Nullable<int> ClientId { get; set; }
-        [Display(Name = "Arrival Date")]
-        [DataType(DataType.Date)]
-        public Nullable<System.DateTime> ArrivalDate { get; set; }
-        [Display(Name = "Filed On")]
-        [DataType(DataType.Date)]
-        public Nullable<System.DateTime> FiledOn { get; set; }
-        [Display(Name = "Due Date")]
-        [DataType(DataType.Date)]
-        public Nullable<System.DateTime> DueDate { get; set; }
-        [Display(Name = "Case Number")]
-        [Required]
-        public string MatterNumber { get; set; }
-        public string Priority { get; set; }
-        [Display(Name = "Case Stage")]
-        public string MatterStage { get; set; }
-        [Display(Name = "Requested By")]
-        public string RequestedBy { get; set; }
-        [Display(Name = "Case Value")]
-        public string MatterValue { get; set; }
-        [Display(Name = "Estimated Effort")]
-        public string EstimatedEffort { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public string ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public string CaseNumber { get; set; }
-        [Display(Name = "Line Manager")]
-        public Nullable<int> LineManagerId { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Document> Documents { get; set; }
     }
-}
+
+    
+    
+

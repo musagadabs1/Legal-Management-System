@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Subject)
         </dt>
 
@@ -43,22 +51,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StaffId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StaffId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Assignee)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Assignee)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.ArrivalDate)
         </dt>
 
@@ -80,14 +72,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.DueDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MatterNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MatterNumber)
         </dd>
 
         <dt>
@@ -162,9 +146,25 @@
             @Html.DisplayFor(model => model.ModifiedOn)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineManagerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineManagerId)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MatterNumber }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

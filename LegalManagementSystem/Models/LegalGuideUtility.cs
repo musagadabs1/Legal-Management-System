@@ -15,6 +15,8 @@ namespace LegalManagementSystem.Models
         public const string ATTORNEY = "Attorney";
         public const string LAWYER = "Lawyer";
         public const string User = "User";
+        public static string UserFullName {get;set;}
+        public static string ErrorMessage { get; set; }
         public static string StaffId { get; set; }
         public static string MatterId { get; set; }
         public static string Status { get; set; }
@@ -70,6 +72,24 @@ namespace LegalManagementSystem.Models
                     email = loginUser.EmailAddress;
                 }
                 return email;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public static string GetUserFullNameByLoginName(string username)
+        {
+            try
+            {
+                string fullName = string.Empty;
+                var loginUser = db.LoginUsers.Where(x => x.Username.Equals(username)).FirstOrDefault();
+                if (loginUser != null)
+                {
+                    fullName = loginUser.FullName;
+                }
+                return fullName;
             }
             catch (Exception ex)
             {

@@ -33,6 +33,7 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<Certification> Certifications { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<CourtActivity> CourtActivities { get; set; }
         public virtual DbSet<Dependant> Dependants { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
@@ -46,7 +47,6 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<StaffMatter> StaffMatters { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
-        public virtual DbSet<CourtActivity> CourtActivities { get; set; }
     
         public virtual ObjectResult<GetAllAdvocateGroups_Result> GetAllAdvocateGroups()
         {
@@ -91,6 +91,69 @@ namespace LegalManagementSystem.Models
         public virtual ObjectResult<sp_GetLineManagers_Result> sp_GetLineManagers()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetLineManagers_Result>("sp_GetLineManagers");
+        }
+    
+        public virtual ObjectResult<GetAllClientByClientNumber_Result> GetAllClientByClientNumber(string clientNumber)
+        {
+            var clientNumberParameter = clientNumber != null ?
+                new ObjectParameter("clientNumber", clientNumber) :
+                new ObjectParameter("clientNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClientByClientNumber_Result>("GetAllClientByClientNumber", clientNumberParameter);
+        }
+    
+        public virtual ObjectResult<GetClientByFirstNameOrLastName_Result> GetClientByFirstNameOrLastName(string firstName, string lastName)
+        {
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetClientByFirstNameOrLastName_Result>("GetClientByFirstNameOrLastName", firstNameParameter, lastNameParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCourtActivities_Result> GetAllCourtActivities()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCourtActivities_Result>("GetAllCourtActivities");
+        }
+    
+        public virtual ObjectResult<GetAllCourtActivitiesByCaseNumber_Result> GetAllCourtActivitiesByCaseNumber(string caseNumber)
+        {
+            var caseNumberParameter = caseNumber != null ?
+                new ObjectParameter("caseNumber", caseNumber) :
+                new ObjectParameter("caseNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCourtActivitiesByCaseNumber_Result>("GetAllCourtActivitiesByCaseNumber", caseNumberParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCourtActivitiesByCourtName_Result> GetAllCourtActivitiesByCourtName(string courtName)
+        {
+            var courtNameParameter = courtName != null ?
+                new ObjectParameter("courtName", courtName) :
+                new ObjectParameter("courtName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCourtActivitiesByCourtName_Result>("GetAllCourtActivitiesByCourtName", courtNameParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCourtActivitiesByHearingDate_Result> GetAllCourtActivitiesByHearingDate(Nullable<System.DateTime> hearingDate)
+        {
+            var hearingDateParameter = hearingDate.HasValue ?
+                new ObjectParameter("hearingDate", hearingDate) :
+                new ObjectParameter("hearingDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCourtActivitiesByHearingDate_Result>("GetAllCourtActivitiesByHearingDate", hearingDateParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCourtActivitiesByStatus_Result> GetAllCourtActivitiesByStatus(string status)
+        {
+            var statusParameter = status != null ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCourtActivitiesByStatus_Result>("GetAllCourtActivitiesByStatus", statusParameter);
         }
     }
 }

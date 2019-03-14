@@ -16,23 +16,21 @@ namespace LegalManagementSystem.Models
     public partial class Education
     {
         public int Id { get; set; }
-        [Display(Name = "School Name")]
         [Required]
+        [Display(Name = "School Name")]
         public string School { get; set; }
-        [Display(Name = "Date Start")]
         [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
         public System.DateTime DateStart { get; set; }
-        [Display(Name = "Date Graduated")]
         [DataType(DataType.Date)]
+        [Display(Name = "Date Finished")]
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Major { get; set; }
-        [Display(Name = "Date Awarded")]
         [DataType(DataType.Date)]
+        [Display(Name = "Date Awarded")]
         public Nullable<System.DateTime> DateAwarded { get; set; }
         public Nullable<bool> Graduated { get; set; }
         public string Qualification { get; set; }
-        [Display(Name = "Description")]
-        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string Grade { get; set; }
         public string StaffId { get; set; }
@@ -40,7 +38,7 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
+
         public virtual Staff Staff { get; set; }
     }
 }

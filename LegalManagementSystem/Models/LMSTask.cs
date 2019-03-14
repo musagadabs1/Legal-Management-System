@@ -16,12 +16,16 @@ namespace LegalManagementSystem.Models
     public partial class LMSTask
     {
         public int Id { get; set; }
+        [Required]
         [Display(Name = "Task Type")]
         public string TaskType { get; set; }
+        //[Required]
+        [Display(Name = "Task Description")]
         public string Description { get; set; }
-        [Display(Name = "Matter Number")]
+        [Required]
+        [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
-        [Display(Name = "Notify Me On")]
+        [Display(Name = "Notify me in ")]
         public int NotifyDays { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
@@ -29,11 +33,11 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string Priority { get; set; }
         public string Reporter { get; set; }
-        [Display(Name = "Advocate Group")]
         [Required]
+        [Display(Name = "Advocate")]
         public Nullable<int> AdvocateGroupId { get; set; }
-        [Display(Name = "Due Date")]
         [DataType(DataType.Date)]
+        [Display(Name = "Due Date")]
         public Nullable<System.DateTime> DueDate { get; set; }
     }
 }

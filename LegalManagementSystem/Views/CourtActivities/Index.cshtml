@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-bordered table-responsive">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.MatterNumber)
@@ -23,9 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Location)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.StaffId)
-        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
@@ -36,7 +33,13 @@
             @Html.DisplayNameFor(model => model.OpponentArgument)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.DefenseCounselName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.AdvocateNote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateAdjourned)
         </th>
         <th></th>
     </tr>
@@ -55,9 +58,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.Location)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.StaffId)
-        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>
@@ -68,11 +68,17 @@
             @Html.DisplayFor(modelItem => item.OpponentArgument)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.DefenseCounselName)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.AdvocateNote)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) @*|
+            @Html.DisplayFor(modelItem => item.DateAdjourned)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) @*|
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </td>
     </tr>

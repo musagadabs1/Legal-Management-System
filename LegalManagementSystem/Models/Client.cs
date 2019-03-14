@@ -17,25 +17,26 @@ namespace LegalManagementSystem.Models
     {
         public int ClientId { get; set; }
         [Required]
-        [Display(Name = "First Name ")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        [Display(Name = "Middle Name ")]
+        //[Required]
+        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
         [Required]
-        [Display(Name = "Last Name ")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Required]
-        [Display(Name = "Email Address")]
+        [Display(Name = "Emai Address")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [Required]
-        [Display(Name = "Phone Number ")]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        //[Required]
-        [Display(Name = "Client Address")]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Client Address")]
         public string Address { get; set; }
         public string Town { get; set; }
+        //[Required]
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
         public string Website { get; set; }
@@ -43,5 +44,6 @@ namespace LegalManagementSystem.Models
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
+        public string ClientNumber { get; set; }
     }
 }

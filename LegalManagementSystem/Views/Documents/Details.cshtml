@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.MatterNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatterNumber)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.DocName)
         </dt>
 
@@ -80,14 +88,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.DocPath)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Matter.Subject)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Matter.Subject)
         </dd>
 
     </dl>

@@ -16,17 +16,16 @@ namespace LegalManagementSystem.Models
     public partial class Document
     {
         public int DocumentId { get; set; }
-        [Display(Name = "Matter Number")]
         [Required]
+        [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
-        [Display(Name = "Document Name")]
         [Required]
+        [Display(Name = "Document Name")]
         public string DocName { get; set; }
-        [Display(Name = "Assigned Date")]
         [DataType(DataType.Date)]
+        [Display(Name = "Assigned Date")]
         public System.DateTime AssignedDate { get; set; }
         public string Tags { get; set; }
-        [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string CreatedBy { get; set; }
@@ -34,7 +33,5 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public System.DateTime DateModified { get; set; }
         public string DocPath { get; set; }
-    
-        public virtual Matter Matter { get; set; }
     }
 }

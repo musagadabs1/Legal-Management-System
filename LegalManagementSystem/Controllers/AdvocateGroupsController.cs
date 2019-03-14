@@ -11,6 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin, Attorney, Advocate")]
     public class AdvocateGroupsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();

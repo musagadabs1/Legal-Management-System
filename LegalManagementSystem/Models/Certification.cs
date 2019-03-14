@@ -17,16 +17,17 @@ namespace LegalManagementSystem.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "Certification Name ")]
+        [Display(Name = "Certification Name")]
         public string Name { get; set; }
-        [Required]
-        [Display(Name = "Description ")]
+        //[Required]
+        [Display(Name = "Certification Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-        [Required]
-        [Display(Name = "Certification Type ")]
+        //[Required]
+        [Display(Name = "Certification Type")]
         public string CertificationType { get; set; }
-        [Required]
-        [Display(Name = "Date Achieved ")]
+        //[Required]
+        [Display(Name = "Date Achieved")]
         [DataType(DataType.Date)]
         public Nullable<System.DateTime> DateAchieved { get; set; }
         public string Skilled { get; set; }
@@ -35,7 +36,7 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModeifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
+
         public virtual Staff Staff { get; set; }
     }
 }

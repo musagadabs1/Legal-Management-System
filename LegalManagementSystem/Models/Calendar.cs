@@ -17,29 +17,23 @@ namespace LegalManagementSystem.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "Calendar Title")]
         public string Title { get; set; }
-        [Required]
-        [Display(Name = "From ")]
+        [Display(Name = "From")]
         [DataType(DataType.Date)]
         public System.DateTime From { get; set; }
-        //[Required]
-        [Display(Name = "To ")]
+        [Display(Name = "To")]
         [DataType(DataType.Date)]
         public Nullable<System.DateTime> To { get; set; }
-        [Required]
-        [Display(Name = "Case Number ")]
+        [Display(Name = "Case Number")]
         //[DataType(DataType.Date)]
         public string MatterNumber { get; set; }
-        [Required]
-        [Display(Name = "Advocate ")]
-        public string StaffId { get; set; }
-        //[Required]
-        [Display(Name = "Location ")]
+        [Display(Name = "Advocate")]
         //[DataType(DataType.Date)]
+        public string StaffId { get; set; }
         public string Locations { get; set; }
         public string Priority { get; set; }
-        [Display(Name = "Meeting Type ")]
+        [Display(Name = "Meeting Type")]
+        //[DataType(DataType.Date)]
         public string MeetingType { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

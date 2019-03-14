@@ -1,11 +1,9 @@
 ﻿@model LegalManagementSystem.Models.CourtActivity
 @using LegalManagementSystem.Helpers
 @{
-                /**/
-
-                ViewBag.Title = "Create";
+    ViewBag.Title = "Create";
 }
-
+<link href="~/Content/css/select2.min.css" rel="stylesheet" />
 <h2>Enter Court Activity</h2>
 
 @using (Html.BeginForm())
@@ -17,72 +15,107 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <div class="col-md-6">
-                @Html.LabelForRequired(model => model.MatterNumber,"Case Number", htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.MatterNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-6">
-                @Html.LabelForRequired(model => model.DateHeared,"Date Heard", htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.DateHeared, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateHeared, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6">
-                @Html.LabelForRequired(model => model.CourtName,"Court Name", htmlAttributes: new { @class = "control-label " })
+                @Html.LabelForRequired(model => model.CourtName, "Court Name", htmlAttributes: new { @class = "control-label " })
                 @Html.EditorFor(model => model.CourtName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CourtName, "", new { @class = "text-danger" })
             </div>
+            <div class="col-md-6">
+                <div>
+                    @Html.LabelForRequired(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label" })
+                </div>
+                @Html.DropDownListFor(model => model.MatterNumber, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control matter-Number", @id = "matterNumber" })
+                @Html.ValidationMessageFor(model => model.DateHeared, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-md-6">
                 @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label " })
                 @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        @*<div class="form-group">
-                <div>
-                    @Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label " })
-                    @Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        <div class="form-group">
             <div class="col-md-6">
                 @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label " })
                 @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.Status, "Value", "Text"), "---Select Case Status---", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
             </div>
+        </div>
+        <div class="form-group">
             <div class="col-md-6">
-                @Html.LabelForRequired(model => model.AdvocateArgument,"Advocate Argument", htmlAttributes: new { @class = "control-label " })
+                @Html.LabelForRequired(model => model.DateHeared, "Hearing Date", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.DateHeared, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateHeared, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelForRequired(model => model.DateAdjourned,"Adjourned Date", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.DateAdjourned, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateAdjourned, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.LabelForRequired(model => model.AdvocateArgument, "Plantiff Argument", htmlAttributes: new { @class = "control-label " })
                 @Html.EditorFor(model => model.AdvocateArgument, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AdvocateArgument, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-6">
-                @Html.LabelFor(model => model.OpponentArgument, htmlAttributes: new { @class = "control-label " })
+                @Html.LabelForRequired(model => model.OpponentArgument,"Defendant Argument", htmlAttributes: new { @class = "control-label " })
                 @Html.EditorFor(model => model.OpponentArgument, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.OpponentArgument, "", new { @class = "text-danger" })
             </div>
+            
+        </div>
+        <div class="form-group" style="margin-bottom:10px;">
             <div class="col-md-6">
                 @Html.LabelFor(model => model.AdvocateNote, htmlAttributes: new { @class = "control-label " })
                 @Html.EditorFor(model => model.AdvocateNote, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AdvocateNote, "", new { @class = "text-danger" })
             </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.DefenseCounselName, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.DefenseCounselName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DefenseCounselName, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add" class="btn btn-primary" />
+                <input type="submit" value="Add" class="btn btn-primary btn-block" />
             </div>
         </div>
     </div>
 }
 
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
+    <script src="~/Scripts/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "CourtActivities")', "Select Case");
+
+        });
+
+
+        function select2DropDown(elementId,url,placeholder) {
+            $('#' + elementId).select2({
+                placeholder: placeholder,
+                //minimumInputLength:3,
+                allowclear: true,
+                theme: "classic",
+                ajax: {
+                    url: url,
+                    datatype: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchKey: params.term
+                        };
+                    },
+                    processResults: function (data,params) {
+                        return {
+                            results: data
+                        };
+                }
+            }
+        });
+    }
+    </script>

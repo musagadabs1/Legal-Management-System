@@ -16,16 +16,19 @@ namespace LegalManagementSystem.Models
     public partial class Experience
     {
         public int Id { get; set; }
-        [Display(Name = "Employer Name")]
         [Required]
+        [Display(Name = "Employer Name")]
         public string Employer { get; set; }
+        [Required]
+        //[Display(Name = "Employer Name")]
         public string Designation { get; set; }
+        [DataType(DataType.Date)]
         [Display(Name = "Start Date")]
-        [DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
-        [Display(Name = "End Date")]
         [DataType(DataType.Date)]
+        [Display(Name = "End Date")]
         public System.DateTime EndDate { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public Nullable<double> Salary { get; set; }
         public string StaffId { get; set; }
@@ -33,7 +36,7 @@ namespace LegalManagementSystem.Models
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
+
         public virtual Staff Staff { get; set; }
     }
 }

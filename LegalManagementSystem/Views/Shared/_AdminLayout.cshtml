@@ -2,25 +2,63 @@
 @using LegalManagementSystem.Models
 
 
-        @{
-            ViewData["Title"] = "AdminActionsPartial";
-        }
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole("Admin") || User.IsInRole("Advocate"))
-            {
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Clients", "Index", "Clients")</li>
-                        <li>@Html.ActionLink("Cases", "Index", "Matters")</li>
-                        <li>@Html.ActionLink("Documents", "Index", "Documents")</li>
-                        <li>@Html.ActionLink("Line Manager", "Index", "LineManagers")</li>
-                        <li>@Html.ActionLink("Register New User", "Register", "Account")</li>
-                        <li>@Html.ActionLink("Profile", "Create", "Staffs")</li>
-                    </ul>
-                </li>
-                
-            }
-        }
+@{
+    ViewData["Title"] = "AdminActionsPartial";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Clients", "Index", "Clients")</li>
+                <li>@Html.ActionLink("Cases", "Index", "Matters")</li>
+                <li>@Html.ActionLink("Documents", "Index", "Documents")</li>
+                <li>@Html.ActionLink("Line Manager", "Index", "LineManagers")</li>
+                <li>@Html.ActionLink("Register New User", "Register", "Account")</li>
+                <li>@Html.ActionLink("Profile", "Create", "Staffs")</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Court Activities", "Index", "CourtActivities")</li>
+        <li>@Html.ActionLink("Events", "Index", "FileEvents")</li>
+
+    }
+    else if (User.IsInRole("ITAdmin"))
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">IT Admin<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Register New User", "Register", "Account")</li>
+            </ul>
+        </li>
+    }
+    else if (User.IsInRole("Advocate"))
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advocate<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Clients", "Index", "Clients")</li>
+                <li>@Html.ActionLink("Cases", "Index", "Matters")</li>
+                <li>@Html.ActionLink("Documents", "Index", "Documents")</li>
+                <li>@Html.ActionLink("Profile", "Create", "Staffs")</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Court Activities", "Index", "CourtActivities")</li>
+        <li>@Html.ActionLink("Events", "Index", "FileEvents")</li>
+    }
+    else
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Staff User<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Clients", "Index", "Clients")</li>
+                <li>@Html.ActionLink("Cases", "Index", "Matters")</li>
+                <li>@Html.ActionLink("Documents", "Index", "Documents")</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Court Activities", "Index", "CourtActivities")</li>
+        <li>@Html.ActionLink("Events", "Index", "FileEvents")</li>
+    }
+}
 

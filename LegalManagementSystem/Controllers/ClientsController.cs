@@ -11,7 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
-    [Authorize(Roles ="Admin,Advocate,Lawyer,Attorney")]
+    [Authorize(Roles ="Admin,Advocate,Lawyer,Attorney,Staff")]
     public class ClientsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -53,7 +53,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ClientId,FirstName,MiddleName,LastName,EmailAddress,PhoneNumber,Address,Town,PostalCode,Website,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] Client client)
+        public async Task<ActionResult> Create([Bind(Include = "ClientId,FirstName,MiddleName,LastName,EmailAddress,PhoneNumber,Address,Town,PostalCode,Website,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,ClientNumber")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -61,9 +61,13 @@ namespace LegalManagementSystem.Controllers
                 {
                     if (!IsClientRegistered(client.FirstName, client.LastName, client.EmailAddress))
                     {
+                        int nextId = GetCurrentId() + 1;
+
+                        string clientId = "CLN-" + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
                         var user = User.Identity;
                         client.CreatedBy = user.Name;
                         client.CreatedOn = DateTime.Today;
+                        client.ClientNumber = clientId;
 
                         db.Clients.Add(client);
                         await db.SaveChangesAsync();
@@ -126,7 +130,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,EmailAddress,PhoneNumber,Address,Town,PostalCode,Website,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] Client client)
+        public async Task<ActionResult> Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,EmailAddress,PhoneNumber,Address,Town,PostalCode,Website,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,ClientNumber")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -154,6 +158,18 @@ namespace LegalManagementSystem.Controllers
                 return HttpNotFound();
             }
             return View(client);
+        }
+        private int GetCurrentId()
+        {
+            try
+            {
+                return (db.Clients.Max(x => x.ClientId));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // POST: Clients/Delete/5

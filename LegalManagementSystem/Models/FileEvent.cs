@@ -11,24 +11,37 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FileEvent
     {
         public int Id { get; set; }
+        [Required]
+        [Display(Name = "Case Number")]
         public string FileNumber { get; set; }
+        [Required]
+        [Display(Name = "Advocate")]
         public string StaffId { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
         public Nullable<System.DateTime> StartDate { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "End Date")]
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Location { get; set; }
+        [Required]
+        [Display(Name = "Event Name")]
         public string EventName { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Address { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string Completed { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
+
         public virtual Staff Staff { get; set; }
     }
 }

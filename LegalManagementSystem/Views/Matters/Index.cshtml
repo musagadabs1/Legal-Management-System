@@ -3,15 +3,17 @@
 @{
     ViewBag.Title = "Index";
 }
-@*<link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />*@
-<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" /> 
-<h2>Matters</h2>
+
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-condensed table-bordered table-responsive" id="matterIndex">
+<table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Subject)
         </th>
@@ -22,17 +24,20 @@
             @Html.DisplayNameFor(model => model.AreaOfPractice)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.MatterNumber)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ArrivalDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FiledOn)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MatterNumber)
+            @Html.DisplayNameFor(model => model.DueDate)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Priority)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.MatterStage)
         </th>
@@ -43,6 +48,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Subject)
             </td>
             <td>
@@ -52,34 +60,47 @@
                 @Html.DisplayFor(modelItem => item.AreaOfPractice)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.MatterNumber, new { id = "matterNumber" })
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ArrivalDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FiledOn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MatterNumber)
+                @Html.DisplayFor(modelItem => item.DueDate)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Priority)
-            </td>*@
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MatterStage)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                @Html.ActionLink("Edit", "Edit", new { id = item.MatterNumber }) |
+                @*@Html.ActionLink("Details", "Details", new { id=item.MatterNumber }) |*@
                 @Html.ActionLink("Court Activity", "Create", "CourtActivities")
+                @*|
+                    @Html.ActionLink("Delete", "Delete", new { id=item.MatterNumber })*@
             </td>
         </tr>
     }
 
 </table>
-@*<script src="~/Content/DataTables/datatables.min.js"></script>*@
-<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#matterIndex').DataTable();
+        $('#btnMatterNumber').on("click",function () {
+        var matterNumber = $('#matterNumber').val();
+
+            $.ajax({
+                url: '@Url.Action("GetMatterNumber", "CourtActivities")?matterNumber=' + matterNumber,
+                datatype: 'json',
+                type: 'post',
+                contentType: 'application/json'
+
+            });
+        });
     });
 
 </script>

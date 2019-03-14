@@ -1,11 +1,11 @@
 ﻿@model LegalManagementSystem.Models.LoginUser
-
+@using LegalManagementSystem.Helpers
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" type="text/css" href="~/Content/bootstrap/css/bootstrap.min.css">
+@*<link rel="stylesheet" type="text/css" href="~/Content/bootstrap/css/bootstrap.min.css">*@
 @*<link href="~/Content/Site.css" rel="stylesheet" />*@
-<link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+@*<link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />*@
 <link rel="stylesheet" type="text/css" href="~/Content/css/my-login.css">
 
 <!DOCTYPE html>
@@ -20,9 +20,9 @@
         <div class="container h-100">
             <div class="row justify-content-md-center h-100">
                 <div class="card-wrapper">
-                    <div class="brand">
-                        <img src="~/Content/Images/legal-scale-icon-5.jpg" />">
-                    </div>
+                    @*<div class="brand">
+                            <img src="~/Content/Images/legal-scale-icon-5.jpg" height="60" width="60" />">
+                        </div>*@
 
                     <div class="card fat">
                         <div class="card-body">
@@ -73,9 +73,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-                label col-md-2" })
-                                            <div class="col-md-6">
+                                        <div class="form-group" style="margin-left:8px;">
+
+                                            <div>
+                                                @Html.LabelForRequired(model => model.IsActive,"Is Active ?", htmlAttributes: new { @class = "control-label " })
                                                 <div class="checkbox">
                                                     @Html.EditorFor(model => model.IsActive)
                                                     @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
@@ -98,22 +99,22 @@
                                 <span style="color:red;">@ViewBag.ErrorMsg.ToString()</span>
                             }
                         </div>
-                        
+
                     </div>
-                        <div class="footer">
+                    @*<div class="footer">
                             <strong>Copyright &copy; @DateTime.Now.Year <a href="https://www.shrishsystems.com">Shrish Systems Private Limited</a>.</strong> All rights reserved.
-                        </div>
+                        </div>*@
                 </div>
             </div>
         </div>
-        
+
     </section>
-    
+
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Content/js/my-login.js"></script>
     <script src="~/Scripts/alertify.min.js"></script>
-    
+
     <script type="text/javascript">
         $('#register').click(function () {
             if ($("#Username").val() == "") {
@@ -126,7 +127,7 @@
             }
             else {
                 alertify.success('Registration Successful.');
-            } 
+            }
         });
         //alertify.alert(@ViewBag.ErrorMsg);
     </script>

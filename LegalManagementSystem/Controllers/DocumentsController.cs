@@ -15,21 +15,22 @@ namespace LegalManagementSystem.Controllers
     [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class DocumentsController : Controller
     {
+
         private MyCaseNewEntities db = new MyCaseNewEntities();
 
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-
+            
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminDocuments = db.Documents.Include(d => d.Matter);
-                return View(await adminDocuments.ToListAsync());
+                return View(await db.Documents.ToListAsync());
             }
-            var documents = db.Documents.Include(d => d.Matter);
-            return View(await documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            return View(await db.Documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+
         }
+
         // GET: Documents/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -44,11 +45,37 @@ namespace LegalManagementSystem.Controllers
             }
             return View(document);
         }
+        public JsonResult GetMatterForDropDown(string searchKey)
+        {
+            //var user = User.Identity.Name;
+            //var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+            //var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+            var getData = db.GetAllMattersForDropDown().ToList();
+
+            //if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            //{
+            if (searchKey != null)
+            {
+                getData = db.GetAllMattersForDropDown().Where(x => x.Subject.Contains(searchKey)).ToList();
+            }
+            var ModifiedData = getData.Select(x => new
+            {
+                id = x.Id,
+                text = x.Subject
+            });
+
+            return Json(ModifiedData, JsonRequestBehavior.AllowGet);
+            //}
+            //return null;
+            //var data = null;
+
+
+        }
+
 
         // GET: Documents/Create
         public ActionResult Create()
         {
-            ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject");
             return View();
         }
 
@@ -88,7 +115,7 @@ namespace LegalManagementSystem.Controllers
                 {
                     ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
                     //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", document.FileNumber);
-                    ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject");
+                    //ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject");
                     return View(document);
 
                 }
@@ -99,7 +126,7 @@ namespace LegalManagementSystem.Controllers
                 ViewBag.Error = "Can't add Document. Something went wrong " + ex.Message;
             }
 
-            ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject", document.MatterNumber);
+
             return View(document);
         }
 
@@ -115,7 +142,6 @@ namespace LegalManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject", document.MatterNumber);
             return View(document);
         }
 
@@ -124,7 +150,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DocumentId,MatterNumber,DocName,AssignedDate,Tags,Description,CreatedBy,DateCreated,ModifiedBy,DateModified,DocPath")] Document document, HttpPostedFileBase fileBase)
+        public async Task<ActionResult> Edit([Bind(Include = "DocumentId,MatterNumber,DocName,AssignedDate,Tags,Description,CreatedBy,DateCreated,ModifiedBy,DateModified,DocPath")] Document document,HttpPostedFileBase fileBase)
         {
             try
             {
@@ -163,7 +189,7 @@ namespace LegalManagementSystem.Controllers
 
                 ViewBag.Error = "Can't add Document. Something went wrong " + ex.Message;
             }
-            ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject", document.MatterNumber);
+
             return View(document);
         }
 
@@ -187,21 +213,10 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                Document document = await db.Documents.FindAsync(id);
-                db.Documents.Remove(document);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-
-                ViewBag.Error = "Can't delete the Document. Check and try again. " + ex.Message;
-                ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject");
-                return View();
-
-            }
+            Document document = await db.Documents.FindAsync(id);
+            db.Documents.Remove(document);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

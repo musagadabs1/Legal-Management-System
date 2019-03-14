@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Court Activity Details</h2>
+<h2>CourtActivity Details</h2>
 
 <div>
     <hr />
@@ -42,14 +42,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StaffId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StaffId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
 
@@ -79,6 +71,22 @@
 
         <dd>
             @Html.DisplayFor(model => model.AdvocateNote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DefenseCounselName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DefenseCounselName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAdjourned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAdjourned)
         </dd>
 
     </dl>

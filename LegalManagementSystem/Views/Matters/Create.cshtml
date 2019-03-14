@@ -1,19 +1,20 @@
 ﻿@model LegalManagementSystem.Models.Matter
 @using LegalManagementSystem.Helpers
+@using LegalManagementSystem.Models
 @{
+    /**/
+
     ViewBag.Title = "Create";
 }
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
-<h2>Add new Matter</h2>
-
+<h2>Add new Case</h2>
 @if (User.Identity.IsAuthenticated)
 {
-    if (User.IsInRole("Admin"))
+    if (User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
     {
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
             <div class="form-horizontal" style="margin-left:20px;">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -30,11 +31,10 @@
                     <div class="col-md-6">
                         @Html.LabelForRequired(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label" })
 
-                        @Html.EditorFor(model => model.MatterNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "FGN/UAC/001" } })
+                        @Html.EditorFor(model => model.MatterNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "FGN-UAC-001" } })
                         @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.AreaOfPractice, htmlAttributes: new { @class = "control-label" })
@@ -44,16 +44,12 @@
                     <div class="col-md-6">
                         <div>
                             <label class="control-label">Select Assignee</label>
-                            @*@Html.LabelForRequired(model => model.LineManagerId, "Select Assignees", htmlAttributes: new { @class = "control-label " })*@
                         </div>
                         <div>
-                            @*@Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", @id = "Assignee", multiple = "true" })*@
                             <select class="form-control" id="Assignee" multiple></select>
-                            @*@Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         <div>
@@ -75,7 +71,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.ArrivalDate, htmlAttributes: new { @class = "control-label" })
@@ -88,7 +83,6 @@
                         @Html.ValidationMessageFor(model => model.FiledOn, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label " })
@@ -101,7 +95,6 @@
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label " })
@@ -114,7 +107,6 @@
                         @Html.ValidationMessageFor(model => model.MatterStage, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.RequestedBy, htmlAttributes: new { @class = "control-label " })
@@ -127,7 +119,6 @@
                         @Html.ValidationMessageFor(model => model.MatterValue, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.EstimatedEffort, htmlAttributes: new { @class = "control-label" })
@@ -138,21 +129,21 @@
                         <input type="hidden" id="txtBoxVal" />
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Add" class="btn btn-primary btn-block" id="btnAdd" />
                     </div>
                 </div>
+
             </div>
         }
+
     }
     else
     {
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
             <div class="form-horizontal" style="margin-left:20px;">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -160,6 +151,8 @@
                 {
                     <span style="color:red;">@ViewBag.Error.ToString()</span>
                 }
+
+
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelForRequired(model => model.Subject, "Subject", htmlAttributes: new { @class = "control-label " })
@@ -169,11 +162,10 @@
                     <div class="col-md-6">
                         @Html.LabelForRequired(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label" })
 
-                        @Html.EditorFor(model => model.MatterNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "FGN/UAC/001" } })
+                        @Html.EditorFor(model => model.MatterNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "FGN-UAC-001" } })
                         @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.AreaOfPractice, htmlAttributes: new { @class = "control-label" })
@@ -182,18 +174,13 @@
                     </div>
                     <div class="col-md-6">
                         <div>
-                           @*@Html.Label("")*@ 
                             <label class="control-label">Select Assignee</label>
-                            @*@Html.LabelForRequired(model => model.LineManagerId, "Select Assignees", htmlAttributes: new { @class = "control-label " })*@
                         </div>
                         <div>
-                            @*@Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", @id = "Assignee", multiple = "true" })*@
                             <select class="form-control" id="Assignee" multiple></select>
-                            @*@Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         <div>
@@ -210,12 +197,11 @@
                         </div>
                         <div>
 
-                            @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control staffId", @id = "LineMger", disabled = "disabled" })
+                            @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control staffId", @id = "LineMger",disabled = "disabled" })
                             @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.ArrivalDate, htmlAttributes: new { @class = "control-label" })
@@ -228,7 +214,6 @@
                         @Html.ValidationMessageFor(model => model.FiledOn, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label " })
@@ -241,7 +226,6 @@
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label " })
@@ -254,7 +238,6 @@
                         @Html.ValidationMessageFor(model => model.MatterStage, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.RequestedBy, htmlAttributes: new { @class = "control-label " })
@@ -267,7 +250,6 @@
                         @Html.ValidationMessageFor(model => model.MatterValue, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-6">
                         @Html.LabelFor(model => model.EstimatedEffort, htmlAttributes: new { @class = "control-label" })
@@ -278,17 +260,18 @@
                         <input type="hidden" id="txtBoxVal" />
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Add" class="btn btn-primary" id="btnAdd" />
+                        <input type="submit" value="Add" class="btn btn-primary btn-block" id="btnAdd" />
                     </div>
                 </div>
+
             </div>
         }
-    }
-}
 
+    }
+
+}
 
 <script src="~/Scripts/select2.min.js"></script>
 
@@ -342,7 +325,3 @@
     });
 </script>
 
-
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@

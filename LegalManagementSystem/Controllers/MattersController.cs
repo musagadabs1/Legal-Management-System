@@ -19,16 +19,38 @@ namespace LegalManagementSystem.Controllers
         // GET: Matters
         public async Task<ActionResult> Index()
         {
-            var user = User.Identity.Name;
-            var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
-            var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
-            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            try
             {
-                return View(await db.Matters.ToListAsync());
+                var user = User.Identity.Name;
+                var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+                var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+                if (string.IsNullOrEmpty( staffId))
+                {
+                    LegalGuideUtility.ErrorMessage = "Staff not Registered. Please Contact IT Department";
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+                {
+                    return View(await db.Matters.ToListAsync());
+                }
+                if (IsSelectedForTheCase(staffId))
+                {
+                    return View(await db.Matters.ToListAsync());
+                }
+
+                return View(await db.Matters.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
             }
-            return View(await db.Matters.Where(x => x.CreatedBy.Equals(user) || IsSelectedForTheCase(staffId)).ToListAsync());
+            catch (Exception)
+            {
 
-
+                LegalGuideUtility.ErrorMessage = "Error Occured. Please Contact IT Department";
+                return RedirectToAction("Error");
+            }
+            
+        }
+        public ActionResult Error()
+        {
+            return View();
         }
         public JsonResult GetMatterForEvents()
         {
@@ -83,7 +105,6 @@ namespace LegalManagementSystem.Controllers
                 throw ex;
             }
         }
-
         private bool IsSelectedForTheCase(string staffId)
         {
             try
@@ -119,20 +140,6 @@ namespace LegalManagementSystem.Controllers
             }
         }
 
-        // GET: Matters/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Matter matter = await db.Matters.FindAsync(id);
-            if (matter == null)
-            {
-                return HttpNotFound();
-            }
-            return View(matter);
-        }
         public JsonResult GetClientForDropDown(string searchKey)
         {
             //var getData = context.GetAllAdvocateGroups().ToList();
@@ -187,6 +194,22 @@ namespace LegalManagementSystem.Controllers
 
             return Json(ModifiedData, JsonRequestBehavior.AllowGet);
         }
+
+        // GET: Matters/Details/5
+        public async Task<ActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Matter matter = await db.Matters.FindAsync(id);
+            if (matter == null)
+            {
+                return HttpNotFound();
+            }
+            return View(matter);
+        }
+
         // GET: Matters/Create
         public ActionResult Create()
         {
@@ -221,6 +244,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
+
             return View();
         }
 
@@ -229,7 +253,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,LineManagerId,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,CaseNumber")] Matter matter)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,CaseNumber,LineManagerId")] Matter matter)
         {
             if (ModelState.IsValid)
             {
@@ -248,14 +272,15 @@ namespace LegalManagementSystem.Controllers
 
                     db.Matters.Add(matter);
                     await db.SaveChangesAsync();
-                    
-                    return RedirectToAction("Index","Home");
+
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (Exception)
                 {
 
                     ViewBag.Error = "Can't Add Matter, Error Occured. Please Contact IT Department.";
                 }
+
             }
             else
             {
@@ -324,11 +349,13 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
+
+
             return View(matter);
         }
 
         // GET: Matters/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -365,6 +392,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Closed",Text="Closed"},
                 new SelectListItem { Value="Pleading",Text="Pleading"}
             };
+
             Matter matter = await db.Matters.FindAsync(id);
             if (matter == null)
             {
@@ -378,7 +406,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,LineManagerId,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,CaseNumber")] Matter matter)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Subject,Description,AreaOfPractice,ClientId,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,CaseNumber,LineManagerId")] Matter matter)
         {
             if (ModelState.IsValid)
             {
@@ -397,7 +425,7 @@ namespace LegalManagementSystem.Controllers
                     ViewBag.Error = "Can't Add Matter, Error Occured. Please Contact IT Department.";
                     //throw ex;
                 }
-                
+
             }
             else
             {
@@ -466,13 +494,15 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Closed",Text="Closed"},
                 new SelectListItem { Value="Pleading",Text="Pleading"}
             };
+
             return View(matter);
         }
+
         [HttpPost]
-        public JsonResult AddAssignee(string data,string matterNumber)
+        public JsonResult AddAssignee(string data, string matterNumber)
         {
             //List<string> assigneeList = new List<string>();
-           string[] assigneeStaffList = data.Split(',');
+            string[] assigneeStaffList = data.Split(',');
             StaffMatter staffMatter = new StaffMatter();
             foreach (var staffId in assigneeStaffList)
             {
@@ -485,7 +515,7 @@ namespace LegalManagementSystem.Controllers
         }
 
         // GET: Matters/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -502,7 +532,7 @@ namespace LegalManagementSystem.Controllers
         // POST: Matters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
             Matter matter = await db.Matters.FindAsync(id);
             db.Matters.Remove(matter);

@@ -11,31 +11,20 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class LoginUser
     {
         public int Id { get; set; }
-        [Display(Name = "User Name")]
-        [Required]
         public string Username { get; set; }
         public string Password { get; set; }
-        [Display(Name = "User Role")]
-        [Required]
         public int RoleId { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        [Display(Name = "Is Active ?")]
         public Nullable<bool> IsActive { get; set; }
-        [Display(Name = "Full Name")]
-        [Required]
         public string FullName { get; set; }
-        [Display(Name = "Email Address")]
-        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [Display(Name = "Advocate Group")]
         public Nullable<int> AdvocateGroupId { get; set; }
     
         public virtual UserRole UserRole { get; set; }

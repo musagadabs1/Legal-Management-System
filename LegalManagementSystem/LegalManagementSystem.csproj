@@ -246,10 +246,28 @@
     <Compile Include="Models\GetAllCalendarForDropdown_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAllClientByClientNumber_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetAllClientForDropDown_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetAllCompaniesForDropDown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCourtActivitiesByCaseNumber_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCourtActivitiesByCourtName_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCourtActivitiesByHearingDate_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCourtActivitiesByStatus_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCourtActivities_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetAllMattersForDropDown_Result.cs">
@@ -259,6 +277,9 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetAllTasksForDropDown_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetClientByFirstNameOrLastName_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GEtListOfDocuments_Result.cs">
@@ -7501,6 +7522,8 @@
     <Content Include="admin-lte\bower_components\select2\src\scss\_dropdown.scss" />
     <Content Include="admin-lte\bower_components\select2\src\scss\_multiple.scss" />
     <Content Include="admin-lte\bower_components\select2\src\scss\_single.scss" />
+    <Content Include="Content\DataTables\Buttons-1.5.4\css\common.scss" />
+    <Content Include="Content\DataTables\Buttons-1.5.4\css\mixins.scss" />
     <EntityDeploy Include="Models\LMSModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LMSModel.Designer.cs</LastGenOutput>
@@ -7508,8 +7531,6 @@
     <Content Include="Models\LMSModel.edmx.diagram">
       <DependentUpon>LMSModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\DataTables\Buttons-1.5.4\css\common.scss" />
-    <Content Include="Content\DataTables\Buttons-1.5.4\css\mixins.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ExpandCollapse.js" />
     <Content Include="Scripts\fullcalendar.helper.js" />
@@ -7804,6 +7825,7 @@
     <Content Include="Views\CourtActivities\Details.cshtml" />
     <Content Include="Views\CourtActivities\Edit.cshtml" />
     <Content Include="Views\CourtActivities\Index.cshtml" />
+    <Content Include="Views\Matters\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />
