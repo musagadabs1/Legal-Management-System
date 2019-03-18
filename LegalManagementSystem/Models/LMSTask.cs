@@ -17,7 +17,7 @@ namespace LegalManagementSystem.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "Task Type")]
+        [Display(Name ="Task Type")]
         public string TaskType { get; set; }
         //[Required]
         [Display(Name = "Task Description")]
@@ -25,7 +25,8 @@ namespace LegalManagementSystem.Models
         [Required]
         [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
-        [Display(Name = "Notify me in ")]
+        //[Required]
+        [Display(Name = "Notify in me in")]
         public int NotifyDays { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
@@ -34,9 +35,9 @@ namespace LegalManagementSystem.Models
         public string Priority { get; set; }
         public string Reporter { get; set; }
         [Required]
-        [Display(Name = "Advocate")]
+        [Display(Name = "Task Type")]
         public Nullable<int> AdvocateGroupId { get; set; }
-        [DataType(DataType.Date)]
+        //[Required]
         [Display(Name = "Due Date")]
         public Nullable<System.DateTime> DueDate { get; set; }
     }

@@ -7,64 +7,50 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-    namespace LegalManagementSystem.Models
+namespace LegalManagementSystem.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Matter
     {
-        using System;
-        using System.Collections.Generic;
-        using System.ComponentModel.DataAnnotations;
-
-        public partial class Matter
-        {
-
-            public int Id { get; set; }
-            [Required]
-            [Display(Name = "Case Name")]
-            public string Subject { get; set; }
-            //[Required]
-            [Display(Name = "Case Description")]
-            public string Description { get; set; }
-            //[Required]
-            [Display(Name = "Practice Area")]
-            public string AreaOfPractice { get; set; }
-            [Required]
-            [Display(Name = "Client")]
-            public Nullable<int> ClientId { get; set; }
-            [DataType(DataType.Date)]
-            [Display(Name = "Date Arrive")]
-            public Nullable<System.DateTime> ArrivalDate { get; set; }
-            [DataType(DataType.Date)]
-            [Display(Name = "Filed On")]
-            public Nullable<System.DateTime> FiledOn { get; set; }
-            [DataType(DataType.Date)]
-            [Display(Name = "Due Date")]
-            public Nullable<System.DateTime> DueDate { get; set; }
-            [Required]
-            [Display(Name = "Case Number")]
-            public string MatterNumber { get; set; }
-            public string Priority { get; set; }
-            //[Required]
-            [Display(Name = "Case Stage")]
-            public string MatterStage { get; set; }
-            //[Required]
-            [Display(Name = "Requested By")]
-            public string RequestedBy { get; set; }
-            //[Required]
-            [Display(Name = "Case Value")]
-            public string MatterValue { get; set; }
-            [Required]
-            [Display(Name = "Case Estimnated Effort")]
-            public string EstimatedEffort { get; set; }
-            public string CreatedBy { get; set; }
-            public Nullable<System.DateTime> CreatedOn { get; set; }
-            public string ModifiedBy { get; set; }
-            public Nullable<System.DateTime> ModifiedOn { get; set; }
-            public string CaseNumber { get; set; }
-            [Required]
-            [Display(Name = "Line Manager")]
-            public Nullable<int> LineManagerId { get; set; }
-        }
+        public int Id { get; set; }
+        [Required]
+        [Display(Name ="Case Title")]
+        public string Subject { get; set; }
+        [Display(Name = "Case Description")]
+        public string Description { get; set; }
+        [Display(Name = "Case Area")]
+        public string AreaOfPractice { get; set; }
+        //[DataType(DataType.Date)]
+        [Display(Name = "Client")]
+        public Nullable<int> ClientId { get; set; }
+        public Nullable<int> LineManagerId { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Arrival Date")]
+        public Nullable<System.DateTime> ArrivalDate { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Filed On")]
+        public Nullable<System.DateTime> FiledOn { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Due Date")]
+        public Nullable<System.DateTime> DueDate { get; set; }
+        [Display(Name = "Case Number")]
+        public string MatterNumber { get; set; }
+        public string Priority { get; set; }
+        [Display(Name = "Case Stage")]
+        public string MatterStage { get; set; }
+        [Display(Name = "Requested By")]
+        public string RequestedBy { get; set; }
+        [Display(Name = "Case Value")]
+        public string MatterValue { get; set; }
+        [Display(Name = "Case estimated effort")]
+        public string EstimatedEffort { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public string CaseNumber { get; set; }
     }
-
-    
-    
-
+}

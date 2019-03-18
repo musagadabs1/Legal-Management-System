@@ -3,79 +3,100 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<h2>Client List</h2>
+<h2>List of Clients</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","Clients")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Town)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Website)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-responsive" id="clientTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Town)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website)
+            </th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MiddleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Town)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostalCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Website)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClientId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClientId }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })*@
-        </td>
-    </tr>
-}
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Town)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
+                        <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <a href="@Url.Action("Details","Clients",new { id = item.ClientId})">
+                        <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                    </a>
+                    @*| @Html.ActionLink("Delete", "Delete", new { id=item.ClientId })*@
+                </td>
+            </tr>
+        </tbody>
+
+    }
 
 </table>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#clientTable').DataTable();
+    });
+</script>

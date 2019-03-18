@@ -3,93 +3,116 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
+<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<h2>List of Cases</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","Matters")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AreaOfPractice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MatterNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArrivalDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FiledOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DueDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MatterStage)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-responsive" id="casetable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AreaOfPractice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatterNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FiledOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatterStage)
+            </th>
+            <th>
+                Actions
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AreaOfPractice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MatterNumber, new { id = "matterNumber" })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArrivalDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FiledOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MatterStage)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MatterNumber }) |
-                @*@Html.ActionLink("Details", "Details", new { id=item.MatterNumber }) |*@
-                @Html.ActionLink("Court Activity", "Create", "CourtActivities")
-                @*|
-                    @Html.ActionLink("Delete", "Delete", new { id=item.MatterNumber })*@
-            </td>
-        </tr>
+        <tfoot>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AreaOfPractice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatterNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FiledOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatterStage)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Matters",new {id = item.MatterNumber })" style="margin-right:10px;">
+                        <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    @*@Html.ActionLink("Details", "Details", new { id=item.MatterNumber }) |*@
+
+                    <a href="@Url.Action("Create","CourtActivities")">
+                        <span style="font-size:large" class="glyphicon glyphicon-briefcase"></span>
+                    </a>
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.MatterNumber })*@
+                </td>
+            </tr>
+        </tfoot>
+
     }
 
 </table>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
+        $('#casetable').DataTable({
+
+            language: {
+                "zeroRecords": " "
+            }
+        });
+
         $('#btnMatterNumber').on("click",function () {
         var matterNumber = $('#matterNumber').val();
 

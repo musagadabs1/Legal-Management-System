@@ -62,8 +62,9 @@ namespace LegalManagementSystem.Controllers
                     if (!IsClientRegistered(client.FirstName, client.LastName, client.EmailAddress))
                     {
                         int nextId = GetCurrentId() + 1;
-
-                        string clientId = "CLN-" + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
+                        string clienName = client.FirstName;
+                        string firstLetter = clienName.Substring(0, 1);
+                        string clientId = firstLetter + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
                         var user = User.Identity;
                         client.CreatedBy = user.Name;
                         client.CreatedOn = DateTime.Today;
@@ -134,9 +135,15 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                int nextId = GetCurrentId() + 1;
+                string clienName = client.FirstName;
+                string firstLetter = clienName.Substring(0, 1);
+                string clientId = firstLetter + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
+
                 var user = User.Identity;
                 client.ModifiedBy = user.Name;
                 client.ModifiedOn = DateTime.Today;
+                client.ClientNumber = clientId;
 
                 db.Entry(client).State = EntityState.Modified;
                 await db.SaveChangesAsync();

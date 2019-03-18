@@ -17,13 +17,12 @@ namespace LegalManagementSystem.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "First Name")]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        //[Required]
-        [Display(Name = "Policy Number")]
+        [Display(Name ="Policy Number")]
         public Nullable<int> PolicyNumber { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Effective Date")]
@@ -36,15 +35,18 @@ namespace LegalManagementSystem.Models
         [DataType(DataType.Date)]
         [Display(Name = "Date of Birth")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Address")]
         public string Address { get; set; }
         public string StaffId { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-
+    
         public virtual Staff Staff { get; set; }
     }
 }

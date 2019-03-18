@@ -62,6 +62,18 @@
                                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    @Html.LabelForRequired(model => model.NationalIdentityNumber, "Personal Identity Number", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.NationalIdentityNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Personal Identity Number" } })
+                                    @Html.ValidationMessageFor(model => model.NationalIdentityNumber, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.BloodGroup, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.BloodGroup, new SelectList(ViewBag.BloodGroup, "Value", "Text"), "---Select Blood Group---", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="panel panel-primary">

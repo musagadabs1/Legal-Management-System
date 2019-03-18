@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdvocateGroups">
           <Key>
             <PropertyRef Name="Id" />
@@ -347,6 +347,8 @@
           <Property Name="YearCallToBar" Type="int" />
           <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AdvocateGroupId" Type="int" />
+          <Property Name="NationalIdentityNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserRoles">
           <Key>
@@ -523,7 +525,8 @@
             <End Role="LoginUsers" EntitySet="LoginUsers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyCaseNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -876,6 +879,8 @@
           <Property Name="YearCallToBar" Type="Int32" />
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AdvocateGroupId" Type="Int32" />
+          <Property Name="NationalIdentityNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Certifications" Relationship="Self.FK_Certifications_Staffs" FromRole="Staffs" ToRole="Certifications" />
           <NavigationProperty Name="Dependants" Relationship="Self.FK_Dependants_Staffs" FromRole="Staffs" ToRole="Dependants" />
           <NavigationProperty Name="Educations" Relationship="Self.FK_Educations_Staffs" FromRole="Staffs" ToRole="Educations" />
@@ -1031,33 +1036,33 @@
           </AssociationSet>
           <FunctionImport Name="GetAllAdvocateGroups" ReturnType="Collection(MyCaseNewModel.GetAllAdvocateGroups_Result)" />
           <FunctionImport Name="GetAllCalendarForDropdown" ReturnType="Collection(MyCaseNewModel.GetAllCalendarForDropdown_Result)" />
+          <FunctionImport Name="GetAllClientByClientNumber" ReturnType="Collection(MyCaseNewModel.GetAllClientByClientNumber_Result)">
+            <Parameter Name="clientNumber" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="GetAllClientForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllClientForDropDown_Result)" />
           <FunctionImport Name="GetAllCompaniesForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllCompaniesForDropDown_Result)" />
+          <FunctionImport Name="GetAllCourtActivities" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivities_Result)" />
+          <FunctionImport Name="GetAllCourtActivitiesByCaseNumber" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCaseNumber_Result)">
+            <Parameter Name="caseNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCourtActivitiesByCourtName" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCourtName_Result)">
+            <Parameter Name="courtName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCourtActivitiesByHearingDate" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByHearingDate_Result)">
+            <Parameter Name="hearingDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCourtActivitiesByStatus" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByStatus_Result)">
+            <Parameter Name="status" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="GetAllMattersForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllMattersForDropDown_Result)" />
           <FunctionImport Name="GetAllStaffForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllStaffForDropDown_Result)" />
           <FunctionImport Name="GetAllTasksForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllTasksForDropDown_Result)" />
-          <FunctionImport Name="GEtListOfDocuments" ReturnType="Collection(MyCaseNewModel.GEtListOfDocuments_Result)" />
-          <FunctionImport Name="sp_GetLineManagers" ReturnType="Collection(MyCaseNewModel.sp_GetLineManagers_Result)" />
-          <FunctionImport Name="GetAllClientByClientNumber" ReturnType="Collection(MyCaseNewModel.GetAllClientByClientNumber_Result)">
-          <Parameter Name="clientNumber" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="GetClientByFirstNameOrLastName" ReturnType="Collection(MyCaseNewModel.GetClientByFirstNameOrLastName_Result)">
             <Parameter Name="firstName" Mode="In" Type="String" />
             <Parameter Name="lastName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetAllCourtActivities" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivities_Result)" />
-          <FunctionImport Name="GetAllCourtActivitiesByCaseNumber" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCaseNumber_Result)">
-          <Parameter Name="caseNumber" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetAllCourtActivitiesByCourtName" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCourtName_Result)">
-          <Parameter Name="courtName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetAllCourtActivitiesByHearingDate" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByHearingDate_Result)">
-          <Parameter Name="hearingDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="GetAllCourtActivitiesByStatus" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByStatus_Result)">
-          <Parameter Name="status" Mode="In" Type="String" />
-          </FunctionImport>
+          <FunctionImport Name="GEtListOfDocuments" ReturnType="Collection(MyCaseNewModel.GEtListOfDocuments_Result)" />
+          <FunctionImport Name="sp_GetLineManagers" ReturnType="Collection(MyCaseNewModel.sp_GetLineManagers_Result)" />
         </EntityContainer>
         <ComplexType Name="GetAllAdvocateGroups_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1066,34 +1071,6 @@
         <ComplexType Name="GetAllCalendarForDropdown_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="CalendarName" Nullable="true" MaxLength="83" />
-        </ComplexType>
-        <ComplexType Name="GetAllClientForDropDown_Result">
-          <Property Type="Int32" Name="ClientId" Nullable="false" />
-          <Property Type="String" Name="ClientName" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetAllCompaniesForDropDown_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="104" />
-        </ComplexType>
-        <ComplexType Name="GetAllMattersForDropDown_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Subject" Nullable="true" MaxLength="86" />
-        </ComplexType>
-        <ComplexType Name="GetAllStaffForDropDown_Result">
-          <Property Type="String" Name="StaffId" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="StaffName" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetAllTasksForDropDown_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="TaskName" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="GEtListOfDocuments_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="DOCNAME" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_GetLineManagers_Result">
-          <Property Type="Int32" Name="LineManagerId" Nullable="false" />
-          <Property Type="String" Name="ManagerName" Nullable="false" MaxLength="104" />
         </ComplexType>
         <ComplexType Name="GetAllClientByClientNumber_Result">
           <Property Type="String" Name="FirstName" Nullable="false" />
@@ -1104,14 +1081,13 @@
           <Property Type="String" Name="Address" Nullable="false" />
           <Property Type="String" Name="Town" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="GetClientByFirstNameOrLastName_Result">
-          <Property Type="String" Name="FirstName" Nullable="false" />
-          <Property Type="String" Name="MiddleName" Nullable="true" />
-          <Property Type="String" Name="LastName" Nullable="false" />
-          <Property Type="String" Name="EmailAddress" Nullable="false" />
-          <Property Type="String" Name="PhoneNumber" Nullable="false" />
-          <Property Type="String" Name="Address" Nullable="false" />
-          <Property Type="String" Name="Town" Nullable="true" />
+        <ComplexType Name="GetAllClientForDropDown_Result">
+          <Property Type="Int32" Name="ClientId" Nullable="false" />
+          <Property Type="String" Name="ClientName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllCompaniesForDropDown_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="104" />
         </ComplexType>
         <ComplexType Name="GetAllCourtActivities_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1183,6 +1159,35 @@
           <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Staff_on_Case" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="GetAllMattersForDropDown_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="86" />
+        </ComplexType>
+        <ComplexType Name="GetAllStaffForDropDown_Result">
+          <Property Type="String" Name="StaffId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="StaffName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllTasksForDropDown_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="TaskName" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetClientByFirstNameOrLastName_Result">
+          <Property Type="String" Name="FirstName" Nullable="false" />
+          <Property Type="String" Name="MiddleName" Nullable="true" />
+          <Property Type="String" Name="LastName" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" />
+          <Property Type="String" Name="PhoneNumber" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="false" />
+          <Property Type="String" Name="Town" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GEtListOfDocuments_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="DOCNAME" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetLineManagers_Result">
+          <Property Type="Int32" Name="LineManagerId" Nullable="false" />
+          <Property Type="String" Name="ManagerName" Nullable="false" MaxLength="104" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1250,7 +1255,6 @@
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="MyCaseNewModel.Client">
               <MappingFragment StoreEntitySet="Clients">
-                <ScalarProperty Name="ClientNumber" ColumnName="ClientNumber" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
@@ -1265,6 +1269,7 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ClientNumber" ColumnName="ClientNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1298,8 +1303,6 @@
           <EntitySetMapping Name="CourtActivities">
             <EntityTypeMapping TypeName="MyCaseNewModel.CourtActivity">
               <MappingFragment StoreEntitySet="CourtActivities">
-                <ScalarProperty Name="DefenseCounselName" ColumnName="DefenseCounselName" />
-                <ScalarProperty Name="DateAdjourned" ColumnName="DateAdjourned" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MatterNumber" ColumnName="MatterNumber" />
                 <ScalarProperty Name="DateHeared" ColumnName="DateHeared" />
@@ -1314,6 +1317,8 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="DateAdjourned" ColumnName="DateAdjourned" />
+                <ScalarProperty Name="DefenseCounselName" ColumnName="DefenseCounselName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1547,6 +1552,8 @@
                 <ScalarProperty Name="YearCallToBar" ColumnName="YearCallToBar" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="AdvocateGroupId" ColumnName="AdvocateGroupId" />
+                <ScalarProperty Name="NationalIdentityNumber" ColumnName="NationalIdentityNumber" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1579,62 +1586,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllClientForDropDown" FunctionName="MyCaseNewModel.Store.GetAllClientForDropDown">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllClientForDropDown_Result">
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllCompaniesForDropDown" FunctionName="MyCaseNewModel.Store.GetAllCompaniesForDropDown">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCompaniesForDropDown_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllMattersForDropDown" FunctionName="MyCaseNewModel.Store.GetAllMattersForDropDown">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllMattersForDropDown_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllStaffForDropDown" FunctionName="MyCaseNewModel.Store.GetAllStaffForDropDown">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllStaffForDropDown_Result">
-                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
-                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllTasksForDropDown" FunctionName="MyCaseNewModel.Store.GetAllTasksForDropDown">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllTasksForDropDown_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GEtListOfDocuments" FunctionName="MyCaseNewModel.Store.GEtListOfDocuments">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.GEtListOfDocuments_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DOCNAME" ColumnName="DOCNAME" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetLineManagers" FunctionName="MyCaseNewModel.Store.sp_GetLineManagers">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.sp_GetLineManagers_Result">
-                <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
-                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetAllClientByClientNumber" FunctionName="MyCaseNewModel.Store.GetAllClientByClientNumber">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllClientByClientNumber_Result">
@@ -1648,16 +1599,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetClientByFirstNameOrLastName" FunctionName="MyCaseNewModel.Store.GetClientByFirstNameOrLastName">
+          <FunctionImportMapping FunctionImportName="GetAllClientForDropDown" FunctionName="MyCaseNewModel.Store.GetAllClientForDropDown">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MyCaseNewModel.GetClientByFirstNameOrLastName_Result">
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Town" ColumnName="Town" />
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllClientForDropDown_Result">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCompaniesForDropDown" FunctionName="MyCaseNewModel.Store.GetAllCompaniesForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCompaniesForDropDown_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1748,6 +1702,59 @@
                 <ScalarProperty Name="Defendant_Name" ColumnName="Defendant Name" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Staff_on_Case" ColumnName="Staff on Case" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllMattersForDropDown" FunctionName="MyCaseNewModel.Store.GetAllMattersForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllMattersForDropDown_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllStaffForDropDown" FunctionName="MyCaseNewModel.Store.GetAllStaffForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllStaffForDropDown_Result">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllTasksForDropDown" FunctionName="MyCaseNewModel.Store.GetAllTasksForDropDown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllTasksForDropDown_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetClientByFirstNameOrLastName" FunctionName="MyCaseNewModel.Store.GetClientByFirstNameOrLastName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetClientByFirstNameOrLastName_Result">
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GEtListOfDocuments" FunctionName="MyCaseNewModel.Store.GEtListOfDocuments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GEtListOfDocuments_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DOCNAME" ColumnName="DOCNAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetLineManagers" FunctionName="MyCaseNewModel.Store.sp_GetLineManagers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.sp_GetLineManagers_Result">
+                <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

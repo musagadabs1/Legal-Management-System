@@ -17,16 +17,17 @@ namespace LegalManagementSystem.Models
     {
         public int DocumentId { get; set; }
         [Required]
-        [Display(Name = "Case Number")]
+        [Display(Name ="Case Number")]
         public string MatterNumber { get; set; }
         [Required]
         [Display(Name = "Document Name")]
         public string DocName { get; set; }
         [DataType(DataType.Date)]
-        [Display(Name = "Assigned Date")]
+        [Display(Name = "Date Assigned")]
         public System.DateTime AssignedDate { get; set; }
         public string Tags { get; set; }
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Document description")]
         public string Description { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime DateCreated { get; set; }

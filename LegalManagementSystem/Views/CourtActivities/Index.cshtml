@@ -3,85 +3,105 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <h2>Court Activities</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","CourtActivities")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MatterNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateHeared)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourtName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdvocateArgument)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OpponentArgument)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DefenseCounselName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdvocateNote)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateAdjourned)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-responsive" id="courtTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MatterNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateHeared)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourtName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdvocateArgument)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpponentArgument)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DefenseCounselName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdvocateNote)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdjourned)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MatterNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateHeared)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourtName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdvocateArgument)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OpponentArgument)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DefenseCounselName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdvocateNote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateAdjourned)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-        </td>
-    </tr>
-}
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatterNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateHeared)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourtName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdvocateArgument)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpponentArgument)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefenseCounselName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdvocateNote)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdjourned)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","CourtActivities", new {id = item.Id  })">
+                        <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <a href="@Url.Action("Details","CourtActivities",new {id = item.Id  })">
+                        <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                    </a>
+                       @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                </td>
+            </tr>
+        </tbody>
+
+    }
 
 </table>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#courtTable').DataTable();
+    });
+</script>

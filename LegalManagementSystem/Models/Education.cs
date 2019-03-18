@@ -31,6 +31,8 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> DateAwarded { get; set; }
         public Nullable<bool> Graduated { get; set; }
         public string Qualification { get; set; }
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
         public string Grade { get; set; }
         public string StaffId { get; set; }
@@ -38,7 +40,7 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-
+    
         public virtual Staff Staff { get; set; }
     }
 }

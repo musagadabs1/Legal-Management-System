@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Edit Document";
 }
-
+<link href="~/Content/css/select2.min.css" rel="stylesheet" />
 <h2>Edit Document</h2>
 
 @using (Html.BeginForm("Edit", "Documents", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -11,7 +11,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Document</h4>
         <hr />
         @if (ViewBag.Error != null)
         {
@@ -22,9 +21,9 @@
         @Html.HiddenFor(model => model.DocumentId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MatterNumber, "MatterNumber", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("MatterNumber", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.MatterNumber, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control matterId", @id = "matterNumber" })
                 @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -78,3 +77,39 @@
         </div>
     </div>
 }
+<script src="~/Scripts/select2.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "Documents")', "Select Case");
+
+    });
+
+
+    function select2DropDown(elementId,url,placeholder) {
+        $('#' + elementId).select2({
+            placeholder: placeholder,
+            //minimumInputLength:3,
+            allowclear: true,
+            theme: "classic",
+            ajax: {
+                url: url,
+                datatype: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchKey: params.term
+                    };
+                },
+                processResults: function (data,params) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+    }
+
+</script>

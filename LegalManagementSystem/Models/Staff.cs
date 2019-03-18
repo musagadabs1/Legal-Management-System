@@ -24,12 +24,12 @@ namespace LegalManagementSystem.Models
             this.Experiences = new HashSet<Experience>();
             this.FileEvents = new HashSet<FileEvent>();
         }
-
+    
         public int Id { get; set; }
         [Required]
-        [Display(Name = "First Name")]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
-        //[Required]
+        [Required]
         [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
         public string Gender { get; set; }
@@ -41,25 +41,24 @@ namespace LegalManagementSystem.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [DataType(DataType.Date)]
-        [Display(Name = "Date of Birth")]
+        [Display(Name = "Date Of Birth")]
         public System.DateTime DOB { get; set; }
         [DataType(DataType.Date)]
-        [Display(Name = "Date Employed")]
+        [Display(Name = "Date Of Employment")]
         public System.DateTime DOE { get; set; }
         public Nullable<bool> Status { get; set; }
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Address")]
         public string Address { get; set; }
+        [Required]
         [Display(Name = "Marital Status")]
         public string MaritalStatus { get; set; }
         public string ImagePath { get; set; }
-        //[Required]
-        [Display(Name = "Office Number")]
+        [Display(Name = "Office No")]
         public string OfficeNo { get; set; }
         [Required]
-        [Display(Name = "Mobile Number")]
+        [Display(Name = "Mobile No")]
         public string MobileNo { get; set; }
-        [Required]
-        [DataType(DataType.EmailAddress)]
         [Display(Name = "Email Address")]
         public string EmailAddress { get; set; }
         [DataType(DataType.EmailAddress)]
@@ -69,30 +68,39 @@ namespace LegalManagementSystem.Models
         [Display(Name = "Next of Kin Telephone")]
         public string KTelephone { get; set; }
         [Display(Name = "Next of Kin Email")]
-        [DataType(DataType.EmailAddress)]
         public string NKEmail { get; set; }
-        [Display(Name = "Next of Kin Address")]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Next of Kin Address")]
         public string NKAddress { get; set; }
         public string Bank { get; set; }
         [Display(Name = "Account Number")]
         public Nullable<int> AccountNumber { get; set; }
         [Display(Name = "Next of Kin Full Name")]
         public string NKFullName { get; set; }
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Display(Name = "Employee ID")]
         [Required]
+        [Display(Name = "Staff Id")]
         public string StaffId { get; set; }
+        [Required]
         [Display(Name = "Line Manager")]
         public int LineManagerId { get; set; }
+        [Required]
         public string Department { get; set; }
+        [Required]
         public string Designation { get; set; }
+        [Required]
         [Display(Name = "Year Call To Bar")]
         public Nullable<int> YearCallToBar { get; set; }
         public string Location { get; set; }
-        [Display(Name = "Advocate Group Id")]
+        [Display(Name = "Advocate Group")]
         public Nullable<int> AdvocateGroupId { get; set; }
-
+        [Required]
+        [Display(Name = "Personal Identity Number")]
+        public string NationalIdentityNumber { get; set; }
+        [Display(Name = "Blood Group")]
+        public string BloodGroup { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Certification> Certifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

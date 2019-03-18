@@ -91,13 +91,13 @@
             @Html.DisplayFor(model => model.Reporter)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Assignee)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Assignee)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.DueDate)
@@ -113,8 +113,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-default" /> @*|
+            @Html.ActionLink("Back to List", "Index")*@
         </div>
     }
 </div>

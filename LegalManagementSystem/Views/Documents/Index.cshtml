@@ -3,55 +3,76 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
+<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<h2>List of Documents</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","Documents")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MatterNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DocName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AssignedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tags)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-responsive" id="documentTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MatterNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssignedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tags)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MatterNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DocName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AssignedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tags)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DocumentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DocumentId }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })*@
-        </td>
-    </tr>
-}
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatterNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tags)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a style="margin-right:10px;" href="@Url.Action("Edit","Documents",new {id = item.DocumentId })">
+                        <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <a href="@Url.Action("Details","Documents",new { id = item.DocumentId})">
+                        <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                    </a>
+                    @*|
+                        @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })*@
+                </td>
+            </tr>
+        </tbody>
+
+    }
 
 </table>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#documentTable').DataTable();
+    });
+</script>

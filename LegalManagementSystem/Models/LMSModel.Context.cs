@@ -58,41 +58,6 @@ namespace LegalManagementSystem.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCalendarForDropdown_Result>("GetAllCalendarForDropdown");
         }
     
-        public virtual ObjectResult<GetAllClientForDropDown_Result> GetAllClientForDropDown()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClientForDropDown_Result>("GetAllClientForDropDown");
-        }
-    
-        public virtual ObjectResult<GetAllCompaniesForDropDown_Result> GetAllCompaniesForDropDown()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCompaniesForDropDown_Result>("GetAllCompaniesForDropDown");
-        }
-    
-        public virtual ObjectResult<GetAllMattersForDropDown_Result> GetAllMattersForDropDown()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllMattersForDropDown_Result>("GetAllMattersForDropDown");
-        }
-    
-        public virtual ObjectResult<GetAllStaffForDropDown_Result> GetAllStaffForDropDown()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllStaffForDropDown_Result>("GetAllStaffForDropDown");
-        }
-    
-        public virtual ObjectResult<GetAllTasksForDropDown_Result> GetAllTasksForDropDown()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllTasksForDropDown_Result>("GetAllTasksForDropDown");
-        }
-    
-        public virtual ObjectResult<GEtListOfDocuments_Result> GEtListOfDocuments()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GEtListOfDocuments_Result>("GEtListOfDocuments");
-        }
-    
-        public virtual ObjectResult<sp_GetLineManagers_Result> sp_GetLineManagers()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetLineManagers_Result>("sp_GetLineManagers");
-        }
-    
         public virtual ObjectResult<GetAllClientByClientNumber_Result> GetAllClientByClientNumber(string clientNumber)
         {
             var clientNumberParameter = clientNumber != null ?
@@ -102,17 +67,14 @@ namespace LegalManagementSystem.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClientByClientNumber_Result>("GetAllClientByClientNumber", clientNumberParameter);
         }
     
-        public virtual ObjectResult<GetClientByFirstNameOrLastName_Result> GetClientByFirstNameOrLastName(string firstName, string lastName)
+        public virtual ObjectResult<GetAllClientForDropDown_Result> GetAllClientForDropDown()
         {
-            var firstNameParameter = firstName != null ?
-                new ObjectParameter("firstName", firstName) :
-                new ObjectParameter("firstName", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClientForDropDown_Result>("GetAllClientForDropDown");
+        }
     
-            var lastNameParameter = lastName != null ?
-                new ObjectParameter("lastName", lastName) :
-                new ObjectParameter("lastName", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetClientByFirstNameOrLastName_Result>("GetClientByFirstNameOrLastName", firstNameParameter, lastNameParameter);
+        public virtual ObjectResult<GetAllCompaniesForDropDown_Result> GetAllCompaniesForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCompaniesForDropDown_Result>("GetAllCompaniesForDropDown");
         }
     
         public virtual ObjectResult<GetAllCourtActivities_Result> GetAllCourtActivities()
@@ -154,6 +116,44 @@ namespace LegalManagementSystem.Models
                 new ObjectParameter("status", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCourtActivitiesByStatus_Result>("GetAllCourtActivitiesByStatus", statusParameter);
+        }
+    
+        public virtual ObjectResult<GetAllMattersForDropDown_Result> GetAllMattersForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllMattersForDropDown_Result>("GetAllMattersForDropDown");
+        }
+    
+        public virtual ObjectResult<GetAllStaffForDropDown_Result> GetAllStaffForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllStaffForDropDown_Result>("GetAllStaffForDropDown");
+        }
+    
+        public virtual ObjectResult<GetAllTasksForDropDown_Result> GetAllTasksForDropDown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllTasksForDropDown_Result>("GetAllTasksForDropDown");
+        }
+    
+        public virtual ObjectResult<GetClientByFirstNameOrLastName_Result> GetClientByFirstNameOrLastName(string firstName, string lastName)
+        {
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetClientByFirstNameOrLastName_Result>("GetClientByFirstNameOrLastName", firstNameParameter, lastNameParameter);
+        }
+    
+        public virtual ObjectResult<GEtListOfDocuments_Result> GEtListOfDocuments()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GEtListOfDocuments_Result>("GEtListOfDocuments");
+        }
+    
+        public virtual ObjectResult<sp_GetLineManagers_Result> sp_GetLineManagers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetLineManagers_Result>("sp_GetLineManagers");
         }
     }
 }

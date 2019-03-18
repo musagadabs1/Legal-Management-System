@@ -17,7 +17,7 @@ namespace LegalManagementSystem.Models
     {
         public int ClientId { get; set; }
         [Required]
-        [Display(Name = "First Name")]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
         //[Required]
         [Display(Name = "Middle Name")]
@@ -26,7 +26,7 @@ namespace LegalManagementSystem.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Required]
-        [Display(Name = "Emai Address")]
+        [Display(Name = "Email Address")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [Required]

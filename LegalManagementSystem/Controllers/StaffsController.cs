@@ -78,7 +78,17 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
+            ViewBag.BloodGroup = new List<SelectListItem> {
+                new SelectListItem{Text="A",Value="A"},
+                new SelectListItem{Text="A-",Value="A-"},
+                new SelectListItem{Text="B",Value="B"},
+                new SelectListItem{Text="B-",Value="B-"},
+                new SelectListItem{Text="AB",Value="AB"},
+                new SelectListItem{Text="AB-",Value="AB-"},
+                new SelectListItem{Text="O",Value="O"},
+                new SelectListItem{Text="O-",Value="O-"},
 
+            };
             return View();
         }
 
@@ -87,7 +97,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,AccountNumber,NKFullName,Password,StaffId,LineManagerId,Department,Designation,YearCallToBar,Location,AdvocateGroupId")] Staff staff, HttpPostedFileBase file)
+        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,AccountNumber,NKFullName,Password,StaffId,LineManagerId,Department,Designation,YearCallToBar,Location,AdvocateGroupId,NationalIdentityNumber,BloodGroup")] Staff staff, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -144,6 +154,17 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
+                ViewBag.BloodGroup = new List<SelectListItem> {
+                new SelectListItem{Text="A",Value="A"},
+                new SelectListItem{Text="A-",Value="A-"},
+                new SelectListItem{Text="B",Value="B"},
+                new SelectListItem{Text="B-",Value="B-"},
+                new SelectListItem{Text="AB",Value="AB"},
+                new SelectListItem{Text="AB-",Value="AB-"},
+                new SelectListItem{Text="O",Value="O"},
+                new SelectListItem{Text="O-",Value="O-"},
+
+            };
                 return View(staff);
 
             }
@@ -160,7 +181,17 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
+            ViewBag.BloodGroup = new List<SelectListItem> {
+                new SelectListItem{Text="A",Value="A"},
+                new SelectListItem{Text="A-",Value="A-"},
+                new SelectListItem{Text="B",Value="B"},
+                new SelectListItem{Text="B-",Value="B-"},
+                new SelectListItem{Text="AB",Value="AB"},
+                new SelectListItem{Text="AB-",Value="AB-"},
+                new SelectListItem{Text="O",Value="O"},
+                new SelectListItem{Text="O-",Value="O-"},
 
+            };
             return View(staff);
         }
 
@@ -185,6 +216,17 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
             };
+            ViewBag.BloodGroup = new List<SelectListItem> {
+                new SelectListItem{Text="A",Value="A"},
+                new SelectListItem{Text="A-",Value="A-"},
+                new SelectListItem{Text="B",Value="B"},
+                new SelectListItem{Text="B-",Value="B-"},
+                new SelectListItem{Text="AB",Value="AB"},
+                new SelectListItem{Text="AB-",Value="AB-"},
+                new SelectListItem{Text="O",Value="O"},
+                new SelectListItem{Text="O-",Value="O-"},
+
+            };
             if (staff == null)
             {
                 return HttpNotFound();
@@ -197,7 +239,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,AccountNumber,NKFullName,Password,StaffId,LineManagerId,Department,Designation,YearCallToBar,Location,AdvocateGroupId")] Staff staff, HttpPostedFileBase file)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,AccountNumber,NKFullName,Password,StaffId,LineManagerId,Department,Designation,YearCallToBar,Location,AdvocateGroupId,NationalIdentityNumber,BloodGroup")] Staff staff, HttpPostedFileBase file)
         {
             try
             {
@@ -245,7 +287,18 @@ namespace LegalManagementSystem.Controllers
                             new SelectListItem{Text="Single With Children",Value="Single With Children"}
 
                      };
-                    
+                    ViewBag.BloodGroup = new List<SelectListItem> {
+                new SelectListItem{Text="A",Value="A"},
+                new SelectListItem{Text="A-",Value="A-"},
+                new SelectListItem{Text="B",Value="B"},
+                new SelectListItem{Text="B-",Value="B-"},
+                new SelectListItem{Text="AB",Value="AB"},
+                new SelectListItem{Text="AB-",Value="AB-"},
+                new SelectListItem{Text="O",Value="O"},
+                new SelectListItem{Text="O-",Value="O-"},
+
+            };
+
                     return View(staff);
                 }
 
@@ -266,6 +319,17 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Separated",Value="Separated"},
                 new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
                 new SelectListItem{Text="Single With Children",Value="Single With Children"}
+
+            };
+            ViewBag.BloodGroup = new List<SelectListItem> {
+                new SelectListItem{Text="A",Value="A"},
+                new SelectListItem{Text="A-",Value="A-"},
+                new SelectListItem{Text="B",Value="B"},
+                new SelectListItem{Text="B-",Value="B-"},
+                new SelectListItem{Text="AB",Value="AB"},
+                new SelectListItem{Text="AB-",Value="AB-"},
+                new SelectListItem{Text="O",Value="O"},
+                new SelectListItem{Text="O-",Value="O-"},
 
             };
             return View(staff);
