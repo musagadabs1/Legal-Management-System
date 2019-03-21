@@ -5,10 +5,13 @@
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
 
-<h2>Dependants</h2>
+<h2>Family Details</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","Dependants")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
 <table class="table">
     <tr>
@@ -36,53 +39,60 @@
         <th>
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.Address)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PolicyNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EffectiveDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Relationship)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Relationship)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>*@
+            <td>
+                <a href="@Url.Action("Edit","Dependants",new {id = item.Id  })" style="margin-right:10px;">
+                    <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a href="@Url.Action("Details","Dependants",new {id = item.Id})">
+                    <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                </a>
+
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id })*@ 
+            </td>
+        </tr>
+    }
 
 </table>

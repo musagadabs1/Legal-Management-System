@@ -50,9 +50,41 @@
             <th></th>
         </tr>
     </thead>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AreaOfPractice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatterNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FiledOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatterStage)
+            </th>
+    </tfoot>
 
-
-    @foreach (var item in Model)
+    @*@foreach (var item in Model)
     {
         <tfoot>
             <tr>
@@ -90,27 +122,45 @@
                     <a href="@Url.Action("Edit","Matters",new {id = item.MatterNumber })" style="margin-right:10px;">
                         <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
                     </a>
-                    @*@Html.ActionLink("Details", "Details", new { id=item.MatterNumber }) |*@
 
-                    <a href="@Url.Action("Create","CourtActivities")">
+                    <a href="@Url.Action("Index","CourtActivities")">
                         <span style="font-size:large" class="glyphicon glyphicon-briefcase"></span>
                     </a>
-                    @*@Html.ActionLink("Delete", "Delete", new { id=item.MatterNumber })*@
                 </td>
             </tr>
         </tfoot>
 
-    }
+    }*@
 
 </table>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#casetable').DataTable({
+            "ajax": {
+                "url": "@Url.Action("GetMatters", "Matters")",
+                "type": "POST",
+                "datatype": "json",
+            },
+            "columns": [
+                { "data": "Subject", "name": "Subject" },
+                { "data": "Description", "name": "Description" },
+                { "data": "AreaOfPractice", "name": "AreaOfPractice" },
+                { "data": "MatterNumber", "name": "MatterNumber" },
+                { "data": "ArrivalDate", "name": "ArrivalDate" },
+                { "data": "FiledOn", "name": "FiledOn" },
+                { "data": "DueDate", "name": "DueDate" },
+                { "data": "Priority", "name": "Priority" },
+                { "data": "MatterStage", "name": "MatterStage" },
 
-            language: {
-                "zeroRecords": " "
+            ],
+            "serverSide": "true",
+            "order": [0, "asc"],
+            "processing": "true",
+            "language": {
+                "processing":"Processing... please wait."
             }
+            
         });
 
         $('#btnMatterNumber').on("click",function () {

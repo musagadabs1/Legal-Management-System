@@ -1,64 +1,83 @@
 ﻿
-  @{ 
-      Layout = "~/Views/Shared/_Layout.cshtml";
-  }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <style>
     #modal-container .modal-body {
         max-height: 100px;
     }
+
     #upload-image {
         width: 300px;
-        /*margin-left: -300px;*/
-        /*margin-right: -300px;*/
     }
 </style>
-        <div id='cssmenu'>
-            <ul>
-                <li class='active'>@Html.ActionLink("Profile", "Create", "Staffs")</li>
-                <li>@Html.ActionLink("Experience", "Create", "Experiences")</li>
-                <li>@Html.ActionLink("Education", "Create", "Educations")</li>
-                <li>@Html.ActionLink("Certification", "Create", "Certifications")</li>
-                <li>@Html.ActionLink("Family Details", "Create", "Dependants")</li>
-                @*<li>@Html.ActionLink("Training", "Index", "Home")</li>
-                <li>@Html.ActionLink("Salary", "Salary", "Staffs")</li>
-                <li>@Html.ActionLink("Activity", "Index", "FileEvents")</li>*@
-            </ul>
+<div id='cssmenu'>
+    <ul>
+        <li class='active'>@Html.ActionLink("Profile", "Index", "Staffs")</li>
+        <li>@Html.ActionLink("Experience", "Index", "Experiences")</li>
+        <li>@Html.ActionLink("Education", "Index", "Educations")</li>
+        <li>@Html.ActionLink("Certification", "Index", "Certifications")</li>
+        <li>@Html.ActionLink("Family Details", "Index", "Dependants")</li>
+    </ul>
+</div>
+
+<div class="container body-content" style="padding:0;margin:0">
+    <div class="col-md-2">
+        <img src="~/Content/Images/legal-scale-icon-21.jpg" height="80" width="80" />
+        <br />
+        <div style="margin-top:10px;">
+
+            <img src="~/Content/Images/man-user.png" id="output" width="120" height="120" />
+            <div>
+                <input type='file' accept='image/*' onchange='openFile(event)' class="form-control"><br>
+            </div>
+
         </div>
 
-        <div class="container body-content" style="margin-left:5px;">
-            <div class="col-md-3">
-                <img src="~/Content/Images/legal-scale-icon-21.jpg" height="100" width="100" />
-                <br />
-                <div style="margin-top:30px;">
-
-                    <img src="~/Content/Images/man-user.png" width="120" height="120" style="margin:20px;" />
-                    <div>
-                        <a type="button" class="btn btn-primary" style="width:60px;" id="imageUpload" href="#upload-image" data-toggle="modal">Image</a>
-                        <a type="button" class="btn btn-danger" href="#" id="imageDelete" data-toggle="modal">Delete</a>
-                    </div>
-
-                </div>
-
-            </div>
-            <div id="modal-container">
-                <div class="modal fade" id="upload-image">
-                    <div class="modal-header">
-                        <a class="close" data-dismiss="modal">&times;</a>
-                        <h3>Upload Image</h3>
-                    </div>
-                    <div class="modal-body">
-                        <input type="file" name="file" id="file" class="form-control" />
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-primary">Upload</a>
-                        <a href="#" class="btn btn-danger" data-dismiss="modal">Close</a>
-                    </div>
-                </div>
-            </div>
+    </div>
 
 
-            <div class="col-md-9" >
-                @RenderBody()
-            </div>
-        </div>
-    
+    <div class="col-md-10">
+        @RenderBody()
+    </div>
+</div>
+<script>
+
+        var openFile = function(event) {
+                var input = event.target;
+
+                var reader = new FileReader();
+                reader.onload = function(){
+                    var dataURL = reader.result;
+                    var output = document.getElementById('output');
+                    output.src = dataURL;
+                };
+                reader.readAsDataURL(input.files[0]);
+        };
+        //$(document).ready(function (){
+        //    $('#file').change(function () {
+        //        var file = this.files;
+        //        if (file && file[0]) {
+        //            readImage(file[0]);
+        //        }
+        //    });
+        //});
+        //var readImage = function (file) {
+        //    var reader = new FileReader();
+        //    var image = new Image();
+
+        //    reader.readAsDataUrl(file);
+        //    reader.onload = function (_file) {
+        //        image.src = _file.target.result;
+        //        image.onload = function () {
+        //            var height = this.height;
+        //            var width = this.width;
+        //            var type = file.type;
+        //            var size = ~~(file.size / 1024) + "KB";
+        //            $('#imageDisplay').attr('src', _file.target.result);
+        //            //$('#description').text("size: " + size + ", " + height + "X " + width + ", " + type + "");
+        //            //$('#imgPreview').show();
+        //        }
+        //    }
+        //}
+    </script>

@@ -28,8 +28,22 @@
         </tr>
     </thead>
 
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
 
-    @foreach (var item in Model)
+    @*@foreach (var item in Model)
     {
         <tbody>
             <tr>
@@ -48,17 +62,35 @@
                     </a>
                     <a href="@Url.Action("Details","LineManagers",new { id = item.LineManagerId})">
                         <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                    </a> @*| @Html.ActionLink("Delete", "Delete", new { id=item.LineManagerId })*@
+                    </a>
                 </td>
             </tr>
         </tbody>
 
-    }
+    }*@
 
 </table>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#lineManagerTable').DataTable();
+        $('#lineManagerTable').DataTable({
+            "ajax": {
+                "url": "@Url.Action("GetLineManagers", "LineManagers")",
+                "type": "POST",
+                "datatype": "json",
+            },
+            "columns": [
+                { "data": "Name", "name": "Name" },
+                { "data": "Department", "name": "Department" },
+                { "data": "Designation", "name": "Designation" },
+
+            ],
+            "serverSide": "true",
+            "order": [0, "asc"],
+            "processing": "true",
+            "language": {
+                "processing":"Processing... please wait."
+            }
+        });
     });
 </script>

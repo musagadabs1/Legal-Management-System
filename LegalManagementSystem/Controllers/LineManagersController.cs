@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
+using System.Linq.Dynamic;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -26,6 +27,69 @@ namespace LegalManagementSystem.Controllers
                 return View(await db.LineManagers.ToListAsync());
             }
             return View(await db.LineManagers.ToListAsync());
+        }
+        public ActionResult GetLineManagers()
+        {
+            //Server side parameters
+            int start = Convert.ToInt32(Request["start"]);
+            int length = Convert.ToInt32(Request["length"]);
+            string searchValue = Request["search[value]"];
+            string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
+            string sortDirection = Request["order[0][dir]"];
+
+
+            List<LineManagerViewModel> lineManagers = new List<LineManagerViewModel>();
+            var user = User.Identity.Name;
+            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            {
+
+
+                var getLineManagersAdmin = db.LineManagers.ToList<LineManager>();
+                foreach (var item in getLineManagersAdmin)
+                {
+                    lineManagers.Add(new LineManagerViewModel
+                    {
+                        Name = item.Name,
+                        Department = item.Department,
+                        Designation = item.Designation
+                    });
+                }
+                //Search operations
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    lineManagers = lineManagers.Where(x => x.Department.ToLower().Contains(searchValue.ToLower()) || x.Designation.ToLower().Contains(searchValue.ToLower()) || x.Name.ToLower().Contains(searchValue.ToLower())).ToList<LineManagerViewModel>();
+                }
+
+                //Sort Operations
+                lineManagers = lineManagers.OrderBy(sortColumnName + " " + sortDirection).ToList<LineManagerViewModel>();
+
+                // Paging operation
+                lineManagers = lineManagers.Skip(start).Take(length).ToList<LineManagerViewModel>();
+
+                return Json(new { data = lineManagers }, JsonRequestBehavior.AllowGet);
+            }
+            var getLineManagers = db.LineManagers.Where(x => x.CreatedBy.Equals(user)).ToList<LineManager>();
+            foreach (var item in getLineManagers)
+            {
+                lineManagers.Add(new LineManagerViewModel
+                {
+                    Name = item.Name,
+                    Department = item.Department,
+                    Designation = item.Designation
+                });
+            }
+            //Searching Operations
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                lineManagers = lineManagers.Where(x => x.Department.ToLower().Contains(searchValue.ToLower()) || x.Designation.ToLower().Contains(searchValue.ToLower()) || x.Name.ToLower().Contains(searchValue.ToLower())).ToList<LineManagerViewModel>();
+            }
+
+            //Sort Operations
+            lineManagers = lineManagers.OrderBy(sortColumnName + " " + sortDirection).ToList<LineManagerViewModel>();
+
+            // Paging operation
+            lineManagers = lineManagers.Skip(start).Take(length).ToList<LineManagerViewModel>();
+            return Json(new { data = lineManagers }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: LineManagers/Details/5

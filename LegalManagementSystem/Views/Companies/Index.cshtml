@@ -7,7 +7,9 @@
 <h2>Companies</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","Companies")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
 <table class="table">
     <tr>
@@ -59,9 +61,16 @@
             @Html.DisplayFor(modelItem => item.EmailAddress)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            <a href="@Url.Action("Edit","Companies", new {id = item.Id  })">
+                <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a href="@Url.Action("Details","Companies",new {id = item.Id  })">
+                <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+            </a>
+
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id })*@ @*|
+        @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </td>
     </tr>
 }

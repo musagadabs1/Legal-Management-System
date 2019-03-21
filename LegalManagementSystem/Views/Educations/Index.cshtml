@@ -5,10 +5,12 @@
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
 
-<h2>List of Education Certificates</h2>
+<h2>List of Schools Attended</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","Educations")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
 <table class="table">
     <tr>
@@ -24,18 +26,18 @@
         <th>
             @Html.DisplayNameFor(model => model.Major)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.DateAwarded)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Graduated)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Qualification)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Grade)
         </th>
@@ -56,25 +58,31 @@
         <td>
             @Html.DisplayFor(modelItem => item.Major)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.DateAwarded)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Graduated)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Qualification)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Grade)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            <a href="@Url.Action("Edit","Educations",new {id = item.Id  })" style="margin-right:10px;">
+                <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a href="@Url.Action("Details","Educations",new {id = item.Id})">
+                <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+            </a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id })*@ @*|
+        @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </td>
     </tr>
 }

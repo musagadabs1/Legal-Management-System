@@ -22,7 +22,7 @@ namespace LegalManagementSystem.Controllers
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminCertifications = db.Certifications.Include(c => c.Staff);
+                var adminCertifications = db.Educations.Include(c => c.Staff);
                 return View(await adminCertifications.ToListAsync());
             }
             var educations = db.Educations.Include(e => e.Staff);

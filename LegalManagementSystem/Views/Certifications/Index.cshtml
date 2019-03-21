@@ -8,7 +8,9 @@
 <h2>Certifications</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create","Certifications")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
 </p>
 <table class="table">
     <tr>
@@ -48,9 +50,15 @@
             @Html.DisplayFor(modelItem => item.Skilled)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            <a href="@Url.Action("Edit","Certifications",new {id = item.Id  })" style="margin-right:10px;">
+                <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a href="@Url.Action("Details","Certifications",new {id = item.Id})">
+                <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+            </a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id })*@ @*|
+        @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </td>
     </tr>
 }

@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
+using System.Linq.Dynamic;
+using LegalManagementSystem.ViewModels;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -47,6 +49,81 @@ namespace LegalManagementSystem.Controllers
                 return RedirectToAction("Error");
             }
             
+        }
+        public ActionResult GetMatters()
+        {
+            //Server side parameters
+            int start = Convert.ToInt32(Request["start"]);
+            int length = Convert.ToInt32(Request["length"]);
+            string searchValue = Request["search[value]"];
+            string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
+            string sortDirection = Request["order[0][dir]"];
+
+
+            List<MatterViewModel> matters = new List<MatterViewModel>();
+            var user = User.Identity.Name;
+            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            {
+
+
+                var getMattersAdmin = db.Matters.ToList<Matter>();
+                foreach (var item in getMattersAdmin)
+                {
+                    matters.Add(new MatterViewModel
+                    {
+                        MatterStage = item.MatterStage,
+                        FiledOn = (DateTime)item.FiledOn,
+                        DueDate = (DateTime)item.DueDate,
+                        MatterNumber = item.MatterNumber,
+                        AreaofPractice = item.AreaOfPractice,
+                        ArrivalDate =(DateTime) item.ArrivalDate,
+                        Priority = item.Priority,
+                        Description = item.Description,
+                        Subject = item.Subject
+                    });
+                }
+                //Search operations
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    matters = matters.Where(x => x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.MatterStage.ToLower().Contains(searchValue.ToLower()) || x.Priority.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.AreaofPractice.ToLower().Contains(searchValue.ToLower()) || x.Description.ToLower().Contains(searchValue.ToLower()) || x.Subject.ToLower().Contains(searchValue.ToLower()) || x.FiledOn.ToShortDateString().Contains(searchValue) || x.ArrivalDate.ToShortDateString().Contains(searchValue)).ToList<MatterViewModel>();
+                }
+
+                //Sort Operations
+                matters = matters.OrderBy(sortColumnName + " " + sortDirection).ToList<MatterViewModel>();
+
+                // Paging operation
+                matters = matters.Skip(start).Take(length).ToList<MatterViewModel>();
+
+                return Json(new { data = matters }, JsonRequestBehavior.AllowGet);
+            }
+            var getMatters = db.Matters.Where(x => x.CreatedBy.Equals(user)).ToList<Matter>();
+            foreach (var item in getMatters)
+            {
+                matters.Add(new MatterViewModel
+                {
+                    MatterStage = item.MatterStage,
+                    FiledOn = (DateTime)item.FiledOn,
+                    DueDate = (DateTime)item.DueDate,
+                    MatterNumber = item.MatterNumber,
+                    AreaofPractice = item.AreaOfPractice,
+                    ArrivalDate = (DateTime)item.ArrivalDate,
+                    Priority = item.Priority,
+                    Description = item.Description,
+                    Subject = item.Subject
+                });
+            }
+            //Searching Operations
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                matters = matters.Where(x => x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.MatterStage.ToLower().Contains(searchValue.ToLower()) || x.Priority.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.AreaofPractice.ToLower().Contains(searchValue.ToLower()) || x.Description.ToLower().Contains(searchValue.ToLower()) || x.Subject.ToLower().Contains(searchValue.ToLower()) || x.FiledOn.ToShortDateString().Contains(searchValue) || x.ArrivalDate.ToShortDateString().Contains(searchValue)).ToList<MatterViewModel>();
+            }
+
+            //Sort Operations
+            matters = matters.OrderBy(sortColumnName + " " + sortDirection).ToList<MatterViewModel>();
+
+            // Paging operation
+            matters = matters.Skip(start).Take(length).ToList<MatterViewModel>();
+            return Json(new { data = matters }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Error()
         {

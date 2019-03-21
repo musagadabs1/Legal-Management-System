@@ -106,16 +106,16 @@ namespace LegalManagementSystem.Controllers
                 {
                     //StaffImages
 
-                    //string fileName = string.Empty;
-                    //string filePath = string.Empty;
+                    string fileName = string.Empty;
+                    string filePath = string.Empty;
 
-                    //if (file.ContentLength > 0 && file != null)
-                    //{
-                    //    filePath = file.FileName;
-                    //    fileName = Path.GetFileName(file.FileName);
-                    //}
-                    //var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
-                    //var fullFilePath = Path.Combine(folderPath, filePath);
+                    if (file.ContentLength > 0 && file != null)
+                    {
+                        filePath = file.FileName;
+                        fileName = Path.GetFileName(file.FileName);
+                    }
+                    var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
+                    var fullFilePath = Path.Combine(folderPath, filePath);
 
                     var staffId = string.Empty;
                     var user = User.Identity.Name;
@@ -124,7 +124,7 @@ namespace LegalManagementSystem.Controllers
                     staffId = staff.StaffId.ToUpper();
                     LegalGuideUtility.StaffId = staffId;
 
-                    //staff.ImagePath = fileName;
+                    staff.ImagePath = fileName;
                     staff.Status = true;
                     staff.AdvocateGroupId = 0;
 
