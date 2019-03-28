@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AllStaffDataset" targetNamespace="http://tempuri.org/AllStaffDataset.xsd" xmlns:mstns="http://tempuri.org/AllStaffDataset.xsd" xmlns="http://tempuri.org/AllStaffDataset.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="MyCaseNewConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="MyCaseNewConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.MyCaseNewConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AllStaffDataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AllStaffDataset" msprop:Generator_UserDSName="AllStaffDataset">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="GetAllStaff" msprop:Generator_TableClassName="GetAllStaffDataTable" msprop:Generator_TableVarName="tableGetAllStaff" msprop:Generator_TablePropName="GetAllStaff" msprop:Generator_RowDeletingName="GetAllStaffRowDeleting" msprop:Generator_RowChangingName="GetAllStaffRowChanging" msprop:Generator_RowEvHandlerName="GetAllStaffRowChangeEventHandler" msprop:Generator_RowDeletedName="GetAllStaffRowDeleted" msprop:Generator_UserTableName="GetAllStaff" msprop:Generator_RowChangedName="GetAllStaffRowChanged" msprop:Generator_RowEvArgName="GetAllStaffRowChangeEvent" msprop:Generator_RowClassName="GetAllStaffRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Employee_x0020_Name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEmployee_Name" msprop:Generator_ColumnPropNameInRow="Employee_Name" msprop:Generator_ColumnPropNameInTable="Employee_NameColumn" msprop:Generator_UserColumnName="Employee Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Date_x0020_of_x0020_Birth" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDate_of_Birth" msprop:Generator_ColumnPropNameInRow="Date_of_Birth" msprop:Generator_ColumnPropNameInTable="Date_of_BirthColumn" msprop:Generator_UserColumnName="Date of Birth" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Date_x0020_Employed" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDate_Employed" msprop:Generator_ColumnPropNameInRow="Date_Employed" msprop:Generator_ColumnPropNameInTable="Date_EmployedColumn" msprop:Generator_UserColumnName="Date Employed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Address" msprop:Generator_ColumnVarNameInTable="columnAddress" msprop:Generator_ColumnPropNameInRow="Address" msprop:Generator_ColumnPropNameInTable="AddressColumn" msprop:Generator_UserColumnName="Address">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Department" msprop:Generator_ColumnVarNameInTable="columnDepartment" msprop:Generator_ColumnPropNameInRow="Department" msprop:Generator_ColumnPropNameInTable="DepartmentColumn" msprop:Generator_UserColumnName="Department">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Designation" msprop:Generator_ColumnVarNameInTable="columnDesignation" msprop:Generator_ColumnPropNameInRow="Designation" msprop:Generator_ColumnPropNameInTable="DesignationColumn" msprop:Generator_UserColumnName="Designation">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Gender" msprop:Generator_ColumnVarNameInTable="columnGender" msprop:Generator_ColumnPropNameInRow="Gender" msprop:Generator_ColumnPropNameInTable="GenderColumn" msprop:Generator_UserColumnName="Gender">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Marital_x0020_Status" msprop:Generator_ColumnVarNameInTable="columnMarital_Status" msprop:Generator_ColumnPropNameInRow="Marital_Status" msprop:Generator_ColumnPropNameInTable="Marital_StatusColumn" msprop:Generator_UserColumnName="Marital Status" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Line_x0020_Manager" msprop:Generator_ColumnVarNameInTable="columnLine_Manager" msprop:Generator_ColumnPropNameInRow="Line_Manager" msprop:Generator_ColumnPropNameInTable="Line_ManagerColumn" msprop:Generator_UserColumnName="Line Manager">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Mobile_x0020_No" msprop:Generator_ColumnVarNameInTable="columnMobile_No" msprop:Generator_ColumnPropNameInRow="Mobile_No" msprop:Generator_ColumnPropNameInTable="Mobile_NoColumn" msprop:Generator_UserColumnName="Mobile No">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Personal_x0020_ID" msprop:Generator_ColumnVarNameInTable="columnPersonal_ID" msprop:Generator_ColumnPropNameInRow="Personal_ID" msprop:Generator_ColumnPropNameInTable="Personal_IDColumn" msprop:Generator_UserColumnName="Personal ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Year_x0020_Call_x0020_To_x0020_Bar" msprop:Generator_ColumnVarNameInTable="columnYear_Call_To_Bar" msprop:Generator_ColumnPropNameInRow="Year_Call_To_Bar" msprop:Generator_ColumnPropNameInTable="Year_Call_To_BarColumn" msprop:Generator_UserColumnName="Year Call To Bar" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

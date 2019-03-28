@@ -11,24 +11,17 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Calendar
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name ="Title")]
         public string Title { get; set; }
-        [DataType(DataType.Date)]
         public System.DateTime From { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> To { get; set; }
-        [Display(Name ="Case Number")]
         public string MatterNumber { get; set; }
         public string StaffId { get; set; }
         public string Locations { get; set; }
         public string Priority { get; set; }
-        [Display(Name ="Meeting Type")]
         public string MeetingType { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="LMSDataSource">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=DESKTOP-3RIO6I5\SQLEXPRESS;Initial Catalog=MyCaseNew</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>aaaaa1c1-a4cd-4c85-945e-b2346ec3bf60</DataSourceID>
+</RptDataSource>

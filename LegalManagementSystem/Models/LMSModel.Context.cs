@@ -155,5 +155,88 @@ namespace LegalManagementSystem.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetLineManagers_Result>("sp_GetLineManagers");
         }
+    
+        public virtual ObjectResult<GetAllCases_Result> GetAllCases()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCases_Result>("GetAllCases");
+        }
+    
+        public virtual ObjectResult<GetAllCasesBetweenDates_Result> GetAllCasesBetweenDates(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("fromDate", fromDate) :
+                new ObjectParameter("fromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("toDate", toDate) :
+                new ObjectParameter("toDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCasesBetweenDates_Result>("GetAllCasesBetweenDates", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCasesByCaseNumber_Result> GetAllCasesByCaseNumber(string caseNumber)
+        {
+            var caseNumberParameter = caseNumber != null ?
+                new ObjectParameter("caseNumber", caseNumber) :
+                new ObjectParameter("caseNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCasesByCaseNumber_Result>("GetAllCasesByCaseNumber", caseNumberParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCasesByClientName_Result> GetAllCasesByClientName(string clientfirstName, string clientMiddleName, string clientLastName)
+        {
+            var clientfirstNameParameter = clientfirstName != null ?
+                new ObjectParameter("clientfirstName", clientfirstName) :
+                new ObjectParameter("clientfirstName", typeof(string));
+    
+            var clientMiddleNameParameter = clientMiddleName != null ?
+                new ObjectParameter("clientMiddleName", clientMiddleName) :
+                new ObjectParameter("clientMiddleName", typeof(string));
+    
+            var clientLastNameParameter = clientLastName != null ?
+                new ObjectParameter("clientLastName", clientLastName) :
+                new ObjectParameter("clientLastName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCasesByClientName_Result>("GetAllCasesByClientName", clientfirstNameParameter, clientMiddleNameParameter, clientLastNameParameter);
+        }
+    
+        public virtual ObjectResult<GetAllCasesByPracticeArea_Result> GetAllCasesByPracticeArea(string pArea)
+        {
+            var pAreaParameter = pArea != null ?
+                new ObjectParameter("pArea", pArea) :
+                new ObjectParameter("pArea", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCasesByPracticeArea_Result>("GetAllCasesByPracticeArea", pAreaParameter);
+        }
+    
+        public virtual ObjectResult<GetAllClientByClientTown_Result> GetAllClientByClientTown(string clientTown)
+        {
+            var clientTownParameter = clientTown != null ?
+                new ObjectParameter("clientTown", clientTown) :
+                new ObjectParameter("clientTown", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClientByClientTown_Result>("GetAllClientByClientTown", clientTownParameter);
+        }
+    
+        public virtual ObjectResult<GetAllClients_Result> GetAllClients()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClients_Result>("GetAllClients");
+        }
+    
+        public virtual ObjectResult<GetAllStaff_Result> GetAllStaff()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllStaff_Result>("GetAllStaff");
+        }
+    
+        public virtual ObjectResult<GetCasesByFiledDate_Result> GetCasesByFiledDate(Nullable<System.DateTime> filedDate)
+        {
+            var filedDateParameter = filedDate.HasValue ?
+                new ObjectParameter("filedDate", filedDate) :
+                new ObjectParameter("filedDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCasesByFiledDate_Result>("GetCasesByFiledDate", filedDateParameter);
+        }
+
+        public System.Data.Entity.DbSet<LegalManagementSystem.ViewModels.ReportParameter> ReportParameters { get; set; }
     }
 }

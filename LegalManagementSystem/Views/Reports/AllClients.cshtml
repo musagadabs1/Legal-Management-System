@@ -1,0 +1,101 @@
+﻿@model LegalManagementSystem.ViewModels.ReportParameter
+@using LegalManagementSystem.Helpers
+@{
+    ViewBag.Title = "AllClients";
+}
+
+
+<div class="row">
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-6">
+        <div class="row" style="margin-top:10px">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Client Report</h2>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.ReportType, "Report Type", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownListFor(model => model.ReportType, new SelectList(ViewBag.ReportType, "Value", "Text"), null, htmlAttributes: new { @class = "form-control",id="report_type", onchange="reload_controls()" })
+                                @Html.ValidationMessageFor(model => model.ReportType, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="form-group" style="display:none" id="div_town" >
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.Town, "Client Town", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.EditorFor(model => model.Town, new { htmlAttributes= new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="form-group" style="display:none" id="div_number">
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.Number, "Client Number", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.EditorFor(model => model.Number, new { htmlAttributes= new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="form-group" style="">
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.DocType, "Export Type", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownListFor(model => model.DocType, new SelectList(ViewBag.ExportType, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DocType, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <h3></h3>
+        
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+</div>
+<script>
+
+
+    function reload_controls() {
+        var report_type = $('#report_type').val();
+
+        if (report_type == "2") {
+            $('#div_town').show();
+            $('#div_number').hide();
+        }
+        else if (report_type == "3") {
+            $('#div_town').hide();
+            $('#div_number').show();
+        }
+        else {
+            $('#div_town').hide();
+            $('#div_number').hide(); 
+        }
+    }
+    
+</script>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdvocateGroups">
           <Key>
             <PropertyRef Name="Id" />
@@ -448,10 +448,30 @@
         </Association>
         <Function Name="GetAllAdvocateGroups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCalendarForDropdown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllCases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllCasesBetweenDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fromDate" Type="datetime" Mode="In" />
+          <Parameter Name="toDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetAllCasesByCaseNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="caseNumber" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllCasesByClientName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientfirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="clientMiddleName" Type="nvarchar" Mode="In" />
+          <Parameter Name="clientLastName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllCasesByPracticeArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pArea" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="GetAllClientByClientNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="clientNumber" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetAllClientByClientTown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientTown" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="GetAllClientForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllClients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCompaniesForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCourtActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCourtActivitiesByCaseNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -467,8 +487,12 @@
           <Parameter Name="status" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetAllMattersForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllStaffForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllTasksForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetCasesByFiledDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="filedDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="GetClientByFirstNameOrLastName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="firstName" Type="nvarchar" Mode="In" />
           <Parameter Name="lastName" Type="nvarchar" Mode="In" />
@@ -525,8 +549,7 @@
             <End Role="LoginUsers" EntitySet="LoginUsers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyCaseNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1037,22 +1060,22 @@
           <FunctionImport Name="GetAllAdvocateGroups" ReturnType="Collection(MyCaseNewModel.GetAllAdvocateGroups_Result)" />
           <FunctionImport Name="GetAllCalendarForDropdown" ReturnType="Collection(MyCaseNewModel.GetAllCalendarForDropdown_Result)" />
           <FunctionImport Name="GetAllClientByClientNumber" ReturnType="Collection(MyCaseNewModel.GetAllClientByClientNumber_Result)">
-            <Parameter Name="clientNumber" Mode="In" Type="String" />
+          <Parameter Name="clientNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllClientForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllClientForDropDown_Result)" />
           <FunctionImport Name="GetAllCompaniesForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllCompaniesForDropDown_Result)" />
           <FunctionImport Name="GetAllCourtActivities" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivities_Result)" />
           <FunctionImport Name="GetAllCourtActivitiesByCaseNumber" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCaseNumber_Result)">
-            <Parameter Name="caseNumber" Mode="In" Type="String" />
+          <Parameter Name="caseNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourtActivitiesByCourtName" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCourtName_Result)">
-            <Parameter Name="courtName" Mode="In" Type="String" />
+          <Parameter Name="courtName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourtActivitiesByHearingDate" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByHearingDate_Result)">
-            <Parameter Name="hearingDate" Mode="In" Type="DateTime" />
+          <Parameter Name="hearingDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourtActivitiesByStatus" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByStatus_Result)">
-            <Parameter Name="status" Mode="In" Type="String" />
+          <Parameter Name="status" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllMattersForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllMattersForDropDown_Result)" />
           <FunctionImport Name="GetAllStaffForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllStaffForDropDown_Result)" />
@@ -1063,6 +1086,30 @@
           </FunctionImport>
           <FunctionImport Name="GEtListOfDocuments" ReturnType="Collection(MyCaseNewModel.GEtListOfDocuments_Result)" />
           <FunctionImport Name="sp_GetLineManagers" ReturnType="Collection(MyCaseNewModel.sp_GetLineManagers_Result)" />
+          <FunctionImport Name="GetAllCases" ReturnType="Collection(MyCaseNewModel.GetAllCases_Result)" />
+          <FunctionImport Name="GetAllCasesBetweenDates" ReturnType="Collection(MyCaseNewModel.GetAllCasesBetweenDates_Result)">
+            <Parameter Name="fromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="toDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCasesByCaseNumber" ReturnType="Collection(MyCaseNewModel.GetAllCasesByCaseNumber_Result)">
+            <Parameter Name="caseNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCasesByClientName" ReturnType="Collection(MyCaseNewModel.GetAllCasesByClientName_Result)">
+            <Parameter Name="clientfirstName" Mode="In" Type="String" />
+            <Parameter Name="clientMiddleName" Mode="In" Type="String" />
+            <Parameter Name="clientLastName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllCasesByPracticeArea" ReturnType="Collection(MyCaseNewModel.GetAllCasesByPracticeArea_Result)">
+            <Parameter Name="pArea" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllClientByClientTown" ReturnType="Collection(MyCaseNewModel.GetAllClientByClientTown_Result)">
+            <Parameter Name="clientTown" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllClients" ReturnType="Collection(MyCaseNewModel.GetAllClients_Result)" />
+          <FunctionImport Name="GetAllStaff" ReturnType="Collection(MyCaseNewModel.GetAllStaff_Result)" />
+          <FunctionImport Name="GetCasesByFiledDate" ReturnType="Collection(MyCaseNewModel.GetCasesByFiledDate_Result)">
+            <Parameter Name="filedDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetAllAdvocateGroups_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1187,6 +1234,124 @@
         <ComplexType Name="sp_GetLineManagers_Result">
           <Property Type="Int32" Name="LineManagerId" Nullable="false" />
           <Property Type="String" Name="ManagerName" Nullable="false" MaxLength="104" />
+        </ComplexType>
+        <ComplexType Name="GetAllCases_Result">
+          <Property Type="Int32" Name="SNo" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Practice_Area" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Arrival_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date_Filed" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Case_Number" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="Due_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Priority" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Stage" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Value" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllCasesBetweenDates_Result">
+          <Property Type="Int32" Name="SNo" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Practice_Area" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Arrival_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date_Filed" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Case_Number" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="Due_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Priority" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Stage" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Value" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllCasesByCaseNumber_Result">
+          <Property Type="Int32" Name="SNo" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Practice_Area" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Arrival_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date_Filed" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Case_Number" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="Due_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Priority" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Stage" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Value" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllCasesByClientName_Result">
+          <Property Type="Int32" Name="SNo" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Practice_Area" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Arrival_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date_Filed" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Case_Number" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="Due_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Priority" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Stage" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Value" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllCasesByPracticeArea_Result">
+          <Property Type="Int32" Name="SNo" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Practice_Area" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Arrival_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date_Filed" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Case_Number" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="Due_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Priority" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Stage" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Value" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllClientByClientTown_Result">
+          <Property Type="String" Name="Client_Number" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="false" />
+          <Property Type="String" Name="MiddleName" Nullable="true" />
+          <Property Type="String" Name="LastName" Nullable="false" />
+          <Property Type="String" Name="Email_Address" Nullable="false" />
+          <Property Type="String" Name="Phone_Number" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="false" />
+          <Property Type="String" Name="Town" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllClients_Result">
+          <Property Type="String" Name="Client_Number" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="First_Name" Nullable="false" />
+          <Property Type="String" Name="Middle_Name" Nullable="true" />
+          <Property Type="String" Name="Last_Name" Nullable="false" />
+          <Property Type="String" Name="Email_Address" Nullable="false" />
+          <Property Type="String" Name="Phone_Number" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="false" />
+          <Property Type="String" Name="Town" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllStaff_Result">
+          <Property Type="String" Name="Employee_Name" Nullable="true" />
+          <Property Type="String" Name="Date_of_Birth" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Date_Employed" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Address" Nullable="false" />
+          <Property Type="String" Name="Department" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Designation" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Marital_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Line_Manager" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Mobile_No" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Personal_ID" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Year_Call_To_Bar" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetCasesByFiledDate_Result">
+          <Property Type="Int32" Name="SNo" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Practice_Area" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Arrival_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date_Filed" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Case_Number" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="Due_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Priority" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Stage" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Case_Value" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1755,6 +1920,160 @@
               <ComplexTypeMapping TypeName="MyCaseNewModel.sp_GetLineManagers_Result">
                 <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
                 <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCases" FunctionName="MyCaseNewModel.Store.GetAllCases">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCases_Result">
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client Name" />
+                <ScalarProperty Name="Practice_Area" ColumnName="Practice Area" />
+                <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+                <ScalarProperty Name="Date_Filed" ColumnName="Date Filed" />
+                <ScalarProperty Name="Case_Number" ColumnName="Case Number" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Case_Stage" ColumnName="Case Stage" />
+                <ScalarProperty Name="Case_Value" ColumnName="Case Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCasesBetweenDates" FunctionName="MyCaseNewModel.Store.GetAllCasesBetweenDates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCasesBetweenDates_Result">
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client Name" />
+                <ScalarProperty Name="Practice_Area" ColumnName="Practice Area" />
+                <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+                <ScalarProperty Name="Date_Filed" ColumnName="Date Filed" />
+                <ScalarProperty Name="Case_Number" ColumnName="Case Number" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Case_Stage" ColumnName="Case Stage" />
+                <ScalarProperty Name="Case_Value" ColumnName="Case Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCasesByCaseNumber" FunctionName="MyCaseNewModel.Store.GetAllCasesByCaseNumber">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCasesByCaseNumber_Result">
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client Name" />
+                <ScalarProperty Name="Practice_Area" ColumnName="Practice Area" />
+                <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+                <ScalarProperty Name="Date_Filed" ColumnName="Date Filed" />
+                <ScalarProperty Name="Case_Number" ColumnName="Case Number" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Case_Stage" ColumnName="Case Stage" />
+                <ScalarProperty Name="Case_Value" ColumnName="Case Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCasesByClientName" FunctionName="MyCaseNewModel.Store.GetAllCasesByClientName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCasesByClientName_Result">
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client Name" />
+                <ScalarProperty Name="Practice_Area" ColumnName="Practice Area" />
+                <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+                <ScalarProperty Name="Date_Filed" ColumnName="Date Filed" />
+                <ScalarProperty Name="Case_Number" ColumnName="Case Number" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Case_Stage" ColumnName="Case Stage" />
+                <ScalarProperty Name="Case_Value" ColumnName="Case Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCasesByPracticeArea" FunctionName="MyCaseNewModel.Store.GetAllCasesByPracticeArea">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCasesByPracticeArea_Result">
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client Name" />
+                <ScalarProperty Name="Practice_Area" ColumnName="Practice Area" />
+                <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+                <ScalarProperty Name="Date_Filed" ColumnName="Date Filed" />
+                <ScalarProperty Name="Case_Number" ColumnName="Case Number" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Case_Stage" ColumnName="Case Stage" />
+                <ScalarProperty Name="Case_Value" ColumnName="Case Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllClientByClientTown" FunctionName="MyCaseNewModel.Store.GetAllClientByClientTown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllClientByClientTown_Result">
+                <ScalarProperty Name="Client_Number" ColumnName="Client Number" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email_Address" ColumnName="Email Address" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllClients" FunctionName="MyCaseNewModel.Store.GetAllClients">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllClients_Result">
+                <ScalarProperty Name="Client_Number" ColumnName="Client Number" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="Email_Address" ColumnName="Email Address" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllStaff" FunctionName="MyCaseNewModel.Store.GetAllStaff">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllStaff_Result">
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee Name" />
+                <ScalarProperty Name="Date_of_Birth" ColumnName="Date of Birth" />
+                <ScalarProperty Name="Date_Employed" ColumnName="Date Employed" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Marital_Status" ColumnName="Marital Status" />
+                <ScalarProperty Name="Line_Manager" ColumnName="Line Manager" />
+                <ScalarProperty Name="Mobile_No" ColumnName="Mobile No" />
+                <ScalarProperty Name="Personal_ID" ColumnName="Personal ID" />
+                <ScalarProperty Name="Year_Call_To_Bar" ColumnName="Year Call To Bar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCasesByFiledDate" FunctionName="MyCaseNewModel.Store.GetCasesByFiledDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetCasesByFiledDate_Result">
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client Name" />
+                <ScalarProperty Name="Practice_Area" ColumnName="Practice Area" />
+                <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+                <ScalarProperty Name="Date_Filed" ColumnName="Date Filed" />
+                <ScalarProperty Name="Case_Number" ColumnName="Case Number" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Case_Stage" ColumnName="Case Stage" />
+                <ScalarProperty Name="Case_Value" ColumnName="Case Value" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

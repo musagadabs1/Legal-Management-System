@@ -11,28 +11,17 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Education
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "School Name")]
         public string School { get; set; }
-        [DataType(DataType.Date)]
-        [Display(Name = "Start Date")]
         public System.DateTime DateStart { get; set; }
-        [DataType(DataType.Date)]
-        [Display(Name = "Date Finished")]
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Major { get; set; }
-        [DataType(DataType.Date)]
-        [Display(Name = "Date Awarded")]
         public Nullable<System.DateTime> DateAwarded { get; set; }
         public Nullable<bool> Graduated { get; set; }
         public string Qualification { get; set; }
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Description")]
         public string Description { get; set; }
         public string Grade { get; set; }
         public string StaffId { get; set; }

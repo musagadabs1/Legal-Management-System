@@ -11,22 +11,13 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Certification
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "Certification Name")]
         public string Name { get; set; }
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Description")]
         public string Description { get; set; }
-        //[DataType(DataType.Date)]
-        [Display(Name = "Certification Type")]
         public string CertificationType { get; set; }
-        [DataType(DataType.Date)]
-        [Display(Name = "Date Achieved")]
         public Nullable<System.DateTime> DateAchieved { get; set; }
         public string Skilled { get; set; }
         public string StaffId { get; set; }
