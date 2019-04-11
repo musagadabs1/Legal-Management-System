@@ -13,7 +13,9 @@ namespace LegalManagementSystem
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-
+            bundles.Add(new ScriptBundle("~/Select2/js").Include(
+                "~/Scripts/select2.js"
+                ));
             bundles.Add(new ScriptBundle("~/admin-lte/js").Include(
              "~/admin-lte/js/app.js",
              "~/admin-lte/plugins/fastclick/fastclick.js",

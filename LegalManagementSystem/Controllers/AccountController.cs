@@ -59,7 +59,7 @@ namespace LegalManagementSystem.Controllers
                     ViewBag.FullName = userFullName;
                     LegalGuideUtility.UserFullName = userFullName;
                     FormsAuthentication.SetAuthCookie(dataItem.Username, false);
-                    if (!IsExpired(userFullName) && IsLicensed(userFullName))
+                    if (IsExpired(userFullName) ==false && IsLicensed(userFullName)==true)
                     {
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                              && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -99,7 +99,7 @@ namespace LegalManagementSystem.Controllers
                     return View();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 ViewBag.ErrorMsg = "Login failed. Username or Password not correct.";// + ex.Message;
@@ -134,7 +134,7 @@ namespace LegalManagementSystem.Controllers
         {
             try
             {
-                var getLicenseStatus = _context.LicenseTables.Where(x => x.IsLicensed.Equals(true) && x.ClientName.Equals(clientName)).FirstOrDefault();
+                var getLicenseStatus = _context.LicenseTables.Where(x => x.IsLicensed==true && x.ClientName.Equals(clientName)).FirstOrDefault();
 
                 if (getLicenseStatus != null)
                 {
