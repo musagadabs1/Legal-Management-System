@@ -15,6 +15,7 @@ namespace LegalManagementSystem.Models
         public const string ATTORNEY = "Attorney";
         public const string LAWYER = "Lawyer";
         public const string User = "User";
+        public static string LicenseMessage { get; set; }
         public static string UserFullName {get;set;}
         public static string ErrorMessage { get; set; }
         public static string StaffId { get; set; }

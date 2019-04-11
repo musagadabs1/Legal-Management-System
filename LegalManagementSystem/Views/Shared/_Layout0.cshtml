@@ -1,0 +1,552 @@
+﻿<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>LMS | Law Management Software</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/green-horizotal/css/owl.theme.css">
+    <link rel="stylesheet" href="~/green-horizotal/css/owl.transitions.css">
+    <!-- meanmenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/meanmenu/meanmenu.min.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/normalize.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- jvectormap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/jvectormap/jquery-jvectormap-2.0.3.css">
+    <!-- notika icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/notika-custom-icon.css">
+    <!-- wave CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/wave/waves.min.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/main.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/green-horizotal/css/responsive.css">
+    <!--staff profile Style
+        ===================================================-->
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- Start Header Top Area -->
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="logo-area">
+                        @*<a href="#"><img src="~/Content/Images/legal-scale-icon.jpg" /></a>*@
+                        <a href="@Url.Action("Index","Home")"><h2 style="color:white;font-size:x-large">LMS</h2></a>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="header-top-menu">
+                        <ul class="nav navbar-nav notika-top-nav">
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-search"></i></span></a>
+                                <div role="menu" class="dropdown-menu search-dd animated flipInX">
+                                    <div class="search-input">
+                                        <i class="notika-icon notika-left-arrow"></i>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Top Area -->
+    <!-- Mobile Menu start -->
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            
+            <!-- Mobile Menu end -->
+            <!-- Main Menu area start-->
+            <div class="main-menu-area mg-tb-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#Home"><i class="fa fa-home"></i> Home</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#admin"><i class="fa fa-dashboard"></i>Dashboard</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#clients"><i class="fa fa-users"></i> Clients</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#company"><i class="glyphicon glyphicon-briefcase"></i> Companies</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#reports"><i class="glyphicon glyphicon-cloud-download"></i> Reports</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#Page"><i class="fa fa-user"></i> Users</a>
+                                </li>
+                                <li>
+                                        <span style="background-color:#00c292;color:white">@LegalManagementSystem.Models.LegalGuideUtility.LicenseMessage</span>
+                                </li>
+                            </ul>
+                            <div class="tab-content custom-menu-content">
+                                <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Contact","Home")">Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("About","Home")">About Us</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div id="admin" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Matters")">Cases</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","LineManagers")">Line Managers</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","Staffs")">Staff Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","Documents")">Documents</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","CourtActivities")">Court Activities</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","FileEvents")">Events</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div id="clients" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Clients")">Clients</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="company" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Companies")">Companies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="reports" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("AllStaffReport","Reports")">All Staff</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("AllClients","Reports")">All Clients</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("CasesReport","Reports")">Cases</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("CourtActivities","Reports")">Court Activities</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Documents</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Events</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div id="Page" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Login","Account")">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Menu area End-->
+            <div class="container">
+                @RenderBody()
+            </div>
+        }
+        else if (User.IsInRole("ITAdmin"))
+        {
+            
+            <!-- Mobile Menu end -->
+            <!-- Main Menu area start-->
+            <div class="main-menu-area mg-tb-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                                <li>
+                                    <a data-toggle="tab" href="#itAdmin"><i class="fa fa-dashboard"></i> Dashboard</a>
+                                </li>
+                                <li>
+                                    <span style="background-color:orangered;color:white">@LegalManagementSystem.Models.LegalGuideUtility.LicenseMessage</span>
+                                </li>
+                            </ul>
+                            <div class="tab-content custom-menu-content">
+                                <div id="itAdmin" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Reggister","Account")">Register New User</a>
+                                        </li>
+                                        <li>
+                                            <a href="view-email.html">Change User Password</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Login","Account")">Log out</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Menu area End-->
+            <div class="container">
+                @RenderBody()
+            </div>
+        }
+        else if (User.IsInRole("Advocate"))
+        {
+            <!-- Main Menu area start-->
+            <div class="main-menu-area mg-tb-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#Home"><i class="fa fa-dashboard"></i> Home</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#clients"><i class="fa fa-users"></i> Clients</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#company"><i class="notika-icon notika-bar-chart"></i> Companies</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#Cases"><i class="notika-icon notika-windows"></i> Cases</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#CourtActivities"><i class="fa fa-archive"></i> Court Activities</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#Page"><i class="fa fa-user"></i> Users</a>
+                                </li>
+                                <li>
+                                    <span style="background-color:orangered;color:white">@LegalManagementSystem.Models.LegalGuideUtility.LicenseMessage</span>
+                                </li>
+                            </ul>
+                            <div class="tab-content custom-menu-content">
+                                <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Contact","Home")">Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("About","Home")">About Us</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div id="admin" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Matters")">Cases</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","Documents")">Documents</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","CourtActivities")">Court Activities</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","FileEvents")">Events</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div id="clients" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Clients")">New Client</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="company" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Companies")">Companies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="Cases" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Matters")">Normal Table</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="CourtActivities" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","CourtActivities")">Court Activities</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="Page" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Login","Account")">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Menu area End-->
+            <div class="container">
+                @RenderBody()
+            </div>
+        }
+        else if (User.IsInRole("ShrishAdmin"))
+        {
+            <!-- Mobile Menu end -->
+            <!-- Main Menu area start-->
+            <div class="main-menu-area mg-tb-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                                <li>
+                                    <a href="@Url.Action("Index","LicenseTables")"><i class="fa fa-archive"></i>License</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Login","Account")"><i class="fa fa-sign-out"></i> Log out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Menu area End-->
+            <div class="container">
+                @RenderBody()
+            </div>
+        }
+        else
+        {
+            <!-- Main Menu area start-->
+            <div class="main-menu-area mg-tb-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#Home"><i class="fa fa-dashboard"></i> Home</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#clients"><i class="fa fa-users"></i> Clients</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#company"><i class="notika-icon notika-bar-chart"></i> Companies</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#Page"><i class="fa fa-user"></i> Users</a>
+                                </li>
+                                <li>
+                                    <span style="background-color:orangered;color:white">@LegalManagementSystem.Models.LegalGuideUtility.LicenseMessage</span>
+                                </li>
+                            </ul>
+                            <div class="tab-content custom-menu-content">
+                                <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Contact","Home")">Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("About","Home")">About Us</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="clients" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Clients")">Clients</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="company" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Index","Companies")">Companies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="Page" class="tab-pane notika-tab-menu-bg animated flipInX">
+                                    <ul class="notika-main-menu-dropdown">
+                                        <li>
+                                            <a href="@Url.Action("Login","Account")">Log out</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Menu area End-->
+            <div class="container">
+                @RenderBody()
+            </div>
+        }
+    }
+
+    <!-- Start Footer area-->
+    <div class="footer-copyright-area" style="width:100%">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="footer-copy-right">
+                        <p>&copy; @DateTime.Now.Year - LMS - Ver 1.0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer area-->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <!-- jquery
+        ============================================ -->
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+    @*<script src="~/green-horizotal/js/vendor/jquery-1.12.4.min.js"></script>*@
+    <!-- bootstrap JS
+        ============================================ -->
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    @*<script src="~/green-horizotal/js/bootstrap.min.js"></script>*@
+    <!-- wow JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/jquery-price-slider.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/owl.carousel.min.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/jquery.scrollUp.min.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/meanmenu/jquery.meanmenu.js"></script>
+    <!-- counterup JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/counterup/jquery.counterup.min.js"></script>
+    <script src="~/green-horizotal/js/counterup/waypoints.min.js"></script>
+    <script src="~/green-horizotal/js/counterup/counterup-active.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- jvectormap JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="~/green-horizotal/js/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/green-horizotal/js/jvectormap/jvectormap-active.js"></script>
+    <!-- sparkline JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/green-horizotal/js/sparkline/sparkline-active.js"></script>
+    <!-- sparkline JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/flot/jquery.flot.js"></script>
+    <script src="~/green-horizotal/js/flot/jquery.flot.resize.js"></script>
+    <script src="~/green-horizotal/js/flot/curvedLines.js"></script>
+    <script src="~/green-horizotal/js/flot/flot-active.js"></script>
+    <!-- knob JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/knob/jquery.knob.js"></script>
+    <script src="~/green-horizotal/js/knob/jquery.appear.js"></script>
+    <script src="~/green-horizotal/js/knob/knob-active.js"></script>
+    <!--  wave JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/wave/waves.min.js"></script>
+    <script src="~/green-horizotal/js/wave/wave-active.js"></script>
+    <!--  todo JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/todo/jquery.todo.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/plugins.js"></script>
+    <!--  Chat JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/chat/moment.min.js"></script>
+    <script src="~/green-horizotal/js/chat/jquery.chat.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/main.js"></script>
+    <!-- Select2 JS
+        ============================================ -->
+    <script src="~/Scripts/select2.min.js"></script>
+    <!-- tawk chat JS
+        ============================================ -->
+    <script src="~/green-horizotal/js/tawk-chat.js"></script>
+</body>
+</html>

@@ -1,21 +1,99 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<div class="box box-primary">
-    <div class="box-body">
-        @using (Html.BeginForm())
-        {
-            <div class="form-group">
-                @Html.Label("Name")
-                @Html.TextBox("CustomerName", null, new { @class = "form-control" })
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="~/ContactUs/images/icons/favicon.ico" />
+<!--===============================================================================================-->
+@*<link rel="stylesheet" type="text/css" href="~/ContactUs/vendor/bootstrap/css/bootstrap.min.css">*@
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/ContactUs/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/ContactUs/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/ContactUs/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+@*<link rel="stylesheet" type="text/css" href="~/ContactUs/vendor/animsition/css/animsition.min.css">*@
+<!--===============================================================================================-->
+@*<link rel="stylesheet" type="text/css" href="~/ContactUs/vendor/select2/select2.min.css">*@
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/ContactUs/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/ContactUs/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/ContactUs/css/main.css">
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="container-contact100">
+
+            <div class="wrap-contact100">
+                <form class="contact100-form validate-form">
+                    <span class="contact100-form-title">
+                        Send Us A Message
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+                        <input class="input100" type="text" name="name" placeholder="Full Name">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your email: e@a.x">
+                        <input class="input100" type="text" name="email" placeholder="E-mail">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your phone">
+                        <input class="input100" type="text" name="phone" placeholder="Phone">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Please enter your message">
+                        <textarea class="input100" name="message" placeholder="Your Message"></textarea>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="container-contact100-form-btn">
+                        <button class="contact100-form-btn">
+                            <span>
+                                <i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
+                                Send
+                            </span>
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                @Html.Label("Comment")
-                @Html.TextArea("CustomerComment", new { @class = "textarea", rows = "10", style = "width:50%;background-color:#f8f8f8" })
-            </div>
-            <div class="box-footer">
-                <button class="btn btn-primary" type="submit">Submit</button>
-            </div>
-        }
+        </div>
+
+
+
+        <div id="dropDownSelect1"></div>
+
     </div>
+    <div class="col-lg-3"></div>
 </div>
+
+<!--===============================================================================================-->
+@*<script src="~/ContactUs/vendor/jquery/jquery-3.2.1.min.js"></script>*@
+<!--===============================================================================================-->
+@*<script src="~/ContactUs/vendor/animsition/js/animsition.min.js"></script>*@
+<!--===============================================================================================-->
+@*<script src="~/ContactUs/vendor/bootstrap/js/popper.js"></script>*@
+@*<script src="~/ContactUs/vendor/bootstrap/js/bootstrap.min.js"></script>*@
+<!--===============================================================================================-->
+@*<script src="~/ContactUs/vendor/select2/select2.min.js"></script>*@
+<!--===============================================================================================-->
+<script src="~/ContactUs/vendor/daterangepicker/moment.min.js"></script>
+<script src="~/ContactUs/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="~/ContactUs/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="~/ContactUs/js/main.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>

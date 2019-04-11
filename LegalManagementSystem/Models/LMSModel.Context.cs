@@ -47,6 +47,7 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<StaffMatter> StaffMatters { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<LicenseTable> LicenseTables { get; set; }
     
         public virtual ObjectResult<GetAllAdvocateGroups_Result> GetAllAdvocateGroups()
         {
@@ -236,7 +237,20 @@ namespace LegalManagementSystem.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCasesByFiledDate_Result>("GetCasesByFiledDate", filedDateParameter);
         }
-
-        public System.Data.Entity.DbSet<LegalManagementSystem.ViewModels.ReportParameter> ReportParameters { get; set; }
+    
+        public virtual ObjectResult<GetAllCourtNames_Result> GetAllCourtNames()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllCourtNames_Result>("GetAllCourtNames");
+        }
+    
+        public virtual ObjectResult<GetAllLocationsForDropdown_Result> GetAllLocationsForDropdown()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllLocationsForDropdown_Result>("GetAllLocationsForDropdown");
+        }
+    
+        public virtual ObjectResult<GetAllClientNames_Result> GetAllClientNames()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllClientNames_Result>("GetAllClientNames");
+        }
     }
 }

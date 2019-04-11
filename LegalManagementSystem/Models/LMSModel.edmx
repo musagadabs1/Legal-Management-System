@@ -220,6 +220,25 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
+        <EntityType Name="LicenseTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SoftwareVersion" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ApprovedKey" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ValidityFrom" Type="datetime" Nullable="false" />
+          <Property Name="ValidityTo" Type="datetime" Nullable="false" />
+          <Property Name="ApprovedDocument" Type="nvarchar" MaxLength="100" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsLicensed" Type="bit" />
+          <Property Name="IsExpired" Type="bit" />
+        </EntityType>
         <EntityType Name="LineManagers">
           <Key>
             <PropertyRef Name="LineManagerId" />
@@ -471,6 +490,7 @@
           <Parameter Name="clientTown" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetAllClientForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllClientNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllClients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCompaniesForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllCourtActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -486,6 +506,8 @@
         <Function Name="GetAllCourtActivitiesByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="status" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetAllCourtNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllLocationsForDropdown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllMattersForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllStaffForDropDown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -512,6 +534,7 @@
           <EntitySet Name="Educations" EntityType="Self.Educations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experiences" EntityType="Self.Experiences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileEvents" EntityType="Self.FileEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LicenseTable" EntityType="Self.LicenseTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LineManagers" EntityType="Self.LineManagers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LMSTasks" EntityType="Self.LMSTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUsers" Schema="dbo" store:Type="Tables" />
@@ -1092,7 +1115,7 @@
             <Parameter Name="toDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetAllCasesByCaseNumber" ReturnType="Collection(MyCaseNewModel.GetAllCasesByCaseNumber_Result)">
-            <Parameter Name="caseNumber" Mode="In" Type="String" />
+          <Parameter Name="caseNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCasesByClientName" ReturnType="Collection(MyCaseNewModel.GetAllCasesByClientName_Result)">
             <Parameter Name="clientfirstName" Mode="In" Type="String" />
@@ -1100,16 +1123,20 @@
             <Parameter Name="clientLastName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCasesByPracticeArea" ReturnType="Collection(MyCaseNewModel.GetAllCasesByPracticeArea_Result)">
-            <Parameter Name="pArea" Mode="In" Type="String" />
+          <Parameter Name="pArea" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllClientByClientTown" ReturnType="Collection(MyCaseNewModel.GetAllClientByClientTown_Result)">
-            <Parameter Name="clientTown" Mode="In" Type="String" />
+          <Parameter Name="clientTown" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllClients" ReturnType="Collection(MyCaseNewModel.GetAllClients_Result)" />
           <FunctionImport Name="GetAllStaff" ReturnType="Collection(MyCaseNewModel.GetAllStaff_Result)" />
           <FunctionImport Name="GetCasesByFiledDate" ReturnType="Collection(MyCaseNewModel.GetCasesByFiledDate_Result)">
-            <Parameter Name="filedDate" Mode="In" Type="DateTime" />
+          <Parameter Name="filedDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="GetAllCourtNames" ReturnType="Collection(MyCaseNewModel.GetAllCourtNames_Result)" />
+          <FunctionImport Name="GetAllLocationsForDropdown" ReturnType="Collection(MyCaseNewModel.GetAllLocationsForDropdown_Result)" />
+          <FunctionImport Name="GetAllClientNames" ReturnType="Collection(MyCaseNewModel.GetAllClientNames_Result)" />
+          <EntitySet Name="LicenseTables" EntityType="MyCaseNewModel.LicenseTable" />
         </EntityContainer>
         <ComplexType Name="GetAllAdvocateGroups_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1353,6 +1380,37 @@
           <Property Type="String" Name="Case_Stage" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Case_Value" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="GetAllCourtNames_Result">
+          <Property Type="String" Name="CourtName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Court_Name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllLocationsForDropdown_Result">
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Location1" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAllClientNames_Result">
+          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Client" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="LicenseTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoftwareVersion" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApprovedKey" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValidityFrom" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValidityTo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovedDocument" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsLicensed" Type="Boolean" />
+          <Property Name="IsExpired" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2077,6 +2135,50 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllCourtNames" FunctionName="MyCaseNewModel.Store.GetAllCourtNames">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllCourtNames_Result">
+                <ScalarProperty Name="CourtName" ColumnName="CourtName" />
+                <ScalarProperty Name="Court_Name" ColumnName="Court Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllLocationsForDropdown" FunctionName="MyCaseNewModel.Store.GetAllLocationsForDropdown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllLocationsForDropdown_Result">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Location1" ColumnName="Location1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllClientNames" FunctionName="MyCaseNewModel.Store.GetAllClientNames">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MyCaseNewModel.GetAllClientNames_Result">
+                <ScalarProperty Name="Client_Name" ColumnName="Client Name" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="LicenseTables">
+            <EntityTypeMapping TypeName="MyCaseNewModel.LicenseTable">
+              <MappingFragment StoreEntitySet="LicenseTable">
+                <ScalarProperty Name="IsExpired" ColumnName="IsExpired" />
+                <ScalarProperty Name="IsLicensed" ColumnName="IsLicensed" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApprovedDocument" ColumnName="ApprovedDocument" />
+                <ScalarProperty Name="ValidityTo" ColumnName="ValidityTo" />
+                <ScalarProperty Name="ValidityFrom" ColumnName="ValidityFrom" />
+                <ScalarProperty Name="ApprovedKey" ColumnName="ApprovedKey" />
+                <ScalarProperty Name="SoftwareVersion" ColumnName="SoftwareVersion" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

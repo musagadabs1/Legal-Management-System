@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,5 +15,9 @@ namespace LegalManagementSystem.ViewModels
         public string ReportType { get; set; }
         public string Town { get; set; }
         public string Number { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime From { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime To { get; set; }
     }
 }

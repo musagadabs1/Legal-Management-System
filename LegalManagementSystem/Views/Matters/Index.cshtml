@@ -50,7 +50,7 @@
             <th></th>
         </tr>
     </thead>
-    <tfoot>
+    @*<tfoot>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -82,9 +82,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.MatterStage)
             </th>
-    </tfoot>
+    </tfoot>*@
 
-    @*@foreach (var item in Model)
+    @foreach (var item in Model)
     {
         <tfoot>
             <tr>
@@ -130,13 +130,21 @@
             </tr>
         </tfoot>
 
-    }*@
+    }
 
 </table>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
+
         $('#casetable').DataTable({
+            "processing": "true",
+            "language": {
+                "processing": "Processing... please wait."
+            }
+        });
+        @*$('#casetable').DataTable({
             "ajax": {
                 "url": "@Url.Action("GetMatters", "Matters")",
                 "type": "POST",
@@ -161,7 +169,7 @@
                 "processing":"Processing... please wait."
             }
             
-        });
+        });*@
 
         $('#btnMatterNumber').on("click",function () {
         var matterNumber = $('#matterNumber').val();

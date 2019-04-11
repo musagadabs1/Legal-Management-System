@@ -1,0 +1,91 @@
+﻿@model LegalManagementSystem.Models.LicenseTable
+@using LegalManagementSystem.Helpers
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-6">
+        <div class="row">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Add License</h3>
+                        </div>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Create", "LicenseTables", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @if (ViewBag.Error != null)
+                                    {
+                                        <span style="color:red;">@ViewBag.Error.ToString()</span>
+                                    }
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(model => model.ClientName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Client Name" } })
+                                            @Html.ValidationMessageFor(model => model.ClientName, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(model => model.SoftwareVersion, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Software Version" } })
+                                            @Html.ValidationMessageFor(model => model.SoftwareVersion, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(model => model.ApprovedKey, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Approved Key" } })
+                                            @Html.ValidationMessageFor(model => model.ApprovedKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(model => model.ApprovedBy, new { htmlAttributes = new { @class = "form-control", @placeholder = "Approved By" } })
+                                            @Html.ValidationMessageFor(model => model.ApprovedBy, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(model => model.ValidityFrom, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.ValidityFrom, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ValidityFrom, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.LabelFor(model => model.ValidityTo, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(model => model.ValidityTo, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ValidityTo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(model => model.ApprovedDocument, htmlAttributes: new { @class = "control-label" })
+                                            <input type="file" name="file" class="form-control"><br>
+                                            @Html.ValidationMessageFor(model => model.ApprovedDocument, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary btn-lg">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+</div>
+

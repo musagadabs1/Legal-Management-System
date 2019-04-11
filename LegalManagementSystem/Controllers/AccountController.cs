@@ -59,15 +59,39 @@ namespace LegalManagementSystem.Controllers
                     ViewBag.FullName = userFullName;
                     LegalGuideUtility.UserFullName = userFullName;
                     FormsAuthentication.SetAuthCookie(dataItem.Username, false);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    if (!IsExpired(userFullName) && IsLicensed(userFullName))
                     {
-                        return Redirect(returnUrl);
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+                    else if(LicenseType(userFullName).Equals("Trial"))
+                    {
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                                                     && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            LegalGuideUtility.LicenseMessage = "Trial Period ends at " + TrialPeriod(userFullName);
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            //ViewBag.ErrorMsg = "Login Failed. Check Username/Password and try again.";
+                            LegalGuideUtility.LicenseMessage = "Trial Period ends in " + TrialPeriod(userFullName) + " day(s)";
+                            return RedirectToLocal(returnUrl);
+                        }
                     }
                     else
                     {
-                        return RedirectToLocal(returnUrl);
+                        ViewBag.ErrorMsg = "Software is expired. Please contact IT Administrator.";
+                        return View();
                     }
+                    
                 }
                 else
                 {
@@ -84,12 +108,95 @@ namespace LegalManagementSystem.Controllers
             return View(model);
         }
 
+        private bool IsExpired(string clientName)
+        {
+            try
+            {
+                var isExpired= _context.LicenseTables.Where(x => x.IsExpired ==true && x.ClientName.Equals(clientName)).FirstOrDefault();
+
+                if (isExpired != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private bool IsLicensed(string clientName)
+        {
+            try
+            {
+                var getLicenseStatus = _context.LicenseTables.Where(x => x.IsLicensed.Equals(true) && x.ClientName.Equals(clientName)).FirstOrDefault();
+
+                if (getLicenseStatus != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        private string LicenseType(string clientName)
+        {
+            try
+            {
+                var getLicenseType = _context.LicenseTables.Where(x => x.IsLicensed==false && x.ClientName.Equals(clientName)).FirstOrDefault();
+
+                if (getLicenseType != null)
+                {
+                    return getLicenseType.SoftwareVersion;
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        private int TrialPeriod(string clientName)
+        {
+            try
+            {
+                //DateTime startTrial;
+                //DateTime endTrial;
+                int period = 0;
+                var getLicenseType = _context.LicenseTables.Where(x => x.IsLicensed==false && x.ClientName.Equals(clientName)).FirstOrDefault();
+
+                if (getLicenseType != null)
+                {
+                    period = getLicenseType.ValidityTo.Day - getLicenseType.ValidityFrom.Day;
+                    return period;
+                }
+                return period;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         //
         // GET: /Account/Register
         //[AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "ITAdmin").ToList(), "Id", "RoleType");
+            ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "ITAdmin" && u.RoleType != "ShrishAdmin").ToList(), "Id", "RoleType");
             ViewBag.AdvocateGroups=new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
             return View();
         }
@@ -125,7 +232,7 @@ namespace LegalManagementSystem.Controllers
                     if (IsRegisteredUser(model.Username,model.Password))
                     {
                         ViewBag.ErrorMsg = "Username already exist.";
-                        ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin").ToList(), "Id", "RoleType");
+                        ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "Admin" && u.RoleType != "ShrishAdmin").ToList(), "Id", "RoleType");
                         ViewBag.AdvocateGroups = new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
                         return View(model);
                     }
@@ -142,7 +249,7 @@ namespace LegalManagementSystem.Controllers
                 {
 
                     ViewBag.ErrorMsg = "Something happened. please check and try again. " + ex.Message;
-                    ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "ITAdmin").ToList(), "Id", "RoleType");
+                    ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "ITAdmin" && u.RoleType != "ShrishAdmin").ToList(), "Id", "RoleType");
                     ViewBag.AdvocateGroups = new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
                     return View(model);
                 }
@@ -155,7 +262,7 @@ namespace LegalManagementSystem.Controllers
                 //return View(model);
 
             }
-            ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "ITAdmin").ToList(), "Id", "RoleType");
+            ViewBag.RoleNames = new SelectList(_context.UserRoles.Where(u => u.RoleType != "ITAdmin" && u.RoleType != "ShrishAdmin").ToList(), "Id", "RoleType");
             ViewBag.AdvocateGroups = new SelectList(_context.AdvocateGroups.ToList(), "Id", "GroupName");
             // If we got this far, something failed, redisplay form
             return View(model);

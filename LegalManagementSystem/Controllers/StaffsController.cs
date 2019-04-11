@@ -114,6 +114,11 @@ namespace LegalManagementSystem.Controllers
                         filePath = file.FileName;
                         fileName = Path.GetFileName(file.FileName);
                     }
+                    else
+                    {
+                        ViewBag.Error = " please select image to continue.";
+                        return View(staff);
+                    }
                     var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
                     var fullFilePath = Path.Combine(folderPath, filePath);
 
@@ -252,6 +257,11 @@ namespace LegalManagementSystem.Controllers
                     {
                         filePath = file.FileName;
                         fileName = Path.GetFileName(file.FileName);
+                    }
+                    else
+                    {
+                        ViewBag.Error = " please select image to continue.";
+                        return View(staff);
                     }
                     var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
                     var fullFilePath = Path.Combine(folderPath, filePath);

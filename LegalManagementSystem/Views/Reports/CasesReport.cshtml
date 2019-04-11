@@ -1,0 +1,127 @@
+﻿@model LegalManagementSystem.ViewModels.ReportParameter
+@using LegalManagementSystem.Helpers
+@{
+    ViewBag.Title = "Cases Report";
+}
+
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Cases Report</h2>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.ReportType, "Report Type", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(model => model.ReportType, new SelectList(ViewBag.ReportType, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", id = "report_type", onchange = "reload_controls()" })
+                                @Html.ValidationMessageFor(model => model.ReportType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="div_date"style="display:none">
+                            <div class="col-md-6">
+                                @Html.LabelForRequired(model => model.From, "From", htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.From, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.To, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="div_cName"style="display:none">                            
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.PdfType, "Client Name", htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.PdfType, new { htmlAttributes = new { @class = "form-control" } })
+                                @*@Html.DropDownListFor(model => model.PdfType, (SelectList)ViewBag.ClientName, null, htmlAttributes: new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(model => model.PdfType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="div_parea"style="display:none">
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.Town, "Practice Area", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(model => model.Town, new SelectList(ViewBag.PracticeArea, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="div_cNumber" style="display:none">
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.Number, "Case Number", htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="">
+                            <div class="col-md-12">
+                                @Html.LabelForRequired(model => model.DocType, "Export Type", htmlAttributes: new { @class = "control-label" })
+
+                                @Html.DropDownListFor(model => model.DocType, new SelectList(ViewBag.ExportType, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DocType, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-info">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6"></div>
+</div>
+<script>
+
+
+    function reload_controls() {
+        var report_type = $('#report_type').val();
+
+        if (report_type == "2") {
+            $('#div_date').show();
+            $('#div_parea').hide();
+            $('#div_cNumber').hide();
+            $('#div_cName').hide();
+        }
+        else if (report_type == "3") {
+            $('#div_date').hide();
+            $('#div_parea').hide();
+            $('#div_cNumber').hide();
+            $('#div_cName').show();
+        }
+        else if (report_type == "4"){
+            $('#div_date').hide();
+            $('#div_parea').show();
+            $('#div_cNumber').hide();
+            $('#div_cName').hide();
+        }
+        else if (report_type == "5"){
+            $('#div_date').hide();
+            $('#div_parea').hide();
+            $('#div_cNumber').show();
+            $('#div_cName').hide();
+        }
+        else {
+            $('#div_date').hide();
+            $('#div_parea').hide();
+            $('#div_cNumber').hide();
+            $('#div_cName').hide();
+        }
+    }
+
+</script>
+
+

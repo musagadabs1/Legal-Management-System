@@ -51,58 +51,59 @@
             <th></th>
         </tr>
     </thead>
-    
 
-@foreach (var item in Model) {
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MiddleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DOE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MobileNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Designation)
-            </td>
-            <td>
-                <a href="@Url.Action("Edit","Staffs",new {id = item.StaffId })" style="margin-right:10px;">
-                    <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                </a>
-                <a href="@Url.Action("Details","Staffs",new { id = item.StaffId})">
-                    <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                </a> @*| @Html.ActionLink("Delete", "Delete", new { id=item.StaffId })*@
-            </td>
-        </tr>
-    </tbody>
-    
-}
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Designation)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Staffs",new {id = item.StaffId })" style="margin-right:10px;">
+                        <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <a href="@Url.Action("Details","Staffs",new { id = item.StaffId})">
+                        <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                </td>
+            </tr>
+        </tbody>
+
+    }
 
 </table>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {

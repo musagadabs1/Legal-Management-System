@@ -88,7 +88,7 @@ namespace LegalManagementSystem.Controllers
         // GET: FileEvents/Createad
         public ActionResult Create()
         {
-            //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName");
+            ViewBag.FileNumber = new SelectList(db.GetAllMattersForDropDown(), "Id", "Subject");
             ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName");
             return View();
         }

@@ -29,5 +29,7 @@ namespace LegalManagementSystem.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<LegalManagementSystem.ViewModels.ReportParameter> ReportParameters { get; set; }
     }
 }

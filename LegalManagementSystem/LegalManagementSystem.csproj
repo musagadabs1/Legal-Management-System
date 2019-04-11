@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ExperiencesController.cs" />
     <Compile Include="Controllers\FileEventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LicenseTablesController.cs" />
     <Compile Include="Controllers\LineManagersController.cs" />
     <Compile Include="Controllers\LMSTasksController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -259,13 +260,25 @@
     <Compile Include="Models\GetAllClientByClientTown_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAllClientNames_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetAllClients_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllCourtNames_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllLocationsForDropdown_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetAllStaff_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetCasesByFiledDate_Result.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LicenseTable.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReportDataSets\AllStaffDataset.Designer.cs">
@@ -283,6 +296,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AllClients.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AllCourtActivities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllCourtActivities.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\AllStaff.cs">
@@ -327,6 +346,12 @@
       <DependentUpon>CourtActivitiesByCaseNumber.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\CourtActivitiesByCourtName.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourtActivitiesByCourtName.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\CourtActivitiesByHearingDate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -343,6 +368,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GetCasesByNumber.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Test.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Test.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewModels\CourtActivityViewModel.cs" />
@@ -6962,6 +6993,85 @@
     <Content Include="admin-lte\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="admin-lte\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="admin-lte\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Blue-Template\assets\css\animate.min.css" />
+    <Content Include="Blue-Template\assets\css\bootstrap.min.css" />
+    <Content Include="Blue-Template\assets\css\demo.css" />
+    <Content Include="Blue-Template\assets\css\light-bootstrap-dashboard.css" />
+    <Content Include="Blue-Template\assets\css\pe-icon-7-stroke.css" />
+    <Content Include="Blue-Template\assets\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="Blue-Template\assets\img\default-avatar.png" />
+    <Content Include="Blue-Template\assets\img\faces\face-0.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\face-1.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\face-2.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\face-3.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\face-4.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\face-5.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\face-6.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\face-7.jpg" />
+    <Content Include="Blue-Template\assets\img\faces\tim_vector.jpe" />
+    <Content Include="Blue-Template\assets\img\favicon.ico" />
+    <Content Include="Blue-Template\assets\img\full-screen-image-3.jpg" />
+    <Content Include="Blue-Template\assets\img\loading-bubbles.svg" />
+    <Content Include="Blue-Template\assets\img\mask.png" />
+    <Content Include="Blue-Template\assets\img\new_logo.png" />
+    <Content Include="Blue-Template\assets\img\sidebar-1.jpg" />
+    <Content Include="Blue-Template\assets\img\sidebar-2.jpg" />
+    <Content Include="Blue-Template\assets\img\sidebar-3.jpg" />
+    <Content Include="Blue-Template\assets\img\sidebar-4.jpg" />
+    <Content Include="Blue-Template\assets\img\sidebar-5.jpg" />
+    <Content Include="Blue-Template\assets\img\tim_80x80.png" />
+    <Content Include="Blue-Template\assets\js\bootstrap-notify.js" />
+    <Content Include="Blue-Template\assets\js\bootstrap-select.js" />
+    <Content Include="Blue-Template\assets\js\bootstrap.min.js" />
+    <Content Include="Blue-Template\assets\js\chartist.min.js" />
+    <Content Include="Blue-Template\assets\js\demo.js" />
+    <Content Include="Blue-Template\assets\js\jquery.3.2.1.min.js" />
+    <Content Include="Blue-Template\assets\js\light-bootstrap-dashboard.js" />
+    <Content Include="ContactUs\css\main.css" />
+    <Content Include="ContactUs\css\util.css" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="ContactUs\fonts\iconic\css\material-design-iconic-font.css" />
+    <Content Include="ContactUs\fonts\iconic\css\material-design-iconic-font.min.css" />
+    <Content Include="ContactUs\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="ContactUs\fonts\JosefinSans\OFL.txt" />
+    <Content Include="ContactUs\fonts\source-sans-pro\OFL.txt" />
+    <Content Include="ContactUs\fonts\ubuntu\UFL.txt" />
+    <Content Include="ContactUs\images\icons\favicon.ico" />
+    <Content Include="ContactUs\images\icons\map-marker.png" />
+    <Content Include="ContactUs\js\main.js" />
+    <Content Include="ContactUs\vendor\animate\animate.css" />
+    <Content Include="ContactUs\vendor\animsition\css\animsition.css" />
+    <Content Include="ContactUs\vendor\animsition\css\animsition.min.css" />
+    <Content Include="ContactUs\vendor\animsition\js\animsition.js" />
+    <Content Include="ContactUs\vendor\animsition\js\animsition.min.js" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="ContactUs\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="ContactUs\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="ContactUs\vendor\bootstrap\js\popper.js" />
+    <Content Include="ContactUs\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="ContactUs\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="ContactUs\vendor\countdowntime\countdowntime.js" />
+    <Content Include="ContactUs\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="ContactUs\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="ContactUs\vendor\daterangepicker\daterangepicker.css" />
+    <Content Include="ContactUs\vendor\daterangepicker\daterangepicker.js" />
+    <Content Include="ContactUs\vendor\daterangepicker\moment.js" />
+    <Content Include="ContactUs\vendor\daterangepicker\moment.min.js" />
+    <Content Include="ContactUs\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="ContactUs\vendor\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="ContactUs\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="ContactUs\vendor\select2\select2.css" />
+    <Content Include="ContactUs\vendor\select2\select2.js" />
+    <Content Include="ContactUs\vendor\select2\select2.min.css" />
+    <Content Include="ContactUs\vendor\select2\select2.min.js" />
     <Content Include="Content\alertifyjs\alertify.css" />
     <Content Include="Content\alertifyjs\alertify.min.css" />
     <Content Include="Content\alertifyjs\alertify.rtl.css" />
@@ -7121,6 +7231,7 @@
     <Content Include="Content\Images\company-business.png" />
     <Content Include="Content\Images\computer-icons-company-.png" />
     <Content Include="Content\Images\custodian-secure-email-manager.png" />
+    <Content Include="Content\Images\legal-scale-icon.jpg" />
     <Content Include="Content\Images\logo.png.jpg" />
     <Content Include="Content\Images\smile-circle-clip-art-contacts.png" />
     <Content Include="Content\Images\legal-scale-icon-21.jpg" />
@@ -7986,6 +8097,111 @@
     <Content Include="ReportDataSets\AllStaffDataset.xsc">
       <DependentUpon>AllStaffDataset.xsd</DependentUpon>
     </Content>
+    <Content Include="Blue-Template\assets\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="Blue-Template\assets\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="Blue-Template\assets\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_buttons.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_cards.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_chartist.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_icons.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_inputs.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_labels.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_morphing-buttons.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_navbars.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_social-buttons.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_tabs.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_transparency.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\mixins\_vendor-prefixes.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_alerts.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_buttons.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_cards.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_chartist.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_checkbox-radio-switch.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_dropdown.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_footers.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_inputs.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_misc.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_mixins.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_navbars.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_responsive.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_sidebar-and-main-panel.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_tables.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_typography.scss" />
+    <Content Include="Blue-Template\assets\sass\lbd\_variables.scss" />
+    <Content Include="Blue-Template\assets\sass\light-bootstrap-dashboard.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="ContactUs\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="ContactUs\fonts\iconic\fonts\Material-Design-Iconic-Font.eot" />
+    <Content Include="ContactUs\fonts\iconic\fonts\Material-Design-Iconic-Font.ttf" />
+    <Content Include="ContactUs\fonts\iconic\fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="ContactUs\fonts\iconic\fonts\Material-Design-Iconic-Font.woff2" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-Bold.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-BoldItalic.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-Italic.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-Light.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-LightItalic.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-Regular.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-SemiBold.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-SemiBoldItalic.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-Thin.ttf" />
+    <Content Include="ContactUs\fonts\JosefinSans\JosefinSans-ThinItalic.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-Black.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-BlackItalic.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-Bold.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-BoldItalic.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-ExtraLight.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-ExtraLightItalic.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-Italic.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-Light.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-LightItalic.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-Regular.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-SemiBold.ttf" />
+    <Content Include="ContactUs\fonts\source-sans-pro\SourceSansPro-SemiBoldItalic.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-Bold.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-BoldItalic.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-Italic.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-Light.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-LightItalic.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-Medium.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-MediumItalic.ttf" />
+    <Content Include="ContactUs\fonts\ubuntu\Ubuntu-Regular.ttf" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="ContactUs\vendor\bootstrap\css\bootstrap.min.css.map" />
     <None Include="ReportDataSets\AllStaffDataset.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -8290,12 +8506,21 @@
     <Content Include="Views\CourtActivities\Index.cshtml" />
     <Content Include="Views\Matters\Error.cshtml" />
     <Content Include="Views\CourtActivities\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout0.cshtml" />
     <Content Include="Views\Reports\AllStaffReport.cshtml" />
     <Content Include="Views\Reports\AllClients.cshtml" />
+    <Content Include="Views\Reports\CasesReport.cshtml" />
+    <Content Include="Views\Reports\CourtActivities.cshtml" />
+    <Content Include="Views\LicenseTables\Create.cshtml" />
+    <Content Include="Views\LicenseTables\Delete.cshtml" />
+    <Content Include="Views\LicenseTables\Details.cshtml" />
+    <Content Include="Views\LicenseTables\Edit.cshtml" />
+    <Content Include="Views\LicenseTables\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />
+    <Folder Include="App_Data\LicenseDocs\" />
     <Folder Include="App_Data\StaffImages\" />
     <Folder Include="ReportViewers\" />
   </ItemGroup>
@@ -8329,6 +8554,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllClients.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AllCourtActivities.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AllCourtActivities.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\AllStaff.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllStaff.cs</LastGenOutput>
@@ -8357,6 +8586,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CourtActivitiesByCaseNumber.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CourtActivitiesByCourtName.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CourtActivitiesByCourtName.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\CourtActivitiesByHearingDate.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CourtActivitiesByHearingDate.cs</LastGenOutput>
@@ -8368,6 +8601,10 @@
     <EmbeddedResource Include="Reports\GetCasesByNumber.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>GetCasesByNumber.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Test.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Test.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

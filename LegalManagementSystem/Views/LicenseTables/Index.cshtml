@@ -1,0 +1,66 @@
+﻿@model IEnumerable<LegalManagementSystem.Models.LicenseTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of Licenses</h2>
+
+<p>
+    <a href="@Url.Action("Create","LicenseTables")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoftwareVersion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValidityFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValidityTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoftwareVersion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValidityFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValidityTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        <td>
+
+            <a href="@Url.Action("Edit","LicenseTables", new {id = item.Id  })">
+                <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a href="@Url.Action("Details","LicenseTables",new {id = item.Id  })">
+                <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+            </a>
+            <a href="@Url.Action("Delete","LicenseTables",new {id = item.Id  })">
+                <span style="font-size:large" class="glyphicon glyphicon-trash"></span>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
