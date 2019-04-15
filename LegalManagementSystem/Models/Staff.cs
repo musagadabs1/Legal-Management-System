@@ -40,9 +40,13 @@ namespace LegalManagementSystem.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Date Of Birth")]
         public System.DateTime DOB { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Date Of Employment")]
         public System.DateTime DOE { get; set; }

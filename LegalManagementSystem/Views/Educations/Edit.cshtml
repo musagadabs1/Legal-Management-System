@@ -33,13 +33,13 @@
         <div class="form-group">
             <div class="col-md-6">
                 @Html.LabelFor(model => model.DateStart, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.DateStart,"{0:MM/dd/yyyy}" new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DateStart, "", new { @class = "text-danger" })
             </div>
             
             <div class="col-md-6">
                 @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.EndDate,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,7 +55,7 @@
             
             <div class="col-md-6">
                 @Html.LabelFor(model => model.DateAwarded, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.DateAwarded, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.DateAwarded,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DateAwarded, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,8 +83,11 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Update" class="btn btn-primary" />
+            <div class="col-md-6">
+                <button type="submit" value="" class="btn btn-info">Update</button>
+            </div>
+            <div class="col-md-6">
+                <a href="@Url.Action("Index","Educations")" class="btn btn-info">Cancel</a> 
             </div>
         </div>
     </div>

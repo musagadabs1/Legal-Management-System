@@ -19,6 +19,7 @@ namespace LegalManagementSystem.Models
         [Required]
         [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Hearing Date")]
         public System.DateTime DateHeared { get; set; }
@@ -41,6 +42,7 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         [Display(Name = "Date Adjourned To")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         public Nullable<System.DateTime> DateAdjourned { get; set; }
         [Display(Name = "Defense Counsel Name")]

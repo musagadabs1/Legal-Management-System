@@ -350,7 +350,7 @@ namespace LegalManagementSystem.Controllers
                     db.Matters.Add(matter);
                     await db.SaveChangesAsync();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index");
                 }
                 catch (Exception)
                 {

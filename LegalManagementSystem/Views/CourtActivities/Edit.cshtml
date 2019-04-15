@@ -33,7 +33,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.DateHeared, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.DateHeared, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.TextBoxFor(model => model.DateHeared,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.DateHeared, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                         <div class="form-group">
                             @Html.LabelForRequired(model => model.DateAdjourned, "Adjourned Date", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.DateAdjourned, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.TextBoxFor(model => model.DateAdjourned,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.DateAdjourned, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -110,8 +110,11 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
+                            <div class="col-md-6">
                                 <button type="submit" class="btn btn-info">Update</button>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="@Url.Action("Index","CourtActivities")" class="btn btn-info">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -123,8 +126,6 @@
 
     </div>
 </div>
-
-<h2></h2>
 
 
 

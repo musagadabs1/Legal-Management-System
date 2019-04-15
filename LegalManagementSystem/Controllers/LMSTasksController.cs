@@ -74,7 +74,7 @@ namespace LegalManagementSystem.Controllers
 
                     db.LMSTasks.Add(lMSTask);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index");
                 }
                 catch (Exception)
                 {

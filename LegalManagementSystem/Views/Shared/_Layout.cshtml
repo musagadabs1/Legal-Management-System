@@ -10,7 +10,7 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap core CSS     -->
     <link href="~/Blue-Template/assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -27,7 +27,9 @@
     <link href="~/Content/styles.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    @*<link rel="stylesheet" href="~/green-horizotal/css/font-awesome.min.css">*@
+    <link rel="stylesheet" href="~/admin-lte/bower_components/font-awesome/css/font-awesome.min.css">
+    @*<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">*@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="~/Blue-Template/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
@@ -51,14 +53,14 @@
 
                     <div class="sidebar-wrapper">
                         <div class="logo">
-                            <a href="http://www.shrishsystems.com" class="simple-text">
+                            <a href="#" class="simple-text">
                                 LMS
                             </a>
                         </div>
 
                         <ul class="nav">
                             <li class="active">
-                                <a href="#">
+                                <a href="@Url.Action("Index","Home")">
                                     <i class="pe-7s-graph"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -113,12 +115,12 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="#">Dashboard</a>
+                                <a class="navbar-brand" href="@Url.Action("Index","Home")">Dashboard</a>
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-left">
                                     <li>
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <a href="@Url.Action("Index","Home")" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-dashboard"></i>
                                             <p class="hidden-lg hidden-md">Dashboard</p>
                                         </a>
@@ -240,7 +242,7 @@
                                     </ul>
                                 </nav>*@
                             <p class="copyright pull-right">
-                                &copy;
+                               Copyright &copy;
                                 <script>document.write(new Date().getFullYear())</script> <a href="http://www.shrishsystems.com">LMS</a>, made with love for a better Legal System
                             </p>
                         </div>
@@ -268,14 +270,14 @@
 
                     <div class="sidebar-wrapper">
                         <div class="logo">
-                            <a href="http://www.shrishsystems.com" class="simple-text">
+                            <a href="#" class="simple-text">
                                 LMS
                             </a>
                         </div>
 
                         <ul class="nav">
                             <li class="active">
-                                <a href="#">
+                                <a href="@Url.Action("Index","Home")">
                                     <i class="pe-7s-graph"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -300,12 +302,12 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="#">Dashboard</a>
+                                <a class="navbar-brand" href="@Url.Action("Index","Home")">Dashboard</a>
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-left">
                                     <li>
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <a href="@Url.Action("Index","Home")" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-dashboard"></i>
                                             <p class="hidden-lg hidden-md">Dashboard</p>
                                         </a>
@@ -337,7 +339,7 @@
                     <footer class="footer">
                         <div class="container-fluid">
                             <p class="copyright pull-right">
-                                &copy;
+                                Copyright  &copy;
                                 <script>document.write(new Date().getFullYear())</script> <a href="http://www.shrishsystems.com">LMS</a>, made with love for a better Legal System
                             </p>
                         </div>
@@ -365,14 +367,14 @@
 
                     <div class="sidebar-wrapper">
                         <div class="logo">
-                            <a href="http://www.shrishsystems.com" class="simple-text">
+                            <a href="#" class="simple-text">
                                 LMS
                             </a>
                         </div>
 
                         <ul class="nav">
                             <li class="active">
-                                <a href="#">
+                                <a href="@Url.Action("Index","Home")">
                                     <i class="pe-7s-graph"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -403,12 +405,12 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="#">Dashboard</a>
+                                <a class="navbar-brand" href="@Url.Action("Index","Home")">Dashboard</a>
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-left">
                                     <li>
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <a href="@Url.Action("Index","Home")" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-dashboard"></i>
                                             <p class="hidden-lg hidden-md">Dashboard</p>
                                         </a>
@@ -487,7 +489,7 @@
 
                     <footer class="footer">
                         <div class="container-fluid">
-                            <nav class="pull-left">
+                            @*<nav class="pull-left">
                                 <ul>
                                     <li>
                                         <a href="#">
@@ -510,9 +512,9 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </nav>
+                            </nav>*@
                             <p class="copyright pull-right">
-                                &copy;
+                                Copyright &copy;
                                 <script>document.write(new Date().getFullYear())</script> <a href="http://www.shrishsystems.com">LMS</a>, made with love for a better Legal System
                             </p>
                         </div>
@@ -540,14 +542,14 @@
 
                     <div class="sidebar-wrapper">
                         <div class="logo">
-                            <a href="http://www.shrishsystems.com" class="simple-text">
+                            <a href="#" class="simple-text">
                                 LMS
                             </a>
                         </div>
 
                         <ul class="nav">
                             <li class="active">
-                                <a href="#">
+                                <a href="@Url.Action("Index","Home")">
                                     <i class="pe-7s-graph"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -569,12 +571,12 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="#">Dashboard</a>
+                                <a class="navbar-brand" href="@Url.Action("Index","Home")">Dashboard</a>
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-left">
                                     <li>
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <a href="@Url.Action("Index","Home")" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-dashboard"></i>
                                             <p class="hidden-lg hidden-md">Dashboard</p>
                                         </a>
@@ -626,7 +628,7 @@
                     <footer class="footer">
                         <div class="container-fluid">
                             <p class="copyright pull-right">
-                                &copy;
+                                Copyright &copy;
                                 <script>document.write(new Date().getFullYear())</script> <a href="http://www.shrishsystems.com">LMS</a>, made with love for a better Legal System
                             </p>
                         </div>
@@ -654,14 +656,14 @@
 
                     <div class="sidebar-wrapper">
                         <div class="logo">
-                            <a href="http://www.shrishsystems.com" class="simple-text">
+                            <a href="#" class="simple-text">
                                 LMS
                             </a>
                         </div>
 
                         <ul class="nav">
                             <li class="active">
-                                <a href="#">
+                                <a href="@Url.Action("Index","Home")">
                                     <i class="pe-7s-graph"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -697,7 +699,7 @@
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-left">
                                     <li>
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <a href="@Url.Action("Index","Home")" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="fa fa-dashboard"></i>
                                             <p class="hidden-lg hidden-md">Dashboard</p>
                                         </a>
@@ -762,8 +764,8 @@
                     <footer class="footer">
                         <div class="container-fluid">
                             <p class="copyright pull-right">
-                                &copy;
-                                <script>document.write(new Date().getFullYear())</script> <a href="http://www.shrishsystems.com">LMS</a>, made with love for a better Legal System
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear())</script> <a href="#">LMS</a>, made with love for a better Legal System
                             </p>
                         </div>
                     </footer>

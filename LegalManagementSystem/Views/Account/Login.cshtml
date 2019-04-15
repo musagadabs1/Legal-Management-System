@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/css/my-login.css">
 </head>
-<body class="my-login-page">
+<body class="my-login-page" style="margin-top:15px;">
     <section class="h-100">
         <div class="container h-100">
             <div class="row justify-content-md-center h-100">
@@ -22,7 +22,7 @@
                         
                         <div class="card fat">
                             <div style="margin: 0 auto">
-                                <img src="~/Content/Images/legal-scale-icon-5.jpg" height="80"                  width="80"  />
+                                <img src="~/Content/Images/legal-scale-icon-5.jpg" height="80" width="80" />
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center;">Login to your Account</h5>
@@ -31,7 +31,7 @@
                                 {
                                     @Html.AntiForgeryToken()
                                     <div class="form-group">
-                                        <input id="txtUsername" type="text" class="form-control"                            name="txtUsername" value="" placeholder="Username" required autofocus>
+                                        <input id="txtUsername" type="text" class="form-control" name="txtUsername" value="" placeholder="Username" required autofocus>
                                     </div>
 
                                     <div class="form-group">
@@ -51,10 +51,11 @@
                                     <p style="text-align:center;color:slategrey">Please Contact your IT Department</p>
                                 }
                             </div>
+                            <div class="footer" style="margin-bottom:0">
+                                <strong>Copyright &copy; @DateTime.Now.Year <a href="https://www.shrishsystems.com">Shrish Systems Private Limited</a>.</strong><br /> All rights reserved.
+                            </div>
                         </div>
-                        <div class="footer">
-                            <strong>Copyright &copy; @DateTime.Now.Year <a href="https://www.shrishsystems.com">Shrish Systems Private Limited</a>.</strong> All rights reserved.
-                        </div>
+                        
                     </div>
             </div>
         </div>
@@ -65,57 +66,3 @@
     <script src="~/Content/js/my-login.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-@*@model LegalManagementSystem.Models.LoginUser
-    @{
-        ViewBag.Title = "Log in";
-    }
-
-    <h2>@ViewBag.Title.</h2>
-    <div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Use a local account to log in.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-default" />
-                        </div>
-                    </div>
-                    <p>
-                        @Html.ActionLink("Register as a new user", "Register")
-                    </p>
-                }
-            </section>
-        </div>
-    </div>
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@

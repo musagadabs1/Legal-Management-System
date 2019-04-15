@@ -32,7 +32,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.From, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.From, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextBoxFor(model => model.From,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -40,7 +40,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.To, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextBoxFor(model => model.To,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -86,8 +86,11 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-primary" />
+        <div class="col-md-6">
+            <input type="submit" value="Save" class="btn btn-info" />
+        </div>
+        <div class="col-md-6">
+           <a href="@Url.Action("Index","Calendars")"class="btn btn-info">Cancel</a> 
         </div>
     </div>
 </div>

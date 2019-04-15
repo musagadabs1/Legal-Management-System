@@ -72,7 +72,7 @@ namespace LegalManagementSystem.Controllers
 
                         db.Clients.Add(client);
                         await db.SaveChangesAsync();
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index");
                     }
                     else
                     {

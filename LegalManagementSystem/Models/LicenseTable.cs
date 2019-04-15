@@ -27,6 +27,7 @@ namespace LegalManagementSystem.Models
         public string ApprovedKey { get; set; }
         [Required]
         [Display(Name = "Validity From")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         public System.DateTime ValidityFrom { get; set; }
         [Required]

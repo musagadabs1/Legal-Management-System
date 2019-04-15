@@ -38,6 +38,7 @@ namespace LegalManagementSystem.Models
         [Display(Name = "Task Type")]
         public Nullable<int> AdvocateGroupId { get; set; }
         //[Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Due Date")]
         public Nullable<System.DateTime> DueDate { get; set; }
     }

@@ -27,15 +27,22 @@ namespace LegalManagementSystem.Models
         [Display(Name = "Client")]
         public Nullable<int> ClientId { get; set; }
         public Nullable<int> LineManagerId { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode =true,DataFormatString ="{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Arrival Date")]
         public Nullable<System.DateTime> ArrivalDate { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Filed On")]
         public Nullable<System.DateTime> FiledOn { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Due Date")]
         public Nullable<System.DateTime> DueDate { get; set; }
+
         [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
         public string Priority { get; set; }

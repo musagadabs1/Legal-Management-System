@@ -21,6 +21,7 @@ namespace LegalManagementSystem.Models
         public string Title { get; set; }
         [DataType(DataType.Date)]
         public System.DateTime From { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         public Nullable<System.DateTime> To { get; set; }
         [Display(Name = "Case Number")]

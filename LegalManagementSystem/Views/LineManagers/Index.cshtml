@@ -43,7 +43,7 @@
         </tr>
     </tfoot>
 
-    @*@foreach (var item in Model)
+    @foreach (var item in Model)
     {
         <tbody>
             <tr>
@@ -67,12 +67,12 @@
             </tr>
         </tbody>
 
-    }*@
+    }
 
 </table>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script>
+@*<script>
     $(document).ready(function () {
         $('#lineManagerTable').DataTable({
             "ajax": {
@@ -94,4 +94,4 @@
             }
         });
     });
-</script>
+</script>*@

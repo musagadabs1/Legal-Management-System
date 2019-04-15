@@ -22,6 +22,7 @@ namespace LegalManagementSystem.Models
         [Required]
         [Display(Name = "Document Name")]
         public string DocName { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Date Assigned")]
         public System.DateTime AssignedDate { get; set; }
