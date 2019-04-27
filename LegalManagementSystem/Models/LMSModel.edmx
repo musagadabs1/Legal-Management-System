@@ -259,7 +259,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TaskType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="MatterNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatterNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="NotifyDays" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -291,7 +291,6 @@
           <Key>
             <PropertyRef Name="MatterNumber" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="AreaOfPractice" Type="nvarchar" MaxLength="50" />
@@ -393,6 +392,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CourtActivities_Matters">
+          <End Role="Matters" Type="Self.Matters" Multiplicity="1" />
+          <End Role="CourtActivities" Type="Self.CourtActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matters">
+              <PropertyRef Name="MatterNumber" />
+            </Principal>
+            <Dependent Role="CourtActivities">
+              <PropertyRef Name="MatterNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Dependants_Staffs">
           <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
           <End Role="Dependants" Type="Self.Dependants" Multiplicity="*" />
@@ -438,6 +449,42 @@
             </Principal>
             <Dependent Role="FileEvents">
               <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LMSTasks_Matters">
+          <End Role="Matters" Type="Self.Matters" Multiplicity="1" />
+          <End Role="LMSTasks" Type="Self.LMSTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matters">
+              <PropertyRef Name="MatterNumber" />
+            </Principal>
+            <Dependent Role="LMSTasks">
+              <PropertyRef Name="MatterNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matters_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Matters" Type="Self.Matters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Matters">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matters_Clients1">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Matters" Type="Self.Matters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Matters">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -547,6 +594,10 @@
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Certifications" EntitySet="Certifications" />
           </AssociationSet>
+          <AssociationSet Name="FK_CourtActivities_Matters" Association="Self.FK_CourtActivities_Matters">
+            <End Role="Matters" EntitySet="Matters" />
+            <End Role="CourtActivities" EntitySet="CourtActivities" />
+          </AssociationSet>
           <AssociationSet Name="FK_Dependants_Staffs" Association="Self.FK_Dependants_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="Dependants" EntitySet="Dependants" />
@@ -562,6 +613,18 @@
           <AssociationSet Name="FK_FileEvents_Staffs" Association="Self.FK_FileEvents_Staffs">
             <End Role="Staffs" EntitySet="Staffs" />
             <End Role="FileEvents" EntitySet="FileEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LMSTasks_Matters" Association="Self.FK_LMSTasks_Matters">
+            <End Role="Matters" EntitySet="Matters" />
+            <End Role="LMSTasks" EntitySet="LMSTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matters_Clients" Association="Self.FK_Matters_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Matters" EntitySet="Matters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matters_Clients1" Association="Self.FK_Matters_Clients1">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Matters" EntitySet="Matters" />
           </AssociationSet>
           <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
             <End Role="LineManagers" EntitySet="LineManagers" />
@@ -651,6 +714,7 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ClientNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Matters" Relationship="MyCaseNewModel.FK_Matters_Clients" FromRole="Client" ToRole="Matter" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -698,6 +762,7 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="DateAdjourned" Type="DateTime" Precision="3" />
           <Property Name="DefenseCounselName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Matter" Relationship="MyCaseNewModel.FK_CourtActivities_Matters" FromRole="CourtActivity" ToRole="Matter" />
         </EntityType>
         <EntityType Name="Dependant">
           <Key>
@@ -817,7 +882,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MatterNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatterNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NotifyDays" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -827,6 +892,7 @@
           <Property Name="Reporter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AdvocateGroupId" Type="Int32" />
           <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Matter" Relationship="MyCaseNewModel.FK_LMSTasks_Matters" FromRole="LMSTask" ToRole="Matter" />
         </EntityType>
         <EntityType Name="LoginUser">
           <Key>
@@ -850,9 +916,8 @@
           <Key>
             <PropertyRef Name="MatterNumber" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AreaOfPractice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClientId" Type="Int32" />
           <Property Name="LineManagerId" Type="Int32" />
@@ -870,6 +935,9 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="CaseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="MyCaseNewModel.FK_Matters_Clients" FromRole="Matter" ToRole="Client" />
+          <NavigationProperty Name="CourtActivities" Relationship="MyCaseNewModel.FK_CourtActivities_Matters" FromRole="Matter" ToRole="CourtActivity" />
+          <NavigationProperty Name="LMSTasks" Relationship="MyCaseNewModel.FK_LMSTasks_Matters" FromRole="Matter" ToRole="LMSTask" />
         </EntityType>
         <EntityType Name="StaffGroup">
           <Key>
@@ -1137,6 +1205,18 @@
           <FunctionImport Name="GetAllLocationsForDropdown" ReturnType="Collection(MyCaseNewModel.GetAllLocationsForDropdown_Result)" />
           <FunctionImport Name="GetAllClientNames" ReturnType="Collection(MyCaseNewModel.GetAllClientNames_Result)" />
           <EntitySet Name="LicenseTables" EntityType="MyCaseNewModel.LicenseTable" />
+          <AssociationSet Name="FK_Matters_Clients" Association="MyCaseNewModel.FK_Matters_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Matter" EntitySet="Matters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourtActivities_Matters" Association="MyCaseNewModel.FK_CourtActivities_Matters">
+            <End Role="Matter" EntitySet="Matters" />
+            <End Role="CourtActivity" EntitySet="CourtActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LMSTasks_Matters" Association="MyCaseNewModel.FK_LMSTasks_Matters">
+            <End Role="Matter" EntitySet="Matters" />
+            <End Role="LMSTask" EntitySet="LMSTasks" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetAllAdvocateGroups_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1411,6 +1491,42 @@
           <Property Name="IsLicensed" Type="Boolean" />
           <Property Name="IsExpired" Type="Boolean" />
         </EntityType>
+        <Association Name="FK_Matters_Clients">
+          <End Type="MyCaseNewModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="MyCaseNewModel.Matter" Role="Matter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Matter">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourtActivities_Matters">
+          <End Type="MyCaseNewModel.Matter" Role="Matter" Multiplicity="1" />
+          <End Type="MyCaseNewModel.CourtActivity" Role="CourtActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matter">
+              <PropertyRef Name="MatterNumber" />
+            </Principal>
+            <Dependent Role="CourtActivity">
+              <PropertyRef Name="MatterNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LMSTasks_Matters">
+          <End Type="MyCaseNewModel.Matter" Role="Matter" Multiplicity="1" />
+          <End Type="MyCaseNewModel.LMSTask" Role="LMSTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matter">
+              <PropertyRef Name="MatterNumber" />
+            </Principal>
+            <Dependent Role="LMSTask">
+              <PropertyRef Name="MatterNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1697,7 +1813,6 @@
           <EntitySetMapping Name="Matters">
             <EntityTypeMapping TypeName="MyCaseNewModel.Matter">
               <MappingFragment StoreEntitySet="Matters">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AreaOfPractice" ColumnName="AreaOfPractice" />

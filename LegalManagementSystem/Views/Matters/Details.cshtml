@@ -11,14 +11,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Subject)
         </dt>
 
@@ -43,11 +35,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ClientId)
+            @Html.DisplayNameFor(model => model.LineManagerId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ClientId)
+            @Html.DisplayFor(model => model.LineManagerId)
         </dd>
 
         <dt>
@@ -115,51 +107,12 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
+            @*@Html.DisplayNameFor(model => model.Client.FirstName)*@
+            Client Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CaseNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CaseNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LineManagerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LineManagerId)
+            @Html.DisplayFor(model => model.Client.FirstName)
         </dd>
 
     </dl>

@@ -46,7 +46,7 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-
+    
         public virtual Staff Staff { get; set; }
     }
 }

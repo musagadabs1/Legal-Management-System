@@ -15,20 +15,25 @@ namespace LegalManagementSystem.Models
 
     public partial class Matter
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Matter()
+        {
+            this.CourtActivities = new HashSet<CourtActivity>();
+            this.LMSTasks = new HashSet<LMSTask>();
+        }
         [Required]
         [Display(Name = "Case Title")]
         public string Subject { get; set; }
         [Display(Name = "Case Description")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Display(Name = "Case Area")]
         public string AreaOfPractice { get; set; }
-        //[DataType(DataType.Date)]
         [Display(Name = "Client")]
         public Nullable<int> ClientId { get; set; }
         public Nullable<int> LineManagerId { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode =true,DataFormatString ="{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         [Display(Name = "Arrival Date")]
         public Nullable<System.DateTime> ArrivalDate { get; set; }
@@ -59,5 +64,11 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string CaseNumber { get; set; }
+    
+        public virtual Client Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourtActivity> CourtActivities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LMSTask> LMSTasks { get; set; }
     }
 }

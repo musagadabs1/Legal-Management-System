@@ -15,25 +15,30 @@ namespace LegalManagementSystem.Models
 
     public partial class Client
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Client()
+        {
+            this.Matters = new HashSet<Matter>();
+        }
+
+        [Required()]
         public int ClientId { get; set; }
+        [Display(Name ="First Name")]
         [Required]
-        [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        //[Required]
         [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
         [Required]
-        [Display(Name = "Last Name")]
+        [Display(Name ="Last Name")]
         public string LastName { get; set; }
         [Required]
         [Display(Name = "Email Address")]
-        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [Required]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
         [DataType(DataType.MultilineText)]
-        [Display(Name = "Client Address")]
+        [Display(Name = "Address")]
         public string Address { get; set; }
         public string Town { get; set; }
         //[Required]
@@ -45,5 +50,8 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
         public string ClientNumber { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Matter> Matters { get; set; }
     }
 }

@@ -47,5 +47,14 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> DateAdjourned { get; set; }
         [Display(Name = "Defense Counsel Name")]
         public string DefenseCounselName { get; set; }
+    
+        public virtual Matter Matter { get; set; }
     }
 }
+
+/*
+ 
+public int Id { get; set; }
+        
+     
+*/

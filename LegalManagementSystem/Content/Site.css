@@ -1,11 +1,11 @@
 ﻿body {
-    /*padding-top: 0;*/
-    padding-bottom: 20px;
-    background-color: #eeeded;
+    padding-top: 80px;
+    padding-bottom: 2px;
+    background-color: #ffffff; /*#1b2a47*/
     font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
     font-size: 13px;
     line-height: 1.5384616;
-    color: #333;
+    color: #000;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -19,6 +19,13 @@
 */
 .dl-horizontal dt {
     white-space: normal;
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #1b2a47
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

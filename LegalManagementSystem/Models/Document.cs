@@ -35,5 +35,7 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public System.DateTime DateModified { get; set; }
         public string DocPath { get; set; }
+
+
     }
 }

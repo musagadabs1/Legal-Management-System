@@ -9,7 +9,7 @@
 
     </div>
     <div class="col-md-6">
-        <div class="panel panel-info">
+        <div class="panel panel-info" style="background-color:#1b2a47; color:black">
             <div class="panel-heading">
                 <h3 class="panel-title">Edit Company Info</h3>
             </div>
@@ -18,9 +18,7 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <h4>Company</h4>
-                        <hr />
+                    <div class="form-horizontal" style="margin:0 auto;width:80%">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @if (ViewBag.Error != null)
                         {
@@ -159,10 +157,10 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="col-md-2" style="margin-top:15px; margin-left:0px">
                                 <button type="submit" class="btn btn-info">Update</button>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <a href="@Url.Action("Index","Companies")" class="btn btn-info">Cancel</a>
                             </div>
                         </div>

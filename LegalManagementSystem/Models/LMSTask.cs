@@ -11,22 +11,13 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class LMSTask
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "Task Type")]
         public string TaskType { get; set; }
-        //[Required]
-        [Display(Name = "Task Description")]
         public string Description { get; set; }
-        [Required]
-        [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
-        //[Required]
-        [Display(Name = "Notify in me in")]
         public int NotifyDays { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
@@ -34,12 +25,9 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string Priority { get; set; }
         public string Reporter { get; set; }
-        [Required]
-        [Display(Name = "Task Type")]
         public Nullable<int> AdvocateGroupId { get; set; }
-        //[Required]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        [Display(Name = "Due Date")]
         public Nullable<System.DateTime> DueDate { get; set; }
+    
+        public virtual Matter Matter { get; set; }
     }
 }

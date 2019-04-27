@@ -21,16 +21,27 @@ namespace LegalManagementSystem.Controllers
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            
-            var user = User.Identity.Name;
-            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            try
             {
-                return View(await db.Documents.ToListAsync());
+                var user = User.Identity.Name;
+                if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+                {
+                    return View(await db.Documents.ToListAsync());
+                }
+                return View(await db.Documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
             }
-            return View(await db.Documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            catch (Exception ex)
+            {
+                LegalGuideUtility.ErrorMessage = "Oooop. Something had happened. " + ex.Message;
+                return RedirectToAction("Error");
+                //throw;
+            }
 
         }
-
+        public ActionResult Error()
+        {
+            return View();
+        }
         // GET: Documents/Details/5
         public async Task<ActionResult> Details(int? id)
         {

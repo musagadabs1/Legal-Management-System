@@ -11,7 +11,7 @@ using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
-    [Authorize(Roles ="Admin,Advocate,Lawyer,Attorney,Staff")]
+    [Authorize(Roles = "Admin,Advocate,Lawyer,Attorney,Staff")]
     public class ClientsController : Controller
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
@@ -26,7 +26,7 @@ namespace LegalManagementSystem.Controllers
             }
             return View(await db.Clients.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
-        
+
         // GET: Clients/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -86,12 +86,14 @@ namespace LegalManagementSystem.Controllers
                     return View(client);
                     //throw ex;
                 }
-                
+                //db.Clients.Add(client);
+                // db.SaveChangesAsync();
+                //return RedirectToAction("Index");
             }
 
             return View(client);
         }
-        private bool IsClientRegistered(string firstName,string lastName,string email)
+        private bool IsClientRegistered(string firstName, string lastName, string email)
         {
             //bool registered = false;
             try
@@ -108,9 +110,20 @@ namespace LegalManagementSystem.Controllers
 
                 throw ex;
             }
-            
-        }
 
+        }
+        private int GetCurrentId()
+        {
+            try
+            {
+                return (db.Clients.Max(x => x.ClientId));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         // GET: Clients/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -135,15 +148,15 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                int nextId = GetCurrentId() + 1;
-                string clienName = client.FirstName;
-                string firstLetter = clienName.Substring(0, 1);
-                string clientId = firstLetter + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
+                //int nextId = GetCurrentId() + 1;
+                //string clienName = client.FirstName;
+                //string firstLetter = clienName.Substring(0, 1);
+                //string clientId = firstLetter + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
 
                 var user = User.Identity;
                 client.ModifiedBy = user.Name;
                 client.ModifiedOn = DateTime.Today;
-                client.ClientNumber = clientId;
+                //client.ClientNumber = clientId;
 
                 db.Entry(client).State = EntityState.Modified;
                 await db.SaveChangesAsync();
@@ -165,18 +178,6 @@ namespace LegalManagementSystem.Controllers
                 return HttpNotFound();
             }
             return View(client);
-        }
-        private int GetCurrentId()
-        {
-            try
-            {
-                return (db.Clients.Max(x => x.ClientId));
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
         }
 
         // POST: Clients/Delete/5

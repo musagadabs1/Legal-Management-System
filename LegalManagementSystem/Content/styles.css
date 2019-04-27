@@ -29,9 +29,9 @@
   font-family: Raleway, sans-serif;
   line-height: 1;
 }
-#cssmenu ul {
-  background: #ffffff;
-}
+    #cssmenu ul {
+        background: #1b2a47; /*#ffffff*/
+    }
 #cssmenu > ul > li {
   float: left;
 }
@@ -90,8 +90,8 @@
   transform: perspective(5px) rotateX(2deg);
   transform-origin: bottom;
 }
-#cssmenu > ul > li.active > a:after,
-#cssmenu > ul > li:hover > a:after,
-#cssmenu > ul > li > a:hover:after {
-  background: #47c9af;
-}
+    #cssmenu > ul > li.active > a:after,
+    #cssmenu > ul > li:hover > a:after,
+    #cssmenu > ul > li > a:hover:after {
+        background: #1b2a47; /*#47c9af*/
+    }

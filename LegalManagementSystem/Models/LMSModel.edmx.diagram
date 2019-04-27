@@ -33,6 +33,9 @@
         <AssociationConnector Association="MyCaseNewModel.FK_Staffs_LineManagers" ManuallyRouted="false" />
         <AssociationConnector Association="MyCaseNewModel.FK_Users_Roles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MyCaseNewModel.LicenseTable" Width="1.5" PointX="14.375" PointY="12.75" />
+        <AssociationConnector Association="MyCaseNewModel.FK_Matters_Clients" />
+        <AssociationConnector Association="MyCaseNewModel.FK_CourtActivities_Matters" />
+        <AssociationConnector Association="MyCaseNewModel.FK_LMSTasks_Matters" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

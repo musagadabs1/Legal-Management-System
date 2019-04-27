@@ -99,7 +99,7 @@ namespace LegalManagementSystem.Controllers
                     return View();
                 }
             }
-            catch (Exception ex)
+            catch (Exception /*ex*/)
             {
 
                 ViewBag.ErrorMsg = "Login failed. Username or Password not correct.";// + ex.Message;
@@ -322,7 +322,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Matters");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

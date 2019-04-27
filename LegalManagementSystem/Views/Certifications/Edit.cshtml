@@ -5,73 +5,86 @@
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
 
-<h2>Edit Certification</h2>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="panel panel-default" style="background-color:#1b2a47; color:black">
+            <div class="panel-heading">
+                <h3 class="panel-title">Edit Certification Info</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger">
-            <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
-        </div>
-    }
-    @Html.HiddenFor(model => model.Id)
+                    <div class="form-horizontal" style="margin:0 auto;width:80%">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @if (ViewBag.Error != null)
+                        {
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
+                            </div>
+                        }
+                        @Html.HiddenFor(model => model.Id)
 
-    <div class="form-group">
-        <div>
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Name" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div>
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Name" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Description" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                @Html.LabelFor(model => model.CertificationType, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.CertificationType, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Type" } })
+                                @Html.ValidationMessageFor(model => model.CertificationType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                @Html.LabelFor(model => model.DateAchieved, htmlAttributes: new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.DateAchieved, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DateAchieved, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div>
+                                @Html.LabelFor(model => model.Skilled, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(model => model.Skilled, new SelectList(ViewBag.Skilled, "Value", "Text"), "--- Select Skilled ---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Skilled, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2" style="margin-top:15px; margin-left:0px">
+                                <button type="submit" class="btn btn-default">Update</button>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="@Url.Action("Index","Certifications")" class="btn btn-default">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div>
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Description" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div>
-            @Html.LabelFor(model => model.CertificationType, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.CertificationType, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Type" } })
-            @Html.ValidationMessageFor(model => model.CertificationType, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div>
-            @Html.LabelFor(model => model.DateAchieved, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.DateAchieved,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DateAchieved, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        
-        <div>
-            @Html.LabelFor(model => model.Skilled, htmlAttributes: new { @class = "control-label" })
-            @Html.DropDownListFor(model => model.Skilled, new SelectList(ViewBag.Skilled, "Value", "Text"), "--- Select Skilled ---", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Skilled, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-info">Update</button>
-        </div>
-        <div class="col-md-6">
-            <a href="@Url.Action("Index","Certifications")" class="btn btn-info">Cancel</a>
-        </div>
-    </div>
+    <div class="col-md-3"></div>
 </div>
-}
+
+
 
 @*<div>
     @Html.ActionLink("Back to List", "Index")
