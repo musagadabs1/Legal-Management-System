@@ -1,0 +1,747 @@
+﻿@using LegalManagementSystem.Models
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Legal Management System - LMS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Nalika/nalika/img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    @*<link rel="stylesheet" href="~/Nalika/nalika/css/bootstrap.min.css">*@
+
+
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render()
+    <link href="~/Content/mdb_4.7.7/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/mdb_4.7.7/css/mdb.css" rel="stylesheet" />
+    @*<link href="~/Content/mdb_4.7.7/css/style.css" rel="stylesheet" />*@
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/font-awesome.min.css">
+    <!-- nalika Icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/nalika-icon.css">
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Nalika/nalika/css/owl.theme.css">
+    <link rel="stylesheet" href="~/Nalika/nalika/css/owl.transitions.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/normalize.css">
+    <!-- meanmenu icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/meanmenu.min.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/main.css">
+    <!-- morrisjs CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="~/Nalika/nalika/css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="~/Nalika/nalika/css/calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Nalika/nalika/css/responsive.css">
+
+    <!--Sub menu style css
+        =============================================-->
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <!--Site css-->
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+
+
+    <!-- modernizr JS
+        ============================================ -->
+    <script src="~/Nalika/nalika/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            @*<img src="~/Content/Images/legal-scale-icon-21.jpg" height="80" width="80" />*@
+            <!-- Start Welcome area -->
+            <div class="all-content-wrapper">
+                <div class="header-advance-area">
+                    <div class="header-top-area">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="header-top-wraper">
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                                <div class="menu-switcher-pro">
+                                                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                        <i class="icon nalika-menu-task"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-home"></i>
+                                                                <span class="admin-name">Home</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                                                                <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                                                <li><a href="@Url.Action("About","Home")">About Us</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon modal-nalika-general"></i>
+                                                                <span class="admin-name">LMS</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Index","Matters")">Cases</a></li>
+                                                                <li><a href="@Url.Action("Index","LineManagers")">Line Managers</a></li>
+                                                                <li><a href="@Url.Action("Index","Staffs")">Staff Profile</a></li>
+                                                                <li><a href="@Url.Action("Index","Clients")">Clients</a></li>
+                                                                <li><a href="@Url.Action("Index","Documents")">Documents</a></li>
+                                                                <li><a href="@Url.Action("Index","CourtActivities")">Court Activities</a></li>
+                                                                <li><a href="@Url.Action("Index","FileEvents")">Events</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-diamond icon-wrap"></i>
+                                                                <span class="admin-name">Reports</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("AllStaffReport","Reports")">All Staff</a></li>
+                                                                <li><a href="@Url.Action("AllClients","Reports")">All Clients</a></li>
+                                                                <li><a href="@Url.Action("CasesReport","Reports")">Cases</a></li>
+                                                                <li><a href="@Url.Action("CourtActivities","Reports")">Court Activities</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-user"></i>
+                                                                <span class="admin-name">@LegalGuideUtility.UserFullName</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li>
+                                                                    <a href="@Url.Action("Login","Account")">Log out</a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div style="margin-left:20px;width:80%">
+                                <img src="~/Content/Images/Shrish_Logo1.png" height="80" width="160" />
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                        <div class="col-md-1">
+                            <div style="margin: 0 auto">
+                                <img src="~/Content/Images/legal-scale-icon-5.jpg" height="80" width="80" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="footer-copyright-area" style="bottom:0;position:inherit;width:100%;color:white">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="footer-copy-right">
+                                        Copyright &copy;
+                                        <script>document.write(new Date().getFullYear())</script> <a href="#">LMS</a>, made with love for a better Legal System
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        }
+        else if (User.IsInRole("ITAdmin"))
+        {
+            <div class="all-content-wrapper">
+                <div class="header-advance-area">
+                    <div class="header-top-area">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="header-top-wraper">
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                                <div class="menu-switcher-pro">
+                                                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                        <i class="icon nalika-menu-task"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-home"></i>
+                                                                <span class="admin-name">Home</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                                                <li><a href="@Url.Action("About","Home")">About Us</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon modal-nalika-general"></i>
+                                                                <span class="admin-name">LMS</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Reggister","Account")">Register New User</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-user"></i>
+                                                                <span class="admin-name">@LegalGuideUtility.UserFullName</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li>
+                                                                    <a href="@Url.Action("Login","Account")">Log out</a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div style="margin-left:20px;width:80%">
+                                <img src="~/Content/Images/Shrish_Logo1.png" height="80" width="160" />
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                        <div class="col-md-1">
+                            <div style="margin: 0 auto">
+                                <img src="~/Content/Images/legal-scale-icon-5.jpg" height="80" width="80" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="footer-copyright-area" style="bottom:0;position:inherit;width:100%;color:white">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="footer-copy-right">
+                                        Copyright &copy;
+                                        <script>document.write(new Date().getFullYear())</script> <a href="#">LMS</a>, made with love for a better Legal System
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        }
+        else if (User.IsInRole("Advocate"))
+        {
+            <div class="all-content-wrapper">
+                <div class="header-advance-area">
+                    <div class="header-top-area">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="header-top-wraper">
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                                <div class="menu-switcher-pro">
+                                                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                        <i class="icon nalika-menu-task"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-home"></i>
+                                                                <span class="admin-name">Home</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                                                <li><a href="@Url.Action("About","Home")">About Us</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon modal-nalika-general"></i>
+                                                                <span class="admin-name">LMS</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Index","Matters")">Cases</a></li>
+                                                                <li><a href="@Url.Action("Index","Documents")">Documents</a></li>
+                                                                <li><a href="@Url.Action("Index","CourtActivities")">Court Activities</a></li>
+                                                                <li><a href="@Url.Action("Index","Clients")">Events</a></li>
+                                                                <li><a href="@Url.Action("Index","Companies")">Events</a></li>
+                                                                <li><a href="@Url.Action("Index","FileEvents")">Events</a></li>
+
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-diamond icon-wrap"></i>
+                                                                <span class="admin-name">Reports</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("AllStaffReport","Reports")">All Staff</a></li>
+                                                                <li><a href="@Url.Action("AllClients","Reports")">All Clients</a></li>
+                                                                <li><a href="@Url.Action("CasesReport","Reports")">Cases</a></li>
+                                                                <li><a href="@Url.Action("CourtActivities","Reports")">Court Activities</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-user"></i>
+                                                                <span class="admin-name">@LegalGuideUtility.UserFullName</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li>
+                                                                    <a href="@Url.Action("Login","Account")">Log out</a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div style="margin-left:20px;width:80%">
+                                <img src="~/Content/Images/Shrish_Logo1.png" height="80" width="160" />
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                        <div class="col-md-1">
+                            <div style="margin: 0 auto">
+                                <img src="~/Content/Images/legal-scale-icon-5.jpg" height="80" width="80" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="footer-copyright-area" style="bottom:0;position:inherit;width:100%;color:white">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="footer-copy-right">
+                                        Copyright &copy;
+                                        <script>document.write(new Date().getFullYear())</script> <a href="#">LMS</a>, made with love for a better Legal System
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        }
+        else if (User.IsInRole("ShrishAdmin"))
+        {
+            <div class="all-content-wrapper">
+                <div class="header-advance-area">
+                    <div class="header-top-area">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="header-top-wraper">
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                                <div class="menu-switcher-pro">
+                                                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                        <i class="icon nalika-menu-task"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-home"></i>
+                                                                <span class="admin-name">Home</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                                                <li><a href="@Url.Action("About","Home")">About Us</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon modal-nalika-general"></i>
+                                                                <span class="admin-name">LMS</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Index","LicenseTables")">Licenses</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-user"></i>
+                                                                <span class="admin-name">@LegalGuideUtility.UserFullName</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li>
+                                                                    <a href="@Url.Action("Login","Account")">Log out</a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div style="margin-left:20px;width:80%">
+                                <img src="~/Content/Images/Shrish_Logo1.png" height="80" width="160" />
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                        <div class="col-md-1">
+                            <div style="margin: 0 auto">
+                                <img src="~/Content/Images/legal-scale-icon-5.jpg" height="80" width="80" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="footer-copyright-area" style="bottom:0;position:inherit;width:100%;color:white">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="footer-copy-right">
+                                        Copyright &copy;
+                                        <script>document.write(new Date().getFullYear())</script> <a href="#">LMS</a>, made with love for a better Legal System
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        }
+        else
+        {
+            <div class="all-content-wrapper">
+                <div class="header-advance-area">
+                    <div class="header-top-area">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="header-top-wraper">
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                                <div class="menu-switcher-pro">
+                                                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                        <i class="icon nalika-menu-task"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-home"></i>
+                                                                <span class="admin-name">Home</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                                                                <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                                                <li><a href="@Url.Action("About","Home")">About Us</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon modal-nalika-general"></i>
+                                                                <span class="admin-name">LMS</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li><a href="@Url.Action("Index","Clients")">Clients</a></li>
+                                                                <li><a href="@Url.Action("Index","Companies")">Companies</a></li>
+
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5 col-md-4 col-sm-12 col-xs-12">
+                                                <div class="header-right-info">
+                                                    <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                        <li class="nav-item">
+                                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                                <i class="icon nalika-user"></i>
+                                                                <span class="admin-name">@LegalGuideUtility.UserFullName</span>
+                                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                            </a>
+                                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                                <li>
+                                                                    <a href="@Url.Action("Login","Account")">Log out</a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div style="margin-left:20px;width:80%">
+                                <img src="~/Content/Images/Shrish_Logo1.png" height="80" width="160" />
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                        <div class="col-md-1">
+                            <div style="margin: 0 auto">
+                                <img src="~/Content/Images/legal-scale-icon-5.jpg" height="80" width="80" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="footer-copyright-area" style="bottom:0;position:inherit;width:100%;color:white">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="footer-copy-right">
+                                        Copyright &copy;
+                                        <script>document.write(new Date().getFullYear())</script> <a href="#">LMS</a>, made with love for a better Legal System
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        }
+    }
+
+    <!-- jquery
+        ============================================ -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/mdb_4.7.7/js/popper.min.js"></script>
+    <script src="~/Content/mdb_4.7.7/js/mdb.min.js"></script>
+    @Scripts.Render("~/nalika-tempalte/js")
+    @Scripts.Render("~/Calendar/js")
+    @Scripts.Render("~/float/js")
+    @Scripts.Render("~/pluginsAndMain/js")
+
+
+    @RenderSection("scripts", required: false)
+    <!-- wow JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/wow.min.js"></script>*@
+    <!-- price-slider JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/jquery-price-slider.js"></script>*@
+    <!-- meanmenu JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/jquery.meanmenu.js"></script>*@
+    <!-- owl.carousel JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/owl.carousel.min.js"></script>*@
+    <!-- sticky JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/jquery.sticky.js"></script>*@
+    <!-- scrollUp JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/jquery.scrollUp.min.js"></script>*@
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>*@
+    @*<script src="~/Nalika/nalika/js/scrollbar/mCustomScrollbar-active.js"></script>*@
+    <!-- metisMenu JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/metisMenu/metisMenu.min.js"></script>
+        <script src="~/Nalika/nalika/js/metisMenu/metisMenu-active.js"></script>*@
+    <!-- sparkline JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/sparkline/jquery.sparkline.min.js"></script>
+        <script src="~/Nalika/nalika/js/sparkline/jquery.charts-sparkline.js"></script>*@
+    <!-- calendar JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/calendar/moment.min.js"></script>
+        <script src="~/Nalika/nalika/js/calendar/fullcalendar.min.js"></script>
+        <script src="~/Nalika/nalika/js/calendar/fullcalendar-active.js"></script>*@
+    <!-- float JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/flot/jquery.flot.js"></script>
+        <script src="~/Nalika/nalika/js/flot/jquery.flot.resize.js"></script>
+        <script src="~/Nalika/nalika/js/flot/curvedLines.js"></script>
+        <script src="~/Nalika/nalika/js/flot/flot-active.js"></script>*@
+    <!-- plugins JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/plugins.js"></script>*@
+    <!-- main JS
+        ============================================ -->
+    @*<script src="~/Nalika/nalika/js/main.js"></script>*@
+
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>

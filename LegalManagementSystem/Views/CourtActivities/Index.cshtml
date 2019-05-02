@@ -5,156 +5,164 @@
 }
 <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<h2>Court Activities</h2>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Court Activities</h5>
+    </div>
+    <div class="card-body">
+        <p>
+            <a href="@Url.Action("Create","CourtActivities")" class="btn btn-primary">
+                <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            </a>
 
-<p>
-    <a href="@Url.Action("Create","CourtActivities")"  class="btn btn-primary">
-        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-    </a>
-
-</p>
-<table class="table table-responsive" id="courtTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MatterNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateHeared)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourtName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdvocateArgument)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OpponentArgument)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DefenseCounselName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdvocateNote)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdjourned)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-
-    <tfoot>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MatterNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateHeared)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourtName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdvocateArgument)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OpponentArgument)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DefenseCounselName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdvocateNote)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdjourned)
-            </th>
-            <th></th>
-    </tfoot>
-
-    @*@foreach (var item in Model)
-        {
-            <tbody>
+        </p>
+        <table class="table table-responsive" id="courtTable">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MatterNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateHeared)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CourtName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Location)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdvocateArgument)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OpponentArgument)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DefenseCounselName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdvocateNote)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdjourned)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit","CourtActivities", new {id = item.Id  })">
-                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                        </a>
-                        <a href="@Url.Action("Details","CourtActivities",new {id = item.Id  })">
-                            <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                        </a>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MatterNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateHeared)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourtName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdvocateArgument)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OpponentArgument)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DefenseCounselName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdvocateNote)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateAdjourned)
+                    </th>
+                    <th></th>
                 </tr>
-            </tbody>
+            </thead>
 
-        }*@
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MatterNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateHeared)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourtName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdvocateArgument)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OpponentArgument)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DefenseCounselName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdvocateNote)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateAdjourned)
+                    </th>
+                    <th></th>
+            </tfoot>
 
-</table>
-<div class="modal modal-lg" id="Passwordmodal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
-                <h3>Please Enter your Profile Password</h3>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="txtPassword" placeholder="Enter Profile Password" />
+            @*@foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MatterNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateHeared)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourtName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdvocateArgument)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OpponentArgument)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DefenseCounselName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdvocateNote)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAdjourned)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit","CourtActivities", new {id = item.Id  })">
+                                <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="@Url.Action("Details","CourtActivities",new {id = item.Id  })">
+                                <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            }*@
+
+        </table>
+        <div class="modal modal-lg" id="Passwordmodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                        <h3>Please Enter your Profile Password</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtPassword" placeholder="Enter Profile Password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-primary" value="Submit" id="btnSubmit" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="close" data-dismiss="modal">close</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="button" class="btn btn-primary" value="Submit" id="btnSubmit" />
-                </div>
             </div>
-            <div class="modal-footer">
-                <button class="close" data-dismiss="modal">close</button>
-            </div>
+
         </div>
     </div>
-
 </div>
+<h2></h2>
+
+
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>

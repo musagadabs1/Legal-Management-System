@@ -26,7 +26,9 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align:center;">Login to your Account</h5>
-                                <p style="text-align:center;">Your Credentials</p>
+                                <div style="margin-left:100px; margin-bottom:15px;">
+                                    <img src="~/Content/Images/Shrish_Logo.png" height="80" width="180" />
+                                </div>
                                 @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                                 {
                                     @Html.AntiForgeryToken()

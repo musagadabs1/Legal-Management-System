@@ -6,7 +6,7 @@
 }
 <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<h2>List of Clients</h2>
+<h4 class="text-center">List of Clients</h4>
 
 <p>
     <a href="@Url.Action("Create","Clients")" class="btn btn-primary">
@@ -19,9 +19,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.MiddleName)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
@@ -34,15 +34,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Town)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Website)
-            </th>
+            </th>*@
             <th>Actions</th>
             <th></th>
         </tr>
@@ -56,9 +50,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.MiddleName)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.LastName)
                 </td>
@@ -71,15 +65,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Address)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Town)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostalCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Website)
-                </td>
+                </td>*@
                 <td>
                     <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
                         <span style="font-size:large" class="glyphicon glyphicon-edit"></span>

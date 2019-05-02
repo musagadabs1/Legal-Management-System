@@ -8,12 +8,12 @@
 <div class="row">
     <div class="col-md-5"></div>
     <div class="col-md-2">
-        <h2>Staff List</h2>
+        
     </div>
     <div class="col-md-5"></div>
 </div>
 
-
+<h4 class="text-center">Staff List</h4>
 <p>
     <a href="@Url.Action("Create","Staffs")" class="btn btn-primary">
         <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -28,18 +28,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.MiddleName)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.DOB)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.DOE)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
@@ -52,9 +52,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Designation)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -70,18 +70,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.MiddleName)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.LastName)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.DOB)
-                </td>
-                <td>
+                </td>*@
+                @*<td>
                     @Html.DisplayFor(modelItem => item.DOE)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Address)
                 </td>
@@ -94,9 +94,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Department)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Designation)
-                </td>
+                </td>*@
                 <td>
                     <a href="@Url.Action("Edit","Staffs",new {id = item.StaffId })" style="margin-right:10px;">
                         <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
