@@ -7,19 +7,21 @@
 
 <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
 <link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
-<p>
+@*<p>
     <a href="@Url.Action("Create","FileEvents")" class="btn btn-primary">
         <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
     </a>
-</p>
+</p>*@
 
 <h4 class="text-center">Event Calendar</h4>
 <div id="calender"></div>
 
-<script src="~/Scripts/lib/jquery.min.js"></script>
-<script src="~/Scripts/lib/moment.min.js"></script>
-<script src="~/Scripts/fullcalendar.min.js"></script>
-<script>
+
+@section scripts{
+    <script src="~/Scripts/lib/jquery.min.js"></script>
+    <script src="~/Scripts/lib/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <script>
     $(document).ready(function () {
 
         var events = [];
@@ -62,7 +64,9 @@
             })
         }
     })
-</script>
+    </script>
+
+}
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>

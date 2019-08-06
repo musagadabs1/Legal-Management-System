@@ -20,8 +20,8 @@
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.MiddleName)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
@@ -35,8 +35,8 @@
                 @Html.DisplayNameFor(model => model.Address)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Town)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Town)
+                </th>*@
             <th>Actions</th>
             <th></th>
         </tr>
@@ -51,8 +51,8 @@
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.MiddleName)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.MiddleName)
+                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.LastName)
                 </td>
@@ -66,8 +66,8 @@
                     @Html.DisplayFor(modelItem => item.Address)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.Town)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.Town)
+                    </td>*@
                 <td>
                     <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
                         <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
@@ -82,10 +82,13 @@
     }
 
 </table>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#clientTable').DataTable();
-    });
-</script>
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#clientTable').DataTable();
+        });
+    </script>
+}
+

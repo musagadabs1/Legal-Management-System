@@ -4,16 +4,18 @@
 @{
     ViewBag.Title = "Create";
 }
+@*<link href="~/md-template/css/mdb.css" rel="stylesheet" />*@
+
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
 
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">Add Document</h3>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+                <h3 class="card-title text-center">Add Document</h3>
             </div>
             <div class="panel-body" style="margin:20px">
                 @using (Html.BeginForm("Create", "Documents", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -73,7 +75,28 @@
 
 
                         <div class="form-group">
-                            <div>
+
+                        @*<div class="file-field">
+                            <a class="btn-floating blue-gradient mt-0 float-left">
+                                <i class="far fa-heart" aria-hidden="true"></i>
+                                <input type="file" id="dataFile" name="file">
+                            </a>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload your file">
+                            </div>
+                        </div>
+
+                        <div class="file-field medium">
+                            <div class="btn btn-rounded aqua-gradient float-left">
+                                <span>Choose file</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload your file">
+                            </div>
+                        </div>*@
+
+                        <div>
                                 @Html.LabelForRequired(model => model.DocPath, "Document Path", htmlAttributes: new { @class = "control-label" })
                                 <input type="file" name="fileBase" id="fileBase" class="form-control" />
                                 @Html.ValidationMessageFor(model => model.DocPath, "", new { @class = "text-danger" })
@@ -83,7 +106,7 @@
 
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-default btn-lg">Add</button> 
+                                <button type="submit" class="btn btn-info btn-lg">Add</button>
                             </div>
                         </div>
                     </div>
@@ -92,46 +115,52 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
 
     </div>
 </div>
-<h2></h2>
 
-<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script src="~/Scripts/select2.min.js"></script>
+@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 
 
-<script>
+@section scripts{
+    <script src="~/Scripts/select2.min.js"></script>
+
+    <script>
     $(document).ready(function () {
 
         select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "Documents")', "Select Case");
 
+
+        function select2DropDown(elementId, url, placeholder) {
+            $('#' + elementId).select2({
+                placeholder: placeholder,
+                //minimumInputLength:3,
+                allowclear: true,
+                theme: "classic",
+                ajax: {
+                    url: url,
+                    datatype: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchKey: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
+        }
     });
 
 
-    function select2DropDown(elementId,url,placeholder) {
-        $('#' + elementId).select2({
-            placeholder: placeholder,
-            //minimumInputLength:3,
-            allowclear: true,
-            theme: "classic",
-            ajax: {
-                url: url,
-                datatype: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        searchKey: params.term
-                    };
-                },
-                processResults: function (data,params) {
-                    return {
-                        results: data
-                    };
-                }
-            }
-        });
-    }
 
-</script>
+
+    </script>
+
+}
+

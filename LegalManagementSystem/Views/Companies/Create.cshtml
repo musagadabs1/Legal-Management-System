@@ -5,20 +5,18 @@
 }
 
 <div class="row">
-    <div class="col-md-3">
-
-    </div>
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">Add New Company</h3>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+                <h3 class="card-title text-center">Add New Company</h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
+                    <div class="form-horizontal" style="padding:10px">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         @if (ViewBag.Error != null)
@@ -132,46 +130,14 @@
                         </div>
 
                         <div class="form-group" style="margin-left:5px;">
-                                <button type="submit" class="btn btn-info">Add</button>
+                            <button type="submit" class="btn btn-info">Add</button>
                         </div>
                     </div>
                 }
-              
-            </div>
-    </div>
-       
-    <div class="col-md-3">
-
-    </div>
-</div>
-
-
-    <!-- The Company Modal -->
-    <div class="modal fade" id="myCompany">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Company</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    Company Content
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="submit" id="btnSaveCompany" class="btn btn-primary">Add</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
 
             </div>
         </div>
     </div>
-
-  </div>  @*<div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>*@
+    <div class="col-md-2"></div>
+</div>  
+    

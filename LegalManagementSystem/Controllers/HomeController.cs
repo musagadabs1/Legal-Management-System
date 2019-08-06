@@ -17,7 +17,7 @@ namespace LegalManagementSystem.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Shrish Private System Ltd.";
 
             return View();
         }

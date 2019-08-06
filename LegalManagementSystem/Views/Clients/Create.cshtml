@@ -10,16 +10,16 @@
 
     </div>
     <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">Register a new Client</h3>
+        <div class="card">
+            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+                <h3 class="card-title text-center">Register a new Client</h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
+                    <div class="form-horizontal" style="padding:10px">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @if (ViewBag.Error != null)
                         {

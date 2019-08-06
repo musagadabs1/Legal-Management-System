@@ -13,15 +13,14 @@
         {
             @Html.AntiForgeryToken()
             <div class="row">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Add new Case</h3>
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+                            <h3 class="card-title text-center">Add new Case</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="form-horizontal">
+                            <div class="form-horizontal" style="padding:10px">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @if (ViewBag.Error != null)
                                 {
@@ -134,15 +133,14 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-default btn-lg" id="btnAdd">Add</button>
+                                        <button type="submit" class="btn btn-info btn-lg" id="btnAdd">Add</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                </div>
+                <div class="col-md-1"></div>
             </div>
 
         }
@@ -153,15 +151,15 @@
         {
             @Html.AntiForgeryToken()
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-1">
                 </div>
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Add new Case</h3>
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header" tyle="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+                            <h3 class="card-title text-center">Add new Case</h3>
                         </div>
-                        <div class="panel-body">
-                            <div class="form-horizontal">
+                        <div class="card-body">
+                            <div class="form-horizontal" style="padding:10px">
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @if (ViewBag.Error != null)
@@ -276,67 +274,69 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-default btn-block" id="btnAdd">Add</button>
+                                        <button type="submit" class="btn btn-info btn-block" id="btnAdd">Add</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-1">
                 </div>
             </div>
 
         }
     }
 }
-<script src = "~/light-bootstrap/assets/js/jquery.3.2.1.min.js"></script>
-<script src="~/Scripts/select2.min.js"></script>
-<script>
-    $(document).ready(function () {
 
-        select2DropDown('ClientId', '@Url.Action("GetClientForDropDown", "Matters")', "Select Client");
-        select2DropDown('Assignee', '@Url.Action("GetStaffForDropDown", "Matters")', "Select Advocate");
-        select2DropDown('LineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");
+@section scripts{
+            <script src="~/Scripts/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
 
-    });
+            select2DropDown('ClientId', '@Url.Action("GetClientForDropDown", "Matters")', "Select Client");
+            select2DropDown('Assignee', '@Url.Action("GetStaffForDropDown", "Matters")', "Select Advocate");
+            select2DropDown('LineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");
 
-
-    function select2DropDown(elementId,url,placeholder) {
-        $('#' + elementId).select2({
-            placeholder: placeholder,
-            //minimumInputLength:3,
-            allowclear: true,
-            theme: "classic",
-            ajax: {
-                url: url,
-                datatype: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        searchKey: params.term
-                    };
-                },
-                processResults: function (data,params) {
-                    return {
-                        results: data
-                    };
-                }
+            function select2DropDown(elementId, url, placeholder) {
+                $('#' + elementId).select2({
+                    placeholder: placeholder,
+                    //minimumInputLength:3,
+                    allowclear: true,
+                    theme: "classic",
+                    ajax: {
+                        url: url,
+                        datatype: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                searchKey: params.term
+                            };
+                        },
+                        processResults: function (data, params) {
+                            return {
+                                results: data
+                            };
+                        }
+                    }
+                });
             }
-        });
-    }
-    $('#btnAdd').on("click",function () {
-        var assigneeId = $('#Assignee').val();
-        $("#txtBoxVal").val(assigneeId);
-        var matterNumber = $('#MatterNumber').val();
-        var textBoxValue = $("#txtBoxVal").val();
 
-        $.ajax({
-            url: '@Url.Action("AddAssignee", "Matters")?data=' + textBoxValue+ '&matterNumber=' + matterNumber,
-            datatype: 'json',
-            type: 'post',
-            contentType: 'application/json'
+            $('#btnAdd').on("click", function () {
+                var assigneeId = $('#Assignee').val();
+                $("#txtBoxVal").val(assigneeId);
+                var matterNumber = $('#MatterNumber').val();
+                var textBoxValue = $("#txtBoxVal").val();
 
-        });
-    });
-</script>
+                $.ajax({
+                    url: '@Url.Action("AddAssignee", "Matters")?data=' + textBoxValue + '&matterNumber=' + matterNumber,
+                    datatype: 'json',
+                    type: 'post',
+                    contentType: 'application/json'
+
+                });
+            });
+        });   
+    </script>
+}
+

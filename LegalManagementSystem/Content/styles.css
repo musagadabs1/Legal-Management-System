@@ -30,7 +30,9 @@
   line-height: 1;
 }
     #cssmenu ul {
-        background: #1b2a47; /*#ffffff*/
+        /* background: #1b2a47; #ffffff*/
+        background-color: #1ac6ff;
+        color: #fff;
     }
 #cssmenu > ul > li {
   float: left;

@@ -4,20 +4,20 @@
     ViewBag.Title = "All Staff Report";
 }
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-md-3 col-lg-4">
 
     </div>
-    <div class="col-lg-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h2 class="panel-title">All Staff</h2>
+    <div class=" col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+                <h3 class="card-title text-center">All Staff</h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
+                    <div class="form-horizontal" style="padding:10px">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             <div class="col-md-12">
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-md-3 col-lg-4">
 
     </div>
 </div>
