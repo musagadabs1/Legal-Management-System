@@ -117,7 +117,7 @@ namespace LegalManagementSystem.Controllers
             catch (Exception ex)
             {
 
-                throw ex;
+                throw new Exception("some reason to rethrow", ex);
             }
         }
         public JsonResult GetMatterForEvents()
@@ -350,9 +350,9 @@ namespace LegalManagementSystem.Controllers
 
                 try
                 {
-                    int nextId = GetCurrentId() + 1;
+                    var nextId = GetCurrentId() + 1;
 
-                    string matterId = "CASE-" + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
+                    var matterId = "CASE-" + nextId + "-" + DateTime.Today.ToShortDateString();
 
                     var user = User.Identity.Name;
                     matter.CreatedBy = user;
@@ -452,7 +452,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Matter matter = await db.Matters.FindAsync(id);
+            var matter = await db.Matters.FindAsync(id);
             if (matter == null)
             {
                 return HttpNotFound();
@@ -604,7 +604,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Matter matter = await db.Matters.FindAsync(id);
+            var matter = await db.Matters.FindAsync(id);
             if (matter == null)
             {
                 return HttpNotFound();
@@ -617,7 +617,7 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            Matter matter = await db.Matters.FindAsync(id);
+            var matter = await db.Matters.FindAsync(id);
             db.Matters.Remove(matter);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -630,6 +630,7 @@ namespace LegalManagementSystem.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+            db.Dispose();
         }
     }
 }

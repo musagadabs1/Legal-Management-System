@@ -31,14 +31,14 @@ namespace LegalManagementSystem.Controllers
         public ActionResult GetCourtActivities()
         {
             //Server side parameters
-            int start = Convert.ToInt32(Request["start"]);
-            int length = Convert.ToInt32(Request["length"]);
-            string searchValue = Request["search[value]"];
-            string sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
-            string sortDirection = Request["order[0][dir]"];
+            var start = Convert.ToInt32(Request["start"]);
+            var length = Convert.ToInt32(Request["length"]);
+            var searchValue = Request["search[value]"];
+            var sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
+            var sortDirection = Request["order[0][dir]"];
 
 
-            List<CourtActivityViewModel> courtActivities = new List<CourtActivityViewModel>();
+            var courtActivities = new List<CourtActivityViewModel>();
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
@@ -109,8 +109,8 @@ namespace LegalManagementSystem.Controllers
         {
             var user = User.Identity.Name;
             var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
-            string profilePassword = string.Empty;
-            var staffRec = db.Staffs.Where(x => x.EmailAddress.Equals(email)).FirstOrDefault();
+            var profilePassword = string.Empty;
+            var staffRec = db.Staffs.FirstOrDefault(x => x.EmailAddress.Equals(email));
             if (staffRec !=null)
             {
                 profilePassword = staffRec.Password;
@@ -136,7 +136,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourtActivity courtActivity = await db.CourtActivities.FindAsync(id);
+            var courtActivity = await db.CourtActivities.FindAsync(id);
             if (courtActivity == null)
             {
                 return HttpNotFound();

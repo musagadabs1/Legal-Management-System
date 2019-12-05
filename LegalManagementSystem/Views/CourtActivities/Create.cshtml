@@ -6,21 +6,20 @@
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
 
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">Enter Court Activity</h3>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+                <h3 class="card-title text-center">Enter Court Activity</h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal" style="margin-left:40px;">
-                        <hr />
+                    <div class="form-horizontal" style="padding:5px;">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             <div class="col-md-6">
@@ -96,15 +95,14 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
 
     </div>
 </div>
 <h2></h2>
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/select2.min.js"></script>
-
+@section scripts{
+    <script src="~/Scripts/select2.min.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -132,8 +130,12 @@
                         return {
                             results: data
                         };
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
     </script>
+}
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+
+

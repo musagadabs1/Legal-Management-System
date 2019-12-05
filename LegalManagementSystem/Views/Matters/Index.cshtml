@@ -3,99 +3,104 @@
 @{
     ViewBag.Title = "Index";
 }
+<h3 class="text-center">List of Cases</h3>
+<p>
+    <a href="@Url.Action("Create","Matters")" class="btn btn-primary">
+        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
+</p>
+<table class="table table-striped table-responsive" id="tbl-matter">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaOfPractice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArrivalDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FiledOn)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.MatterStage)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.RequestedBy)
+        </th>*@
+        <th>
+            Client Name
+        </th>
+        <th>Actions</th>
+        <th></th>
+    </tr>
 
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title">List of Cases</h5>
-    </div>
-    <div class="card-body">
-        <p>
-            <a href="@Url.Action("Create","Matters")" class="btn btn-primary">
-                <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-            </a>
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Subject)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AreaOfPractice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArrivalDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FiledOn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DueDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Priority)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MatterStage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RequestedBy)
-                </th>
-                <th>
-                    Client Name
-                </th>
-                <th>Actions</th>
-                <th></th>
-            </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AreaOfPractice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FiledOn)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.MatterStage)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.RequestedBy)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.FirstName)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit","Matters",new {id = item.MatterNumber })" style="margin-right:10px;">
+                    <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a href="@Url.Action("Index","CourtActivities")">
+                    <span style="font-size:large" class="glyphicon glyphicon-briefcase"></span>
+                </a>
+            </td>
+        </tr>
+    }
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Subject)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AreaOfPractice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArrivalDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FiledOn)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DueDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Priority)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MatterStage)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RequestedBy)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Client.FirstName)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit","Matters",new {id = item.MatterNumber })" style="margin-right:10px;">
-                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                        </a>
-                        <a href="@Url.Action("Index","CourtActivities")">
-                            <span style="font-size:large" class="glyphicon glyphicon-briefcase"></span>
-                        </a>
-                    </td>
-                </tr>
-            }
+</table>
 
-        </table>
 
-    </div>
-</div>
+@section scripts{
+        <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        $('#tbl-matter').DataTable({
+            
+        });
+    });
+  </script>
+
+}
 

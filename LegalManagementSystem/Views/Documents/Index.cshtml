@@ -71,10 +71,13 @@
     }
 
 </table>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#documentTable').DataTable();
-    });
-</script>
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#documentTable').DataTable();
+        });
+    </script>
+}

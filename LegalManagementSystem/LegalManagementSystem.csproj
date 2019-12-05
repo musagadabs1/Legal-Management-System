@@ -1389,6 +1389,7 @@
     <Content Include="md-template\css\addons\directives.min.css" />
     <Content Include="md-template\css\bootstrap.css" />
     <Content Include="md-template\css\bootstrap.min.css" />
+    <Content Include="md-template\css\mdb-compiled-4.7.5.min.css" />
     <Content Include="md-template\css\mdb.css" />
     <Content Include="md-template\css\mdb.lite.css" />
     <Content Include="md-template\css\mdb.lite.min.css" />
