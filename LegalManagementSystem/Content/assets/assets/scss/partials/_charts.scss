@@ -1,0 +1,215 @@
+/* sparkline chart */
+#jqstooltip {
+	background-color: $col-white;
+	border-color: $grey-400;
+	color: $font-color;
+
+	.jqsfield {
+		color: $font-color;
+	}
+}
+
+/* chartist */
+$ct-series-colors: (
+	a: #f79647,
+	b: #4aacc7,
+	c: #9bbb58,
+	d: #c0504e,
+	e: #4f81be,
+	f: #8064a1,
+	g: #77933e,
+	h: #ffc200,
+	i: #0544d3,
+	j: #6b0392,
+	k: #f05b4f,
+	l: #dda458,
+	m: #eacf7d,
+	n: #86797d,
+	o: #b2c326,
+);
+
+.ct-chart {
+	position: relative;
+	.ct-grid{
+		stroke: rgba(0,0,0,.1);
+		stroke-dasharray: 1px;
+	}
+}
+
+.ct-series {
+	.ct-line {
+		stroke-width: 1px;
+	}
+
+	.ct-bar {
+		stroke-width: 15px;
+	}
+
+	.ct-point {
+		stroke-width: 5px;
+		stroke-linecap: circle;
+	}
+}
+
+@each $series-name, $series-color in $ct-series-colors {
+	.ct-series-#{$series-name} {
+		.ct-line,
+		.ct-bar,
+		.ct-point {
+			stroke: $series-color;
+		}
+
+		.ct-area, 
+		.ct-slice-donut-solid, 
+		.ct-slice-pie,
+		.ct-bar {
+			fill: $series-color;
+		}
+	}
+}
+
+.chartist-tooltip {
+	@include border-radius(3px);	
+	background: $grey-700;
+    color: $col-white;
+    min-width: 3.5em;
+
+	&:before {
+        border-top-color: $grey-700;
+		margin-left: -8px;
+		border-width: 8px;		
+	}
+}
+
+.ct-axis-title {
+	fill: $grey-500;
+}
+
+
+/* Top Products Chart */
+.ct-label {
+	font-size: $font-size;
+	color: $font-color;
+}
+.ct-legend {
+    @extend .align-right;
+    @extend .padding-0;
+	position: relative;	
+	z-index: 1;
+
+	li {
+		@include inline-block;
+        @extend .m-r-20;
+        position: relative;
+		padding-left: 18px;
+		margin-bottom: 3px;
+		list-style-type: none;
+	}
+
+	li:before {
+        @include border-radius(2px);
+		width: 12px;
+		height: 12px;
+		position: absolute;
+		top: 5px;
+		left: 0;
+		content: '';
+		border: 3px solid transparent;
+	}
+
+	li.inactive:before {
+		background: transparent;
+	}
+
+	&.ct-legend-inside {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
+	$i: 0;
+	@each $series-name, $series-color in $ct-series-colors {
+		.ct-series-#{$i}:before {
+			background-color: $series-color;
+			border-color: $series-color;
+		}
+
+		$i: $i + 1;
+	}
+}
+
+#total_revenue{
+    .ct-series-a .ct-line,
+    .ct-series-a .ct-point{
+        stroke: $color-success;
+    }
+    .ct-series-b .ct-line,
+    .ct-series-b .ct-point{
+        stroke: $color-warning;
+    }
+    .ct-series-c .ct-line,
+    .ct-series-c .ct-point{
+        stroke: $color-danger;
+    }
+}
+
+/* Morris */
+.morris-hover {
+    &.morris-default-style {
+        @include border-radius(0);
+    }
+}
+/* Flot */
+.flot-chart {
+    width: 100%;
+    height: 320px;
+}
+.panel-switch-btn {
+    position: relative;
+    right: 20px;
+    z-index: 9;
+
+    label {
+        font-weight: $font-weight-700 !important;
+    }
+}
+.legendLabel {
+    width: 85px !important;
+    position: relative;
+    left: 3px;
+}
+#multiple_axis_chart {
+    .legendLabel {
+        width: 160px !important;
+    }
+}
+/* Sparkline */
+.sparkline {
+    @extend .align-center;
+}
+
+.chart.easy-pie-chart-1{
+	@extend .m-b-20;
+    @extend .align-center;
+    @extend .inlineblock;
+    position: relative;    
+    width: 100px;
+    height: 100px;  
+
+    > span{
+        > img{
+            @extend .align-center;
+            left: 0;
+            margin-top: -2px;
+            position: absolute;
+            right: 0;            
+            top: 50%;
+            width: 60%;
+            height: 60%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            margin: 0 auto;
+        }
+    }
+}

@@ -8,108 +8,105 @@
 
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
-<div class="row">
+<div class="row" style="margin-top:15px;">
     <div class="col-md-2">
 
     </div>
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
-                <h3 class="card-title text-center">Add Document</h3>
+            @*style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;"*@
+            <div class="card-header">
+                <h3 class="card-title text-center text-capitalize">Add Document</h3>
             </div>
             <div class="panel-body" style="margin:20px">
                 @using (Html.BeginForm("Create", "Documents", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        @if (ViewBag.Error != null)
-                        {
-                            <span style="color:red;">@ViewBag.Error.ToString()</span>
-                        }
+                <div class="form-horizontal">
+                    @if (ViewBag.Error != null)
+                    {
+                        <span style="color:red;">@ViewBag.Error.ToString()</span>
+                    }
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            <div>
-                                <div>
-                                    @Html.LabelFor(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label" })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Case Number</span>
                                 </div>
                                 @Html.DropDownListFor(model => model.MatterNumber, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control matterId", @id = "matterNumber" })
-                                @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div>
-                                @Html.LabelForRequired(model => model.DocName, "Document Name", htmlAttributes: new { @class = "control-label ", @placeholder = "Document Name" })
-                                @Html.EditorFor(model => model.DocName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DocName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div>
-                                @Html.LabelForRequired(model => model.AssignedDate, "Assigned Date", htmlAttributes: new { @class = "control-label ", @placeholder = "Assigned Date" })
-                                @Html.EditorFor(model => model.AssignedDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AssignedDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div>
-                                @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div>
-                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-
-                        @*<div class="file-field">
-                            <a class="btn-floating blue-gradient mt-0 float-left">
-                                <i class="far fa-heart" aria-hidden="true"></i>
-                                <input type="file" id="dataFile" name="file">
-                            </a>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Upload your file">
-                            </div>
-                        </div>
-
-                        <div class="file-field medium">
-                            <div class="btn btn-rounded aqua-gradient float-left">
-                                <span>Choose file</span>
-                                <input type="file">
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Upload your file">
-                            </div>
-                        </div>*@
-
-                        <div>
-                                @Html.LabelForRequired(model => model.DocPath, "Document Path", htmlAttributes: new { @class = "control-label" })
-                                <input type="file" name="fileBase" id="fileBase" class="form-control" />
-                                @Html.ValidationMessageFor(model => model.DocPath, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-info btn-lg">Add</button>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Document Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="DocName" placeholder="Document Name" aria-label="DocName" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                <input type="text" class="form-control" placeholder="Assigned Date" id="AssignedDate">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:15px;">
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Document Tags</span>
+                                </div>
+                                <input type="text" class="form-control" id="Tags" placeholder="Document Tags" aria-label="Tags" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Document Path</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" name="fileBase" class="custom-file-input" id="fileBase">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Description</span>
+                                </div>
+                                <textarea class="form-control" aria-label="Description" id="Description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" id="saveDocument">Add</button>
+                        </div>
+                    </div>
+                </div>
                 }
 
             </div>
@@ -127,10 +124,14 @@
     <script src="~/Scripts/select2.min.js"></script>
 
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "Documents")', "Select Case");
-
+            select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "Documents")', "Select Case");
+            $('#saveDocument').click(function () {
+                saveDocument();
+            });
+        
+        });
 
         function select2DropDown(elementId, url, placeholder) {
             $('#' + elementId).select2({
@@ -155,10 +156,49 @@
                 }
             });
         }
-    });
+
+        function saveDocument() {
+
+            var doc = {
+                MatterNumber:$('#matterNumber').val(),
+                DocName: $('#DocName').val(),
+                AssignedDate:new Date($('#AssignedDate').val()),
+                Tags: $('#Tags').val(),
+                Description: $('#Description').val()
+            };
 
 
+            //var fileUpload =  
+            //var files = fileUpload.files;  
 
+            var data = new FormData();
+            //var fileFields = $('form input[type=file]')[0].files[0];
+            var fileField = $('#fileBase')[0].files[0];
+                
+            //var fileFields = $("#fileBase").get(0);
+
+            //$.each(fileFields, function (i, file) {
+                data.append('file', fileField);
+            //});
+                //data.append('files', file);
+            data.append('model', JSON.stringify(doc));
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveDocument","Documents")', 
+                data: data,
+                contentType: false, // Not to set any content header  
+                processData: false, // Not to process data  
+                  
+                success: function (result) {  
+                    alert(result);  
+                },  
+                error: function (err) {  
+                    alert(err.statusText);  
+                }  
+            }); 
+
+        }
 
     </script>
 

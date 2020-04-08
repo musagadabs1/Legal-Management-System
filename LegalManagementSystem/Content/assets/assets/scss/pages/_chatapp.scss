@@ -1,0 +1,198 @@
+.chat_app{
+    background: $card-dark;
+    overflow: hidden;
+}
+.people_list {
+    @include transition(all .5s);
+    width: 280px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    z-index: 7;
+    
+    .chat-list {
+        li {
+            @extend .inlineblock;
+            margin: 10px 0px;            
+            width: 100%;            
+            border-right: 3px solid;
+            border-color: transparent; 
+
+            &:hover {
+                cursor: pointer;                
+            }
+
+            .name {                
+                font-size: $font15;
+                color: $grey-500;
+            }
+        }
+    }
+    img {
+        @include border-radius(50%);
+        width: 40px;
+        float: left;
+    }
+    .about {
+        float: left;
+        padding-left: 8px;
+    }
+    .status {
+        color: $grey-700;
+        font-size: $font13;
+    }
+}
+.chat {
+    background: $col-white;
+    margin-left: 280px;    
+   
+    .chat-header {
+        border-bottom: 2px solid $grey-300;
+        padding: 15px 20px;        
+
+        img {
+            @include border-radius(40px);
+            float: left;
+            width: 40px;
+        }
+        .chat-about {
+            @extend .p-l-10;
+            float: left;
+        }        
+    }
+    .chat-history {
+        padding: 20px;
+        border-bottom: 2px solid $col-white;
+
+        ul {
+            @extend .padding-0;
+            li {
+                @extend .m-b-30;
+                list-style: none;
+
+                &:last-child{
+                    @extend .m-b-0;
+                }
+            }
+        }
+        .message-data {
+            @extend .m-b-15;
+            
+            img{
+                @include border-radius(40px);
+                width: 40px;
+            }
+        }
+        .message-data-time {
+            color: #434651;
+            padding-right: 6px;
+        }
+        .message {
+            @include border-radius(7px);
+            @extend .inlineblock;
+            color: $grey-800;
+            font-size: $font16;
+            padding: 18px 20px;
+            line-height: 26px;
+            position: relative;
+
+            &:after {
+                bottom: 100%;
+                left: 7%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-bottom-color: #fff;
+                border-width: 10px;
+                margin-left: -10px;
+            }
+        }
+        .my-message {
+            background: $grey-300;
+            &:after {
+                bottom: 100%;
+                left: 30px;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-bottom-color: $grey-300;
+                border-width: 10px;
+                margin-left: -10px;
+            }
+        }
+        .other-message {
+            @extend .align-right;
+            background: #e8f1f3;
+            &:after {
+                border-bottom-color: #e8f1f3;
+                left: 93%;
+            }
+        }
+    }
+    .chat-message {
+      padding: 20px;
+    }
+}
+
+@include max-screen($break-small - 1px) {
+    .chat_app{
+        .people_list{
+            height: 465px;
+            width: 100%;
+            overflow-x: auto;
+            background: #fff;
+            left: -400px;
+            display: none;
+            
+            &.open{
+                left: 0;
+            }
+        }
+        .chat{
+            margin: 0;
+            .chat-header{
+                border-radius:0.55rem 0.55rem 0 0;
+            }
+        }
+        .chat-history{
+            height: 300px;
+            overflow-x: auto;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .chat_app{
+
+        .chat-list{
+            height: 650px;
+            overflow-x: auto;
+           
+        }
+        .chat-history{
+            height: 600px;
+            overflow-x: auto;
+        }
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+    .chat_app{
+
+        .chat-list{
+            height: 480px;
+            overflow-x: auto;
+        }
+        .chat-history{
+            height: calc(100vh - 350px);
+            overflow-x: auto;
+        }
+    }
+}

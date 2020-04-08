@@ -13,7 +13,7 @@ namespace LegalManagementSystem.Models
     
     public partial class GetAllMattersForDropDown_Result
     {
-        public int Id { get; set; }
+        public string MatterNumber { get; set; }
         public string Subject { get; set; }
     }
 }

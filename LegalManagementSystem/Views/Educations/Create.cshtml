@@ -12,17 +12,17 @@
         <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
     </div>
     <div class="clearfix"></div>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
+    <div class="card-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+                <h4 class="card-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Add Education
                     </a>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
+                <div class="card-body">
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
@@ -30,74 +30,104 @@
                         <div class="form-horizontal">
                             <hr />
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.School,"School Name", htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.School, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter School Graduated" } })
-                                    @Html.ValidationMessageFor(model => model.School, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.Major,"Major", htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.Major, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your Major" } })
-                                    @Html.ValidationMessageFor(model => model.Major, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.DateStart, "Start Date", htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.DateStart, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.EndDate,"End Date", htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Graduated, htmlAttributes: new { @class = "control-label " })
-                                    <div class="checkbox" style="margin-left:20px;">
-                                        @Html.EditorFor(model => model.Graduated)
-                                        @Html.ValidationMessageFor(model => model.Graduated, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">School</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="School" placeholder="School" aria-label="School" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.DateAwarded, htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.DateAwarded, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.DateAwarded, "", new { @class = "text-danger" })
+
+                                <div class="col-md-6 col-sm-12">
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Major</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="Major" placeholder="Major" aria-label="Major" aria-describedby="basic-addon1">
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label " })
-                                    @Html.DropDownListFor(model => model.Qualification, new SelectList(ViewBag.Qualification, "Value", "Text"), "--- Select Qualification ---", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control" placeholder="Start Date" id="DateStart">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Grade, htmlAttributes: new { @class = "control-label " })
-                                    @Html.DropDownListFor(model => model.Grade, new SelectList(ViewBag.Grade, "Value", "Text"), "--- Select Grade ---", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Grade, "", new { @class = "text-danger" })
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control" placeholder="End Date" id="EndDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            <div class="row" style="margin-top:15px;">
+                                <div class="col-md-6 col-sm-12">
+
+                                    <div class="fancy-checkbox">
+                                        <label><input type="checkbox" id="Graduated" checked><span>Graduated</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control" placeholder="Date Awarded" id="DateAwarded">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="row" style="margin-top:15px;">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Qualification</span>
+                                        </div>
+                                        @Html.DropDownListFor(model => model.Qualification, new SelectList(ViewBag.Qualification, "Value", "Text"), null, htmlAttributes: new { @class = "form-control",@id="Qualification" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="Grade">Grade</span>
+                                        </div>
+                                        @Html.DropDownListFor(model => model.Grade, new SelectList(ViewBag.Grade, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id="Grade" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Description</span>
+                                        </div>
+                                        <textarea class="form-control" aria-label="Description" id="Description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:15px;">
                                 <div style="margin-left:12px">
-                                    <input type="submit" value="Add" class="btn btn-primary btn-block" />
+                                    <input type="button" value="Add" id="btn-save" class="btn btn-primary" />
                                 </div>
                             </div>
                         </div>
@@ -107,7 +137,62 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/ExpandCollapse.js"></script>
+@section scripts {
+    <script src="~/Scripts/ExpandCollapse.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#btn-save').click(function () {
+                saveEducation();
+            });
+        });
+
+
+        function saveEducation() {
+
+             var education = {};
+            var url = '@Url.Action("SaveEducation","Educations")';
+
+            var graduated = $('#Graduated').val();
+            var qualification = $('#Qualification').val();
+            var grade = $('#Grade').val();
+            var dateAwarded = $('#DateAwarded').val();
+            var endDate = new Date($('#EndDate').val());
+            var dateStart = new Date($('#DateStart').val());
+            var major = $('#Major').val();
+            var school = $('#School').val();
+            var desc = $('#Description').val();
+
+            education = {
+                Graduated: graduated,
+                Qualification: qualification,
+                Grade: grade,
+                dateAwarded: new Date(dateAwarded),
+                EndDate: endDate,
+                DateStart: dateStart,
+                Major: major,
+                School:school,
+                Description: desc
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json',
+                dataType: 'json',
+                data:JSON.stringify(education),
+                success: function (e) {
+                    //alert('Saved.');
+                    window.location.href = '@Url.Action("Index","Educations")';
+                },
+                error: function (e) {
+                    window.location.href = '@Url.Action("Index","Educations")';
+                }
+            });
+        }
+    </script>
+
+}
 
 
 

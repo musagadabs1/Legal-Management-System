@@ -6,82 +6,101 @@
 }
 <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<h4 class="text-center">List of Clients</h4>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">List of Clients</h3>
+                <a href="@Url.Action("Create","Clients")" class="btn btn-primary">
+                    <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-responsive" id="clientTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    First Name
+                                    @*@Html.DisplayNameFor(model => model.FirstName)*@
+                                </th>
+                                @*<th>
+                                    @Html.DisplayNameFor(model => model.MiddleName)
+                                </th>*@
+                                <th>
+                                    Last Name
+                                    @*@Html.DisplayNameFor(model => model.LastName)*@
+                                </th>
+                                <th>
+                                    Email Address
+                                    @*@Html.DisplayNameFor(model => model.EmailAddress)*@
+                                </th>
+                                <th>
+                                    Phone Number
+                                    @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
+                                </th>
+                                <th>
+                                    Address
+                                    @*@Html.DisplayNameFor(model => model.Address)*@
+                                </th>
+                                @*<th>
+                                    @Html.DisplayNameFor(model => model.Town)
+                                </th>*@
+                                <th>Actions</th>
+                                <th></th>
+                            </tr>
+                        </thead>
 
-<p>
-    <a href="@Url.Action("Create","Clients")" class="btn btn-primary">
-        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-    </a>
-</p>
-<table class="table table-responsive" id="clientTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.MiddleName)
-                </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Town)
-                </th>*@
-            <th>Actions</th>
-            <th></th>
-        </tr>
-    </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.MiddleName)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmailAddress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.Town)
+                                    </td>*@
+                                    <td>
+                                        <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
+                                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                                        </a>
+                                        <a href="@Url.Action("Details","Clients",new { id = item.ClientId})">
+                                            <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
 
 
-    @foreach (var item in Model)
-    {
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.MiddleName)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmailAddress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Town)
-                    </td>*@
-                <td>
-                    <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
-                        <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                    </a>
-                    <a href="@Url.Action("Details","Clients",new { id = item.ClientId})">
-                        <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
 
-    }
-
-</table>
 
 @section scripts{
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

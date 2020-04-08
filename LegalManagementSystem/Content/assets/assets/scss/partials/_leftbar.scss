@@ -1,0 +1,409 @@
+/* Side Bar Menu */
+
+#left-sidebar {
+	@include transition(all .3s ease-in-out);
+	width: $sidebar-width;
+	background-color: $grey-50;
+	height: 100%;
+	float: left;
+	margin-top: 65px;
+	position: fixed;
+	left: 5px;		
+	z-index: 9;
+	
+	@include max-screen($break-large) {
+		@include box-shadow(0 5px 10px 0px rgba(0,0,0,.2));
+		left: -$sidebar-width;
+    }
+    @include max-screen($break-medium) {
+        margin-top: 60px;
+    }
+    
+    .nav-tabs{
+		.nav-link.active{
+            background-color: transparent;
+            border-color: #dee2e6 #dee2e6 #f4f7f6;
+		}
+	}
+}
+
+.layout-fullwidth #wrapper {
+	#left-sidebar {
+		width: $mini-sidebar-width;
+		@include box-shadow(0 1px 7px 0px rgba(0,0,0,.15));
+
+		&.ps {
+			overflow: visible !important;
+		}
+
+		.user-account{
+			margin: 5px;
+
+			.user-photo{
+				width: 40px;
+				margin: 0 auto;
+				@extend .displayblock;
+			}
+
+			.dropdown{
+				@extend .displaynone;
+			}
+
+			hr{
+				@extend .displaynone;
+			}
+
+			.row.list-unstyled{
+				@extend .displaynone;
+			}
+		}
+
+		.nav-tabs{
+			@extend .displaynone;
+		}
+
+		.tab-content{
+			padding-top: 5px;
+		}
+
+		.sidebar-nav {
+			.metismenu{
+				li{
+					>a{
+						span{
+							@extend .displaynone;
+						}
+					}
+				}
+				.has-arrow::after {
+					@extend .displaynone;
+				}
+				
+				.collapse.in{
+					@extend .displaynone;
+				}
+			}
+        }
+        &.mini-sidebar{
+            
+        }
+
+		&.mini-sidebar.mini-sidebar-hover{
+			width: $sidebar-width;
+
+			.user-account{
+				margin: 20px;
+	
+				.user-photo{
+					width: 50px;
+					display: inline-block;
+					@extend .m-r-10;
+				}
+	
+				.dropdown{
+					@extend .inlineblock;
+				}
+	
+				hr{
+					@extend .displayblock;
+				}
+	
+				.row.list-unstyled{
+					display: flex;
+				}
+			}
+	
+			.nav-tabs{
+				display: flex;
+			}
+	
+			.tab-content{
+				padding-top: 15px;
+			}
+
+			.sidebar-nav {
+				.metismenu{
+					li{
+						>a{
+							span{
+								@extend .inlineblock;
+							}
+						}
+					}
+					.has-arrow::after {
+						@extend .inlineblock;
+					}
+					
+					.collapse.in{
+						@extend .displayblock;
+					}
+				}
+			}
+		}
+	}
+
+	#main-content {
+		width: calc(100% - 50px);
+	}
+}
+
+.offcanvas-active {
+	#left-sidebar {
+		left: 5px;
+		@include max-screen($break-medium) {
+			left: 2px;
+		}
+	}
+}
+
+.user-account {
+	@extend .align-left;
+	margin: 20px;	
+
+	.user-photo {
+		@extend .m-r-10;
+		width: 50px;
+    	vertical-align: top;		
+		border: 2px solid darken($sidebar-color, 10%);		
+	}
+
+	.user-name {
+		@extend .displayblock;		
+		color: inherit;
+
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+	}
+
+	.dropdown{
+		@extend .inlineblock;
+		@extend .align-left;
+		@extend .m-t-5;
+
+		.dropdown-menu{
+			border-radius: $border-radius-large;
+			transform: none !important;			
+			border: none;
+			box-shadow: 0px 2px 20px 0px rgba(0,0,0,0.5);
+			padding: 15px;
+			background: #17191c;			
+
+			li.divider{
+				border-bottom:1px solid $grey-800;
+				margin: 10px 0; 
+			}
+
+			a{
+				@extend .displayblock;				
+				font-size: $font-size;
+				color: $grey-500;
+				padding: 10px;
+
+				&:hover{
+					color: $col-white;
+					i{
+						color: $col-white;
+					}
+				}
+
+				i{
+					@extend .m-r-10;
+					font-size: $font-size;
+				}
+			}
+		}
+    }
+    
+    h6{
+        @extend .m-b-0;    
+    }
+}
+
+.sidebar-nav {
+
+    ul{
+        @extend .padding-0;
+		@extend .margin-0;
+		list-style: none;
+    }
+
+	.metismenu {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+
+		> li {
+            @extend .p-b-5;
+            -webkit-box-flex: 1;
+			-ms-flex: 1 1 0%;
+			flex: 1 1 0%;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			position: relative;
+
+			a {
+				border-left: 5px solid transparent;
+			}
+
+			&.active > a {				
+				background-color: #f1f1f1;
+			}
+
+			.active a {
+				font-weight: $font-weight-700;
+			}
+
+			i {
+				position: relative;
+				top: 2px;
+				@extend .m-r-20;
+				font-size: $font16;
+			}
+		}
+
+		a {
+			@include transition(all .3s ease-out);
+			@extend .displayblock;
+			color: $col-dark;
+			font-size: $font15;
+			position: relative;			
+			padding: 13px 15px;
+			outline-width: 0;			
+		}
+
+		ul a {            
+            color: $grey-600;
+			font-size: $font-size;
+			padding: 10px 15px 10px 57px;
+            position: relative;
+
+            &::before{
+                content: '--';
+                position: absolute;
+                left: 19px;
+            }
+		}
+		
+		ul ul a {
+			padding: 10px 15px 10px 70px;
+		}
+
+		ul.collapse a {
+			&:hover,
+			&:focus {
+				text-decoration: none;
+			}
+		}
+
+		a {
+			&:hover,
+			&:focus,
+			&:active {
+				text-decoration: none;
+				background: #f1f1f1;
+			}
+		}
+
+		.has-arrow::after {
+			color: #b5b5b5;
+		}
+	}
+}
+
+ul.choose-skin{
+	@extend .m-b-0;
+
+	li{		
+		@extend .displayblock;
+		@extend .m-b-10;
+		
+		&:hover{
+			cursor: pointer;
+		}
+		
+		div{
+			@include border-radius(22px);
+			@extend .inlineblock;
+			float: right;
+			height: 22px;
+            width: 40px;            
+            position: relative;         
+
+			&.purple{
+				background: $purple;
+			}
+			&.blue{
+				background: $blue;
+			}
+			&.cyan{
+				background: $cyan;
+			}
+			&.green{
+				background: $green;
+			}
+			&.orange{
+				background: $orange;
+			}
+			&.blush{
+				background: $blush;
+            }
+        }
+
+        &.active{
+            div{
+                &::before{                    
+                    color: $col-white;
+					font-size: $font12;
+					position: absolute;
+                    top: 2px;
+                    left: 15px;
+                    content: '\f00c';
+                    font-family: 'FontAwesome';
+                }
+            }
+        }
+        
+        span{
+            @extend .inlineblock;            
+            line-height: 22px;
+            vertical-align: top;            
+        }
+	}
+}
+
+.question{
+	li{
+        padding: 3px 0;
+        
+        &.menu-heading{
+            @extend .m-t-15;
+        }
+
+        a{
+            @extend .p-l-15;
+            position: relative;
+
+            &:before{
+                content: '--';
+                left: 0;
+                position: absolute;
+            }
+        }
+	}
+	.help-search-form{
+		i{
+			font-size: $font12;
+		}
+	}
+}

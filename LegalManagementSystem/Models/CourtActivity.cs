@@ -11,50 +11,26 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class CourtActivity
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        [DataType(DataType.Date)]
-        [Display(Name = "Hearing Date")]
         public System.DateTime DateHeared { get; set; }
-        [Display(Name = "Court Name")]
         public string CourtName { get; set; }
         public string Location { get; set; }
         public string StaffId { get; set; }
         public string Status { get; set; }
-        [Display(Name = "Plantiff Argument")]
-        [DataType(DataType.MultilineText)]
         public string AdvocateArgument { get; set; }
-        [Display(Name = "Defendant Argument")]
-        [DataType(DataType.MultilineText)]
         public string OpponentArgument { get; set; }
-        [Display(Name = "Plantiff Note")]
-        [DataType(DataType.MultilineText)]
         public string AdvocateNote { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        [Display(Name = "Date Adjourned To")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> DateAdjourned { get; set; }
-        [Display(Name = "Defense Counsel Name")]
         public string DefenseCounselName { get; set; }
     
         public virtual Matter Matter { get; set; }
     }
 }
-
-/*
- 
-public int Id { get; set; }
-        
-     
-*/

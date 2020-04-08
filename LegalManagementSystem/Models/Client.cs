@@ -11,38 +11,25 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
+            this.ClientMatterAcceptanceForms = new HashSet<ClientMatterAcceptanceForm>();
             this.Matters = new HashSet<Matter>();
+            this.Matters1 = new HashSet<Matter>();
         }
-
-        [Required()]
+    
         public int ClientId { get; set; }
-        [Display(Name ="First Name")]
-        [Required]
         public string FirstName { get; set; }
-        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
-        [Required]
-        [Display(Name ="Last Name")]
         public string LastName { get; set; }
-        [Required]
-        [Display(Name = "Email Address")]
         public string EmailAddress { get; set; }
-        [Required]
-        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Address")]
         public string Address { get; set; }
         public string Town { get; set; }
-        //[Required]
-        [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
         public string Website { get; set; }
         public string CreatedBy { get; set; }
@@ -52,6 +39,10 @@ namespace LegalManagementSystem.Models
         public string ClientNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matter> Matters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Matter> Matters1 { get; set; }
     }
 }

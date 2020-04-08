@@ -14,17 +14,17 @@
         <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
     </div>
     <div class="clearfix"></div>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
+    <div class="card-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+                <h4 class="card-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Add Certification
                     </a>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
+                <div class="card-body">
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
@@ -35,46 +35,64 @@
                             @if (ViewBag.Error != null)
                             {
                                 //<div class="alert alert-danger">
-                                    <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
+                                <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
                                 //</div>
                             }
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.Name,"Certification Name", htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Name" } })
-                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Certification Name</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="Name" placeholder="Certification Name" aria- label="Name" aria-describedby="basic-addon1">
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    @Html.LabelForRequired(model => model.CertificationType, "Certification Type", htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.CertificationType, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Type" } })
-                                    @Html.ValidationMessageFor(model => model.CertificationType, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.DateAchieved, htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.DateAchieved, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.DateAchieved, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Skilled, htmlAttributes: new { @class = "control-label " })
-                                    @Html.DropDownListFor(model => model.Skilled, new SelectList(ViewBag.Skilled, "Value", "Text"), "--- Select Skilled ---", htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Skilled, "", new { @class = "text-danger" })
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Certification Type</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="CertificationType" placeholder="Certification Type" aria- label="CertificationType" aria-describedby="basic-addon1">
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label " })
-                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Description" } })
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control" placeholder="Date Achieved" id="DateAchieved">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="Skilled">Skilled</span>
+                                        </div>
+                                        @Html.DropDownListFor(model => model.Skilled, new SelectList(ViewBag.Skilled, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id="Skilled" })
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div style="margin-left:12px">
-                                    <input type="submit" value="Add" class="btn btn-primary btn-block" />
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Description</span>
+                                        </div>
+                                        <textarea class="form-control" aria-label="Description" id="Description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:15px;">
+                                <div class="col-md-6 col-sm-12">
+                                    <input type="button" value="Add" id="btn-save" class="btn btn-primary" />
                                 </div>
                             </div>
                         </div>
@@ -84,6 +102,54 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/ExpandCollapse.js"></script>
+@section scripts {
+    <script src="~/Scripts/ExpandCollapse.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#btn-save').click(function () {
+                saveCertificate();
+            });
+        });
+
+
+        function saveCertificate() {
+
+             var certificate = {};
+            var url = '@Url.Action("SaveCertificate","Cetifications")';
+
+            var name = $('#Name').val();
+            var skilled = $('#Skilled').val();
+            var certificationType = $('#CertificationType').val();
+            var dateAchieved = $('#DateAchieved').val();
+            var desc = $('#Description').val();
+
+            dependant = {
+                Name: name,
+                Skilled: skilled,
+                CertificationType: certificationType,
+                DateAchieved: new Date(dateAchieved),
+                Description: desc
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json',
+                dataType: 'json',
+                data:JSON.stringify(certificate),
+                success: function (e) {
+                    //alert('Saved.');
+                    window.location.href = '@Url.Action("Index","Cetifications")';
+                },
+                error: function (e) {
+                    window.location.href = '@Url.Action("Index","Cetifications")';
+                }
+            });
+        }
+    </script>
+
+}
+
 
 

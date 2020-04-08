@@ -1,0 +1,201 @@
+.testimonials{
+    .body{
+        @extend .align-center;
+        padding: 40px;        
+        i{            
+            color: $grey-400;
+            font-size: 50px;
+        }
+        p{
+            font-size: $font15;
+        }
+    }
+}
+.testimonial2{
+    @extend .m-b-30;
+
+    .testimonial-section{
+        @include border-radius(5px);
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        position: relative;
+        border: 1px solid $col-white;
+
+        &::after{
+            border-top-color: $col-white;
+            top: 100%;
+            left: 50px;
+            border: solid transparent;
+            content: " ";
+            position: absolute;            
+            border-width: 15px;
+            margin-left: -15px;
+        }
+    }
+    .testimonial-desc{
+        @extend .m-t-20;
+        @extend .p-l-15;
+        @extend .align-left;
+
+        img{
+            width: 70px;
+        }
+        .testimonial-writer{
+            @extend .p-t-10;
+            @extend .inlineblock;
+            vertical-align: top;
+        }
+    }
+    &.default{
+        .testimonial-section{
+            border-color: $grey-600;
+            &::after{
+                border-top-color: $grey-600;
+            }
+        }        
+    }
+    &.primary{
+        .testimonial-section{
+            border-color: $color-primary;
+            &::after{
+                border-top-color: $color-primary;
+            }
+        }        
+    }
+}
+.testimonial3{
+    @extend .m-b-30;
+    .testimonial-section{
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        position: relative;
+        border: 1px solid $col-white;
+        &::after{
+            top: 100%;
+            right: 50px;
+            border: solid transparent;
+            content: " ";
+            position: absolute;
+            border-top-color: $col-white;;
+            border-width: 15px;
+            margin-right: -15px;
+        }
+    }
+    .testimonial-desc{
+        margin-top: 20px;
+        text-align: right;
+        padding-right: 15px;
+        img{
+            width: 70px;
+            float: right;
+        }
+        .testimonial-writer{
+            display: inline-block;
+            vertical-align: top;
+            padding-right: 10px;
+        }
+    }
+    &.default{
+        .testimonial-section{
+            border-color: $grey-600;
+            &::after{
+                border-top-color: $grey-600;
+            }
+        }        
+    }
+    &.primary{
+        .testimonial-section{
+            border-color: $color-primary;
+            &::after{
+                border-top-color: $color-primary;
+            }
+        }        
+    }
+    &.warning{
+        .testimonial-section{
+            border-color: $color-warning;
+            &::after{
+                border-top-color: $color-warning;
+            }
+        }        
+    }
+    &.danger{
+        .testimonial-section{
+            border-color: $color-danger;
+            &::after{
+                border-top-color: $color-danger;
+            }
+        }        
+    }
+}
+.testimonial4{
+    @extend .m-b-30;
+
+    blockquote{ 
+
+        @extend .displayblock;
+        color: $grey-600;        
+        background: $grey-100 none repeat scroll 0 0;
+        border: medium none;
+        line-height: 20px;
+        padding: 15px;
+        position: relative;
+
+        &:before{
+            @extend .displayblock;
+            width: 0;
+            height: 0;
+            right: 0;
+            bottom: 0;
+            content: " ";            
+            position: absolute;
+            border-bottom: 20px solid $col-white;
+            border-right: 0 solid transparent;
+            border-left: 15px solid transparent;
+            border-left-style: inset;
+            border-bottom-style: inset;
+        }
+        &:after{
+            @extend .displayblock;
+            width: 0;
+            height: 0;
+            right: 0;
+            bottom: 0;
+            content: " ";            
+            position: absolute;
+            border-style: solid;
+            border-width: 20px 20px 0 0;            
+        }
+        &.danger{
+            &:after{
+                border-color: $color-danger transparent transparent transparent;
+            }
+        }
+        &.warning{
+            &:after{
+                border-color: $color-warning transparent transparent transparent;
+            }
+        }
+        &.info{
+            &:after{
+                border-color: $color-info transparent transparent transparent;
+            }
+        }
+        &.primary{
+            &:after{
+                border-color: $color-primary transparent transparent transparent;
+            }
+        }
+    }
+    .carousel-info{
+        overflow: hidden;
+        img{
+            @extend .m-r-10;
+        }
+    }
+}

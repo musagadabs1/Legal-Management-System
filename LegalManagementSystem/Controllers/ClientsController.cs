@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using LegalManagementSystem.Interfaces;
 using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin,Advocate,Lawyer,Attorney,Staff")]
     public class ClientsController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
 
+        IClient db;
+        public ClientsController()
+        {
+            db = new ClientRepository();
+        }
         // GET: Clients
         public async Task<ActionResult> Index()
         {
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                return View(await db.Clients.ToListAsync());
+                //return View(await db.Clients.ToListAsync());
+                return View(await db.GetClientsAsync());// ; ;
             }
-            return View(await db.Clients.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            //return View(await db.Clients.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            return View(await db.GetClientsAsync(x => x.CreatedBy == user));
         }
 
         // GET: Clients/Details/5
@@ -34,12 +38,46 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = await db.Clients.FindAsync(id);
+            //Client client = await db.Clients.FindAsync(id);
+            Client client = await db.GetClientAsync(Convert.ToInt32(id));//.FindAsync(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
             return View(client);
+        }
+        public async Task<ActionResult> SaveClient(Client client)
+        {
+            try
+            {
+                if (!IsClientRegistered(client.FirstName, client.LastName, client.EmailAddress))
+                {
+                    int nextId = GetCurrentId() + 1;
+                    string clienName = client.FirstName;
+                    string firstLetter = clienName.Substring(0, 1);
+                    string clientId = firstLetter + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
+                    var user = User.Identity.Name;
+                    client.CreatedBy = user;
+                    client.CreatedOn = DateTime.Today;
+                    client.ClientNumber = clientId;
+
+                    db.AddClient(client);
+                    //db.Clients.Add(client);
+                    await db.CompleteAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Error = "Client Already Exist.";
+                    return View(client);
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error occured while registering this client. Check and try again. " + ex;
+                return View(client);
+                //throw ex;
+            }
         }
 
         // GET: Clients/Create
@@ -70,8 +108,9 @@ namespace LegalManagementSystem.Controllers
                         client.CreatedOn = DateTime.Today;
                         client.ClientNumber = clientId;
 
-                        db.Clients.Add(client);
-                        await db.SaveChangesAsync();
+                        //db.Clients.Add(client);
+                        db.AddClient(client);
+                        await db.CompleteAsync();
                         return RedirectToAction("Index");
                     }
                     else
@@ -98,7 +137,8 @@ namespace LegalManagementSystem.Controllers
             //bool registered = false;
             try
             {
-                var client = db.Clients.Where(c => c.FirstName.Equals(firstName) && c.LastName.Equals(lastName) && c.EmailAddress.Equals(email)).FirstOrDefault();
+                //var client = db.Clients.Where(c => c.FirstName.Equals(firstName) && c.LastName.Equals(lastName) && c.EmailAddress.Equals(email)).FirstOrDefault();
+                var client = db.GetClient(c => c.FirstName.Equals(firstName) && c.LastName.Equals(lastName) && c.EmailAddress.Equals(email));
                 if (client != null)
                 {
                     return true;
@@ -116,7 +156,8 @@ namespace LegalManagementSystem.Controllers
         {
             try
             {
-                return (db.Clients.Max(x => x.ClientId));
+                return db.MaxClient();
+                //return (db.Clients.Max(x => x.ClientId));
             }
             catch (Exception ex)
             {
@@ -124,6 +165,23 @@ namespace LegalManagementSystem.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> EditClient(Client client)
+        {
+
+            var user = User.Identity.Name;
+            client.ModifiedBy = user;
+            client.ModifiedOn = DateTime.Today;
+            //client.ClientNumber = clientId;
+            db.UpdateClient(client.ClientId);//.State = EntityState.Modified;
+            //db.Entry(client).State = EntityState.Modified;
+            await db.CompleteAsync();
+            return RedirectToAction("Index");
+
+            //return View(client);
+        }
+
         // GET: Clients/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -131,7 +189,8 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = await db.Clients.FindAsync(id);
+            var client = await db.GetClientAsync(Convert.ToInt32(id));
+            //Client client = await db.Clients.FindAsync(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -158,8 +217,9 @@ namespace LegalManagementSystem.Controllers
                 client.ModifiedOn = DateTime.Today;
                 //client.ClientNumber = clientId;
 
-                db.Entry(client).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.UpdateClient(client.ClientId);
+                //db.Entry(client).State = EntityState.Modified;
+                await db.CompleteAsync();
                 return RedirectToAction("Index");
             }
             return View(client);
@@ -172,7 +232,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = await db.Clients.FindAsync(id);
+            Client client = await db.GetClientAsync(Convert.ToInt32(id));//.FindAsync(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -185,9 +245,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Client client = await db.Clients.FindAsync(id);
-            db.Clients.Remove(client);
-            await db.SaveChangesAsync();
+            //Client client = await db.GetClientAsync(id);
+            db.DeleteClient(id);
+            await db.CompleteAsync();
             return RedirectToAction("Index");
         }
 

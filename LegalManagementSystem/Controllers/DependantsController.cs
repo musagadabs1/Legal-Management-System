@@ -1,13 +1,10 @@
-﻿using System;
+﻿using LegalManagementSystem.Models;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -48,6 +45,30 @@ namespace LegalManagementSystem.Controllers
             };
             ViewBag.Gender = gender;
             return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> SaveDependant(Dependant dependant)
+        {
+            //if (ModelState.IsValid)
+            //{
+            var user = User.Identity.Name;
+            dependant.CreatedBy = user;
+            dependant.CreatedOn = DateTime.Today;
+            //var staffId = "stf01";
+
+            dependant.StaffId = LegalGuideUtility.StaffId;
+            db.Dependants.Add(dependant);
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("Create", "Dependants");
+            //}
+            //var gender = new List<SelectListItem> {
+            //    new SelectListItem{Text="Male",Value ="M"},
+            //    new SelectListItem{Text="Female",Value ="F"}
+            //};
+            //ViewBag.Gender = gender;
+            ////ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
+            //return View(dependant);
         }
 
         // POST: Dependants/Create
@@ -95,6 +116,28 @@ namespace LegalManagementSystem.Controllers
             ViewBag.Gender = gender;
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
             return View(dependant);
+        }
+        [HttpPost]
+        public async Task<ActionResult> EditDependant(Dependant dependant)
+        {
+            //if (ModelState.IsValid)
+            //{
+                var user = User.Identity.Name;
+                dependant.ModifiedBy = user;
+                dependant.ModifiedOn = DateTime.Today;
+                dependant.StaffId = LegalGuideUtility.StaffId;
+
+                db.Entry(dependant).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            //}
+            //var gender = new List<SelectListItem> {
+            //    new SelectListItem{Text="Male",Value ="M"},
+            //    new SelectListItem{Text="Female",Value ="F"}
+            //};
+            //ViewBag.Gender = gender;
+            ////ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", dependant.StaffId);
+            //return View(dependant);
         }
 
         // POST: Dependants/Edit/5

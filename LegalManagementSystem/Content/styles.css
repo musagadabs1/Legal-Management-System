@@ -25,13 +25,13 @@
 }
 #cssmenu {
   width: auto;
-  border-bottom: 3px solid #47c9af;
+  /*border-bottom: 3px solid #47c9af;*/
   font-family: Raleway, sans-serif;
   line-height: 1;
 }
     #cssmenu ul {
         /* background: #1b2a47; #ffffff*/
-        background-color: #1ac6ff;
+        /*background-color: #1ac6ff;*/
         color: #fff;
     }
 #cssmenu > ul > li {
@@ -58,7 +58,7 @@
   font-size: 15px;
   font-weight: 400;
   text-decoration: none;
-  color: #444444;
+  /*color: #444444;*/
   -webkit-transition: all .2s ease;
   -moz-transition: all .2s ease;
   -ms-transition: all .2s ease;

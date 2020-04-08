@@ -1,273 +1,178 @@
 ﻿<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="~/light-bootstrap/assets/img/favicon.ico">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>:: LMS :: Home</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Lucid Bootstrap 4.1.1 Admin Template">
+    <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
 
-    <title>LMS | Shrish Private Systems</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="~/Content/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/font-awesome/css/font-awesome.min.css">
 
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/assets/vendor/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/summernote/dist/summernote.css" />
 
-
-    <!-- Bootstrap core CSS     -->
-    <link href="~/light-bootstrap/assets/css/bootstrap.min.css" rel="stylesheet" />
-    @*<link href="~/md-template/css/bootstrap.min.css" rel="stylesheet" />*@
-    <!--Md-bootstrap -->
-    @*<link href="~/md-template/css/mdb-compiled-4.7.5.min.css" rel="stylesheet" />*@
-
-    <!-- Animation library for notifications   -->
-    <link href="~/light-bootstrap/assets/css/animate.min.css" rel="stylesheet" />
-
-    <!--  Light Bootstrap Table core CSS    -->
-    <link href="~/light-bootstrap/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
-
-
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="~/light-bootstrap/assets/css/demo.css" rel="stylesheet" />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/Content/assets/assets/css/main.css">
+    <link rel="stylesheet" href="~/Content/assets/assets/css/color_skins.css">
 
     <!--staff profile Style
         ===================================================-->
     <link href="~/Content/styles.css" rel="stylesheet" />
-
-    <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="~/light-bootstrap/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
 </head>
-<body>
+<body class="theme-purple">
 
-    <div class="wrapper">
-        <div class="sidebar" data-color="azure" data-image="~/light-bootstrap/assets/img/sidebar-5.jpg">
-
-            <!--
-
-                Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-                Tip 2: you can also add an image using data-image tag
-
-            -->
-
-            <div class="sidebar-wrapper">
-                <div class="logo">
-                    <a href="@Url.Action("Index","Home")" class="simple-text">
-                        LMS
-                    </a>
-                </div>
-
-                <ul class="nav">
-                    <li class="active">
-                        <a href="@Url.Action("Index","Matters")">
-                            <i class="fa fa-dashboard"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","CourtActivities")">
-                            <i class="fa fa-briefcase"></i>
-                            <p>Court Activities</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Companies")">
-                            <i class="fa fa-building"></i>
-                            <p>Companies</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Clients")">
-                            <i class="fa fa-suitcase"></i>
-                            <p>Clients</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","Documents")">
-                            <i class="fa fa-book"></i>
-                            <p>Documents</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index","FileEvents")">
-                            <i class="pe-7s-map-marker"></i>
-                            <p>Events</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="main-panel">
-            <nav class="navbar navbar-default navbar-fixed">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">Dashboard</a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-left">
-                            <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-dashboard"></i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
-                            </li>
-                            @*<li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-globe"></i>
-                                        <b class="caret hidden-lg hidden-md"></b>
-                                        <p class="hidden-lg hidden-md">
-                                            5 Notifications
-                                            <b class="caret"></b>
-                                        </p>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Notification 1</a></li>
-                                        <li><a href="#">Notification 2</a></li>
-                                        <li><a href="#">Notification 3</a></li>
-                                        <li><a href="#">Notification 4</a></li>
-                                        <li><a href="#">Another notification</a></li>
-                                    </ul>
-                                </li>*@
-                            <li>
-                                <a href="">
-                                    <i class="fa fa-search"></i>
-                                    <p class="hidden-lg hidden-md">Search</p>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <p>
-                                        Home
-                                        <b class="caret"></b>
-                                    </p>
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
-                                    <li><a href="@Url.Action("About","Home")">About Us</a></li>
-                                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
-                                    @*<li class="divider"></li>
-                <li><a href="#">Separated link</a></li>*@
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <p>
-                                        LMS
-                                        <b class="caret"></b>
-                                    </p>
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="@Url.Action("Index","Matters")">Cases</a></li>
-                                    <li><a href="@Url.Action("Index","LineManagers")">Line Managers</a></li>
-                                    <li><a href="@Url.Action("Index","Staffs")">Staff Profile</a></li>
-                                    <li><a href="@Url.Action("Index","Documents")">Documents</a></li>
-                                    <li><a href="@Url.Action("Index","CourtActivities")">Court Activities</a></li>
-                                    <li><a href="@Url.Action("Index","FileEvents")">Events</a></li>
-                                    @*<li class="divider"></li>
-                <li><a href="#">Separated link</a></li>*@
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <p>
-                                        Reports
-                                        <b class="caret"></b>
-                                    </p>
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="@Url.Action("AllStaffReport","Reports")">All Staff</a>
-                                    </li>
-                                    <li><a href="@Url.Action("AllClients","Reports")">All Clients</a></li>
-                                    <li><a href="@Url.Action("CasesReport","Reports")">Cases</a></li>
-                                    <li><a href="@Url.Action("CourtActivities","Reports")">Court Activities</a></li>
-                                    @*<li><a href="@Url.Action("Index","CourtActivities")">Court Activities</a></li>
-                                    <li><a href="@Url.Action("Index","FileEvents")">Events</a></li>*@
-                                    @*<li class="divider"></li>
-                <li><a href="#">Separated link</a></li>*@
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Login","Account")">
-                                    <p>Log out</p>
-                                </a>
-                            </li>
-                            <li class="separator hidden-lg"></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-
-            <div class="content">
-                <div class="container-fluid">
-                    @RenderBody()
-                </div>
-            </div>
-
-
-            <footer class="footer">
-                <div class="container-fluid">
-                    <p class="copyright text-center">
-                        &copy;
-                        <script>document.write(new Date().getFullYear())</script> <a href="#">LMS</a>, made with love for a better Law System
-                    </p>
-                </div>
-            </footer>
-
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img src="~/Content/assets/images/logo-icon.svg" width="48" height="48" alt="LMS"></div>
+            <p>Please wait...</p>
         </div>
     </div>
+    <!-- Overlay For Sidebars -->
 
+    <div id="wrapper">
 
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
+                </div>
 
-    <!--   Core JS Files   -->
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    @*<script src="~/light-bootstrap/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>*@
-    <script src="~/light-bootstrap/assets/js/bootstrap.min.js" type="text/javascript"></script>
+                <div class="navbar-brand">
+                    <a href="@Url.Action("Index","Home")"><img src="~/Content/Images/legal-scale.png" height="30" alt="Lucid Logo" class="img-responsive logo"></a>
+                </div>
 
-    <!--  Charts Plugin -->
-    <script src="~/light-bootstrap/assets/js/chartist.min.js"></script>
+                <div class="navbar-right">
+                    <form id="navbar-search" class="navbar-form search-form">
+                        <input value="" class="form-control" placeholder="Search here..." type="text">
+                        <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+                    </form>
 
-    <!--  Notifications Plugin    -->
-    <script src="~/light-bootstrap/assets/js/bootstrap-notify.js"></script>
+                    <div id="navbar-menu">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#" class="icon-menu d-none d-sm-block d-md-none d-lg-block"><i class="icon-calendar"></i></a></li>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+                            <li><a href="@Url.Action("Login","Account")" class="icon-menu"><i class="icon-login"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-    <script src="~/light-bootstrap/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+        <div id="left-sidebar" class="sidebar mini-sidebar">
+            <div class="sidebar-scroll">
+                <div class="user-account">
+                    <img src="~/Content/assets/images/user.png" class="rounded-circle user-photo" alt="User Profile Picture">
+                    <div class="dropdown">
+                        <span>Welcome,</span>
+                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Musa Gadabs</strong></a>
+                        <ul class="dropdown-menu dropdown-menu-right account animated flipInY">
+                            <li><a href="#"><i class="icon-user"></i>My Profile</a></li>
+                            @*<li><a href="#"><i class="icon-envelope-open"></i>Messages</a></li>*@
+                            @*<li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>*@
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Login","Account")"><i class="icon-power"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="row list-unstyled">
+                        @*<div class="col-4">
+                                <h6>5+</h6>
+                                <small>Experience</small>
+                            </div>*@
+                        <div class="col-6">
+                            <h6>400+</h6>
+                            <small>Employees</small>
+                        </div>
+                        <div class="col-6">
+                            <h6>80+</h6>
+                            <small>Clients</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">LMS</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sub_menu"><i class="icon-grid"></i></a></li>
+                </ul>
 
-    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-    <script src="~/light-bootstrap/assets/js/demo.js"></script>
+                <!-- Tab panes -->
+                <div class="tab-content p-l-0 p-r-0">
+                    <div class="tab-pane animated fadeIn active" id="hr_menu">
+                        <nav class="sidebar-nav">
+                            <ul class="main-menu metismenu">
+                                <li class="active"><a href="@Url.Action("Index","Home")"><i class="icon-speedometer"></i><span>LMS Dashboard</span></a></li>
+                                <li><a href="#"><i class="icon-list"></i>Holidays</a></li>
+                                <li><a href="#"><i class="icon-calendar"></i>Events</a></li>
+                                <li><a href="#"><i class="icon-badge"></i>Activities</a></li>
+                                <li>
+                                    <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>LMS</span></a>
+                                    <ul>
+                                        <li><a href="@Url.Action("Index","Matters")">Cases</a></li>
+                                        <li><a href="@Url.Action("Index","LineManagers")">Line Manager</a></li>
+                                        <li><a href="@Url.Action("Index","Clients")">Clients</a></li>
+                                        <li><a href="@Url.Action("Index","Staffs")">Staff Profile</a></li>
+                                        <li><a href="@Url.Action("Index","Documents")">Documents</a></li>
+                                        <li><a href="@Url.Action("Index","CourtActivities")">Court Activities</a></li>
+                                        <li><a href="@Url.Action("Index","FileEvents")">Events</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#Payroll" class="has-arrow"><i class="icon-credit-card"></i><span>Payroll</span></a>
+                                    <ul>
+                                        <li><a href="#">Payslip</a></li>
+                                        <li><a href="#">Employee Salary</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#Report" class="has-arrow"><i class="icon-bar-chart"></i><span>Report</span></a>
+                                    <ul>
+                                        <li><a href="@Url.Action("AllStaffReport","Reports")">All Staff</a></li>
+                                        <li><a href="@Url.Action("AllClients","Reports")">All Clients</a></li>
+                                        <li><a href="@Url.Action("CasesReport","Reports")">Cases</a></li>
+                                        <li><a href="@Url.Action("CourtActivities","Reports")">Court Activities</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
 
-    <script>
-        $(document).ready(function () {
+                </div>
+            </div>
+        </div>
 
-            demo.initChartist();
+        <div id="main-content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
 
-            $.notify({
-                icon: 'pe-7s-gift',
-                message: "Welcome to <b>Law Management System</b> - a beautiful app for every Law Firm."
+    </div>
 
-            }, {
-                    type: 'info',
-                    timer: 4000
-                });
+    <!-- Javascript -->
+    <script src="~/Content/assets/assets/bundles/libscripts.bundle.js"></script>
+    <script src="~/Content/assets/assets/bundles/vendorscripts.bundle.js"></script>
 
-        });
-    </script>
+    <script src="~/Content/assets/vendor/toastr/toastr.js"></script>
+    <script src="~/Content/assets/assets/bundles/chartist.bundle.js"></script>
+    <script src="~/Content/assets/assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+
+    <script src="~/Content/assets/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/Content/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/assets/vendor/summernote/dist/summernote.js"></script>
+    <script src="~/Content/assets/assets/js/index.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>

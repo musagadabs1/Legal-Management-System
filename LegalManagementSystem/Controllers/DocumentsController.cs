@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -71,7 +72,7 @@ namespace LegalManagementSystem.Controllers
             }
             var ModifiedData = getData.Select(x => new
             {
-                id = x.Id,
+                id = x.MatterNumber,
                 text = x.Subject
             });
 
@@ -83,6 +84,64 @@ namespace LegalManagementSystem.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<ActionResult> SaveDocument()
+        {
+            try
+            {
+                string fileName = string.Empty;
+                string filePath = string.Empty;
+
+                DocumentViewModel model = JsonConvert.DeserializeObject<DocumentViewModel>(Request.Form["model"].ToString());
+
+                HttpPostedFileBase fileBase = Request.Files[0];
+
+                    if (fileBase.ContentLength > 0 && fileBase != null)
+                    {
+                        filePath = fileBase.FileName;
+                        fileName = Path.GetFileName(fileBase.FileName);
+                    }
+
+                var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Docs";
+                var docPath = Path.Combine(folderPath, filePath);
+
+                var user = User.Identity;
+                var document = new Document
+                {
+                    DocName = model.DocName,
+                    Description = model.Description,
+                    CreatedBy= user.Name,
+                    DateCreated=DateTime.Today,
+                    DocPath=docPath,
+                    Tags=model.Tags,
+                    MatterNumber=model.MatterNumber
+                };
+
+
+                db.Documents.Add(document);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+
+                //}
+                //else
+                //{
+                //    ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
+                //    //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", document.FileNumber);
+                //    //ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject");
+                //    return View(document);
+
+                //}
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = "Can't add Document. Something went wrong " + ex.Message;
+                return View();
+            }
+
+
+            
+        }
 
         // GET: Documents/Create
         public ActionResult Create()

@@ -1,0 +1,117 @@
+﻿$white: #ffffff;
+$blush-grey-900: #263238 !default;
+$grey-900: #212121 !default;
+$blush-400: #e98eac !default;
+$blush-500: #ff5a7d !default;
+$blush-600: #e25985 !default;
+
+.theme-blush{
+
+    ::selection {
+        color: $white; 
+        background: $blush-500;
+    }
+
+    .page-loader-wrapper{
+        background: $blush-500;
+    }
+    
+    #left-sidebar .nav-tabs .nav-link.active{
+        color: $blush-500;
+    }
+
+    &:before,
+    &:after{
+        background: $blush-500;
+    }
+
+    #wrapper{
+        &:before,
+        &:after{
+            background: $blush-500;
+        }
+    }
+    
+    .sidebar-nav .metismenu>li.active>a{
+        border-left-color: $blush-500;
+    }
+
+    
+    .navbar-nav ul.menu-icon{
+        background: $blush-500;
+    }
+
+    .fancy-checkbox {    
+        input[type="checkbox"] {
+    
+            &:checked + span:before {
+                background: $blush-500;
+                border-color: $blush-500;
+            }
+        }
+    }
+
+    .chat-widget {
+        li {
+            &.right {
+                
+                .chat-info {
+                    background: $blush-500;
+                    color: $white;
+    
+                    &:before{
+                        border-left: 10px solid $blush-500;
+                    }
+                }
+            }
+        }
+    }
+
+    .fc .fc-view-container .fc-view.fc-basic-view>table>thead tr th.fc-widget-header{
+        background: $blush-500;
+        border-color: $blush-500;
+        color:$white;
+    }
+
+    .blog-page .single_post .footer .stats li a:hover{
+        color: $blush-500;
+    }
+
+    .auth-main{
+        .btn-primary{
+            background: $blush-500;
+            border-color: $blush-500;
+        }        
+    }
+
+    .sidebar-nav .metismenu>li i{
+        color: $blush-500;
+    }
+
+    .right_chat li a:hover{
+        .media-object {
+            border-color: $blush-500;
+        }        
+    }
+
+    .chat_app{
+
+        .chat{
+            .chat-history{
+                .other-message{
+                    background: $blush-500;
+                    color: $white;
+                    &::after{
+                        border-bottom-color: $blush-500;
+                    }
+                }
+            }        
+        }
+        .people_list .chat-list li{            
+            &.active,
+            &:hover{
+                border-color: $blush-500;
+            }
+        }
+    }
+}

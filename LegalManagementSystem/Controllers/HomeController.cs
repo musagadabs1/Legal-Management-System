@@ -5,7 +5,7 @@ namespace LegalManagementSystem.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        
+
         public ActionResult Index()
         {
             return View();
@@ -17,7 +17,7 @@ namespace LegalManagementSystem.Controllers
 
             return View();
         }
-
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -5,13 +5,14 @@
 }
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
-<div class="row">
+<div class="row" style="margin-top:20px;">
     <div class="col-md-2">
 
     </div>
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
+            @*style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;"*@
+            <div class="card-header">
                 <h3 class="card-title text-center">Enter Court Activity</h3>
             </div>
             <div class="card-body">
@@ -21,73 +22,110 @@
 
                     <div class="form-horizontal" style="padding:5px;">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.CourtName, "Court Name", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.CourtName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.CourtName, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                <div>
-                                    @Html.LabelForRequired(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label" })
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Court Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="CourtName" placeholder="Court Name" aria-label="CourtName" aria-describedby="basic-addon1">
                                 </div>
-                                @Html.DropDownListFor(model => model.MatterNumber, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control matter-Number", @id = "matterNumber" })
-                                @Html.ValidationMessageFor(model => model.DateHeared, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Location</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="Location" placeholder="Location" aria-label="Location" aria-describedby="basic-addon1">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
+                                    </div>
+                                    @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.Status, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label " })
-                                @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.Status, "Value", "Text"), "---Select Case Status---", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.DateHeared, "Hearing Date", htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.DateHeared, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateHeared, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.DateAdjourned, "Adjourned Date", htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.DateAdjourned, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateAdjourned, "", new { @class = "text-danger" })
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Defense Counsel Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="DefenseCounselName" placeholder="Defense Counsel Name" aria-label="DefenseCounselName" aria-describedby="basic-addon1">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.AdvocateArgument, "Plantiff Argument", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.AdvocateArgument, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AdvocateArgument, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" class="form-control" placeholder="Hearing Date" id="DateHeared">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.OpponentArgument, "Defendant Argument", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.OpponentArgument, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.OpponentArgument, "", new { @class = "text-danger" })
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" class="form-control" placeholder="Date Adjourned" id="DateAdjourned">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Plantiff Argument</span>
+                                    </div>
+                                    <div class="summernote">
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
-                        <div class="form-group" style="margin-bottom:10px;">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.AdvocateNote, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.AdvocateNote, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AdvocateNote, "", new { @class = "text-danger" })
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Defendant Argument</span>
+                                    </div>
+                                    <div class="summernote">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.DefenseCounselName, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.DefenseCounselName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DefenseCounselName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Advocate Note</span>
+                                    </div>
+                                    <div class="summernote">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-info btn-lg">Add</button>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-md-12 col-sm-12">
+                                @*<button type="submit" id="btnSave" class="btn btn-primary">Add</button>*@
+                                <input type="button" id="btnSave" value="Add" class="btn btn-primary" />
                             </div>
                         </div>
                     </div>
@@ -108,8 +146,57 @@
 
             select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "CourtActivities")', "Select Case");
 
+            $('#btnSave').click(function () {
+                saveCourtActivity();
+            });
+
+            summerNote();
         });
 
+        function saveCourtActivity() {
+            //
+            //var url =
+            var courtActivity = {};
+
+            var courtName = $('#CourtName').val();
+            var location = $('#Location').val();
+            var status = $('#Status').val();
+            var defenseCounselName = $('#DefenseCounselName').val();
+            var dateHeared = new Date( $('#DateHeared').val());
+            var dateAdjourned = new Date( $('#DateAdjourned').val());
+            var advocateArgument = $('.summernote').summernote('code');
+            var opponentArgument = $('.summernote').eq(1).summernote('code');
+            var advocateNote = $('.summernote').eq(2).summernote('code')
+
+            courtActivity = {
+                CourtName: courtName,
+                Location: location,
+                Status: status,
+                DefenseCounselName: defenseCounselName,
+                DateHeared: new Date(dateHeared),
+                DateAdjourned: new Date(dateAdjourned),
+                AdvocateArgument: advocateArgument,
+                OpponentArgument: opponentArgument,
+                AdvocateNote: advocateNote
+
+            };
+
+            $.ajax({
+
+                type: 'POST',
+                url: '@Url.Action("SaveCourtActivity","CourtActivities")',
+                data: JSON.stringify(courtActivity),
+                contentType: 'application/json',
+                success: function () {
+                    alert('Saved');
+                    window.location.href='@Url.Action("Index","Matters")'
+                },
+                error: function (e) {
+                    window.location.href='@Url.Action("Index","Matters")'
+                    //alert(e);
+                }
+            });
+        }
 
         function select2DropDown(elementId,url,placeholder) {
             $('#' + elementId).select2({
@@ -134,6 +221,35 @@
                 }
             });
         }
+
+        //<script>
+        //jQuery(document).ready(function() {
+
+
+
+        //});
+
+        window.edit = function() {
+            $(".click2edit").summernote()
+        },
+
+        window.save = function() {
+            $(".click2edit").summernote('destroy');
+        }
+        function summerNote() {
+             $('.summernote').summernote({
+                height: 350, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+                focus: false, // set focus to editable area after initializing summernote
+                popover: { image: [], link: [], air: [] }
+             });
+
+            $('.inline-editor').summernote({
+                airMode: true
+            });
+        }
+
     </script>
 }
 @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@

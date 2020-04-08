@@ -1,0 +1,265 @@
+.weather2{
+    .city-selected{
+        position: relative;
+        overflow: hidden;        
+        border-radius: 3px 3px 0 0;
+
+        .city{
+            font-size: 24px;
+            span{
+                font-size: $font13;                
+                text-transform: lowercase;
+            }            
+        }
+        .night {
+            font-size: $font15;
+            text-transform: uppercase;
+        }
+        .temp {
+            h2{
+                @extend .margin-0;
+                @extend .displayblock;
+                font-size: 73px;                
+                position: relative;
+            }
+        }
+        .icon{
+            i{
+                font-size: 70px;
+            }
+        }
+    }
+    .table{
+        tbody{
+            tr{
+                td{
+                    padding:14px 20px;
+                }
+            }
+        }
+    }
+    .days-list{
+        @extend .margin-0;
+        .day{
+            @extend .align-center;
+            padding: 20px 10px;            
+            h5{
+                @extend .m-t-0;
+            }
+            i{
+                font-size: 30px;
+            }
+        }
+    }
+    .carousel .carousel-inner{
+        box-shadow: none;
+    }
+}
+.weather{
+    .city{
+        position: relative;
+        @extend .m-b-20;
+        @extend .m-t-0;
+        h3{
+            @extend .m-b-0;
+            @extend .m-t-0;            
+        }
+        i{
+            font-size: 40px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+    .days{
+        li{
+            @extend .inlineblock;            
+            @extend .align-center;
+            width: 13.20%;
+
+            img{                
+                @extend .m-b-5;
+                width:25px;
+            }
+
+            h5{
+                font-size: 11px;
+            }
+
+            .degrees{
+                @extend .displayblock;
+            }
+        }
+    }
+}
+.weather3{
+    overflow: hidden;    
+
+    .top{
+        @extend .align-center;
+        position: relative;
+        height: 430px;
+        width: 100%;
+        overflow: hidden;
+        background: url('../../../assets/images/weather_img.jpg') no-repeat;
+        background-size: cover;
+        background-position: center center;        
+
+        &::after{
+            @extend .displayblock;
+            content: "";
+            height: 100%;
+            width: 100%;            
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .wrapper{
+            color: $col-white;
+            padding: 30px;
+            position: relative;
+            z-index: 1;            
+
+            .mynav{
+                height: 20px;
+            }
+
+            .heading{
+                @extend .m-t-20;
+                font-weight: $font-weight-400;
+                font-size: 35px;
+            }
+
+            .location{
+                @extend .m-t-20;
+                font-weight: $font-weight-400;
+                font-size: 21px;
+            }
+
+            .temp{
+
+                .temp-value{
+                    @extend .inlineblock;
+                    font-weight: $font-weight-600;
+                    font-size: 85px;                    
+                }
+                .deg{
+                    @extend .inlineblock;
+                    @extend .m-t-10;
+                    font-weight: $font-weight-600;
+                    font-size: 35px;
+                    vertical-align: top;
+                }
+                .temp-type{
+                    color: $col-white;
+                    font-size: 85px;
+                }
+            }
+        }
+    }
+    .bottom{
+
+        padding:20px;
+        background: $col-white;
+
+        .forecast{            
+            @extend .margin-0;
+            @extend .padding-0;
+            @extend .p-t-20;
+            font-size: 0;
+            overflow: hidden;
+            max-height: 155px;
+
+            li{
+                @extend .displayblock;                
+                font-size: $font18;                
+                color: $grey-400;
+                line-height: 2em;
+                
+                &.active{
+                    color: $grey-600;
+                }
+
+                .condition{
+                    float: right;
+                    line-height: 2em;
+                }
+            }
+        }
+    }
+}
+.weather4{
+    i{        
+        @extend .m-b-10;
+        font-size: 35px;
+    }
+    p{
+        @extend .margin-0;
+    }
+}
+.weather5{
+    overflow: hidden;
+    .widget{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .weatherIcon{
+        background: $col-white;
+        flex: 1 100%;
+        height: 60%;;        
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 80px;
+        padding: 20px 0;
+        i{
+            @extend .p-t-20;
+        }
+    }
+    .weatherInfo{     
+        @extend .align-center;
+        background: $col-dark;        
+        color: $col-white;
+        flex: 0 0 70%;
+        height: 40%;
+        display: flex;        
+        
+        .temperature{
+            flex: 0 0 40%;
+            width: 100%;
+            font-size: 65px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .description{
+            flex: 0 60%;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+        }
+    }
+    .date{
+        @extend .align-center;
+        color: $col-white;
+        background: $color-primary;
+        flex: 0 0 30%;
+        height: 40%;        
+        display: flex;
+        justify-content: space-around;        
+        font-size: 28px;
+        line-height: 97px;
+    }
+}
+.weather6{
+    @extend .align-center;
+    .temp{
+        font-size: 30px;
+    }
+    p{
+        @extend .m-b-0;
+    }
+}

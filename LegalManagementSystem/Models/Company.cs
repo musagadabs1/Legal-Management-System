@@ -11,42 +11,24 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Company
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "Company Name")]
         public string Name { get; set; }
-        [Required]
-        [Display(Name = "Company Short Name")]
         public string ShortName { get; set; }
-        //[Required]
-        [Display(Name = "Company Legal Type")]
         public string CompanyLegalType { get; set; }
-        //[Required]
-        [Display(Name = "Company Group")]
         public string CompanyGroup { get; set; }
         public string Nationality { get; set; }
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Company Address")]
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
         public string Website { get; set; }
-        [Required]
-        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        [Display(Name = "Mobile Number")]
         public string MobileNumber { get; set; }
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email Address")]
         public string EmailAddress { get; set; }
-        [Display(Name = "Company Laywer")]
         public string CompanyLawyer { get; set; }
-        [Display(Name = "Company Capital")]
         public Nullable<double> Capital { get; set; }
         public string Currency { get; set; }
         public string CreatedBy { get; set; }

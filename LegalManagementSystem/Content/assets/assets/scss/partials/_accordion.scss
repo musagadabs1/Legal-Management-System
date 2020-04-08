@@ -1,0 +1,30 @@
+.accordion{
+	.card-header{
+        @extend .padding-0;
+        .btn{
+            @extend .align-left;
+            font-size: $font16;
+            padding: 10px 20px;
+            width: 100%;
+        }
+    }
+    &.custom{
+        .card-header{
+            background: transparent;
+            border-color: $grey-200;
+            .btn{
+                color: $grey-700;
+
+                &:hover,
+                &:focus{
+                    text-decoration: none;                    
+                }
+            }
+        }
+        .card-body{
+            font-size: $font15;            
+            color: $grey-600;
+            line-height: 28px;
+        }
+    }
+}

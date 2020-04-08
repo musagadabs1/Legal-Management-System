@@ -12,114 +12,207 @@
         <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
     </div>
     <div class="clearfix"></div>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
+    <div class="card-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+                <h4 class="card-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Add Family Details
                     </a>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
+                <div class="card-body">
                     @using (Html.BeginForm())
-                    {
+                    {  
                         @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @if (ViewBag.Error != null)
-                        {
-                            <div class="alert alert-danger">
-                                <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
+                                </div>
+                            }
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">First Name</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="FirstName" placeholder="First Name" aria- label="FirstName" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Last Name</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="LastName" placeholder="Last Name" aria- label="LastName" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
                             </div>
-                        }
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Policy Number</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="PolicyNumber" placeholder="Policy Number" aria- label="Policy Number" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="Gender">Gender</span>
+                                        </div>
+                                        @Html.DropDownListFor(model => model.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control" placeholder="Effective Date" id="EffectiveDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control" placeholder="End Date" id="EndDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:15px;">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                        <input type="text" class="form-control" placeholder="Date Of Birth" id="DateOfBirth">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Relationship</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="Relationship" placeholder="Relationship" aria- label="Relationship" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Description</span>
+                                        </div>
+                                        <textarea class="form-control" aria-label="Description" id="Description"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Address</span>
+                                        </div>
+                                        <textarea class="form-control" aria-label="Address" id="Address"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-md-6 col-sm-12">
+                                    <input type="button" value="Add" class="btn btn-primary" id="add-Dependant" />
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.PolicyNumber, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.PolicyNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Policy Number like 010029" } })
-                                @Html.ValidationMessageFor(model => model.PolicyNumber, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label " })
-                                @Html.DropDownListFor(model => model.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), "---Select Gender---", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.EffectiveDate, "Effective Date", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.EffectiveDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.EndDate, "End Date", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Relationship, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Relationship, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Relationship" } })
-                                @Html.ValidationMessageFor(model => model.Relationship, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div style="margin-left:12px">
-                                <input type="submit" value="Add" class="btn btn-primary btn-block" />
-                            </div>
-                        </div>
-                    </div>
                     }
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="~/Scripts/ExpandCollapse.js"></script>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/ExpandCollapse.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#add-Dependant').click(function () {
+                saveDependant();
+            });
+        });
+
+
+        function saveDependant() {
+
+             var dependant = {};
+            var url = '@Url.Action("SaveDependant","Dependants")';
+
+            var firstName = $('#FirstName').val();
+            var polyNumber = $('#PolicyNumber').val();
+            var lastName = $('#LastName').val();
+            var endDate = $('#EndDate').val();
+            var effDate = $('#EffectiveDate').val();
+            var dateBirth = $('#DateOfBirth').val();
+            var gender = $('#Gender').val();
+            var rel = $('#Relationship').val();
+            var desc = $('#Description').val();
+            var address = $('#Address').val();
+
+            dependant = {
+                FirstName: firstName,
+                PolicyNumber: polyNumber,
+                LastName: lastName,
+                Gender: gender,
+                EndDate: new Date(endDate),
+                EffectiveDate:new Date(effDate),
+                DateOfBirth:new Date(dateBirth),
+                Relationship: rel,
+                Description: desc,
+                Address: address
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json',
+                dataType: 'json',
+                data:JSON.stringify(dependant),
+                success: function (e) {
+                    //alert('Saved.');
+                    window.location.href = '@Url.Action("Index","Dependants")';
+                },
+                error: function (e) {
+                    window.location.href = '@Url.Action("Index","Dependants")';
+                }
+            });
+        }
+    </script>
 
 
 
 
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
+}

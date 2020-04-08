@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-md-2">
         <div class="col-md-12 col-sm-12 col-xl-12 col2-xs-12">
-            
+
             <br />
             <div style="margin-top:10px;">
 
@@ -38,57 +38,37 @@
         </div>
     </div>
     <div class="col-md-5">
-        
+
     </div>
     <div class="col-md-5"></div>
 </div>
 
 <div class="container body-content" style="padding:0;margin:0">
-    
+
 
 
     <div class="col-md-11 col-sm-11 col-xl-11 col-xs-11">
         @RenderBody()
     </div>
 </div>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@section scripts{
+    @RenderSection("scripts", required: false)
 <script>
 
-    var openFile = function (event) {
-        var input = event.target;
+            var openFile = function (event) {
+                var input = event.target;
 
-        var reader = new FileReader();
-        reader.onload = function () {
-            var dataURL = reader.result;
-            var output = document.getElementById('output');
-            output.src = dataURL;
-        };
-        reader.readAsDataURL(input.files[0]);
-    };
-        //$(document).ready(function (){
-        //    $('#file').change(function () {
-        //        var file = this.files;
-        //        if (file && file[0]) {
-        //            readImage(file[0]);
-        //        }
-        //    });
-        //});
-        //var readImage = function (file) {
-        //    var reader = new FileReader();
-        //    var image = new Image();
-
-        //    reader.readAsDataUrl(file);
-        //    reader.onload = function (_file) {
-        //        image.src = _file.target.result;
-        //        image.onload = function () {
-        //            var height = this.height;
-        //            var width = this.width;
-        //            var type = file.type;
-        //            var size = ~~(file.size / 1024) + "KB";
-        //            $('#imageDisplay').attr('src', _file.target.result);
-        //            //$('#description').text("size: " + size + ", " + height + "X " + width + ", " + type + "");
-        //            //$('#imgPreview').show();
-        //        }
-        //    }
-        //}
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var dataURL = reader.result;
+                    var output = document.getElementById('output');
+                    output.src = dataURL;
+                };
+                reader.readAsDataURL(input.files[0]);
+            };
 </script>
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+
+}
+
+

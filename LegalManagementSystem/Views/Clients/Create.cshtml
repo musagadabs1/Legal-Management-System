@@ -1,18 +1,17 @@
 ﻿@model LegalManagementSystem.Models.Client
-@using LegalManagementSystem.Helpers
 @{
     ViewBag.Title = "Create";
 }
 
-
+@*style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;"*@
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
 
     </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header" style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;">
-                <h3 class="card-title text-center">Register a new Client</h3>
+    <div class="col-md-8">
+        <div class="card" style="margin-top:15px;">
+            <div class="card-header">
+                <h3 class="card-title text-center">New Client</h3>
             </div>
             <div class="card-body">
                 @using (Html.BeginForm())
@@ -27,74 +26,108 @@
                                 <span class="glyphicon glyphicon-remove-circle">@ViewBag.Error.ToString()</span>
                             </div>
                         }
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label " })
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                @*@Html.LabelForRequired(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label " })*@
 
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">First Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="FirstName" placeholder="First Name" aria-label="FirstName" aria-          describedby="basic-addon1">
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                            <div class="col-md-6 col-sm-12">
+                                @*@Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label " })*@
 
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label " })
-
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.PhoneNumber, "Phone Number", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Middle Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name" aria-label="MiddleName" aria- describedby="basic-addon1">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-md-6">
-                                @Html.LabelForRequired(model => model.EmailAddress, "Email Address", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
+                                @*@Html.LabelForRequired(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label " })*@
 
-                                @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Town, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Last Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="LastName" placeholder="Last Name" aria- label="LastName" aria-describedby="basic-addon1">
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+                            <div class="col-md-6 col-sm-12">
+                                @*<b>Mobile Phone Number</b>*@
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                    </div>
+                                    <input type="text" id="PhoneNumber" class="form-control mobile-phone-number" placeholder="Ex: (080) 000-00-000">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                    </div>
+                                    <input type="text" id="EmailAddress" class="form-control email" placeholder="Ex: example@example.com">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Postal Code</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="PostalCode" placeholder="Postal Code" aria- label="PostalCode" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Town</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="Town" placeholder="Town" aria- label="PostalCode" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Website</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="Website" placeholder="Website" aria- label="PostalCode" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Address</span>
+                                    </div>
+                                    <textarea class="form-control" id="Address" aria-label="With textarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:10px">
                             <div class="col-md-12">
-                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-info btn-lg">Add</button>
+                                @*<button type="submit" id="saveClient" class="btn btn-primary">Add</button>*@
+                                <button type="button" id="saveClient" class="btn btn-primary">Add</button>
                             </div>
                         </div>
                     </div>
@@ -102,7 +135,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
 
     </div>
 </div>
@@ -117,4 +150,57 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    
+    <script>
+        $(document).ready(function () {
+            $('#saveClient').click(function () {
+                saveClient();
+            });
+        });
+        
+
+        function saveClient() {
+
+             var client = {};
+            var url = '@Url.Action("SaveClient","Clients")';
+
+            var firstName = $('#FirstName').val();
+            var middleName = $('#MiddleName').val();
+            var lastName = $('#LastName').val();
+            var phoneNumber = $('#PhoneNumber').val();
+            var emailAddress = $('#EmailAddress').val();
+            var postalCode = $('#PostalCode').val();
+            var town = $('#Town').val();
+            var website = $('#Website').val();
+            var address = $('#Address').val();
+
+            client = {
+                FirstName: firstName,
+                MiddleName: middleName,
+                LastName: lastName,
+                PhoneNumber: phoneNumber,
+                EmailAddress: emailAddress,
+                PostalCode: postalCode,
+                Town: town,
+                Website: website,
+                Address: address
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json',
+                dataType: 'json',
+                data:JSON.stringify(client),
+                success: function (e) {
+                    //alert('Saved.');
+                    window.location.href = '@Url.Action("Index","Clients")';
+                },
+                error: function (e) {
+                    window.location.href = '@Url.Action("Index","Clients")';
+                }
+            });
+        }
+    </script>
+   
 }

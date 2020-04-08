@@ -1,34 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using LegalManagementSystem.Interfaces;
 using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class CertificationsController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private ICertification db;
+        public CertificationsController()
+        {
+            db = new CertificationRepository();
+        }
 
         // GET: Certifications
         public async Task<ActionResult> Index()
         {
 
-            
+
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminCertifications = db.Certifications.Include(c => c.Staff);
-                return View(await adminCertifications.ToListAsync());
+                //var adminCertifications = db.GetCertificationsWithStaffAsync;
+                return View(await db.GetCertificationsWithStaffAsync());
             }
-            var certifications = db.Certifications.Include(c => c.Staff);
-            return View(await certifications.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            //var certifications = db.GetCertificationsWithStaff();
+            return View(await db.GetCertificationsWithStaffAsync(x => x.CreatedBy.Equals(user)));
         }
 
         // GET: Certifications/Details/5
@@ -38,7 +41,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Certification certification = await db.Certifications.FindAsync(id);
+            var certification = await db.GetCertificationAsync(Convert.ToInt32(id));
             if (certification == null)
             {
                 return HttpNotFound();
@@ -75,8 +78,8 @@ namespace LegalManagementSystem.Controllers
                 certification.CreatedOn = DateTime.Today;
                 certification.StaffId = LegalGuideUtility.StaffId; //(string)ViewBag.StaffId;
 
-                db.Certifications.Add(certification);
-                await db.SaveChangesAsync();
+                db.AddCertification(certification);
+                await db.CompleteAsync();
                 return RedirectToAction("Create", "Dependants");
             }
 
@@ -99,7 +102,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Certification certification = await db.Certifications.FindAsync(id);
+            Certification certification = await db.GetCertificationAsync(Convert.ToInt32(id));
             if (certification == null)
             {
                 return HttpNotFound();
@@ -130,8 +133,8 @@ namespace LegalManagementSystem.Controllers
                 certification.ModifiedOn = DateTime.Today;
                 certification.StaffId = LegalGuideUtility.StaffId; //(string)ViewBag.StaffId;
 
-                db.Entry(certification).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.UpdateCertification(certification.Id);
+                await db.CompleteAsync();
                 return RedirectToAction("Create", "Dependants");
             }
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", certification.StaffId);
@@ -153,7 +156,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Certification certification = await db.Certifications.FindAsync(id);
+            Certification certification = await db.GetCertificationAsync(Convert.ToInt32(id));
             if (certification == null)
             {
                 return HttpNotFound();
@@ -166,9 +169,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Certification certification = await db.Certifications.FindAsync(id);
-            db.Certifications.Remove(certification);
-            await db.SaveChangesAsync();
+            //Certification certification = await db.GetCertificationAsync(Convert.ToInt32(id));
+            db.DeleteCertification(id);
+            await db.CompleteAsync();
             return RedirectToAction("Index");
         }
 

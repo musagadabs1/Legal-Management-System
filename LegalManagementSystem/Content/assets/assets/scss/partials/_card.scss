@@ -1,0 +1,134 @@
+﻿.card {
+    @extend .inlineblock;
+    border-radius: $border-radius-large;
+    background: $col-white;    
+    transition: .5s;    
+    border: 0;
+    margin-bottom: 30px;    
+    position: relative;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);    
+
+    .header {
+        @extend .m-b-0;
+        color: $grey-800;
+        padding: 20px;
+        position: relative;       
+        box-shadow: none;        
+
+        .header-dropdown {
+            @extend .margin-0;
+            @extend .padding-0;
+            position: absolute;
+            top: 14px;
+            right:15px;
+            list-style: none;            
+
+            .tab_btn{
+                @include border-radius(32px);
+                @extend .align-center;
+                @extend .padding-0;
+                font-size: $font12;
+                font-weight: $font-weight-700;
+                background: $grey-300;
+                color: $grey-600;
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+
+                &.active,
+                &:hover{
+                    background: $color-primary;
+                    color: $col-white;
+                }
+            }
+            .dropdown-toggle{
+                &:after{
+                    content: "\f142";
+                    font-family: 'FontAwesome';
+                    border: 0;
+                    vertical-align: middle;
+                    height: auto;
+                    width: auto;
+                }
+            }
+
+            li{
+                @extend .inlineblock;
+                a{
+                    @extend .displayblock;
+                    padding: 5px 10px;                    
+                }
+
+                .dropdown-menu {
+                    border-radius: $border-radius-large;
+                    background: #17191c;                    
+                    overflow: hidden;
+                    transform:none !important; 
+                    left: auto !important;
+                    right: 0;
+                    padding: 10px;
+                    box-shadow: 0px 2px 20px 0px rgba(0,0,0,0.5);
+                    border: 0;
+
+                    li {
+                        display: block !important;
+    
+                        a {                            
+                            color: $grey-500;
+                            font-size: $font-size;
+                            padding:10px;
+                            white-space: nowrap;
+                            &:hover{
+                                color: $col-white;
+                            }
+                        }
+                    }
+                }
+    
+            }            
+            i {
+                @include transition(all .5s);
+                font-size: $font20;
+                color: $grey-500;                
+            }
+        }
+        h2 {
+            @extend .margin-0;
+            font-size: $font16;
+            color: $grey-800;
+            position: relative;
+
+            small {
+                @extend .displayblock;                
+                @extend .m-t-5;
+                font-size: $font13;
+                color: $grey-500;
+                line-height: 15px;
+
+                a {
+                    font-weight: $font-weight-700;
+                    color: $grey-600;
+                }
+            }
+        }
+    }
+
+    .p-15 {
+        padding: 15px !important;
+    }
+
+    &.bg-dark{
+        .header{
+            h2{
+                color: $grey-300;
+            }
+        }
+    }
+
+    .body {
+        color: $grey-800;
+        padding: 20px;
+        font-weight: $font-weight-400; 
+    }
+}

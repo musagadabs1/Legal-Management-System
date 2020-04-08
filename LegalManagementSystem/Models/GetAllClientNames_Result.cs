@@ -13,7 +13,7 @@ namespace LegalManagementSystem.Models
     
     public partial class GetAllClientNames_Result
     {
-        public string Client_Name { get; set; }
+        public string ClientName { get; set; }
         public string Client { get; set; }
     }
 }

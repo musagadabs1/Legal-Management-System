@@ -9,14 +9,22 @@ using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
 using System.IO;
+using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Repositories;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class StaffsController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
-
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private IStaff staffRepo;
+        private IMatter matterRepo;
+        public StaffsController()
+        {
+            staffRepo = new StaffRepository();
+            matterRepo = new MatterRepository();
+        }
         // GET: Staffs
         public async Task<ActionResult> Index()
         {
@@ -24,19 +32,23 @@ namespace LegalManagementSystem.Controllers
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                return View(await db.Staffs.ToListAsync());
+                return View(await staffRepo.GetStaffsAsync());
+                //return View(await db.Staffs.ToListAsync());
             }
-            return View(await db.Staffs.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            return View(await staffRepo.GetStaffsAsync(x => x.CreatedBy == user));
+            //return View(await db.Staffs.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
 
         }
 
         public JsonResult GetAdvocateGroupForDropDown(string searchKey)
         {
-            var getData = db.GetAllAdvocateGroups().ToList();
+            var getData = matterRepo.AdvocateGroup();
+            //var getData = db.GetAllAdvocateGroups().ToList();
 
             if (searchKey != null)
             {
-                getData = db.GetAllAdvocateGroups().Where(x => x.GroupName.Contains(searchKey)).ToList();
+                getData = getData.Where(x => x.GroupName.Contains(searchKey)).ToList();
+                //getData = db.GetAllAdvocateGroups().Where(x => x.GroupName.Contains(searchKey)).ToList();
             }
             var ModifiedData = getData.Select(x => new
             {
@@ -54,7 +66,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await db.Staffs.FindAsync(id);
+            Staff staff = await staffRepo.GetStaffAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -133,8 +145,10 @@ namespace LegalManagementSystem.Controllers
                     staff.Status = true;
                     staff.AdvocateGroupId = 0;
 
-                    db.Staffs.Add(staff);
-                    await db.SaveChangesAsync();
+                    //db.Staffs.Add(staff);
+                    staffRepo.AddStaff(staff);
+                    //await db.SaveChangesAsync();
+                    await staffRepo.CompleteAsync();
                     return RedirectToAction("Create", "Experiences"); 
                 }
                 catch (Exception ex)
@@ -207,7 +221,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await db.Staffs.FindAsync(id);
+            Staff staff = await staffRepo.GetStaffAsync(id);
             ViewBag.Gender = new List<SelectListItem> {
                 new SelectListItem{Text="Male",Value ="M"},
                 new SelectListItem{Text="Female",Value ="F"}
@@ -277,8 +291,10 @@ namespace LegalManagementSystem.Controllers
                     staff.Status = true;
 
 
-                    db.Entry(staff).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    //db.Entry(staff).State = EntityState.Modified;
+                    staffRepo.UpdateStaff(staff);
+                    //await db.SaveChangesAsync();
+                    await staffRepo.CompleteAsync();
                     return RedirectToAction("Create", "Experiences");
                 }
                 else
@@ -352,7 +368,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await db.Staffs.FindAsync(id);
+            Staff staff = await staffRepo.GetStaffAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -365,9 +381,11 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            Staff staff = await db.Staffs.FindAsync(id);
-            db.Staffs.Remove(staff);
-            await db.SaveChangesAsync();
+            Staff staff = await staffRepo.GetStaffAsync(id);
+            //db.Staffs.Remove(staff);
+            staffRepo.DeleteStaff(staff);
+            //await db.SaveChangesAsync();
+            await staffRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -375,7 +393,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                staffRepo.Dispose();
             }
             base.Dispose(disposing);
         }

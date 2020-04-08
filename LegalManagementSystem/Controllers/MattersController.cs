@@ -1,22 +1,35 @@
-﻿using System;
+﻿using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using LegalManagementSystem.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
-using LegalManagementSystem.ViewModels;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin, Attorney, Advocate")]
     public class MattersController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
-
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private IMatter matterRepo;
+        private IClient clientRepo;
+        private IStaff staffRepo;
+        private ILineManager managerRepo;
+        private IStaffMatter staffMatterRepo;
+        public MattersController()
+        {
+            matterRepo = new MatterRepository();
+            clientRepo = new ClientRepository();
+            staffRepo = new StaffRepository();
+            managerRepo = new ManagerRepository();
+            staffMatterRepo = new StaffMatterRepository();
+        }
         // GET: Matters
         public async Task<ActionResult> Index()
         {
@@ -26,8 +39,8 @@ namespace LegalManagementSystem.Controllers
             try
             {
                 var user = User.Identity.Name;
-                var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
-                var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+                var email = staffRepo.GetStaffEmailByLoginName(user);
+                var staffId = staffRepo.GetStaffIdByEmail(email);
                 if (string.IsNullOrEmpty(staffId))
                 {
                     LegalGuideUtility.ErrorMessage = "Staff not Registered. Please Contact IT Department";
@@ -35,17 +48,13 @@ namespace LegalManagementSystem.Controllers
                 }
                 if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
                 {
-                    var mattersAdmin = db.Matters.Include(m => m.Client);
-                    return View(await mattersAdmin.ToListAsync());
+                    return View(await matterRepo.GetMattersIncludeClientAsync(x => x.MatterStage != "Closed" && x.MatterStage != "Dismissed" && x.MatterStage != "Judgement Delivered" && x.MatterStage != "Strike Out"));
                 }
                 if (IsSelectedForTheCase(staffId))
                 {
-                    var mattersSelectedForCase = db.Matters.Include(m => m.Client);
-                    return View(await mattersSelectedForCase.ToListAsync());
+                    return View(await matterRepo.GetMattersIncludeClientAsync(x => x.MatterStage != "Closed" && x.MatterStage != "Dismissed" && x.MatterStage != "Judgement Delivered" && x.MatterStage != "Strike Out"));
                 }
-                var matters = db.Matters.Include(m => m.Client);
-                return View(await matters.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
-                //return View(await db.Matters.ToListAsync());
+                return View(await matterRepo.GetMattersIncludeClientAsync(x => x.MatterStage != "Closed" && x.MatterStage != "Dismissed" && x.MatterStage != "Judgement Delivered" && x.MatterStage != "Strike Out" && x.CreatedBy.Equals(user)));
             }
             catch (Exception)
             {
@@ -57,12 +66,13 @@ namespace LegalManagementSystem.Controllers
         public JsonResult GetClientForDropDown(string searchKey)
         {
             //var getData = context.GetAllAdvocateGroups().ToList();
-            var getData = db.GetAllClientForDropDown().ToList();
+            var getData = clientRepo.GetAllClientNameForDropDown();
+            //var getData = db.GetAllClientForDropDown().ToList();
             //var data = null;
 
             if (searchKey != null)
             {
-                getData = db.GetAllClientForDropDown().Where(x => x.ClientName.Contains(searchKey)).ToList();
+                getData = getData.Where(x => x.ClientName.Contains(searchKey)); // db.GetAllClientForDropDown().Where(x => x.ClientName.Contains(searchKey)).ToList();
             }
             var ModifiedData = getData.Select(x => new
             {
@@ -75,12 +85,12 @@ namespace LegalManagementSystem.Controllers
         public JsonResult GetStaffForDropDown(string searchKey)
         {
             //var getData = context.GetAllAdvocateGroups().ToList();
-            var getData = db.GetAllStaffForDropDown().ToList();
+            var getData = staffRepo.GetAllStaffForDropDown(); //db.GetAllStaffForDropDown().ToList();
             //var data = null;
 
             if (searchKey != null)
             {
-                getData = db.GetAllStaffForDropDown().Where(x => x.StaffName.Contains(searchKey)).ToList();
+                getData = getData.Where(x => x.StaffName.Contains(searchKey)); //db.GetAllStaffForDropDown().Where(x => x.StaffName.Contains(searchKey)).ToList();
             }
             var ModifiedData = getData.Select(x => new
             {
@@ -93,48 +103,39 @@ namespace LegalManagementSystem.Controllers
         public JsonResult GetLineManagerForDropDown(string searchKey)
         {
             //var getData = context.GetAllAdvocateGroups().ToList();
-            var getData = db.sp_GetLineManagers().ToList();
+            var getData = managerRepo.GetAllManagersForDropDown();
+            //var getData = db.sp_GetLineManagers().ToList();
             //var data = null;
 
             if (searchKey != null)
             {
-                getData = db.sp_GetLineManagers().Where(x => x.ManagerName.Contains(searchKey)).ToList();
+                getData = getData.Where(x => x.ManagerName.Contains(searchKey)); //db.sp_GetLineManagers().Where(x => x.ManagerName.Contains(searchKey)).ToList();
             }
             var ModifiedData = getData.Select(x => new
             {
-                id = x.LineManagerId,
+                id = x.ManagerId,
                 text = x.ManagerName
             });
 
             return Json(ModifiedData, JsonRequestBehavior.AllowGet);
-        }
-        private int GetCurrentId()
-        {
-            try
-            {
-                return (db.Matters.ToList().Count);
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception("some reason to rethrow", ex);
-            }
         }
         public JsonResult GetMatterForEvents()
         {
             try
             {
                 //var adminFileEvents
-                db.Configuration.ProxyCreationEnabled = false;
+                matterRepo.ConFigProxy();
+                //db.Configuration.ProxyCreationEnabled = false;
                 var user = User.Identity.Name;
-                var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
-                var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+                var email = staffRepo.GetStaffEmailByLoginName(user);
+                var staffId = staffRepo.GetStaffIdByEmail(email);
 
                 //var staffIdInStaffMatters = db.StaffMatters.Where(x => x.MatterNumber.Equals(LegalGuideUtility.MatterId)).Distinct();
 
                 if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
                 {
-                    var eventForAdmin = db.Matters.ToList();
+                    var eventForAdmin = matterRepo.GetMatters();
+                    //var eventForAdmin = db.Matters.ToList();
                     List<EventForView> events = new List<EventForView>();
                     foreach (var item in eventForAdmin)
                     {
@@ -142,7 +143,6 @@ namespace LegalManagementSystem.Controllers
                         {
                             Title = item.Subject,
                             Start = (DateTime)item.FiledOn,
-                            //End = (DateTime)item.DueDate,
                             Description = item.Description
 
                         });
@@ -152,7 +152,8 @@ namespace LegalManagementSystem.Controllers
                 else
                 {
                     List<EventForView> events = new List<EventForView>();
-                    var eventsForUser = db.Matters.Where(x => x.CreatedBy.Equals(user) || IsSelectedForTheCase(staffId)).ToList();
+                    var eventsForUser = matterRepo.GetMatters(x => x.CreatedBy.Equals(user) || IsSelectedForTheCase(staffId)); //db.Matters.Where(x => x.CreatedBy.Equals(user) || IsSelectedForTheCase(staffId)).ToList();
+                    //var eventsForUser = db.Matters.Where(x => x.CreatedBy.Equals(user) || IsSelectedForTheCase(staffId)).ToList();
                     foreach (var item in eventsForUser)
                     {
                         events.Add(new EventForView
@@ -177,11 +178,8 @@ namespace LegalManagementSystem.Controllers
         {
             try
             {
-                //var user = User.Identity.Name;
-                //var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
-                //var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
 
-                var staffIdInStaffMatters = db.StaffMatters.Where(x => x.MatterNumber.Equals(LegalGuideUtility.MatterId)).Distinct().FirstOrDefault().StaffId;
+                var staffIdInStaffMatters = staffMatterRepo.StaffIdInStaffMatters(LegalGuideUtility.MatterId);
                 if (staffId == staffIdInStaffMatters)
                 {
                     return true;
@@ -208,9 +206,7 @@ namespace LegalManagementSystem.Controllers
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-
-
-                var getMattersAdmin = db.Matters.ToList<Matter>();
+                var getMattersAdmin = matterRepo.GetMatters();// db.Matters.ToList<Matter>();
                 foreach (var item in getMattersAdmin)
                 {
                     matters.Add(new MatterViewModel
@@ -229,18 +225,18 @@ namespace LegalManagementSystem.Controllers
                 //Search operations
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    matters = matters.Where(x => x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.MatterStage.ToLower().Contains(searchValue.ToLower()) || x.Priority.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.AreaofPractice.ToLower().Contains(searchValue.ToLower()) || x.Description.ToLower().Contains(searchValue.ToLower()) || x.Subject.ToLower().Contains(searchValue.ToLower())).ToList<MatterViewModel>();
+                    matters = matters.Where(x => x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.MatterStage.ToLower().Contains(searchValue.ToLower()) || x.Priority.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.AreaofPractice.ToLower().Contains(searchValue.ToLower()) || x.Description.ToLower().Contains(searchValue.ToLower()) || x.Subject.ToLower().Contains(searchValue.ToLower())).ToList();
                 }
 
                 //Sort Operations
                 //matters = matters.OrderBy(sortColumnName + " " + sortDirection).ToList<MatterViewModel>();
 
                 // Paging operation
-                matters = matters.Skip(start).Take(length).ToList<MatterViewModel>();
+                matters = matters.Skip(start).Take(length).ToList();
 
                 return Json(new { data = matters }, JsonRequestBehavior.AllowGet);
             }
-            var getMatters = db.Matters.Where(x => x.CreatedBy.Equals(user)).ToList<Matter>();
+            var getMatters = matterRepo.GetMatters(x => x.CreatedBy.Equals(user));// db.Matters.Where(x => x.CreatedBy.Equals(user)).ToList<Matter>();
             foreach (var item in getMatters)
             {
                 matters.Add(new MatterViewModel
@@ -259,14 +255,14 @@ namespace LegalManagementSystem.Controllers
             //Searching Operations
             if (!string.IsNullOrEmpty(searchValue))
             {
-                matters = matters.Where(x => x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.MatterStage.ToLower().Contains(searchValue.ToLower()) || x.Priority.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.AreaofPractice.ToLower().Contains(searchValue.ToLower()) || x.Description.ToLower().Contains(searchValue.ToLower()) || x.Subject.ToLower().Contains(searchValue.ToLower())).ToList<MatterViewModel>();
+                matters = matters.Where(x => x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.MatterStage.ToLower().Contains(searchValue.ToLower()) || x.Priority.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.AreaofPractice.ToLower().Contains(searchValue.ToLower()) || x.Description.ToLower().Contains(searchValue.ToLower()) || x.Subject.ToLower().Contains(searchValue.ToLower())).ToList();
             }
 
             //Sort Operations
             //matters = matters.OrderBy(sortColumnName + " " + sortDirection).ToList<MatterViewModel>();
 
             // Paging operation
-            matters = matters.Skip(start).Take(length).ToList<MatterViewModel>();
+            matters = matters.Skip(start).Take(length).ToList();
             return Json(new { data = matters }, JsonRequestBehavior.AllowGet);
         }
 
@@ -274,14 +270,16 @@ namespace LegalManagementSystem.Controllers
         public JsonResult AddAssignee(string data, string matterNumber)
         {
             //List<string> assigneeList = new List<string>();
-            string[] assigneeStaffList = data.Split(',');
-            StaffMatter staffMatter = new StaffMatter();
+            var assigneeStaffList = data.Split(',');
+            var staffMatter = new StaffMatter();
             foreach (var staffId in assigneeStaffList)
             {
                 staffMatter.MatterNumber = matterNumber;
                 staffMatter.StaffId = staffId;
-                db.StaffMatters.Add(staffMatter);
-                db.SaveChanges();
+                staffMatterRepo.AddStaffMatter(staffMatter);
+                //db.StaffMatters.Add(staffMatter);
+                staffMatterRepo.Complete();
+                //db.SaveChanges();
             }
             return Json(0, JsonRequestBehavior.AllowGet);
         }
@@ -292,7 +290,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Matter matter = await db.Matters.FindAsync(id);
+            Matter matter = await matterRepo.GetMatterAsync(id);// db.Matters.FindAsync(id);
             if (matter == null)
             {
                 return HttpNotFound();
@@ -300,6 +298,41 @@ namespace LegalManagementSystem.Controllers
             return View(matter);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> SaveCase(Matter matter)
+        {
+            try
+            {
+                var nextId = matterRepo.GetCurrentId() + 1;
+
+                var matterId = "CASE-" + nextId + "-" + DateTime.Today.ToShortDateString();
+
+                var user = User.Identity.Name;
+                //var matter = new Matter { 
+                matter.CreatedBy = user;
+                matter.CreatedOn = DateTime.Today;
+                matter.CourtStatus = "NO";
+                matter.CaseNumber = matterId;
+
+                //matter.CaseNumber = matterId; //"01_05-03-2019";
+                LegalGuideUtility.MatterId = matter.MatterNumber;
+
+                //db.Matters.Add(matter);
+                matterRepo.AddMatter(matter);
+                await matterRepo.CompleteAsync();
+                //await db.SaveChangesAsync();
+
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+
+                ViewBag.Error = "Can't Add Matter, Error Occured. Please Contact IT Department.";
+            }
+
+            return Json(0, JsonRequestBehavior.AllowGet);
+
+        }
         // GET: Matters/Create
         public ActionResult Create()
         {
@@ -334,7 +367,8 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
-            ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName");
+            ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName");
+            //ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName");
             return View();
         }
 
@@ -350,7 +384,7 @@ namespace LegalManagementSystem.Controllers
 
                 try
                 {
-                    var nextId = GetCurrentId() + 1;
+                    var nextId = matterRepo.GetCurrentId() + 1;
 
                     var matterId = "CASE-" + nextId + "-" + DateTime.Today.ToShortDateString();
 
@@ -360,9 +394,12 @@ namespace LegalManagementSystem.Controllers
                     matter.CaseNumber = matterId; //"01_05-03-2019";
                     LegalGuideUtility.MatterId = matter.MatterNumber;
                     //matter.ass
+                    matter.CourtStatus = "NO";
 
-                    db.Matters.Add(matter);
-                    await db.SaveChangesAsync();
+                    //db.Matters.Add(matter);
+                    matterRepo.AddMatter(matter);
+                    //await db.SaveChangesAsync();
+                    await matterRepo.CompleteAsync();
 
                     return RedirectToAction("Index");
                 }
@@ -406,7 +443,8 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
-                ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", matter.ClientId);
+                ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
+                //ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", matter.ClientId);
                 return View(matter);
             }
             ViewBag.Priority = new List<SelectListItem>{
@@ -440,7 +478,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
-            ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", matter.ClientId);
+            ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
             return View(matter);
 
         }
@@ -452,7 +490,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var matter = await db.Matters.FindAsync(id);
+            var matter = await matterRepo.GetMatterAsync(id);
             if (matter == null)
             {
                 return HttpNotFound();
@@ -488,7 +526,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
-            ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", matter.ClientId);
+            ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
             return View(matter);
         }
 
@@ -509,8 +547,10 @@ namespace LegalManagementSystem.Controllers
                     matter.ModifiedBy = user;
                     matter.ModifiedOn = DateTime.Today;
 
-                    db.Entry(matter).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    //db.Entry(matter).State = EntityState.Modified;
+                    matterRepo.UpdateMatter(matter);
+                    //await db.SaveChangesAsync();
+                    await matterRepo.CompleteAsync();
                     return RedirectToAction("Index");
                 }
                 catch (Exception)
@@ -559,7 +599,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Closed",Text="Closed"},
                 new SelectListItem { Value="Pleading",Text="Pleading"}
             };
-                ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", matter.ClientId);
+                ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
                 return View(matter);
             }
             ViewBag.Priority = new List<SelectListItem>{
@@ -593,7 +633,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem { Value="Sharia",Text="Sharia"},
                 new SelectListItem { Value="Agreement",Text="Agreement"}
             };
-            ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", matter.ClientId);
+            ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
             return View(matter);
         }
 
@@ -604,7 +644,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var matter = await db.Matters.FindAsync(id);
+            var matter = await matterRepo.GetMatterAsync(id);
             if (matter == null)
             {
                 return HttpNotFound();
@@ -617,9 +657,11 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            var matter = await db.Matters.FindAsync(id);
-            db.Matters.Remove(matter);
-            await db.SaveChangesAsync();
+            var matter = await matterRepo.GetMatterAsync(id);
+            //db.Matters.Remove(matter);
+            matterRepo.DeleteMatter(matter);
+            //await db.SaveChangesAsync();
+            await matterRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -627,10 +669,10 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                matterRepo.Dispose();
             }
             base.Dispose(disposing);
-            db.Dispose();
+            matterRepo.Dispose();
         }
     }
 }

@@ -4,86 +4,99 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Client Details</h2>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Client Details</h3>
+                </div>
+                <div class="card-body">
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+                    <div>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.FirstName)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MiddleName)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.MiddleName)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.LastName)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EmailAddress)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.EmailAddress)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.PhoneNumber)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Town)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Town)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Town)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Town)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PostalCode)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PostalCode)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.PostalCode)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Website)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Website)
+                            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                        </dl>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }) |
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>

@@ -11,8 +11,7 @@ namespace LegalManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Matter
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,51 +20,30 @@ namespace LegalManagementSystem.Models
             this.CourtActivities = new HashSet<CourtActivity>();
             this.LMSTasks = new HashSet<LMSTask>();
         }
-        [Required]
-        [Display(Name = "Case Title")]
+    
         public string Subject { get; set; }
-        [Display(Name = "Case Description")]
-        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-        [Display(Name = "Case Area")]
         public string AreaOfPractice { get; set; }
-        [Display(Name = "Client")]
         public Nullable<int> ClientId { get; set; }
         public Nullable<int> LineManagerId { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        [DataType(DataType.Date)]
-        [Display(Name = "Arrival Date")]
         public Nullable<System.DateTime> ArrivalDate { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        [DataType(DataType.Date)]
-        [Display(Name = "Filed On")]
         public Nullable<System.DateTime> FiledOn { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        [DataType(DataType.Date)]
-        [Display(Name = "Due Date")]
         public Nullable<System.DateTime> DueDate { get; set; }
-
-        [Display(Name = "Case Number")]
         public string MatterNumber { get; set; }
         public string Priority { get; set; }
-        [Display(Name = "Case Stage")]
         public string MatterStage { get; set; }
-        [Display(Name = "Requested By")]
         public string RequestedBy { get; set; }
-        [Display(Name = "Case Value")]
         public string MatterValue { get; set; }
-        [Display(Name = "Case estimated effort")]
         public string EstimatedEffort { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string CaseNumber { get; set; }
+        public string CourtStatus { get; set; }
     
         public virtual Client Client { get; set; }
+        public virtual Client Client1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourtActivity> CourtActivities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
