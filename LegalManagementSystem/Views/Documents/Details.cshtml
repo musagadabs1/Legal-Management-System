@@ -1,9 +1,14 @@
-﻿@model LegalManagementSystem.Models.Document
+﻿@model LegalManagementSystem.Models.CaseDocument
 
 @{
     ViewBag.Title = "Details";
 }
 
+<style>
+    .Back-Color {
+        background-color:white;
+    }
+</style>
     <div class="row">
         <div class="col-md-2">
 
@@ -15,60 +20,70 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <hr />
-                        <dl class="dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.MatterNumber)
-                            </dt>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.MatterNumber)
-                            </dd>
+                        <div class="input-group m-2 col-md-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text Back-Color" id="inputGroup-sizing-default">Matter Number</span>
+                            </div>
+                            <input type="text" class="form-control" id="matterNumber" value="@Model.MatterNumber" readonly aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group m-2 col-md-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text Back-Color" id="inputGroup-sizing-default">Document Name</span>
+                            </div>
+                            <input type="text" class="form-control" id="DocName" value="@Model.DocName" readonly aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group m-2 col-md-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text Back-Color" id="inputGroup-sizing-default">Assigned Date</span>
+                            </div>
+                            <input type="date" class="form-control" id="AssignedDate"  value="@string.Format("{0:dd/MM/yyyy}",Model.AssignedDate)" readonly aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group m-2 col-md-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text Back-Color" id="inputGroup-sizing-default">Case Assigned To</span>
+                            </div>
+                            <input type="text" class="form-control" id="caseAsignedTo" value="@Model.Matter" readonly aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group m-2 col-md-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text Back-Color" id="inputGroup-sizing-default">Description</span>
+                            </div>
+                            <input type="text" class="form-control" id="Description" value="@Model.Description" readonly aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        @*<dl class="dl-horizontal">
+            <dt>
+                Matter Number
+            </dt>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.DocName)
-                            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MatterNumber)
+            </dd>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.DocName)
-                            </dd>
+            <dt>
+                Document Name
+            </dt>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.AssignedDate)
-                            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DocName)
+            </dd>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.AssignedDate)
-                            </dd>
+            <dt>
+                Assigned Date
+            </dt>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Tags)
-                            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AssignedDate)
+            </dd>
 
-                            <dd>
-                                @Html.DisplayFor(model => model.Tags)
-                            </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Description)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Description)
-                            </dd>
-
-                            @*<dt>
-                            @Html.DisplayNameFor(model => model.DocPath)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.DocPath)
-                        </dd>*@
-
-                        </dl>
+        </dl>*@
                     </div>
                     <p>
-                        @Html.ActionLink("Edit", "Edit", new { id = Model.DocumentId }) |
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
                         @Html.ActionLink("Back to List", "Index")
                     </p>
 

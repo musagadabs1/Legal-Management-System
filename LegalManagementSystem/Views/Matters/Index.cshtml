@@ -64,6 +64,7 @@
                             @Html.DisplayFor(modelItem => item.MatterStage)
                         </td>
                         <td>
+                            @*@string.Format('{0}{1}{2}',item.Client.FirstName,item.Client.MiddleName,item.Client.LastName)*@ 
                             @Html.DisplayFor(modelItem => item.Client.FirstName)
                         </td>
                         <td>

@@ -240,7 +240,7 @@ namespace LegalManagementSystem.Controllers
             return View(staff);
         }
         
-        public async Task<ActionResult> SaveStaff(Staff staff)
+        public ActionResult SaveStaff(Staff staff)
         {
 
             return View(staff);

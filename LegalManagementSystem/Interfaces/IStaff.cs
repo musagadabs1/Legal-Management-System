@@ -13,6 +13,7 @@ namespace LegalManagementSystem.Interfaces
        string GetStaffEmailByLoginName(string user);
         void AddStaff(Staff staff);
         string GetStaffIdByEmail(string email);
+        string GetEmailByStaffId(string staffId);
         void DeleteStaff(Staff staff);
         Staff GetStaff(string id);
         IEnumerable<Staff> GetStaffs();

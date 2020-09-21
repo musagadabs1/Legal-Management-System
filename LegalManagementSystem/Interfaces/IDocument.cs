@@ -16,9 +16,11 @@ namespace LegalManagementSystem.Interfaces
         void DeleteDocument(Document document);
         void Dispose();
         Document GetDocument(int? id);
+        CaseDocument GetDocumentWithCase(int? id);
         IEnumerable<Document> GetDocument();
         Document GetDocument(Expression<Func<Document, bool>> expression);
         Task<Document> GetDocumentAsync(int? id);
+        Task<CaseDocument> GetDocumentWithCaseAsync(int? id);
         Task<IEnumerable<Document>> GetDocumentsAsync();
         Task<IEnumerable<Document>> GetDocumentsAsync(Expression<Func<Document, bool>> expression);
         void UpdateDocument(Document document);

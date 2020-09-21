@@ -60,9 +60,9 @@
                                 <th>
                                     Email Address
                                 </th>
-                                <th>
+                                @*<th>
                                     Department
-                                </th>
+                                </th>*@
                                 <th></th>
                             </tr>
                         </thead>
@@ -90,9 +90,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.EmailAddress)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.DisplayFor(modelItem => item.Department)
-                                    </td>
+                                    </td>*@
                                     <td>
                                         <a href="@Url.Action("Edit","Staffs",new {id = item.StaffId })" style="margin-right:10px;">
                                             <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
@@ -114,7 +114,7 @@
     <div class="col-md-1"></div>
 </div>
 
-<div class="modal animated bounceIn" id="addEmployee" tabindex="-1" role="dialog">
+@*<div class="modal animated bounceIn" id="addEmployee" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-full" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -146,13 +146,13 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 
 @section scripts{
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
+    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
 
     <script>
         $(document).ready(function () {
@@ -161,7 +161,7 @@
         @*select2DropDown('advocateGroup', '@Url.Action("GetAdvocateGroupForDropDown", "Staffs")', "Select Advocate Group");
         select2DropDown('lineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");*@
 
-            $('#staffTable').DataTable();
+           // $('#staffTable').DataTable();
 
             //$('#save-employee').click(function () {
             //    saveEmployee();
@@ -169,7 +169,7 @@
             
         });
 
-        var openFile = function (event) {
+        @*var openFile = function (event) {
                 var input = event.target;
 
                 var reader = new FileReader();
@@ -400,6 +400,6 @@
             }
 
             return isValid;
-        }
+        }*@
     </script>
 }

@@ -5,9 +5,9 @@ using System.Web;
 
 namespace LegalManagementSystem.Models
 {
-    public class DocumentViewModel
+    public class CaseDocument
     {
-        public int DocumentId { get; set; }
+        public int Id { get; set; }
         public string MatterNumber { get; set; }
         public string DocName { get; set; }
         public System.DateTime AssignedDate { get; set; }

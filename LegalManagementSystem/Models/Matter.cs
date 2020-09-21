@@ -42,8 +42,7 @@ namespace LegalManagementSystem.Models
         public string CaseNumber { get; set; }
         public string CourtStatus { get; set; }
     
-        public virtual LicenseTable Client { get; set; }
-        public virtual LicenseTable Client1 { get; set; }
+        public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourtActivity> CourtActivities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

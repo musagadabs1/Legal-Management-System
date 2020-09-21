@@ -27,7 +27,12 @@ namespace LegalManagementSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AdvocateGroup> AdvocateGroups { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<CalendarStaff> CalendarStaffs { get; set; }
         public virtual DbSet<Certification> Certifications { get; set; }
@@ -40,6 +45,8 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
         public virtual DbSet<FileEvent> FileEvents { get; set; }
+        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Library> Libraries { get; set; }
         public virtual DbSet<LicenseTable> LicenseTables { get; set; }
         public virtual DbSet<LineManager> LineManagers { get; set; }
         public virtual DbSet<LMSTask> LMSTasks { get; set; }
@@ -48,6 +55,7 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<StaffGroup> StaffGroups { get; set; }
         public virtual DbSet<StaffMatter> StaffMatters { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Todo> Todoes { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
     

@@ -159,5 +159,50 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
+
+        public CaseDocument GetDocumentWithCase(int? id)
+        {
+            var document = (from doc in db.Documents
+                            from matter in db.Matters
+                            where doc.MatterNumber == matter.MatterNumber && doc.DocumentId==id
+                            select new CaseDocument
+                            {
+                                Id=doc.DocumentId,
+                                Matter = matter.Subject,
+                                MatterNumber = doc.MatterNumber,
+                                Tags = doc.Tags,
+                                Description = doc.Description,
+                                DocName = doc.DocName,
+                                DocPath = doc.DocPath,
+                                AssignedDate = doc.AssignedDate
+                            }).FirstOrDefault();
+            return document;
+        }
+
+        public async Task<CaseDocument> GetDocumentWithCaseAsync(int? id)
+        {
+            try
+            {
+                return await (from doc in db.Documents
+                                from matter in db.Matters
+                                where doc.MatterNumber == matter.MatterNumber && doc.DocumentId==id
+                                select new CaseDocument
+                                {
+                                    Id=doc.DocumentId,
+                                    Matter = matter.Subject,
+                                    MatterNumber = doc.MatterNumber,
+                                    Tags = doc.Tags,
+                                    Description = doc.Description,
+                                    DocName = doc.DocName,
+                                    DocPath = doc.DocPath,
+                                    AssignedDate = doc.AssignedDate
+                                }).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -33,8 +33,6 @@ namespace LegalManagementSystem.Controllers
         // GET: Matters
         public async Task<ActionResult> Index()
         {
-            //var matters = db.Matters.Include(m => m.Client);
-            //return View(await matters.ToListAsync());
 
             try
             {
@@ -56,10 +54,10 @@ namespace LegalManagementSystem.Controllers
                 }
                 return View(await matterRepo.GetMattersIncludeClientAsync(x => x.MatterStage != "Closed" && x.MatterStage != "Dismissed" && x.MatterStage != "Judgement Delivered" && x.MatterStage != "Strike Out" && x.CreatedBy.Equals(user)));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                LegalGuideUtility.ErrorMessage = "Error Occured. Please Contact IT Department";
+                LegalGuideUtility.ErrorMessage = "Error Occured." + Environment.NewLine + ex.Message + Environment.NewLine + "Please Contact IT Department. ";
                 return RedirectToAction("Error");
             }
         }
@@ -272,14 +270,28 @@ namespace LegalManagementSystem.Controllers
             //List<string> assigneeList = new List<string>();
             var assigneeStaffList = data.Split(',');
             var staffMatter = new StaffMatter();
+            var subject = "Your are been assigned a this case";
+            var body = "<p>You here by notify that you are assigned to the case. Please check your dashboard for details</p>";
+
             foreach (var staffId in assigneeStaffList)
             {
                 staffMatter.MatterNumber = matterNumber;
                 staffMatter.StaffId = staffId;
-                staffMatterRepo.AddStaffMatter(staffMatter);
-                //db.StaffMatters.Add(staffMatter);
-                staffMatterRepo.Complete();
-                //db.SaveChanges();
+                try
+                {
+                    var email = staffRepo.GetEmailByStaffId(staffId);
+                    staffMatterRepo.AddStaffMatter(staffMatter);
+                    //db.StaffMatters.Add(staffMatter);
+                    staffMatterRepo.Complete();
+                    LegalGuideUtility.SendEmail(email, subject, body);
+                    //db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                
             }
             return Json(0, JsonRequestBehavior.AllowGet);
         }

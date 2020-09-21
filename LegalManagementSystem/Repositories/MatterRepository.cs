@@ -197,6 +197,8 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
+                //x => x.MatterStage != "Closed" && x.MatterStage != "Dismissed" && x.MatterStage != "Judgement Delivered" && x.MatterStage != "Strike Out"
+                //var matters = (from m in db.Matters from c in db.Clients where m.MatterStage != "Closed" && m.MatterStage != "Dismissed" && m.MatterStage != "Judgement Delivered" && m.MatterStage != "Strike Out" select m).ToListAsync();
                 return await db.Matters.Include(c=> c.Client).ToListAsync();
             }
             catch (Exception ex)
@@ -209,6 +211,7 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
+                
                 return await db.Matters.Include(c => c.Client).Where(expression).ToListAsync();
             }
             catch (Exception ex)

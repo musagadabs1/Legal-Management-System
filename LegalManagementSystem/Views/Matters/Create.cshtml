@@ -51,7 +51,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Area Of Practice</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea,                     "Value", "Text"), null, htmlAttributes: new { @class = "form-control",
+                                            @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea, "Value", "Text"), null, htmlAttributes: new { @class = "form-control",
                                            @id ="practiceArea" })
                                         </div>
                                     </div>
@@ -62,12 +62,6 @@
                                             </div>
                                             <select class="form-control" id="Assignee" multiple></select>
                                         </div>
-                                        @*<div>
-                                            <label class="control-label">Select Assignee</label>
-                                        </div>
-                                        <div>
-                                            <select class="form-control" id="Assignee" multiple></select>
-                                        </div>*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -139,7 +133,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Priority</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value",            "Text"), null, htmlAttributes: new { @class = "form-control",@id="Priority" })
+                                            @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value","Text"), null, htmlAttributes: new { @class = "form-control",@id="Priority" })
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -169,10 +163,6 @@
                                             </div>
                                             <input type="text" class="form-control" id="MatterValue" placeholder="Case Value" aria-             label="MatterValue" aria-describedby="basic-addon1">
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.MatterValue, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.MatterValue, new { htmlAttributes = new { @class = "form-control", @placeholder = "200000" } })
-                                        @Html.ValidationMessageFor(model => model.MatterValue, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -184,10 +174,6 @@
                                             </div>
                                             <input type="text" class="form-control" id="EstimatedEffort" placeholder="EstimatedEffort" aria- label="Estimated Effort" aria-describedby="basic-addon1">
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.EstimatedEffort, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.EstimatedEffort, new { htmlAttributes = new { @class = "form-control", @placeholder = "5000000" } })
-                                        @Html.ValidationMessageFor(model => model.EstimatedEffort, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
@@ -240,10 +226,6 @@
                                         </div>
                                         <input type="text" class="form-control" id="Subject" placeholder="Subject" aria- label="Subject" aria-describedby="basic-addon1">
                                     </div>
-
-                                    @*@Html.LabelForRequired(model => model.Subject, "Subject", htmlAttributes: new                     { @class = "control-label " })
-                                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-                control", @placeholder = "So vs So" } })
-                                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
@@ -252,10 +234,6 @@
                                         </div>
                                         <input type="text" class="form-control" id="MatterNumber" placeholder="FGN-UAC-001" aria- label="MatterNumber" aria-describedby="basic-addon1">
                                     </div>
-
-                                        @*@Html.LabelForRequired(model => model.MatterNumber, "Case Number", htmlAttributes: new            { @class = "control-label" })
-                                        @Html.EditorFor(model => model.MatterNumber, new { htmlAttributes = new { @class = "form-           control", @placeholder = "FGN-UAC-001" } })
-                                    @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                                 <div class="row">
@@ -264,11 +242,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Area Of Practice</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea,               "Value", "Text"), null, htmlAttributes: new {@class = "form-control", @id =                         "practiceArea"})
+                                            @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea,"Value", "Text"), null, htmlAttributes: new {@class = "form-control", @id="practiceArea"})
                                         </div>
-                                        @*@Html.LabelFor(model => model.AreaOfPractice, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea, "Value", "Text"), "---Select Practice Area---", htmlAttributes: new { @class = "form-control", @id = "practiceArea" })
-                                        @Html.ValidationMessageFor(model => model.AreaOfPractice, "", new { @class = "text-danger" })*@
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div>
@@ -286,15 +261,8 @@
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Client Name</span>
                                             </div>
                                             @Html.DropDownListFor(model => model.ClientId, Enumerable.Empty<SelectListItem>(),                      htmlAttributes: new { @class = "form-control ClientId", @id = "ClientId" })
-                                            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-                       danger" })
-                                        </div>
-                                        @*<div>
-                                            @Html.LabelForRequired(model => model.ClientId, "Client Name", htmlAttributes: new { @class = "control-label " })
-                                        </div>
-                                        <div>
-                                            @Html.DropDownListFor(model => model.ClientId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control ClientId", @id = "ClientId" })
                                             @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
-                                        </div>*@
+                                        </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="input-group input-group-sm mb-3">
@@ -303,13 +271,6 @@
                                             </div>
                                             @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control staffId", @id = "LineMger", disabled = "disabled"})
                                         </div>
-                                        @*<div>
-                                            @Html.LabelForRequired(model => model.LineManagerId, "Assigned By", htmlAttributes: new { @class = "control-label " })
-                                        </div>
-                                        <div>
-                                            @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control staffId", @id = "LineMger", disabled = "disabled" })
-                                            @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })
-                                        </div>*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -323,10 +284,6 @@
                                                 </button>
                                             </div>
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.ArrivalDate, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })*@
                                     </div>
                                     <div class="col-md-6 col-sm-12">
 
@@ -338,10 +295,6 @@
                                                 </button>
                                             </div>
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.FiledOn, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.FiledOn, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.FiledOn, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -355,9 +308,6 @@
                                                 </button>
                                             </div>
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control" } })*@
                                         @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -368,10 +318,6 @@
                                             </div>
                                             <textarea class="form-control" id="Description" aria-label="With textarea"></textarea>
                                         </div>
-
-                                        @*@Html.LabelForRequired(model => model.Description, "Description", htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Case Description" } })
-                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -380,11 +326,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Priority</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value",            "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value","Text"), null, htmlAttributes: new { @class = "form-control" })
                                         </div>
-                                        @*@Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label " })
-                                        @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value", "Text"), "---Select Priority---", htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })*@
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="input-group input-group-sm mb-3">
@@ -393,9 +336,6 @@
                                             </div>
                                             @Html.DropDownListFor(model => model.MatterStage, new SelectList(ViewBag.Stage, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "caseStage" })
                                         </div>
-                                        @*@Html.LabelFor(model => model.MatterStage, htmlAttributes: new { @class = "control-label " })
-                                        @Html.DropDownListFor(model => model.MatterStage, new SelectList(ViewBag.Stage, "Value", "Text"), "---Select Case Stage---", htmlAttributes: new { @class = "form-control", @id = "caseStage" })
-                                        @Html.ValidationMessageFor(model => model.MatterStage, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -407,10 +347,6 @@
                                             </div>
                                             <input type="text" class="form-control" id="RequestedBy" placeholder="Requested By" aria-               label="RequestedBy" aria-describedby="basic-addon1">
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.RequestedBy, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.RequestedBy, new { htmlAttributes = new { @class = "form-control", @placeholder = "Client Name" } })
-                                        @Html.ValidationMessageFor(model => model.RequestedBy, "", new { @class = "text-danger" })*@
                                     </div>
                                     <div class="col-md-6 col-sm-12">
 
@@ -420,10 +356,6 @@
                                             </div>
                                             <input type="text" class="form-control" id="MatterValue" placeholder="Case Value" aria- label="MatterValue" aria-describedby="basic-addon1">
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.MatterValue, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.MatterValue, new { htmlAttributes = new { @class = "form-control", @placeholder = "200000" } })
-                                        @Html.ValidationMessageFor(model => model.MatterValue, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -433,12 +365,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Estimated Effort</span>
                                             </div>
-                                            <input type="text" class="form-control" id="EstimatedEffort" placeholder="EstimatedEffort"              aria- label="Estimated Effort" aria-describedby="basic-addon1">
+                                            <input type="text" class="form-control" id="EstimatedEffort" placeholder="EstimatedEffort" aria- label="Estimated Effort" aria-describedby="basic-addon1">
                                         </div>
-
-                                        @*@Html.LabelFor(model => model.EstimatedEffort, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.EstimatedEffort, new { htmlAttributes = new { @class = "form-control", @placeholder = "5000000" } })
-                                        @Html.ValidationMessageFor(model => model.EstimatedEffort, "", new { @class = "text-danger" })*@
                                     </div>
                                     <div class="col-md-6">
                                         <input type="hidden" id="txtBoxVal" />
@@ -502,8 +430,6 @@
                 Subject: $('#Subject').val(),
                 Priority: $('#Priority').val(),
                 DueDate: new Date($('#DueDate').val())
-
-
             };
             
             $.ajax({  
@@ -520,8 +446,8 @@
                     
                 },  
                 error: function (errormessage) {  
-                    //alert(errormessage.responseText); 
-                    window.location.href = '@Url.Action("Index","Matters")';
+                    alert('Error Occured.'); 
+                    //window.location.href = '@Url.Action("Index","Matters")';
                 }  
             });  
         } 

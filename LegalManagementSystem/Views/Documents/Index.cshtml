@@ -5,10 +5,10 @@
 }
 <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 <div class="row">
-    <div class="col-md-1">
+    @*<div class="col-md-1">
 
-    </div>
-    <div class="col-md-10">
+    </div>*@
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">LIST OF DOCUMENTS</h3>
@@ -22,27 +22,15 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Matter Number
-                                    @*@Html.DisplayNameFor(model => model.MatterNumber)*@
-                                </th>
-                                <th>
                                     Document Name
-                                    @*@Html.DisplayNameFor(model => model.DocName)*@
                                 </th>
                                 <th>
                                     Assigned Date
-                                    @*@Html.DisplayNameFor(model => model.AssignedDate)*@
                                 </th>
                                 <th>
-                                    Tags
-                                    @*@Html.DisplayNameFor(model => model.Tags)*@
-                                </th>
-                                <th>
-                                    @*@Html.DisplayNameFor(model => model.Description)*@
                                     Description
                                 </th>
                                 <th>Actions</th>
-                                <th></th>
                             </tr>
                         </thead>
 
@@ -52,16 +40,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.MatterNumber)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.DocName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.AssignedDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Tags)
+                                        @item.AssignedDate.ToShortDateString()
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Description)
@@ -73,8 +55,6 @@
                                         <a href="@Url.Action("Details","Documents",new { id = item.DocumentId})">
                                             <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
                                         </a>
-                                        @*|
-                                        @Html.ActionLink("Delete", "Delete", new { id=item.DocumentId })*@
                                     </td>
                                 </tr>
                             </tbody>
@@ -86,9 +66,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-1">
+    @*<div class="col-md-1">
 
-    </div>
+    </div>*@
 </div>
 
 

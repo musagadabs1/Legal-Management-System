@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -44,8 +45,28 @@ namespace LegalManagementSystem.Models
                 throw ex;
             }
         }
-        
+        public static void SendEmail(string toAddress, string subject,string body)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("musasule79@gmail.com");
+            mail.To.Add(toAddress);
+            mail.Subject = subject;
+            mail.Body = body;
+
+            //Attachment attachment;
+            //attachment = new Attachment("c:/textfile.txt");
+            //mail.Attachments.Add(attachment);
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("dankanodauda@gmail.com", "Daudadankano2020!");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+
+        }
     }
+    
 
 }
 

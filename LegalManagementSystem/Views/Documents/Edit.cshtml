@@ -18,75 +18,67 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <hr />
-                        @if (ViewBag.Error != null)
-                        {
-                            <span style="color:red;">@ViewBag.Error.ToString()</span>
-                        }
+                <div class="form-horizontal">
+                    @*<hr />*@
+                    @if (ViewBag.Error != null)
+                    {
+                        <span style="color:red;">@ViewBag.Error.ToString()</span>
+                    }
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.DocumentId)
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.DocumentId)
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.MatterNumber, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control matterId", @id = "matterNumber" })
-                                @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Matter Number</span>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.DocName, "Document Name", htmlAttributes: new { @class = "control-label col-md-2", @placeholder = "Document Name" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DocName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DocName, "", new { @class = "text-danger" })
-                            </div>
+                        <input type="text" class="form-control" id="matterNumber" value="@Model.MatterNumber" readonly aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Document Name</span>
                         </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.AssignedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(model => model.AssignedDate, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AssignedDate, "", new { @class = "text-danger" })
-                            </div>
+                        <input type="text" class="form-control" id="DocName" value="@Model.DocName" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Assigned Date</span>
                         </div>
+                        <input type="date" class="form-control" id="AssignedDate" value="@string.Format("{0:dd/MM/yyyy}",Model.AssignedDate)" aria-describedby="inputGroup-sizing-default">
+                    </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Document Tag</span>
                         </div>
+                        <input type="text" class="form-control" id="Tag" value="@Model.Tags" aria-describedby="inputGroup-sizing-default">
+                    </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
                         </div>
+                        <input type="text" class="form-control" id="Description" value="@Model.Description" aria-describedby="inputGroup-sizing-default">
+                    </div>
 
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.DocPath, "Document Path", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                <input type="file" name="fileBase" id="fileBase" class="form-control" />
-                                @Html.ValidationMessageFor(model => model.DocPath, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="form-group m-2">
+                        @*@Html.LabelForRequired(model => model.DocPath, "Document Path", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        @*<div class="col-md-10">*@
+                        <input type="file" name="fileBase" id="fileBase" class="form-control" />
+                        @*@Html.ValidationMessageFor(model => model.DocPath, "", new { @class = "text-danger" })*@
+                        @*</div>  *@
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
-
-
-                        <div class="row">
-                            <div class="col-md-2" style="margin-top:15px; margin-left:0px">
-                                <button type="submit" class="btn btn-default">Update</button>
-                            </div>
-                            <div class="col-md-2">
-                                <a href="@Url.Action("Index","Documents")" class="btn btn-primary">Cancel</a>
-                            </div>
+                        <div class="col-md-2">
+                            <a href="@Url.Action("Index","Documents")" class="btn btn-primary">Cancel</a>
                         </div>
                     </div>
+                </div>
                 }
             </div>
         </div>

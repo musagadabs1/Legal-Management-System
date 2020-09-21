@@ -242,12 +242,25 @@
     <Compile Include="Models\AdvocateGroup.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Calendar.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CalendarStaff.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CaseDocument.cs" />
     <Compile Include="Models\CaseViewModel.cs" />
     <Compile Include="Models\Certification.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
@@ -265,6 +278,9 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CourtActivityVM.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Dependant.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -276,6 +292,9 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Experience.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\File.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FileEvent.cs">
@@ -344,6 +363,9 @@
     <Compile Include="Models\GEtListOfDocuments_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Library.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LicenseTable.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -390,6 +412,9 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StaffMatter.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Todo.cs">

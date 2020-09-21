@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using Newtonsoft.Json;
+using System;
 using System.Data;
-using System.Data.Entity;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
-using System.IO;
-using Newtonsoft.Json;
-using LegalManagementSystem.Interfaces;
-using LegalManagementSystem.Repositories;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -60,7 +58,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Document document = await documentRepo.GetDocumentAsync(id);
+            CaseDocument document = await documentRepo.GetDocumentWithCaseAsync(id);
             if (document == null)
             {
                 return HttpNotFound();
@@ -106,11 +104,11 @@ namespace LegalManagementSystem.Controllers
 
                 HttpPostedFileBase fileBase = Request.Files[0];
 
-                    if (fileBase.ContentLength > 0 && fileBase != null)
-                    {
-                        filePath = fileBase.FileName;
-                        fileName = Path.GetFileName(fileBase.FileName);
-                    }
+                if (fileBase.ContentLength > 0 && fileBase != null)
+                {
+                    filePath = fileBase.FileName;
+                    fileName = Path.GetFileName(fileBase.FileName);
+                }
 
                 var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Docs";
                 var docPath = Path.Combine(folderPath, filePath);
@@ -120,11 +118,11 @@ namespace LegalManagementSystem.Controllers
                 {
                     DocName = model.DocName,
                     Description = model.Description,
-                    CreatedBy= user.Name,
-                    DateCreated=DateTime.Today,
-                    DocPath=docPath,
-                    Tags=model.Tags,
-                    MatterNumber=model.MatterNumber
+                    CreatedBy = user.Name,
+                    DateCreated = DateTime.Today,
+                    DocPath = docPath,
+                    Tags = model.Tags,
+                    MatterNumber = model.MatterNumber
                 };
 
                 documentRepo.AddDocument(document);
@@ -132,16 +130,6 @@ namespace LegalManagementSystem.Controllers
                 await documentRepo.CompleteAsync();
                 //await db.SaveChangesAsync();
                 return RedirectToAction("Index");
-
-                //}
-                //else
-                //{
-                //    ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
-                //    //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", document.FileNumber);
-                //    //ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject");
-                //    return View(document);
-
-                //}
             }
             catch (Exception ex)
             {
@@ -151,7 +139,7 @@ namespace LegalManagementSystem.Controllers
             }
 
 
-            
+
         }
 
         // GET: Documents/Create
@@ -232,7 +220,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DocumentId,MatterNumber,DocName,AssignedDate,Tags,Description,CreatedBy,DateCreated,ModifiedBy,DateModified,DocPath")] Document document,HttpPostedFileBase fileBase)
+        public async Task<ActionResult> Edit([Bind(Include = "DocumentId,MatterNumber,DocName,AssignedDate,Tags,Description,CreatedBy,DateCreated,ModifiedBy,DateModified,DocPath")] Document document, HttpPostedFileBase fileBase)
         {
             try
             {

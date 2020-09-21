@@ -12,22 +12,18 @@ namespace LegalManagementSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ClientMatterAcceptanceForm
+    public partial class Library
     {
         public int Id { get; set; }
-        public Nullable<int> ClientId { get; set; }
-        public string Description { get; set; }
-        public string Industry { get; set; }
-        public Nullable<double> AgreedFee { get; set; }
-        public string PaymentTerms { get; set; }
-        public Nullable<int> TimeFrame { get; set; }
-        public string MatterManager { get; set; }
-        public string Status { get; set; }
+        public string ISBN { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public Nullable<System.DateTime> UploadDate { get; set; }
+        public string FilePath { get; set; }
+        public string AdvocateId { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
-        public virtual Client Client { get; set; }
     }
 }

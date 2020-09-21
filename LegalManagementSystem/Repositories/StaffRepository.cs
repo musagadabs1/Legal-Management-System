@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -246,6 +247,24 @@ namespace LegalManagementSystem.Repositories
                 if (loginUser != null)
                 {
                     email = loginUser.EmailAddress;
+                }
+                return email;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public string GetEmailByStaffId(string staffId)
+        {
+            try
+            {
+                var email = (from staff in db.Staffs where staff.StaffId.Equals(staffId) select staff.EmailAddress).FirstOrDefault();
+                if (email==null || string.IsNullOrEmpty(email))
+                {
+                    return string.Empty;
                 }
                 return email;
             }

@@ -13,14 +13,12 @@ namespace LegalManagementSystem.Models
     using System.Collections.Generic;
     
     public partial class Client
-
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
             this.ClientMatterAcceptanceForms = new HashSet<ClientMatterAcceptanceForm>();
             this.Matters = new HashSet<Matter>();
-            this.Matters1 = new HashSet<Matter>();
         }
     
         public int ClientId { get; set; }
@@ -43,7 +41,5 @@ namespace LegalManagementSystem.Models
         public virtual ICollection<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matter> Matters { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Matter> Matters1 { get; set; }
     }
 }
