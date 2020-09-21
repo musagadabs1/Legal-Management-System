@@ -12,9 +12,18 @@ namespace LegalManagementSystem.Interfaces
     {
         void AddExperience(Experience experience);
         void DeleteExperience(Experience experience);
-        Experience GetExperience(int id);
-        IEnumerable<Experience> GetSExperience();
-        Experience GetExperience(Expression<Func<bool>> expression);
+        Experience GetExperience(int? id);
+        IEnumerable<Experience> GetExperiences();
+        Experience GetExperience(Expression<Func<Experience,bool>> expression);
         void UpdateExperience(Experience experience);
+        int Complete();
+        Task<int> CompleteAsync();
+        void Dispose();
+        IEnumerable<Experience> GetExperiences(Expression<Func<Experience, bool>> expression);
+        Task<IEnumerable<Experience>> GetExperiencesAsync();
+        Task<IEnumerable<Experience>> GetExperiencesAsync(Expression<Func<Experience, bool>> expression);
+        Task<IEnumerable<Experience>> GetExperiencesWithStaffAsync(Expression<Func<Experience, bool>> expression);
+        Task<IEnumerable<Experience>> GetExperiencesWithStaffAsync();
+        Task<Experience> GetExperienceAsync(int? id);
     }
 }

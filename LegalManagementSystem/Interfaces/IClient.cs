@@ -12,9 +12,9 @@ namespace LegalManagementSystem.Interfaces
     public interface IClient
     {
         void AddClient(Client client);
-        void DeleteClient(int id);
-        Client GetClient(int id);
-        Task<Client> GetClientAsync(int id);
+        void DeleteClient(Client client);
+        Client GetClient(int? id);
+        Task<Client> GetClientAsync(int? id);
         int MaxClient();
         Task<IEnumerable<Client>> GetClientsAsync();
         Task<IEnumerable<Client>> GetClientsAsync(Expression<Func<Client,bool>> expression);
@@ -22,7 +22,7 @@ namespace LegalManagementSystem.Interfaces
         IEnumerable<Client> GetClients();
         Client GetClient(Func<Client, bool> expression);
         //Task<Client> GetClientAsync(Func<Client, bool> expression);
-        void UpdateClient(int id);
+        void UpdateClient(Client client);
         int Complete();
         Task<int> CompleteAsync();
         void Dispose();

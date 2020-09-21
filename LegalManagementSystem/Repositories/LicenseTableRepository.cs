@@ -2,12 +2,15 @@
 using LegalManagementSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class LicenseRepository:ILicenseTable
+    public class LicenseTableRepository:ILicenseTable
     {
         private MyCaseNewEntities _context = new MyCaseNewEntities();
         public bool IsExpired(string clientName)
@@ -91,6 +94,107 @@ namespace LegalManagementSystem.Repositories
 
                 throw ex;
             }
+        }
+        public void AddLicense(LicenseTable license)
+        {
+            try
+            {
+                _context.LicenseTables.Add(license);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public int Complete
+        {
+            get
+            {
+                try
+                {
+                    return _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
+        }
+        public async Task<int> CompleteAsync()
+        {
+            try
+            {
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public void Dispose()
+        {
+            try
+            {
+                _context.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public async Task<LicenseTable> GetLicenseAsync(int? id)
+        {
+            try
+            {
+                return await _context.LicenseTables.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<LicenseTable>> GetLicensesAsync()
+        {
+            try
+            {
+                return await _context.LicenseTables.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public void UpdateLicense(LicenseTable license)
+        {
+            try
+            {
+                _context.Entry(license).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public void DeleteLicense(LicenseTable license)
+        {
+            try
+            {
+                _context.LicenseTables.Remove(license);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
         }
     }
 }

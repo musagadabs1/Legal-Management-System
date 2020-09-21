@@ -114,9 +114,14 @@
 
 
         function saveCertificate() {
+            var res = validate();
+            
+            if (res == false) {  
+                return false;  
+            }
 
-             var certificate = {};
-            var url = '@Url.Action("SaveCertificate","Cetifications")';
+            var certificate = {};
+            var url = '@Url.Action("Create","Cetifications")';
 
             var name = $('#Name').val();
             var skilled = $('#Skilled').val();
@@ -124,7 +129,7 @@
             var dateAchieved = $('#DateAchieved').val();
             var desc = $('#Description').val();
 
-            dependant = {
+            certificate = {
                 Name: name,
                 Skilled: skilled,
                 CertificationType: certificationType,
@@ -139,14 +144,55 @@
                 dataType: 'json',
                 data:JSON.stringify(certificate),
                 success: function (e) {
-                    //alert('Saved.');
-                    window.location.href = '@Url.Action("Index","Cetifications")';
+                    alert('Saved.');
+                    //("Create", "Dependants")
+                    window.location.href = '@Url.Action("Create","Dependants")';
                 },
                 error: function (e) {
-                    window.location.href = '@Url.Action("Index","Cetifications")';
+                    window.location.href = '@Url.Action("Create","Dependants")';
                 }
             });
         }
+        function validate() {
+            var isValid = true;
+            if ($('#Name').val().trim() == "") {
+                $('#Name').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Name').css('border-color', 'lightgrey');
+            }
+            if ($('#Skilled').val().trim() == "") {
+                $('#Skilled').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Skilled').css('border-color', 'lightgrey');
+            }
+            if ($('#CertificationType').val().trim() == "") {
+                $('#CertificationType').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#CertificationType').css('border-color', 'lightgrey');
+            }
+            if ($('#DateAchieved').val().trim() == "") {
+                $('#DateAchieved').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DateAchieved').css('border-color', 'lightgrey');
+            }
+            if ($('#Description').val().trim() == "") {
+                $('#Description').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Description').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
     </script>
 
 }

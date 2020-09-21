@@ -149,7 +149,7 @@ namespace LegalManagementSystem.Repositories
             try
             {
                 db.Entry(matter).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -270,3 +270,5 @@ namespace LegalManagementSystem.Repositories
         }
     }
 }
+
+

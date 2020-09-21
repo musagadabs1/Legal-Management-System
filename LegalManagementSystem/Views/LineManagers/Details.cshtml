@@ -3,40 +3,74 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
+    dl {
+        /*border: 3px double #ccc;*/
+        padding: 0.5em;
+    }
 
-<h2>Details</h2>
+    dt {
+        /*float: left;
+                clear: left;*/
+        /*width: 100px;*/
+        text-align: right;
+        font-weight: bold;
+        color: green;
+    }
 
-<div>
-    <h4>LineManager</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        dt::after {
+            content: ":";
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    dd {
+        /*margin: 0 0 0 110px;
+                padding: 0 0 0.5em 0;*/
+        text-align: left;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Line Manager Details</h5>
+    </div>
+    <div class="card-body">
+        <div>
+            <dl class="row">
+                <dt class="col-md-3 col-sm-12">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Department)
-        </dt>
+                <dd class="col-md-9 col-sm-12">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Department)
-        </dd>
+                <dt class="col-md-3 col-sm-12">
+                    @Html.DisplayNameFor(model => model.Department)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Designation)
-        </dt>
+                <dd class="col-md-9 col-sm-12">
+                    @Html.DisplayFor(model => model.Department)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Designation)
-        </dd>
+                <dt class="col-md-3 col-sm-12">
+                    @Html.DisplayNameFor(model => model.Designation)
+                </dt>
 
-    </dl>
+                <dd class="col-md-9 col-sm-12">
+                    @Html.DisplayFor(model => model.Designation)
+                </dd>
+
+            </dl>
+        </div>
+        <p style="margin-left:100px;">
+            <a href="@Url.Action("Edit","LineManagers", new {id = Model.LineManagerId  })">
+                <span style="font-size:large" class="glyphicon glyphicon-edit"> Edit</span>
+            </a>
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.LineManagerId }) @*|
-    @Html.ActionLink("Back to List", "Index")*@
-</p>
+
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.LineManagerId })
+    </p>*@
+
+

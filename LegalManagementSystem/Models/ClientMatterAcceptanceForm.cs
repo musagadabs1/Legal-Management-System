@@ -28,6 +28,6 @@ namespace LegalManagementSystem.Models
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
     
-        public virtual Client Client { get; set; }
+        public virtual LicenseTable Client { get; set; }
     }
 }

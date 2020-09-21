@@ -8,18 +8,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
+using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Repositories;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin, Attorney, Advocate")]
     public class AdvocateGroupsController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
-
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private IAdvocateGroup advocateGroupRepo;
+        public AdvocateGroupsController()
+        {
+            advocateGroupRepo = new AdvocateGroupRepository();
+        }
         // GET: AdvocateGroups
         public async Task<ActionResult> Index()
         {
-            return View(await db.AdvocateGroups.ToListAsync());
+            return View(await advocateGroupRepo.GetAdvocateGroupsAsync());
         }
 
         // GET: AdvocateGroups/Details/5
@@ -29,7 +35,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AdvocateGroup advocateGroup = await db.AdvocateGroups.FindAsync(id);
+            AdvocateGroup advocateGroup = await advocateGroupRepo.GetAdvocateGroupAsync(id);
             if (advocateGroup == null)
             {
                 return HttpNotFound();
@@ -52,8 +58,8 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AdvocateGroups.Add(advocateGroup);
-                await db.SaveChangesAsync();
+                advocateGroupRepo.AddAdvocateGroup(advocateGroup);
+                await advocateGroupRepo.CompleteAsync();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +73,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AdvocateGroup advocateGroup = await db.AdvocateGroups.FindAsync(id);
+            AdvocateGroup advocateGroup = await advocateGroupRepo.GetAdvocateGroupAsync(id);
             if (advocateGroup == null)
             {
                 return HttpNotFound();
@@ -84,8 +90,8 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(advocateGroup).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                advocateGroupRepo.UpdateAdvocateGroup(advocateGroup);
+                await advocateGroupRepo.CompleteAsync();
                 return RedirectToAction("Index");
             }
             return View(advocateGroup);
@@ -98,7 +104,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AdvocateGroup advocateGroup = await db.AdvocateGroups.FindAsync(id);
+            AdvocateGroup advocateGroup = await advocateGroupRepo.GetAdvocateGroupAsync(id);
             if (advocateGroup == null)
             {
                 return HttpNotFound();
@@ -111,9 +117,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            AdvocateGroup advocateGroup = await db.AdvocateGroups.FindAsync(id);
-            db.AdvocateGroups.Remove(advocateGroup);
-            await db.SaveChangesAsync();
+            AdvocateGroup advocateGroup = await advocateGroupRepo.GetAdvocateGroupAsync(id);
+            advocateGroupRepo.DeleteAdvocateGroup(advocateGroup);
+            await advocateGroupRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -121,7 +127,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                advocateGroupRepo.Dispose();
             }
             base.Dispose(disposing);
         }

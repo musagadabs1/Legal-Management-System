@@ -5,15 +5,15 @@
 }
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-1">
 
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-info" style="background-color:#1b2a47; color:black">
-            <div class="panel-heading">
-                <h3 class="panel-title">Edit Line Manager info</h3>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Edit Line Manager</h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
@@ -24,37 +24,45 @@
                             <span style="color:red;">@ViewBag.Error.ToString()</span>
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.LineManagerId)
+                        @*@Html.HiddenFor(model => model.LineManagerId)*@
+                        <input type="text" id="LineManagerId" value="@Model.LineManagerId" hidden="hidden" />
 
                         <div class="form-group">
                             <div>
-                                @Html.LabelForRequired(model => model.Name, "Line Manger's Name", htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Line Manager's Name</span>
+                                    </div>
+                                    <input type="text" value="@Model.Name" class="form-control" id="Name" placeholder="Line Manager's Name" aria-label="Name" aria- describedby="basic-addon1">
+                                </div>
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div>
-                                @Html.LabelForRequired(model => model.Department, "Line Manger's Department", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Department</span>
+                                </div>
+                                <input type="text" value="@Model.Department" class="form-control" id="Department" placeholder="Department" aria-label="Department" aria- describedby="basic-addon1">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div>
-                                @Html.LabelForRequired(model => model.Designation, "Line Manger's Designation", htmlAttributes: new { @class = "control-label " })
-                                @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Designation</span>
+                                </div>
+                                <input type="text" class="form-control" id="Designation" value="@Model.Designation" placeholder="Designation" aria-label="Designation" aria- describedby="basic-addon1">
                             </div>
+                            @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-md-2" style="margin-top:15px; margin-right:5px">
-                                <input type="submit" value="Update" class="btn btn-info" />
+                                <input type="button" id="update-line-manager" value="Update" class="btn btn-info" />
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2" style="margin-top:15px; margin-right:5px">
                                 <a href="@Url.Action("Index","LineManagers")" class="btn btn-info">Cancel</a>
                             </div>
                         </div>
@@ -64,7 +72,55 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-1">
 
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('#update-line-manager').click(function () {
+                saveLineManager();
+            });
+        });
+
+
+        function saveLineManager() {
+
+             var lineManager = {};
+            var url = '@Url.Action("Edit","LineManagers")';
+
+            var name = $('#Name').val();
+            var department = $('#Department').val();
+            var designation = $('#Designation').val();
+            var lineManagerId = $('#LineManagerId').val();
+
+            lineManager = {
+                Name: name,
+                Department: department,
+                Designation: designation,
+                LineManagerId:lineManagerId
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json',
+                dataType: 'json',
+                data:JSON.stringify(lineManager),
+                success: function (e) {
+                    alert('Updated.');
+                    window.location.href = '@Url.Action("Index","LineManagers")';
+                },
+                error: function (e) {
+                    window.location.href = '@Url.Action("Index","LineManagers")';
+                }
+            });
+        }
+    </script>
+
+}
+

@@ -6,17 +6,19 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class CertificationRepository : ICertification
+    public class ExperienceRepository : IExperience
     {
         private readonly MyCaseNewEntities db = new MyCaseNewEntities();
-        public void AddCertification(Certification certification)
+
+        public void AddExperience(Experience experience)
         {
             try
             {
-                db.Certifications.Add(certification);
+                db.Experiences.Add(experience);
             }
             catch (Exception ex)
             {
@@ -24,7 +26,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public int Complete()
         {
             try
@@ -37,7 +38,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public async Task<int> CompleteAsync()
         {
             try
@@ -50,21 +50,19 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public void DeleteCertification(Certification certification)
+        public void DeleteExperience(Experience experience)
         {
             try
             {
-                //var cert = GetCertification(id);
-                db.Certifications.Remove(certification);
+                db.Experiences.Remove(experience);
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-        }
 
+        }
         public void Dispose()
         {
             try
@@ -77,12 +75,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public Certification GetCertification(int? id)
+        public Experience GetExperience(int? id)
         {
             try
             {
-                return db.Certifications.Find(id);
+                return db.Experiences.Find(id);
             }
             catch (Exception ex)
             {
@@ -90,12 +87,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public Certification GetCertification(Expression<Func<Certification, bool>> expression)
+        public async Task<Experience> GetExperienceAsync(int? id)
         {
             try
             {
-                return db.Certifications.FirstOrDefault(expression);
+                return await db.Experiences.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -103,12 +99,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<Certification> GetCertificationAsync(int? id)
+        public Experience GetExperience(Expression<Func<Experience,bool>> expression)
         {
             try
             {
-                return await db.Certifications.FindAsync(id);
+                return db.Experiences.FirstOrDefault(expression);
             }
             catch (Exception ex)
             {
@@ -116,12 +111,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<Certification> GetCertifications()
+        public IEnumerable<Experience> GetExperiences()
         {
             try
             {
-                return db.Certifications.ToList();
+                return db.Experiences.ToList();
             }
             catch (Exception ex)
             {
@@ -129,12 +123,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<Certification> GetCertifications(Expression<Func<Certification, bool>> expression)
+        public IEnumerable<Experience> GetExperiences(Expression<Func<Experience, bool>> expression)
         {
             try
             {
-                return db.Certifications.Where(expression).ToList();
+                return db.Experiences.Where(expression).ToList();
             }
             catch (Exception ex)
             {
@@ -142,12 +135,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync()
+        public async Task<IEnumerable<Experience>> GetExperiencesAsync()
         {
             try
             {
-                return await db.Certifications.ToListAsync();
+                return await db.Experiences.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -155,12 +147,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync(Expression<Func<Certification, bool>> expression)
+        public async Task<IEnumerable<Experience>> GetExperiencesAsync(Expression<Func<Experience, bool>> expression)
         {
             try
             {
-                return await db.Certifications.Where(expression).ToListAsync();
+                return await db.Experiences.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -168,12 +159,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<Certification> GetCertificationsWithStaff()
+        public async Task<IEnumerable<Experience>> GetExperiencesWithStaffAsync(Expression<Func<Experience, bool>> expression)
         {
             try
             {
-                return db.Certifications.Include(c => c.Staff).ToList();
+                return await db.Experiences.Include(e => e.Staff).Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -181,26 +171,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync()
+        public async Task<IEnumerable<Experience>> GetExperiencesWithStaffAsync()
         {
             try
             {
-                return await db.Certifications.Include(c => c.Staff).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            
-        }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync(Expression<Func<Certification, bool>> expression)
-        {
-            try
-            {
-                return await db.Certifications.Include(c => c.Staff).Where(expression).ToListAsync();
+                return await db.Experiences.Include(e => e.Staff).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -208,12 +183,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public void UpdateCertification(Certification certification)
+        public void UpdateExperience(Experience experience)
         {
             try
             {
-                db.Entry(certification).State = EntityState.Modified;
+                db.Entry(experience).State = EntityState.Modified;
             }
             catch (Exception ex)
             {

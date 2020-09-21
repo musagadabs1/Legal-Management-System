@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class CertificationRepository : ICertification
+    public class TotoRepository : ITodo
     {
         private readonly MyCaseNewEntities db = new MyCaseNewEntities();
-        public void AddCertification(Certification certification)
+        public void AddTodo(Todo todo)
         {
             try
             {
-                db.Certifications.Add(certification);
+                db.Todoes.Add(todo);
             }
             catch (Exception ex)
             {
@@ -51,12 +51,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public void DeleteCertification(Certification certification)
+        public void DeleteTodo(Todo todo)
         {
             try
             {
-                //var cert = GetCertification(id);
-                db.Certifications.Remove(certification);
+                db.Todoes.Remove(todo);
             }
             catch (Exception ex)
             {
@@ -78,11 +77,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public Certification GetCertification(int? id)
+        public Todo GetTodo(int? id)
         {
             try
             {
-                return db.Certifications.Find(id);
+                return db.Todoes.Find(id);
             }
             catch (Exception ex)
             {
@@ -91,11 +90,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public Certification GetCertification(Expression<Func<Certification, bool>> expression)
+        public Todo GetTodo(Expression<Func<Todo, bool>> expression)
         {
             try
             {
-                return db.Certifications.FirstOrDefault(expression);
+                return db.Todoes.FirstOrDefault(expression);
             }
             catch (Exception ex)
             {
@@ -104,11 +103,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public async Task<Certification> GetCertificationAsync(int? id)
+        public async Task<Todo> GetTodoAsync(int? id)
         {
             try
             {
-                return await db.Certifications.FindAsync(id);
+                return await db.Todoes.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -117,11 +116,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public IEnumerable<Certification> GetCertifications()
+        public async Task<Todo> GetTodoAsync(Guid? id)
         {
             try
             {
-                return db.Certifications.ToList();
+                return await db.Todoes.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -130,11 +129,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public IEnumerable<Certification> GetCertifications(Expression<Func<Certification, bool>> expression)
+        public Todo GetTodo(Func<Todo, bool> p)
         {
             try
             {
-                return db.Certifications.Where(expression).ToList();
+                return db.Todoes.Where(p).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -143,11 +142,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync()
+        public IEnumerable<Todo> GetTodos()
         {
             try
             {
-                return await db.Certifications.ToListAsync();
+                return db.Todoes.ToList();
             }
             catch (Exception ex)
             {
@@ -156,11 +155,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync(Expression<Func<Certification, bool>> expression)
+        public IEnumerable<Todo> GetTodos(Expression<Func<Todo, bool>> expression)
         {
             try
             {
-                return await db.Certifications.Where(expression).ToListAsync();
+                return db.Todoes.Where(expression).ToList();
             }
             catch (Exception ex)
             {
@@ -169,11 +168,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public IEnumerable<Certification> GetCertificationsWithStaff()
+        public async Task<IEnumerable<Todo>> GetTodosAsync()
         {
             try
             {
-                return db.Certifications.Include(c => c.Staff).ToList();
+                return await db.Todoes.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -182,25 +181,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync()
+        public async Task<IEnumerable<Todo>> GetTodosAsync(Expression<Func<Todo, bool>> expression)
         {
             try
             {
-                return await db.Certifications.Include(c => c.Staff).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            
-        }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync(Expression<Func<Certification, bool>> expression)
-        {
-            try
-            {
-                return await db.Certifications.Include(c => c.Staff).Where(expression).ToListAsync();
+                return await db.Todoes.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -209,11 +194,11 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public void UpdateCertification(Certification certification)
+        public void UpdateTodo(Todo todo)
         {
             try
             {
-                db.Entry(certification).State = EntityState.Modified;
+                db.Entry(todo).State = EntityState.Modified;
             }
             catch (Exception ex)
             {

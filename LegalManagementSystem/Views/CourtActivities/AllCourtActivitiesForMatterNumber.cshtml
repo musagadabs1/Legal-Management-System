@@ -23,133 +23,96 @@
     ViewBag.Title = "CourtActivities";
 }
 <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
-<h3 class="text-center">Court Activities</h3>
-<p>
-    <a href="@Url.Action("Create","CourtActivities")" class="btn btn-primary">
-        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-    </a>
+@*<h3 class="text-center"></h3>*@
 
-</p>
-<table class="table table-responsive" id="courtTable">
-    <thead>
-        <tr>
-            <th>
-                Matter Number
-            </th>
-            <th>
-                Date Heared
-            </th>
-            <th>
-                Court Name
-            </th>
-            <th>
-                Location
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Advocate Argument
-            </th>
-            <th>
-                Opponent Argument
-            </th>
-            <th>
-                Defense Counsel Name
-            </th>
-            <th>
-                Advocate Note
-            </th>
-            <th>
-                Date Adjourned
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-
-    @*<tfoot>
-        <tr>
-            <th>
-                MatterNumber
-            </th>
-            <th>
-                Date Heared
-            </th>
-            <th>
-                Court Name
-            </th>
-            <th>
-                Location
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Advocate Argument
-            </th>
-            <th>
-                Opponent Argument
-            </th>
-            <th>
-                Defense Counsel Name
-            </th>
-            <th>
-                Advocate Note
-            </th>
-            <th>
-                Date Adjourned
-            </th>
-            <th></th>
-    </tfoot>*@
-
-    @foreach (var item in Model)
-        {
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MatterNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateHeared)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CourtName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Location)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdvocateArgument)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OpponentArgument)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DefenseCounselName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdvocateNote)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdjourned)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit","CourtActivities", new {id = item.Id  })">
-                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title text-center text-capitalize">Court Activities</h5>
+                <div>
+                    <p>
+                        <a href="@Url.Action("Create","CourtActivities")" class="btn btn-primary">
+                            <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                         </a>
-                        <a href="@Url.Action("Details","CourtActivities",new {id = item.Id  })">
-                            <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
+                    </p>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <div class="table-responsive" style="width:650px;margin:0 auto">
+                    <table class="table table-responsive table-condensed table-hover table-striped" id="courtTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Date Heared
+                                </th>
+                                <th>
+                                    Court Name
+                                </th>
+                                <th>
+                                    Location
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                @*<th>
+                                    Advocate Note
+                                </th>*@
+                                <th>
+                                    Date Adjourned
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
 
-        }
+                        @foreach (var item in Model)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @item.DateHeared.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CourtName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Location)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.AdvocateNote)
+                                    </td>*@
+                                    <td>
+                                        @item.DateAdjourned.Value.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit","CourtActivities", new {id = item.Id  })">
+                                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                                        </a>
+                                        <a href="@Url.Action("Details","CourtActivities",new {id = item.Id  })">
+                                            <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
 
-</table>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+
+
+
 @*<div class="modal modal-lg" id="Passwordmodal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -173,7 +136,6 @@
 
 </div>*@
 @section scripts{
-    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>
     @*$(document).ready(function () {

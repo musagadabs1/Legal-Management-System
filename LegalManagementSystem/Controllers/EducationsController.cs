@@ -8,13 +8,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
+using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Repositories;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class EducationsController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private IEducation educationRepo;
+
+        public EducationsController()
+        {
+            educationRepo = new EducationRepository();
+        }
 
         // GET: Educations
         public async Task<ActionResult> Index()
@@ -22,11 +30,11 @@ namespace LegalManagementSystem.Controllers
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminCertifications = db.Educations.Include(c => c.Staff);
-                return View(await adminCertifications.ToListAsync());
+                //var adminCertifications = db.Educations.Include(c => c.Staff);
+                return View(await educationRepo.GetEducationsWithStaffAsync());
             }
-            var educations = db.Educations.Include(e => e.Staff);
-            return View(await educations.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            //var educations = db.Educations.Include(e => e.Staff);
+            return View(await educationRepo.GetEducationsWithStaffAsync(x => x.CreatedBy.Equals(user)));
         }
 
         // GET: Educations/Details/5
@@ -36,7 +44,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Education education = await db.Educations.FindAsync(id);
+            Education education = await educationRepo.GetEducationAsync(id);
             if (education == null)
             {
                 return HttpNotFound();
@@ -84,8 +92,8 @@ namespace LegalManagementSystem.Controllers
                 education.CreatedOn = DateTime.Today;
                 education.StaffId = LegalGuideUtility.StaffId;
 
-                db.Educations.Add(education);
-                await db.SaveChangesAsync();
+              educationRepo.AddEducation(education);
+                await educationRepo.CompleteAsync();
                 return RedirectToAction("Create", "Certifications");
             }
             ViewBag.Qualification = new List<SelectListItem>
@@ -119,7 +127,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Education education = await db.Educations.FindAsync(id);
+            Education education = await educationRepo.GetEducationAsync(id);
             if (education == null)
             {
                 return HttpNotFound();
@@ -161,8 +169,8 @@ namespace LegalManagementSystem.Controllers
                 education.ModifiedOn = DateTime.Today;
                 education.StaffId = LegalGuideUtility.StaffId;
 
-                db.Entry(education).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                educationRepo.UpdateEducation(education);
+                await educationRepo.CompleteAsync();
                 return RedirectToAction("Create", "Educations");
             }
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", education.StaffId);
@@ -195,7 +203,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Education education = await db.Educations.FindAsync(id);
+            Education education = await educationRepo.GetEducationAsync(id);
             if (education == null)
             {
                 return HttpNotFound();
@@ -208,9 +216,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Education education = await db.Educations.FindAsync(id);
-            db.Educations.Remove(education);
-            await db.SaveChangesAsync();
+            Education education = await educationRepo.GetEducationAsync(id);
+            educationRepo.DeleteEducation(education);
+            await educationRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -218,7 +226,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                educationRepo.Dispose();
             }
             base.Dispose(disposing);
         }

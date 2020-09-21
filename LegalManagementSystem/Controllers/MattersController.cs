@@ -27,7 +27,7 @@ namespace LegalManagementSystem.Controllers
             matterRepo = new MatterRepository();
             clientRepo = new ClientRepository();
             staffRepo = new StaffRepository();
-            managerRepo = new ManagerRepository();
+            managerRepo = new LineManagerRepository();
             staffMatterRepo = new StaffMatterRepository();
         }
         // GET: Matters
@@ -381,13 +381,10 @@ namespace LegalManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 try
                 {
                     var nextId = matterRepo.GetCurrentId() + 1;
-
                     var matterId = "CASE-" + nextId + "-" + DateTime.Today.ToShortDateString();
-
                     var user = User.Identity.Name;
                     matter.CreatedBy = user;
                     matter.CreatedOn = DateTime.Today;
@@ -482,7 +479,6 @@ namespace LegalManagementSystem.Controllers
             return View(matter);
 
         }
-
         // GET: Matters/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
@@ -530,17 +526,67 @@ namespace LegalManagementSystem.Controllers
             return View(matter);
         }
 
+
+        [HttpPost]
+        public async Task<JsonResult> EditCase(string id)
+        {
+            if (id == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            var matter = await matterRepo.GetMatterAsync(id);
+            if (matter == null)
+            {
+                //return HttpNotFound();
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            ViewBag.Priority = new List<SelectListItem>{
+                new SelectListItem { Value="Critical",Text="Critical"},
+                new SelectListItem { Value="High",Text="High"},
+                new SelectListItem { Value="Medium",Text="Medium"},
+                new SelectListItem { Value="Low",Text="Low"}
+            };
+            ViewBag.Stage = new List<SelectListItem>{
+                new SelectListItem { Value="Discovery",Text="Discovery"},
+                new SelectListItem { Value="Trial",Text="Trial"},
+                new SelectListItem { Value="Apeal",Text="Apeal"},
+                new SelectListItem { Value="Motions",Text="Motions"},
+                new SelectListItem { Value="Closed",Text="Closed"},
+                new SelectListItem { Value="Pleading",Text="Pleading"}
+            };
+            ViewBag.PracticeArea = new List<SelectListItem>{
+                new SelectListItem { Value="None",Text="None"},
+                new SelectListItem { Value="Acquisition",Text="Acquisition"},
+                new SelectListItem { Value="Administrative",Text="Administrative"},
+                new SelectListItem { Value="Audit",Text="Audit"},
+                new SelectListItem { Value="Civil",Text="Civil"},
+                new SelectListItem { Value="Commercial",Text="Commercial"},
+                new SelectListItem { Value="Consultation",Text="Consultation"},
+                new SelectListItem { Value="Corporate",Text="Corporate"},
+                new SelectListItem { Value="Criminal",Text="Criminal"},
+                new SelectListItem { Value="Dispute",Text="Dispute"},
+                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
+                new SelectListItem { Value="Labour",Text="Labour"},
+                new SelectListItem { Value="Real Estate",Text="Real Estate"},
+                new SelectListItem { Value="Sharia",Text="Sharia"},
+                new SelectListItem { Value="Agreement",Text="Agreement"}
+            };
+            ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
+            //return View(matter);
+            return Json(matter, JsonRequestBehavior.AllowGet);
+
+        }
+
         // POST: Matters/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Subject,Description,AreaOfPractice,ClientId,LineManagerId,ArrivalDate,FiledOn,DueDate,MatterNumber,Priority,MatterStage,RequestedBy,MatterValue,EstimatedEffort,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,CaseNumber")] Matter matter)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Matter matter)
         {
             if (ModelState.IsValid)
             {
-
-
                 try
                 {
                     var user = User.Identity.Name;
@@ -558,9 +604,6 @@ namespace LegalManagementSystem.Controllers
                     ViewBag.Error = "Can't Add Matter, Error Occured. Please Contact IT Department.";
                     //throw ex;
                 }
-
-
-
                 //db.Entry(matter).State = EntityState.Modified;
                 //await db.SaveChangesAsync();
                 //return RedirectToAction("Index");
@@ -636,7 +679,6 @@ namespace LegalManagementSystem.Controllers
             ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
             return View(matter);
         }
-
         // GET: Matters/Delete/5
         public async Task<ActionResult> Delete(string id)
         {
@@ -651,7 +693,6 @@ namespace LegalManagementSystem.Controllers
             }
             return View(matter);
         }
-
         // POST: Matters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -664,7 +705,6 @@ namespace LegalManagementSystem.Controllers
             await matterRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -673,6 +713,11 @@ namespace LegalManagementSystem.Controllers
             }
             base.Dispose(disposing);
             matterRepo.Dispose();
+
+            
         }
     }
+
 }
+
+

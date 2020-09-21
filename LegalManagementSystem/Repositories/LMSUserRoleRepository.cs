@@ -9,12 +9,20 @@ using System.Web;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class RoleRepository : ILMSUserRole
+    public class LMSUserRoleRepository : ILMSUserRole
     {
         private MyCaseNewEntities db = new MyCaseNewEntities();
         public UserRole GetUserRole()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return db.UserRoles.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         public UserRole GetUserRole(Expression<Func<UserRole, bool>> expression)
         {

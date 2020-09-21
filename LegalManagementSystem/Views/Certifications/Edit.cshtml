@@ -6,13 +6,13 @@
 }
 
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="panel panel-default" style="background-color:#1b2a47; color:black">
-            <div class="panel-heading">
-                <h3 class="panel-title">Edit Certification Info</h3>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Edit Certification Info</h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
@@ -29,48 +29,66 @@
 
                         <div class="form-group">
                             <div>
-                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Name" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Certification Name</span>
+                                    </div>
+                                    <input type="text" value="@Model.Name" class="form-control" id="Name" placeholder="Certification Name" aria- label="Name" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Certification Type</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="CertificationType" placeholder="Certification Type" value="@Model.CertificationType" aria- label="CertificationType" aria-describedby="basic-addon1">
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div>
-                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Description" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div>
-                                @Html.LabelFor(model => model.CertificationType, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.CertificationType, new { htmlAttributes = new { @class = "form-control", @placeholder = "Certification Type" } })
-                                @Html.ValidationMessageFor(model => model.CertificationType, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div>
-                                @Html.LabelFor(model => model.DateAchieved, htmlAttributes: new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.DateAchieved, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateAchieved, "", new { @class = "text-danger" })
+                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" value="@Model.DateAchieved.Value.ToShortDateString()" class="form-control" placeholder="Date Achieved" id="DateAchieved">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
 
                             <div>
-                                @Html.LabelFor(model => model.Skilled, htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownListFor(model => model.Skilled, new SelectList(ViewBag.Skilled, "Value", "Text"), "--- Select Skilled ---", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Skilled, "", new { @class = "text-danger" })
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="Skilled">Skilled</span>
+                                    </div>
+                                    @Html.DropDownListFor(model => model.Skilled, new SelectList(ViewBag.Skilled, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "Skilled" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                @*<div class="col-md-12 col-sm-12">*@
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Description</span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="Description" id="Description"></textarea>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-2" style="margin-top:15px; margin-left:0px">
-                                <button type="submit" class="btn btn-default">Update</button>
+                                <button type="button" id="update-cert" class="btn btn-default">Update</button>
                             </div>
                             <div class="col-md-2">
                                 <a href="@Url.Action("Index","Certifications")" class="btn btn-default">Cancel</a>
@@ -81,11 +99,103 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
 </div>
+@section scripts {
+    <script src="~/Scripts/ExpandCollapse.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#update-cert').click(function () {
+                editCertificate();
+            });
+        });
+
+
+        function editCertificate() {
+            var res = validate();
+
+            if (res == false) {
+                return false;
+            }
+
+            var certificate = {};
+            var url = '@Url.Action("Edit","Cetifications")';
+
+            var name = $('#Name').val();
+            var skilled = $('#Skilled').val();
+            var certificationType = $('#CertificationType').val();
+            var dateAchieved = $('#DateAchieved').val();
+            var desc = $('#Description').val();
+
+            certificate = {
+                Name: name,
+                Skilled: skilled,
+                CertificationType: certificationType,
+                DateAchieved: new Date(dateAchieved),
+                Description: desc
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                contentType: 'application/json',
+                dataType: 'json',
+                data:JSON.stringify(certificate),
+                success: function (e) {
+                    alert('Update.');
+                    window.location.href = '@Url.Action("Index","Cetifications")';
+                },
+                error: function (e) {
+                    window.location.href = '@Url.Action("Index","Cetifications")';
+                }
+            });
+        }
+        function validate() {
+            var isValid = true;
+            if ($('#Name').val().trim() == "") {
+                $('#Name').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Name').css('border-color', 'lightgrey');
+            }
+            if ($('#Skilled').val().trim() == "") {
+                $('#Skilled').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Skilled').css('border-color', 'lightgrey');
+            }
+            if ($('#CertificationType').val().trim() == "") {
+                $('#CertificationType').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#CertificationType').css('border-color', 'lightgrey');
+            }
+            if ($('#DateAchieved').val().trim() == "") {
+                $('#DateAchieved').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DateAchieved').css('border-color', 'lightgrey');
+            }
+            if ($('#Description').val().trim() == "") {
+                $('#Description').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Description').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
+    </script>
+
+}
 
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

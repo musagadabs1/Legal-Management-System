@@ -1,32 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class ExperiencesController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
-
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private IExperience experienceRepo;
+        public ExperiencesController()
+        {
+            experienceRepo = new ExperienceRepository();
+        }
         // GET: Experiences
         public async Task<ActionResult> Index()
         {
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminExperiences = db.Experiences.Include(e => e.Staff);
-                return View(await adminExperiences.ToListAsync());
+                var adminExperiences = await experienceRepo.GetExperiencesWithStaffAsync();
+                return View(adminExperiences);
             }
-            var experiences = db.Experiences.Include(e => e.Staff);
-            return View(await experiences.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+            //var experiences = ; db.Experiences.Include(e => e.Staff);
+            return View(await experienceRepo.GetExperiencesWithStaffAsync(x => x.CreatedBy.Equals(user)));
         }
 
         // GET: Experiences/Details/5
@@ -36,7 +40,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Experience experience = await db.Experiences.FindAsync(id);
+            Experience experience = await experienceRepo.GetExperienceAsync(id);
             if (experience == null)
             {
                 return HttpNotFound();
@@ -56,7 +60,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Employer,Designation,StartDate,EndDate,Description,Salary,StaffId,CreatedOn,CreatedBy,ModifiedBy,ModifiedOn")] Experience experience)
+        public async Task<ActionResult> Create(Experience experience)
         {
             if (ModelState.IsValid)
             {
@@ -65,8 +69,8 @@ namespace LegalManagementSystem.Controllers
                 experience.CreatedOn = DateTime.Today;
                 experience.StaffId = LegalGuideUtility.StaffId;
 
-                db.Experiences.Add(experience);
-                await db.SaveChangesAsync();
+               experienceRepo.AddExperience(experience);
+                await experienceRepo.CompleteAsync();
                 return RedirectToAction("Create","Educations");
             }
 
@@ -81,7 +85,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Experience experience = await db.Experiences.FindAsync(id);
+            Experience experience = await experienceRepo.GetExperienceAsync(id);
             if (experience == null)
             {
                 return HttpNotFound();
@@ -104,8 +108,10 @@ namespace LegalManagementSystem.Controllers
                 experience.ModifiedOn = DateTime.Today;
                 experience.StaffId = LegalGuideUtility.StaffId;
 
-                db.Entry(experience).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                // db.Entry(experience).State = EntityState.Modified;
+                experienceRepo.UpdateExperience(experience);
+                //await db.SaveChangesAsync();
+                await experienceRepo.CompleteAsync();
                 return RedirectToAction("Create", "Educations");
             }
             //ViewBag.StaffId = new SelectList(db.Staffs, "StaffId", "FirstName", experience.StaffId);
@@ -119,7 +125,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Experience experience = await db.Experiences.FindAsync(id);
+            Experience experience = await experienceRepo.GetExperienceAsync(id);
             if (experience == null)
             {
                 return HttpNotFound();
@@ -132,9 +138,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Experience experience = await db.Experiences.FindAsync(id);
-            db.Experiences.Remove(experience);
-            await db.SaveChangesAsync();
+            Experience experience = await experienceRepo.GetExperienceAsync(id);
+           experienceRepo.DeleteExperience(experience);
+            await experienceRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -142,7 +148,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+               experienceRepo.Dispose();
             }
             base.Dispose(disposing);
         }

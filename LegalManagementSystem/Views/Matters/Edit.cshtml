@@ -4,127 +4,398 @@
     ViewBag.Title = "Edit";
 }
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
         <div class="card">
             @*style="background-color:#1b2a47; color:black"*@
-            <div class="card-header">
-                <h3 class="card-title text-center">EDIT CASE</h3>
+            <div class="card-header" style="background-color:#f4f7f6;">
+                <h5 class="card-title text-center">EDIT CASE</h5>
             </div>
             <div class="card-body">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    @*style="margin:0 auto;width:80%"*@
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label " })
-                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Subject</span>
+                                    </div>
+                                    <input type="text" value="@Model.Subject" class="form-control" id="Subject" placeholder="Subject" aria- label="Subject" aria-describedby="basic-addon1">
+                                </div>
 
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.AreaOfPractice, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.AreaOfPractice, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.AreaOfPractice, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.ClientId, "Client Name", htmlAttributes: new { @class = "control-label " })
-                            @Html.DropDownList("ClientId", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div>
-                                @Html.LabelFor(model => model.ArrivalDate, htmlAttributes: new { @class = "control-label" })
+                                @*@Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })*@
                             </div>
-                            <div>
-                                @Html.TextBoxFor(model => model.ArrivalDate, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Description</span>
+                                    </div>
+                                    <textarea class="form-control" id="Description" aria-label="With textarea"></textarea>
+                                </div>
+
+                                @*<b>Description</b>
+                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div>
-                                @Html.LabelFor(model => model.FiledOn, htmlAttributes: new { @class = "control-label" })
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Area Of Practice</span>
+                                    </div>
+                                    @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea, "Value", "Text"), null, htmlAttributes: new
+                                    {
+                                        @class = "form-control",
+                                   @id = "practiceArea"
+                                    })
+                                </div>
+
+                                @*<b>Area of Practice</b>
+                                    @Html.EditorFor(model => model.AreaOfPractice, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AreaOfPractice, "", new { @class = "text-danger" })*@
                             </div>
-                            <div>
-                                @Html.TextBoxFor(model => model.FiledOn, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.FiledOn, "", new { @class = "text-danger" })
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" value="@Model.ArrivalDate.Value.ToShortDateString()" class="form-control" id="ArrivalDate">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                @*<div>
+                                        @Html.TextBoxFor(model => model.ArrivalDate, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
+                                    </div>*@
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group date mb-3" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" value="@Model.DueDate.Value.ToShortDateString()" class="form-control" id="DueDate">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                @*<div>
+                                        @Html.TextBoxFor(model => model.DueDate, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+                                    </div>*@
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" class="form-control" value="@Model.FiledOn.Value.ToShortDateString()" id="FiledOn">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                @*<div>
+                                        @Html.TextBoxFor(model => model.FiledOn, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FiledOn, "", new { @class = "text-danger" })
+                                    </div>*@
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Case Stage</span>
+                                    </div>
+                                    @Html.DropDownListFor(model => model.MatterStage, new SelectList(ViewBag.Stage, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "caseStage" })
+                                </div>
+                                @*<div>
+                                        @Html.EditorFor(model => model.MatterStage, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.MatterStage, "", new { @class = "text-danger" })
+                                    </div>*@
+
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Priority</span>
+                                    </div>
+                                    @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "Priority" })
+                                </div>
+
+                                @*<b>Priority</b>
+                                    @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        @*@Html.HiddenFor(model => model.MatterNumber)*@
+                        <input type="text" value="@Model.MatterNumber" id="MatterNumber" hidden="hidden" />
+                        @*@Html.HiddenFor(model => model.LineManagerId)*@
+                        <input type="text" value="@Model.LineManagerId" id="LineManagerId" hidden="hidden" />
+                        @*@Html.HiddenFor(model => model.CaseNumber)*@
+                        <input type="text" value="@Model.CaseNumber" id="CaseNumber" hidden="hidden" />
+                        @*@Html.HiddenFor(model => model.RequestedBy)*@
+                        <input type="text" value="@Model.RequestedBy" id="RequestedBy" hidden="hidden" />
+                        @*@Html.HiddenFor(model => model.ClientId)*@
+                        <input type="text" value="@Model.ClientId" id="ClientId" hidden="hidden" />
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Case Value</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="MatterValue" value="@Model.MatterValue" aria- label="MatterValue" aria-describedby="basic-addon1">
+                                </div>
+
+                                @*<b>Case Value</b>
+                                    @Html.EditorFor(model => model.MatterValue, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MatterValue, "", new { @class = "text-danger" })*@
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Estimated Effort</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="EstimatedEffort" value="@Model.EstimatedEffort" aria- label="Estimated Effort" aria-describedby="basic-addon1">
+                                </div>
+
+                                @*<b>Estimated Effort</b>
+                                    @Html.EditorFor(model => model.EstimatedEffort, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EstimatedEffort, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2" style="margin-top:15px; margin-left:0px">
+                                <button type="button" id="edit-case" class="btn btn-primary">Update</button>
+                            </div>
+                            <div class="col-md-2" style="margin-top:15px;">
+                                <a href="@Url.Action("Index","Matters")" class="btn btn-primary">Cancel</a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div>
-                                @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label" })
-                            </div>
-                            <div>
-                                @Html.TextBoxFor(model => model.DueDate, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    @Html.HiddenFor(model => model.MatterNumber)
-                    @Html.HiddenFor(model => model.LineManagerId)
-                    @Html.HiddenFor(model => model.CaseNumber)
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.MatterStage, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.MatterStage, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.MatterStage, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.RequestedBy, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.RequestedBy, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.RequestedBy, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.MatterValue, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.MatterValue, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.MatterValue, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            @Html.LabelFor(model => model.EstimatedEffort, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.EstimatedEffort, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.EstimatedEffort, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2" style="margin-top:15px; margin-left:0px">
-                            <button type="submit" class="btn btn-default">Update</button>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="@Url.Action("Index","Matters")" class="btn btn-default">Cancel</a>
-                        </div>
-                    </div>
-                </div>
                 }
             </div>
         </div>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
 </div>
+
+@section scripts{
+    <script src="~/Scripts/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            @*select2DropDown('ClientId', '@Url.Action("GetClientForDropDown", "Matters")', "Select Client");
+            select2DropDown('Assignee', '@Url.Action("GetStaffForDropDown", "Matters")', "Select Advocate");
+            select2DropDown('LineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");*@
+
+
+
+            $('#edit-case').on("click", function () {
+                editCase();
+                //SaveAssignee();
+            });
+        });
+        //Edit Data Function
+        function editCase() {
+            var url = '@Url.Action("Edit","Matters")';
+            var res = validate();
+
+            if (res == false) {
+                return false;
+            }
+
+            var model = {
+                MatterNumber: $('#MatterNumber').val(),
+                CaseNumber: $('#CaseNumber').val(),
+                MatterStage: $('#caseStage').val(),
+                MatterValue: $('#MatterValue').val(),
+                RequestedBy: $('#RequestedBy').val(),
+                AreaOfPractice: $('#practiceArea').val(),
+                ArrivalDate: new Date( $('#ArrivalDate').val()),
+                Description: $('#Description').val(),
+                EstimatedEffort: $('#EstimatedEffort').val(),
+                FiledOn: new Date($('#FiledOn').val()),
+                LineManagerId: $('#LineManagerId').val(),
+                ClientId: $('#ClientId').val(),
+                Subject: $('#Subject').val(),
+                Priority: $('#Priority').val(),
+                DueDate: new Date($('#DueDate').val())
+
+
+            };
+
+            $.ajax({
+                url: url,
+                data: JSON.stringify(model),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (e) {
+                    //loadData();
+                    //$('#myModal').modal('hide');
+                    alert('Updated.');
+                    window.location.href = '@Url.Action("Index","Matters")';
+
+                },
+                error: function (errormessage) {
+                    //alert(errormessage.responseText);
+                    window.location.href = '@Url.Action("Index","Matters")';
+                }
+            });
+        }
+
+        @*function SaveAssignee() {
+            var assigneeId = $('#Assignee').val();
+                $("#txtBoxVal").val(assigneeId);
+                var matterNumber = $('#MatterNumber').val();
+                var textBoxValue = $("#txtBoxVal").val();
+
+                $.ajax({
+                    url: '@Url.Action("AddAssignee", "Matters")?data=' + textBoxValue + '&matterNumber=' + matterNumber,
+                    datatype: 'json',
+                    type: 'post',
+                    contentType: 'application/json'
+
+                });
+        }*@
+        //function select2DropDown(elementId, url, placeholder) {
+        //        $('#' + elementId).select2({
+        //            placeholder: placeholder,
+        //            //minimumInputLength:3,
+        //            allowclear: true,
+        //            theme: "classic",
+        //            ajax: {
+        //                url: url,
+        //                datatype: 'json',
+        //                delay: 250,
+        //                data: function (params) {
+        //                    return {
+        //                        searchKey: params.term
+        //                    };
+        //                },
+        //                processResults: function (data, params) {
+        //                    return {
+        //                        results: data
+        //                    };
+        //                }
+        //            }
+        //        });
+        //}
+
+        //Valdidation using jquery
+        function validate() {
+            var isValid = true;
+            if ($('#Subject').val().trim() == "") {
+                $('#Subject').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Subject').css('border-color', 'lightgrey');
+            }
+            if ($('#MatterValue').val().trim() == "") {
+                $('#MatterValue').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#MatterValue').css('border-color', 'lightgrey');
+            }
+            if ($('#EstimatedEffort').val().trim() == "") {
+                $('#EstimatedEffort').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#EstimatedEffort').css('border-color', 'lightgrey');
+            }
+            if ($('#Description').val().trim() == "") {
+                $('#Description').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Description').css('border-color', 'lightgrey');
+            }
+            if ($('#MatterNumber').val().trim() == "") {
+                $('#MatterNumber').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#MatterNumber').css('border-color', 'lightgrey');
+            }
+            if ($('#FiledOn').val().trim() == "") {
+                $('#FiledOn').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#FiledOn').css('border-color', 'lightgrey');
+            }
+            if ($('#DueDate').val().trim() == "") {
+                $('#DueDate').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DueDate').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+        //Function for clearing the textboxes
+        function clearTextBox() {
+            $('#Subject').val("");
+            $('#MatterValue').val("");
+            $('#Description').val("");
+            $('#MatterNumber').val("");
+            $('#Country').val("");
+            //$('#btnUpdate').hide();
+            $('#btnAdd').show();
+            $('#Subject').css('border-color', 'lightgrey');
+            $('#MatterNumber').css('border-color', 'lightgrey');
+            $('#Description').css('border-color', 'lightgrey');
+            $('#MatterValue').css('border-color', 'lightgrey');
+        }
+
+        //Load Data function
+        function loadData() {
+            $.ajax({
+                url: "/Home/List",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var html = '';
+                    $.each(result, function (key, item) {
+                        html += '<tr>';
+                        html += '<td>' + item.EmployeeID + '</td>';
+                        html += '<td>' + item.Name + '</td>';
+                        html += '<td>' + item.Age + '</td>';
+                        html += '<td>' + item.State + '</td>';
+                        html += '<td>' + item.Country + '</td>';
+                        html += '<td><a href="#" onclick="return getbyID(' + item.EmployeeID + ')">Edit</a> | <a href="#" onclick="Delele(' + item.EmployeeID + ')">Delete</a></td>';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    </script>
+}

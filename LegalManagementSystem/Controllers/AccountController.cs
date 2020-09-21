@@ -26,9 +26,9 @@ namespace LegalManagementSystem.Controllers
         public AccountController()
         {
             userRepo = new UserRepository();
-            userRoleRepo = new RoleRepository();
+            userRoleRepo = new LMSUserRoleRepository();
             advocateGroupRepo = new AdvocateGroupRepository();
-            licenseRepo = new LicenseRepository();
+            licenseRepo = new LicenseTableRepository();
         }
 
         //

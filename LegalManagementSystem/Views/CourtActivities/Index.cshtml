@@ -51,7 +51,7 @@
                                         @Html.DisplayFor(modelItem => item.MatterNumber)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.DateHeared)
+                                        @item.DateHeared.ToShortDateString()
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.CourtName)
@@ -62,20 +62,11 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.AdvocateArgument)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.OpponentArgument)
-                                    </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DefenseCounselName)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.AdvocateNote)
-                                    </td>*@
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.DateAdjourned)
+                                        @item.DateAdjourned.Value.ToShortDateString()
                                     </td>
                                     <td>
                                         <a href="@Url.Action("Edit","CourtActivities", new {id = item.Id  })">

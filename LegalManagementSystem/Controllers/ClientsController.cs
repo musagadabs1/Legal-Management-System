@@ -39,7 +39,7 @@ namespace LegalManagementSystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Client client = await db.Clients.FindAsync(id);
-            Client client = await db.GetClientAsync(Convert.ToInt32(id));//.FindAsync(id);
+            Client client = await db.GetClientAsync(id);//.FindAsync(id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -166,22 +166,6 @@ namespace LegalManagementSystem.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> EditClient(Client client)
-        {
-
-            var user = User.Identity.Name;
-            client.ModifiedBy = user;
-            client.ModifiedOn = DateTime.Today;
-            //client.ClientNumber = clientId;
-            db.UpdateClient(client.ClientId);//.State = EntityState.Modified;
-            //db.Entry(client).State = EntityState.Modified;
-            await db.CompleteAsync();
-            return RedirectToAction("Index");
-
-            //return View(client);
-        }
-
         // GET: Clients/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -189,7 +173,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var client = await db.GetClientAsync(Convert.ToInt32(id));
+            var client = await db.GetClientAsync(id);
             //Client client = await db.Clients.FindAsync(id);
             if (client == null)
             {
@@ -202,24 +186,18 @@ namespace LegalManagementSystem.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,EmailAddress,PhoneNumber,Address,Town,PostalCode,Website,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,ClientNumber")] Client client)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Edit(Client client)
         {
             if (ModelState.IsValid)
             {
-                //int nextId = GetCurrentId() + 1;
-                //string clienName = client.FirstName;
-                //string firstLetter = clienName.Substring(0, 1);
-                //string clientId = firstLetter + nextId.ToString() + "-" + DateTime.Today.ToShortDateString();
 
-                var user = User.Identity;
-                client.ModifiedBy = user.Name;
+                var user = User.Identity.Name;
+                client.ModifiedBy = user;
                 client.ModifiedOn = DateTime.Today;
-                //client.ClientNumber = clientId;
 
-                db.UpdateClient(client.ClientId);
-                //db.Entry(client).State = EntityState.Modified;
-                await db.CompleteAsync();
+                db.UpdateClient(client);
+                //await db.CompleteAsync();
                 return RedirectToAction("Index");
             }
             return View(client);
@@ -245,8 +223,8 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            //Client client = await db.GetClientAsync(id);
-            db.DeleteClient(id);
+            Client client = await db.GetClientAsync(id);
+            db.DeleteClient(client);
             await db.CompleteAsync();
             return RedirectToAction("Index");
         }

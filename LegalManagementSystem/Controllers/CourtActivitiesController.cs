@@ -281,6 +281,7 @@ namespace LegalManagementSystem.Controllers
                 
             }
             matterRepo.UpdateMatter(matter);
+            matterRepo.Complete();
 
             db.AddCourtActivity(courtActivity);
 
@@ -422,8 +423,8 @@ namespace LegalManagementSystem.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,MatterNumber,DateHeared,CourtName,Location,StaffId,Status,AdvocateArgument,OpponentArgument,AdvocateNote,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,DateAdjourned,DefenseCounselName")] CourtActivity courtActivity)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(CourtActivity courtActivity)
         {
             if (ModelState.IsValid)
             {
@@ -434,7 +435,17 @@ namespace LegalManagementSystem.Controllers
                 courtActivity.ModifiedBy = user;
                 courtActivity.ModifiedOn = DateTime.Today;
                 courtActivity.StaffId = staffId;
+                var matterNumber = courtActivity.MatterNumber;
+                var status = courtActivity.Status;
+                var matter = matterRepo.GetMatterByMatterNumber(matterNumber);//.Ge db.Matters.FirstOrDefault(x => x.MatterNumber == mattrNumer);
+                if (matter != null)
+                {
+                    matter.CourtStatus = "YES";
+                    matter.MatterStage = status;
 
+                }
+                matterRepo.UpdateMatter(matter);
+                matterRepo.Complete();
                 //db.Entry(courtActivity).State = EntityState.Modified;
                 db.UpdateCourtActivity(courtActivity);
                 await db.CompleteAsync();

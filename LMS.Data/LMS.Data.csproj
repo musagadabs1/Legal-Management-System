@@ -69,6 +69,7 @@
     <Compile Include="Repositories\CertificationRepository.cs" />
     <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\CourtActivityRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\ManagerRepository.cs" />
     <Compile Include="Repositories\MatterRepository.cs" />
     <Compile Include="Repositories\StaffMatterRepository.cs" />

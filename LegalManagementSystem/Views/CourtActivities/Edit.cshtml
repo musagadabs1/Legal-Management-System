@@ -20,100 +20,117 @@
 
                     <div class="form-horizontal" style="margin:0 auto;width:80%">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.Id)
+                        @*@Html.HiddenFor(model => model.Id)*@
+                        <input type="text" id="Id" value="@Model.Id" hidden="hidden" />
+                        @*@Html.HiddenFor(model => model.MatterNumber)*@
+                        <input type="text" id="MatterNumber" value="@Model.MatterNumber" hidden="hidden" />
+                        @*@Html.HiddenFor(model => model.StaffId)*@
+                        <input type="text" id="StaffId" value="@Model.StaffId" hidden="hidden" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" value="@Model.DateAdjourned.Value.ToShortDateString()" class="form-control" id="DateAdjourned">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                    <input type="text" value="@Model.DateHeared.ToShortDateString()" class="form-control" id="DateHeared">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.MatterNumber, "Case Number", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.MatterNumber, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MatterNumber, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Court Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" value="@Model.CourtName" id="CourtName" aria-label="CourtName" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Location</span>
+                                    </div>
+                                    <input type="text" value="@Model.Location" class="form-control" id="Location" aria-label="Location" aria-describedby="basic-addon1">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DateHeared, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(model => model.DateHeared,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateHeared, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Advocate Note</span>
+                                    </div>
+                                    <div class="summernote">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Plantiff Argument</span>
+                                    </div>
+                                    <div class="summernote">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Defendant Argument</span>
+                                    </div>
+                                    <div class="summernote">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.CourtName, "Court Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.CourtName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.CourtName, "", new { @class = "text-danger" })
+                        <div class="row" style="margin-top:5px">
+                            <div class="col-md-6">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
+                                    </div>
+                                    @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.Status, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Defense Counsel Name</span>
+                                        </div>
+                                        <input type="text" value="@Model.DefenseCounselName" class="form-control" id="DefenseCounselName" placeholder="Defense Counsel Name" aria-label="DefenseCounselName" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.Status, "Value", "Text"), "---Select Case Status---", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.AdvocateArgument, "Plantiff Argument", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.AdvocateArgument, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AdvocateArgument, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.OpponentArgument, "Defendant Argument", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.OpponentArgument, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.OpponentArgument, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.AdvocateNote, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.AdvocateNote, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AdvocateNote, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.DateAdjourned, "Adjourned Date", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(model => model.DateAdjourned,"{0:MM/dd/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DateAdjourned, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelForRequired(model => model.DefenseCounselName, "Defendant Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DefenseCounselName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DefenseCounselName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-md-2" style="margin-top:15px; margin-left:0px">
-                                <button type="submit" class="btn btn-info">Update</button>
+                                <button type="button" id="update-court-activities" class="btn btn-info">Update</button>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2" style="margin-top:15px;">
                                 <a href="@Url.Action("Index","CourtActivities")" class="btn btn-info">Cancel</a>
                             </div>
                         </div>
@@ -126,9 +143,115 @@
 
     </div>
 </div>
+@section scripts{
+    <script src="~/Scripts/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
 
+            @*select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "CourtActivities")', "Select Case");*@
 
+            $('#update-court-activities').click(function () {
+                editCourtActivity();
+            });
 
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
+            summerNote();
+        });
+
+        function editCourtActivity() {
+            //
+            //var url =
+            var courtActivity = {};
+
+            var id = $('#Id').val();
+            var matterNo = $('#MatterNumber').val();
+            //var staffId = $('#StaffId').val();
+
+            var courtName = $('#CourtName').val();
+            var location = $('#Location').val();
+            var status = $('#Status').val();
+            var defenseCounselName = $('#DefenseCounselName').val();
+            var dateHeared = new Date( $('#DateHeared').val());
+            var dateAdjourned = new Date( $('#DateAdjourned').val());
+            var advocateArgument = $('.summernote').summernote('code');
+            var opponentArgument = $('.summernote').eq(1).summernote('code');
+            var advocateNote = $('.summernote').eq(2).summernote('code')
+
+            courtActivity = {
+                CourtName: courtName,
+                Location: location,
+                Status: status,
+                DefenseCounselName: defenseCounselName,
+                DateHeared: new Date(dateHeared),
+                DateAdjourned: new Date(dateAdjourned),
+                AdvocateArgument: advocateArgument,
+                OpponentArgument: opponentArgument,
+                AdvocateNote: advocateNote,
+                MatterNumber: matterNo,
+                Id: id
+                //StaffId:staffId
+            };
+
+            $.ajax({
+
+                type: 'POST',
+                url: '@Url.Action("Edit","CourtActivities")',
+                data: JSON.stringify(courtActivity),
+                contentType: 'application/json',
+                success: function () {
+                    alert('Updated');
+                    window.location.href='@Url.Action("Index","Matters")'
+                },
+                error: function (e) {
+                    window.location.href='@Url.Action("Index","Matters")'
+                    //alert(e);
+                }
+            });
+        }
+
+        function select2DropDown(elementId,url,placeholder) {
+            $('#' + elementId).select2({
+                placeholder: placeholder,
+                //minimumInputLength:3,
+                allowclear: true,
+                theme: "classic",
+                ajax: {
+                    url: url,
+                    datatype: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchKey: params.term
+                        };
+                    },
+                    processResults: function (data,params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
+        }
+
+        window.edit = function() {
+            $(".click2edit").summernote()
+        },
+
+        window.save = function() {
+            $(".click2edit").summernote('destroy');
+        }
+        function summerNote() {
+             $('.summernote').summernote({
+                height: 350, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+                focus: false, // set focus to editable area after initializing summernote
+                popover: { image: [], link: [], air: [] }
+             });
+
+            $('.inline-editor').summernote({
+                airMode: true
+            });
+        }
+
+    </script>
+}

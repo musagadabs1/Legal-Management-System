@@ -11,12 +11,12 @@ namespace LegalManagementSystem.Interfaces
     public interface ICertification
     {
         void AddCertification(Certification certification);
-        void DeleteCertification(int id);
+        void DeleteCertification(Certification  certification);
         void Dispose();
         int Complete();
         Task<int> CompleteAsync();
-        Certification GetCertification(int id);
-        Task<Certification> GetCertificationAsync(int id);
+        Certification GetCertification(int? id);
+        Task<Certification> GetCertificationAsync(int? id);
         IEnumerable<Certification> GetCertifications();
         IEnumerable<Certification> GetCertificationsWithStaff();
         Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync();
@@ -25,6 +25,6 @@ namespace LegalManagementSystem.Interfaces
         Task<IEnumerable<Certification>> GetCertificationsAsync();
         Task<IEnumerable<Certification>> GetCertificationsAsync(Expression<Func<Certification, bool>> expression);
         Certification GetCertification(Expression<Func<Certification, bool>> expression);
-        void UpdateCertification(int id);
+        void UpdateCertification(Certification certification);
     }
 }

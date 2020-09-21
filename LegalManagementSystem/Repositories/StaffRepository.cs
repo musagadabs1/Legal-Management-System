@@ -218,7 +218,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public string GetStaffIdByEmail(string email)
         {
             try
@@ -238,7 +237,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public string GetStaffEmailByLoginName(string user)
         {
             try

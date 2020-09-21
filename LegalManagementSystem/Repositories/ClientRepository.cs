@@ -50,11 +50,10 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public void DeleteClient(int id)
+        public void DeleteClient(Client client)
         {
             try
             {
-                var client = GetClient(id);
                 db.Clients.Remove(client);
             }
             catch (Exception ex)
@@ -100,7 +99,7 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public Client GetClient(int id)
+        public Client GetClient(int? id)
         {
             try
             {
@@ -124,7 +123,8 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public async Task<Client> GetClientAsync(int id)
+
+        public async Task<Client> GetClientAsync(int? id)
         {
             try
             {
@@ -196,12 +196,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public void UpdateClient(int id)
+        public void UpdateClient(Client client)
         {
             try
             {
-                var client = GetClient(id);
                 db.Entry(client).State = EntityState.Modified;
+                db.SaveChanges();
             }
             catch (Exception ex)
             {

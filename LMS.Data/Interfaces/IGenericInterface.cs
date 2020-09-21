@@ -14,6 +14,8 @@ namespace LMS.Data.Interfaces
         void Delete(TEntity entity);
         IEnumerable<TEntity> GetAll();
         Task<IEnumerable<TEntity>> GetAllAsync();
+        TEntity Get(int id);
+        Task<TEntity> GetAsync(int id);
         TEntity Get(Expression<Func<TEntity, bool>> expression);
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression);
         IEnumerable<TEntity> GetEntities(Expression<Func<TEntity, bool>> expression);

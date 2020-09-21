@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class CertificationRepository : ICertification
+    public class DependantRepository : IDependant
     {
         private readonly MyCaseNewEntities db = new MyCaseNewEntities();
-        public void AddCertification(Certification certification)
+        public void AddDependant(Dependant dependant)
         {
             try
             {
-                db.Certifications.Add(certification);
+                db.Dependants.Add(dependant);
             }
             catch (Exception ex)
             {
@@ -24,7 +24,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public int Complete()
         {
             try
@@ -37,7 +36,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public async Task<int> CompleteAsync()
         {
             try
@@ -50,13 +48,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public void DeleteCertification(Certification certification)
+        public void DeleteDependant(Dependant dependant)
         {
             try
             {
-                //var cert = GetCertification(id);
-                db.Certifications.Remove(certification);
+                db.Dependants.Remove(dependant);
             }
             catch (Exception ex)
             {
@@ -64,7 +60,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public void Dispose()
         {
             try
@@ -77,12 +72,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public Certification GetCertification(int? id)
+        public Dependant GetDependant(int? id)
         {
             try
             {
-                return db.Certifications.Find(id);
+                return db.Dependants.Find(id);
             }
             catch (Exception ex)
             {
@@ -90,12 +84,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public Certification GetCertification(Expression<Func<Certification, bool>> expression)
+        public async Task<Dependant> GetDependantAsync(int? id)
         {
             try
             {
-                return db.Certifications.FirstOrDefault(expression);
+                return await db.Dependants.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -103,12 +96,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<Certification> GetCertificationAsync(int? id)
+        public IEnumerable<Dependant> GetDependants()
         {
             try
             {
-                return await db.Certifications.FindAsync(id);
+                return db.Dependants.ToList();
             }
             catch (Exception ex)
             {
@@ -116,12 +108,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<Certification> GetCertifications()
+        public IEnumerable<Dependant> GetDependants(Expression<Func<Dependant, bool>> expression)
         {
             try
             {
-                return db.Certifications.ToList();
+                return db.Dependants.Where(expression).ToList();
             }
             catch (Exception ex)
             {
@@ -129,12 +120,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<Certification> GetCertifications(Expression<Func<Certification, bool>> expression)
+        public Dependant GetDependant(Expression<Func<Dependant, bool>> expression)
         {
             try
             {
-                return db.Certifications.Where(expression).ToList();
+                return db.Dependants.FirstOrDefault(expression);
             }
             catch (Exception ex)
             {
@@ -142,12 +132,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync()
+        public async Task<IEnumerable<Dependant>> GetDependantsAsync()
         {
             try
             {
-                return await db.Certifications.ToListAsync();
+                return await db.Dependants.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -155,12 +144,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync(Expression<Func<Certification, bool>> expression)
+        public async Task<IEnumerable<Dependant>> GetDependantsAsync(Expression<Func<Dependant, bool>> expression)
         {
             try
             {
-                return await db.Certifications.Where(expression).ToListAsync();
+                return await db.Dependants.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -168,12 +156,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<Certification> GetCertificationsWithStaff()
+        public async Task<IEnumerable<Dependant>> GetDependantsWithStaffAsync(Expression<Func<Dependant, bool>> expression)
         {
             try
             {
-                return db.Certifications.Include(c => c.Staff).ToList();
+                return await db.Dependants.Include(e => e.Staff).Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -181,26 +168,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync()
+        public async Task<IEnumerable<Dependant>> GetDependantsWithStaffAsync()
         {
             try
             {
-                return await db.Certifications.Include(c => c.Staff).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            
-        }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync(Expression<Func<Certification, bool>> expression)
-        {
-            try
-            {
-                return await db.Certifications.Include(c => c.Staff).Where(expression).ToListAsync();
+                return await db.Dependants.Include(e => e.Staff).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -208,12 +180,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public void UpdateCertification(Certification certification)
+        public void UpdateDependant(Dependant dependant)
         {
             try
             {
-                db.Entry(certification).State = EntityState.Modified;
+                db.Entry(dependant).State = EntityState.Modified;
             }
             catch (Exception ex)
             {

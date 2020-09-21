@@ -28,18 +28,14 @@
                         }
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
-                                @*@Html.LabelForRequired(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label " })*@
-
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">First Name</span>
                                     </div>
-                                    <input type="text" class="form-control" id="FirstName" placeholder="First Name" aria-label="FirstName" aria-          describedby="basic-addon1">
+                                    <input type="text" class="form-control" id="FirstName"                  placeholder="First Name" aria-label="FirstName" aria-          describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                @*@Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label " })*@
-
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Middle Name</span>
@@ -139,14 +135,6 @@
 
     </div>
 </div>
-<h2></h2>
-
-
-
-
-@*<div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

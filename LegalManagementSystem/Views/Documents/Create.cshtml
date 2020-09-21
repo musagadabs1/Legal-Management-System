@@ -158,7 +158,11 @@
         }
 
         function saveDocument() {
-
+            var res = validate();
+            
+            if (res == false) {  
+                return false;  
+            }
             var doc = {
                 MatterNumber:$('#matterNumber').val(),
                 DocName: $('#DocName').val(),
@@ -167,15 +171,11 @@
                 Description: $('#Description').val()
             };
 
-
-            //var fileUpload =  
-            //var files = fileUpload.files;  
+  
 
             var data = new FormData();
             //var fileFields = $('form input[type=file]')[0].files[0];
             var fileField = $('#fileBase')[0].files[0];
-                
-            //var fileFields = $("#fileBase").get(0);
 
             //$.each(fileFields, function (i, file) {
                 data.append('file', fileField);
@@ -199,6 +199,32 @@
             }); 
 
         }
+        function validate() {
+            var isValid = true;
+            if ($('#matterNumber').val().trim() == "") {
+                $('#matterNumber').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#matterNumber').css('border-color', 'lightgrey');
+            }
+            if ($('#DocName').val().trim() == "") {
+                $('#DocName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DocName').css('border-color', 'lightgrey');
+            }
+            if ($('#Description').val().trim() == "") {
+                $('#Description').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Description').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+
 
     </script>
 

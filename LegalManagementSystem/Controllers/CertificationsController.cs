@@ -68,8 +68,8 @@ namespace LegalManagementSystem.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description,CertificationType,DateAchieved,Skilled,StaffId,CreatedBy,CreatedOn,ModeifiedBy,ModifiedOn")] Certification certification)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Certification certification)
         {
             if (ModelState.IsValid)
             {
@@ -123,8 +123,8 @@ namespace LegalManagementSystem.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Description,CertificationType,DateAchieved,Skilled,StaffId,CreatedBy,CreatedOn,ModeifiedBy,ModifiedOn")] Certification certification)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Certification certification)
         {
             if (ModelState.IsValid)
             {
@@ -133,7 +133,7 @@ namespace LegalManagementSystem.Controllers
                 certification.ModifiedOn = DateTime.Today;
                 certification.StaffId = LegalGuideUtility.StaffId; //(string)ViewBag.StaffId;
 
-                db.UpdateCertification(certification.Id);
+                db.UpdateCertification(certification);
                 await db.CompleteAsync();
                 return RedirectToAction("Create", "Dependants");
             }
@@ -169,8 +169,8 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            //Certification certification = await db.GetCertificationAsync(Convert.ToInt32(id));
-            db.DeleteCertification(id);
+            Certification certification = await db.GetCertificationAsync(Convert.ToInt32(id));
+            db.DeleteCertification(certification);
             await db.CompleteAsync();
             return RedirectToAction("Index");
         }

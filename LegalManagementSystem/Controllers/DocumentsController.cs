@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using LegalManagementSystem.Models;
 using System.IO;
 using Newtonsoft.Json;
+using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Repositories;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -17,8 +19,14 @@ namespace LegalManagementSystem.Controllers
     public class DocumentsController : Controller
     {
 
-        private MyCaseNewEntities db = new MyCaseNewEntities();
-
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private IDocument documentRepo;
+        private IMatter matterRepo;
+        public DocumentsController()
+        {
+            documentRepo = new DocumentRepository();
+            matterRepo = new MatterRepository();
+        }
         // GET: Documents
         public async Task<ActionResult> Index()
         {
@@ -27,9 +35,11 @@ namespace LegalManagementSystem.Controllers
                 var user = User.Identity.Name;
                 if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
                 {
-                    return View(await db.Documents.ToListAsync());
+                    return View(await documentRepo.GetDocumentsAsync());
+                    //return View(await db.Documents.ToListAsync());
                 }
-                return View(await db.Documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+                return View(await documentRepo.GetDocumentsAsync(x => x.CreatedBy.Equals(user)));
+                //return View(await db.Documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
             }
             catch (Exception ex)
             {
@@ -50,7 +60,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Document document = await db.Documents.FindAsync(id);
+            Document document = await documentRepo.GetDocumentAsync(id);
             if (document == null)
             {
                 return HttpNotFound();
@@ -62,13 +72,13 @@ namespace LegalManagementSystem.Controllers
             //var user = User.Identity.Name;
             //var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
             //var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
-            var getData = db.GetAllMattersForDropDown().ToList();
+            var getData = matterRepo.GetMatterForDropDowns(); //  db.GetAllMattersForDropDown().ToList();
 
             //if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             //{
             if (searchKey != null)
             {
-                getData = db.GetAllMattersForDropDown().Where(x => x.Subject.Contains(searchKey)).ToList();
+                getData = matterRepo.GetMatterForDropDowns().Where(x => x.Subject.Contains(searchKey)).ToList();
             }
             var ModifiedData = getData.Select(x => new
             {
@@ -117,9 +127,10 @@ namespace LegalManagementSystem.Controllers
                     MatterNumber=model.MatterNumber
                 };
 
-
-                db.Documents.Add(document);
-                await db.SaveChangesAsync();
+                documentRepo.AddDocument(document);
+                //db.Documents.Add(document);
+                await documentRepo.CompleteAsync();
+                //await db.SaveChangesAsync();
                 return RedirectToAction("Index");
 
                 //}
@@ -176,9 +187,10 @@ namespace LegalManagementSystem.Controllers
                     document.DateCreated = DateTime.Today;
                     document.DocPath = fileName;
 
-
-                    db.Documents.Add(document);
-                    await db.SaveChangesAsync();
+                    documentRepo.AddDocument(document);
+                    //db.Documents.Add(document);
+                    await documentRepo.CompleteAsync();
+                    //await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else
@@ -207,7 +219,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Document document = await db.Documents.FindAsync(id);
+            Document document = await documentRepo.GetDocumentAsync(id);
             if (document == null)
             {
                 return HttpNotFound();
@@ -242,14 +254,16 @@ namespace LegalManagementSystem.Controllers
                     document.DateModified = DateTime.Today;
                     document.DocPath = fileName;
 
-                    db.Entry(document).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    documentRepo.UpdateDocument(document);
+                    //db.Entry(document).State = EntityState.Modified;
+                    await documentRepo.CompleteAsync();
+                    //await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
-                    ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject", document.MatterNumber);
+                    ViewBag.MatterNumber = new SelectList(matterRepo.GetMatterForDropDowns(), "MatterNumber", "Subject", document.MatterNumber);
                     return View(document);
 
                 }
@@ -270,7 +284,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Document document = await db.Documents.FindAsync(id);
+            Document document = await documentRepo.GetDocumentAsync(id);
             if (document == null)
             {
                 return HttpNotFound();
@@ -283,9 +297,11 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Document document = await db.Documents.FindAsync(id);
-            db.Documents.Remove(document);
-            await db.SaveChangesAsync();
+            Document document = await documentRepo.GetDocumentAsync(id);
+            //db.Documents.Remove(document);
+            documentRepo.DeleteDocument(document);
+            await documentRepo.CompleteAsync();
+            //await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -293,7 +309,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                documentRepo.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -1,16 +1,15 @@
-﻿using System;
+﻿using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
-using System.IO;
-using LegalManagementSystem.Interfaces;
-using LegalManagementSystem.Repositories;
 
 namespace LegalManagementSystem.Controllers
 {
@@ -20,10 +19,14 @@ namespace LegalManagementSystem.Controllers
         //private MyCaseNewEntities db = new MyCaseNewEntities();
         private IStaff staffRepo;
         private IMatter matterRepo;
+        private ILineManager lineManagerRepo;
+        private IAdvocateGroup advocateGroupRepo;
         public StaffsController()
         {
             staffRepo = new StaffRepository();
             matterRepo = new MatterRepository();
+            lineManagerRepo = new LineManagerRepository();
+            advocateGroupRepo = new AdvocateGroupRepository();
         }
         // GET: Staffs
         public async Task<ActionResult> Index()
@@ -62,6 +65,7 @@ namespace LegalManagementSystem.Controllers
         // GET: Staffs/Details/5
         public async Task<ActionResult> Details(string id)
         {
+            var gender = string.Empty;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -71,6 +75,22 @@ namespace LegalManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
+            var lineManger = lineManagerRepo.GetLineManager(staff.LineManagerId);
+            var advocateGroup = advocateGroupRepo.GetAdvocateGroup(staff.AdvocateGroupId);
+
+           gender= (staff.Gender == "M") ? "Male" : "Female";
+
+            //if (staff.Gender=="M")
+            //{
+            //    gender = "Male";
+            //}
+            //else
+            //{
+            //    gender = "Female";
+            //}
+            ViewBag.AdvocateGroup = advocateGroup.GroupName;
+            ViewBag.LineManager = lineManger.Name;
+            ViewBag.Gender = gender;
             return View(staff);
         }
 
@@ -108,29 +128,35 @@ namespace LegalManagementSystem.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,MiddleName,Gender,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,LastName,DOB,DOE,Status,Address,MaritalStatus,ImagePath,OfficeNo,MobileNo,EmailAddress,PersonalEmail,Relationship,KTelephone,NKEmail,NKAddress,Bank,AccountNumber,NKFullName,Password,StaffId,LineManagerId,Department,Designation,YearCallToBar,Location,AdvocateGroupId,NationalIdentityNumber,BloodGroup")] Staff staff, HttpPostedFileBase file)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Staff staff)
         {
             if (ModelState.IsValid)
             {
 
                 try
                 {
-                    //StaffImages
-
                     string fileName = string.Empty;
                     string filePath = string.Empty;
+                    HttpPostedFileBase file = null;
 
-                    if (file.ContentLength > 0 && file != null)
-                    {
-                        filePath = file.FileName;
-                        fileName = Path.GetFileName(file.FileName);
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {  
+                        file = files[i];
                     }
-                    else
+
+
+                    if (file.ContentLength <= 0 && file == null)
                     {
                         ViewBag.Error = " please select image to continue.";
                         return View(staff);
                     }
+
+                    filePath = file.FileName;
+                    fileName = Path.GetFileName(file.FileName);
+
                     var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
                     var fullFilePath = Path.Combine(folderPath, filePath);
 
@@ -170,7 +196,7 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="Single",Value="Single"},
                 new SelectListItem{Text="Separated",Value="Separated"},
                 new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
-                new SelectListItem{Text="Single With Children",Value="Single With Children"}
+                new SelectListItem{Text="Single With Children",Value="Sinardgle With Children"}
 
             };
                 ViewBag.BloodGroup = new List<SelectListItem> {
@@ -211,6 +237,12 @@ namespace LegalManagementSystem.Controllers
                 new SelectListItem{Text="O-",Value="O-"},
 
             };
+            return View(staff);
+        }
+        
+        public async Task<ActionResult> SaveStaff(Staff staff)
+        {
+
             return View(staff);
         }
 
@@ -388,7 +420,7 @@ namespace LegalManagementSystem.Controllers
             await staffRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -398,4 +430,9 @@ namespace LegalManagementSystem.Controllers
             base.Dispose(disposing);
         }
     }
+
 }
+
+
+
+

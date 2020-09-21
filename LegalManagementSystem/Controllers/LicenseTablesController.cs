@@ -1,26 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using System;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
-using System.IO;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles ="ShrishAdmin")]
     public class LicenseTablesController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private ILicenseTable licenseRepo;
+        public LicenseTablesController()
+        {
+            licenseRepo = new LicenseTableRepository();
+        }
 
         // GET: LicenseTables
         public async Task<ActionResult> Index()
         {
-            return View(await db.LicenseTables.ToListAsync());
+            return View(await licenseRepo.GetLicensesAsync());
         }
 
         // GET: LicenseTables/Details/5
@@ -30,7 +34,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LicenseTable licenseTable = await db.LicenseTables.FindAsync(id);
+            LicenseTable licenseTable = await licenseRepo.GetLicenseAsync(id);
             if (licenseTable == null)
             {
                 return HttpNotFound();
@@ -79,8 +83,8 @@ namespace LegalManagementSystem.Controllers
                     licenseTable.SoftwareVersion = licenseTable.SoftwareVersion.ToString();
                     licenseTable.CreatedBy = User.Identity.Name;
                     licenseTable.CreatedOn = DateTime.Today;
-                    db.LicenseTables.Add(licenseTable);
-                    await db.SaveChangesAsync();
+                    licenseRepo.AddLicense(licenseTable);
+                    await licenseRepo.CompleteAsync();
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -107,7 +111,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LicenseTable licenseTable = await db.LicenseTables.FindAsync(id);
+            LicenseTable licenseTable = await licenseRepo.GetLicenseAsync(id);
             if (licenseTable == null)
             {
                 return HttpNotFound();
@@ -149,8 +153,9 @@ namespace LegalManagementSystem.Controllers
                     licenseTable.IsLicensed = true;
                     licenseTable.ApprovedKey = LegalGuideUtility.Encrypt(licenseTable.ApprovedKey);
                     licenseTable.SoftwareVersion = licenseTable.SoftwareVersion.ToString();
-                    db.Entry(licenseTable).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                   
+                    licenseRepo.UpdateLicense(licenseTable);
+                    await licenseRepo.CompleteAsync();
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -176,7 +181,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LicenseTable licenseTable = await db.LicenseTables.FindAsync(id);
+            LicenseTable licenseTable = await licenseRepo.GetLicenseAsync(id);
             if (licenseTable == null)
             {
                 return HttpNotFound();
@@ -189,9 +194,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            LicenseTable licenseTable = await db.LicenseTables.FindAsync(id);
-            db.LicenseTables.Remove(licenseTable);
-            await db.SaveChangesAsync();
+            LicenseTable licenseTable = await licenseRepo.GetLicenseAsync(id);
+            licenseRepo.DeleteLicense(licenseTable);
+            await licenseRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -199,7 +204,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                licenseRepo.Dispose();
             }
             base.Dispose(disposing);
         }

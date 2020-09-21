@@ -11,10 +11,19 @@ namespace LegalManagementSystem.Interfaces
     public interface IDependant
     {
         void AddDependant(Dependant dependant);
+        int Complete();
+        Task<int> CompleteAsync();
         void DeleteDependant(Dependant dependant);
-        Dependant GetDependant(int id);
-        IEnumerable<Dependant> GetDependant();
-        Dependant GetDependant(Expression<Func<bool>> expression);
+        void Dispose();
+        Dependant GetDependant(int? id);
+        IEnumerable<Dependant> GetDependants();
+        Dependant GetDependant(Expression<Func<Dependant,bool>> expression);
         void UpdateDependant(Dependant dependant);
+        IEnumerable<Dependant> GetDependants(Expression<Func<Dependant, bool>> expression);
+        Task<IEnumerable<Dependant>> GetDependantsAsync();
+        Task<IEnumerable<Dependant>> GetDependantsAsync(Expression<Func<Dependant, bool>> expression);
+        Task<IEnumerable<Dependant>> GetDependantsWithStaffAsync();
+        Task<IEnumerable<Dependant>> GetDependantsWithStaffAsync(Expression<Func<Dependant, bool>> expression);
+        Task<Dependant> GetDependantAsync(int? id);
     }
 }

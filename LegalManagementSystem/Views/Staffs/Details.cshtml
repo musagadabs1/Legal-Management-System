@@ -3,247 +3,259 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
+    dl {
+        /*border: 3px double #ccc;*/
+        padding: 0.5em;
+    }
 
-<h2>Details</h2>
+    dt {
+        /*float: left;
+                clear: left;*/
+        /*width: 100px;*/
+        text-align: right;
+        font-weight: bold;
+        color: green;
+    }
 
-<div>
-    <h4>Staff</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
+        dt::after {
+            content: ":";
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+    dd {
+        /*margin: 0 0 0 110px;
+                padding: 0 0 0.5em 0;*/
+        text-align: left;
+    }
+</style>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title align-center">STAFF DETAILS</h5>
+            </div>
+            <div class="card-body">
+                <div class="float-right">
+                    <img src="~/App_Data/StaffImages/@Model.ImagePath" class="rounded-circle" width="120" height="120" alt="Staff_Image" />
+                </div>
+                @*<div class="align-center">
+                    <img src="" alt="" height="120" width="120" />
+                </div>*@
+                <dl class="row">
+                    <dt class="col-md-4 col-sm-12">
+                        First Name
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
+                    <dt class="col-md-4 col-sm-12">
+                        Middle Name
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.MiddleName)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+                    <dt class="col-md-4 col-sm-12">
+                        Last Name
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+                    <dd class="col-md-8 col-sm-12">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Gender
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DOB)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @*@Html.DisplayFor(model => model.Gender)*@
+                        @ViewBag.Gender
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DOB)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Date of Birth
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DOE)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Model.DOB.ToShortDateString()
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DOE)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Date of Employment
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Model.DOE.ToShortDateString()
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Marital Status
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MaritalStatus)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.MaritalStatus)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MaritalStatus)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Office Number
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.OfficeNo)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImagePath)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Mobile Number
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OfficeNo)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.MobileNo)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.OfficeNo)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Email Address
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MobileNo)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.EmailAddress)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MobileNo)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Personal Email Address
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.PersonalEmail)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailAddress)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Relationship
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PersonalEmail)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.Relationship)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PersonalEmail)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Next of kin Full Name
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Relationship)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.NKFullName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Relationship)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Next of Kin Mobile Number
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.KTelephone)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.KTelephone)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.KTelephone)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Next of Kin Email Address
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NKEmail)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.NKEmail)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NKEmail)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Next of Kin Address
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NKAddress)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.NKAddress)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NKAddress)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Bank
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Bank)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.Bank)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Bank)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Account Number
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.AccountNumber)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Line Manager
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NKFullName)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @*@Html.DisplayFor(model => model.LineManagerId)*@
+                        @ViewBag.LineManager
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NKFullName)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Department
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.Department)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Designation
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LineManagerId)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.Designation)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LineManagerId)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Year Call to Bar
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Department)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.YearCallToBar)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Department)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Call to Bar Location
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Designation)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @Html.DisplayFor(model => model.Location)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Designation)
-        </dd>
+                    <dt class="col-md-4 col-sm-12">
+                        Advocate Group
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.YearCallToBar)
-        </dt>
+                    <dd class="col-md-8 col-sm-12">
+                        @ViewBag.AdvocateGroup
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.YearCallToBar)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AdvocateGroupId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AdvocateGroupId)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-1">
+        
+    </div>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.StaffId }) |
     @Html.ActionLink("Back to List", "Index")

@@ -9,14 +9,21 @@ using System.Web;
 using System.Web.Mvc;
 using LegalManagementSystem.Models;
 using System.Linq.Dynamic;
+using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Repositories;
 
 namespace LegalManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class LineManagersController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private ILineManager lineManagerRepo;
 
+        public LineManagersController()
+        {
+            lineManagerRepo = new LineManagerRepository();
+        }
         // GET: LineManagers
         public async Task<ActionResult> Index()
         {
@@ -24,9 +31,12 @@ namespace LegalManagementSystem.Controllers
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                return View(await db.LineManagers.ToListAsync());
+                //GetManagersAsync
+                //return View(await db.LineManagers.ToListAsync());
+                return View(await lineManagerRepo.GetManagersAsync());
             }
-            return View(await db.LineManagers.ToListAsync());
+            //return View(await db.LineManagers.ToListAsync());
+            return View(await lineManagerRepo.GetManagersAsync());
         }
         public ActionResult GetLineManagers()
         {
@@ -44,7 +54,8 @@ namespace LegalManagementSystem.Controllers
             {
 
 
-                var getLineManagersAdmin = db.LineManagers.ToList<LineManager>();
+                //var getLineManagersAdmin = db.LineManagers.ToList<LineManager>();
+                var getLineManagersAdmin = lineManagerRepo.GetManagers();
                 foreach (var item in getLineManagersAdmin)
                 {
                     lineManagers.Add(new LineManagerViewModel
@@ -57,18 +68,19 @@ namespace LegalManagementSystem.Controllers
                 //Search operations
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    lineManagers = lineManagers.Where(x => x.Department.ToLower().Contains(searchValue.ToLower()) || x.Designation.ToLower().Contains(searchValue.ToLower()) || x.Name.ToLower().Contains(searchValue.ToLower())).ToList<LineManagerViewModel>();
+                    lineManagers = lineManagers.Where(x => x.Department.ToLower().Contains(searchValue.ToLower()) || x.Designation.ToLower().Contains(searchValue.ToLower()) || x.Name.ToLower().Contains(searchValue.ToLower())).ToList();
                 }
 
                 //Sort Operations
-                lineManagers = lineManagers.OrderBy(sortColumnName + " " + sortDirection).ToList<LineManagerViewModel>();
+                lineManagers = lineManagers.OrderBy(sortColumnName + " " + sortDirection).ToList();
 
                 // Paging operation
-                lineManagers = lineManagers.Skip(start).Take(length).ToList<LineManagerViewModel>();
+                lineManagers = lineManagers.Skip(start).Take(length).ToList();
 
                 return Json(new { data = lineManagers }, JsonRequestBehavior.AllowGet);
             }
-            var getLineManagers = db.LineManagers.Where(x => x.CreatedBy.Equals(user)).ToList<LineManager>();
+            var getLineManagers = lineManagerRepo.GetManagers(x => x.CreatedBy.Equals(user));
+            //var getLineManagers = db.LineManagers.Where(x => x.CreatedBy.Equals(user)).ToList();
             foreach (var item in getLineManagers)
             {
                 lineManagers.Add(new LineManagerViewModel
@@ -81,14 +93,14 @@ namespace LegalManagementSystem.Controllers
             //Searching Operations
             if (!string.IsNullOrEmpty(searchValue))
             {
-                lineManagers = lineManagers.Where(x => x.Department.ToLower().Contains(searchValue.ToLower()) || x.Designation.ToLower().Contains(searchValue.ToLower()) || x.Name.ToLower().Contains(searchValue.ToLower())).ToList<LineManagerViewModel>();
+                lineManagers = lineManagers.Where(x => x.Department.ToLower().Contains(searchValue.ToLower()) || x.Designation.ToLower().Contains(searchValue.ToLower()) || x.Name.ToLower().Contains(searchValue.ToLower())).ToList();
             }
 
             //Sort Operations
-            lineManagers = lineManagers.OrderBy(sortColumnName + " " + sortDirection).ToList<LineManagerViewModel>();
+            lineManagers = lineManagers.OrderBy(sortColumnName + " " + sortDirection).ToList();
 
             // Paging operation
-            lineManagers = lineManagers.Skip(start).Take(length).ToList<LineManagerViewModel>();
+            lineManagers = lineManagers.Skip(start).Take(length).ToList();
             return Json(new { data = lineManagers }, JsonRequestBehavior.AllowGet);
         }
 
@@ -99,7 +111,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LineManager lineManager = await db.LineManagers.FindAsync(id);
+            LineManager lineManager = await lineManagerRepo.GetManagerAsync(id);
             if (lineManager == null)
             {
                 return HttpNotFound();
@@ -128,8 +140,10 @@ namespace LegalManagementSystem.Controllers
                     lineManager.CreatedBy = user.Name;
                     lineManager.CreatedOn = DateTime.Today;
 
-                    db.LineManagers.Add(lineManager);
-                    await db.SaveChangesAsync();
+                    //db.LineManagers.Add(lineManager);
+                    lineManagerRepo.AddManager(lineManager);
+                    await lineManagerRepo.CompleteAsync();
+                    //await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else
@@ -148,6 +162,41 @@ namespace LegalManagementSystem.Controllers
             return View(lineManager);
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> SaveLineManager(LineManager lineManager)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = User.Identity;
+                    lineManager.CreatedBy = user.Name;
+                    lineManager.CreatedOn = DateTime.Today;
+
+                    lineManagerRepo.AddManager(lineManager);
+                    //db.LineManagers.Add(lineManager);
+                    //await db.SaveChangesAsync();
+                    await lineManagerRepo.CompleteAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
+                    return View(lineManager);
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = "Can't add Line Manager. Fill in the required Fields. " + ex.Message;
+            }
+
+            return View(lineManager);
+        }
+
+
         // GET: LineManagers/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -155,7 +204,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LineManager lineManager = await db.LineManagers.FindAsync(id);
+            LineManager lineManager = await lineManagerRepo.GetManagerAsync(id);
             if (lineManager == null)
             {
                 return HttpNotFound();
@@ -167,8 +216,8 @@ namespace LegalManagementSystem.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "LineManagerId,Name,Department,Designation,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn")] LineManager lineManager)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Edit(LineManager lineManager)
         {
             try
             {
@@ -178,8 +227,9 @@ namespace LegalManagementSystem.Controllers
                     lineManager.ModifiedBy = user.Name;
                     lineManager.ModifiedOn = DateTime.Today;
 
-                    db.Entry(lineManager).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    //db.Entry(lineManager).State = EntityState.Modified;
+                    lineManagerRepo.UpdateClient(lineManager);
+                    //await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else
@@ -203,7 +253,8 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LineManager lineManager = await db.LineManagers.FindAsync(id);
+            //LineManager lineManager = await db.LineManagers.FindAsync(id);
+            LineManager lineManager = await lineManagerRepo.GetManagerAsync(Convert.ToInt32(id));
             if (lineManager == null)
             {
                 return HttpNotFound();
@@ -216,9 +267,11 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            LineManager lineManager = await db.LineManagers.FindAsync(id);
-            db.LineManagers.Remove(lineManager);
-            await db.SaveChangesAsync();
+            LineManager lineManager = await lineManagerRepo.GetManagerAsync(Convert.ToInt32(id));
+            lineManagerRepo.DeleteManager(lineManager);
+            //db.LineManagers.Remove(lineManager);
+            await lineManagerRepo.CompleteAsync();
+            //await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -226,7 +279,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                lineManagerRepo.Dispose();
             }
             base.Dispose(disposing);
         }

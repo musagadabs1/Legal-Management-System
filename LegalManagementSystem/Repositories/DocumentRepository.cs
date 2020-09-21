@@ -10,14 +10,14 @@ using System.Web;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class CourtActivityRepository : ICourtActivity
+    public class DocumentRepository : IDocument
     {
         private readonly MyCaseNewEntities db = new MyCaseNewEntities();
-        public void AddCourtActivity(CourtActivity court)
+        public void AddDocument(Document document)
         {
             try
             {
-                db.CourtActivities.Add(court);
+                db.Documents.Add(document);
             }
             catch (Exception ex)
             {
@@ -25,12 +25,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public void Complete()
+        public int Complete()
         {
             try
             {
-                db.SaveChanges();
+                return db.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -38,12 +37,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task CompleteAsync()
+        public async Task<int> CompleteAsync()
         {
             try
             {
-              await  db.SaveChangesAsync();
+                return await db.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -51,13 +49,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public void DeleteCourtActivity(CourtActivity court)
+        public void DeleteDocument(Document document)
         {
             try
             {
-                //var cert = GetCertification(id);
-                db.CourtActivities.Remove(court);
+                //var client = GetClient(id);
+                db.Documents.Remove(document);
             }
             catch (Exception ex)
             {
@@ -65,7 +62,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
         public void Dispose()
         {
             try
@@ -78,12 +74,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<IEnumerable<CourtActivity>> GetCourtActivitiesAsync(Expression<Func<CourtActivity, bool>> expression)
+        public Document GetDocument(int? id)
         {
             try
             {
-                return await db.CourtActivities.Where(expression).ToListAsync();
+                return db.Documents.Find(id);
             }
             catch (Exception ex)
             {
@@ -91,12 +86,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public CourtActivity GetCourtActivity(int id)
+        public async Task<Document> GetDocumentAsync(int? id)
         {
             try
             {
-                return db.CourtActivities.Find(id);
+                return await db.Documents.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -104,12 +98,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<CourtActivity> GetCourtActivities()
+        public IEnumerable<Document> GetDocument()
         {
             try
             {
-                return db.CourtActivities.ToList();
+                return db.Documents.ToList();
             }
             catch (Exception ex)
             {
@@ -117,12 +110,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public CourtActivity GetCourtActivity(Expression<Func<CourtActivity,bool>> expression)
+        public async Task<IEnumerable<Document>> GetDocumentsAsync()
         {
             try
             {
-                return db.CourtActivities.FirstOrDefault(expression);
+                return await db.Documents.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -130,12 +122,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public async Task<CourtActivity> GetCourtActivityAsync(int id)
+        public Document GetDocument(Expression<Func<Document,bool>> expression)
         {
             try
             {
-                return await db.CourtActivities.FindAsync(id);
+                return db.Documents.FirstOrDefault(expression);
             }
             catch (Exception ex)
             {
@@ -143,14 +134,11 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public void UpdateCourtActivity(CourtActivity court)
+        public async Task<IEnumerable<Document>> GetDocumentsAsync(Expression<Func<Document, bool>> expression)
         {
             try
             {
-                //var cert = GetCertification(id);
-                db.Entry(court).State = EntityState.Modified;
-
+                return await db.Documents.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -158,11 +146,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public IEnumerable<CourtActivity> GetCourtActivities(Expression<Func<CourtActivity, bool>> expression)
+        public void UpdateDocument(Document document)
         {
             try
             {
-                return db.CourtActivities.Where(expression).ToList();
+                db.Entry(document).State = EntityState.Modified;
+                ///db.SaveChanges();
             }
             catch (Exception ex)
             {

@@ -1,22 +1,24 @@
 ﻿using LegalManagementSystem.Interfaces;
 using LegalManagementSystem.Models;
+using LegalManagementSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class CertificationRepository : ICertification
+    public class LineManagerRepository : ILineManager
     {
         private readonly MyCaseNewEntities db = new MyCaseNewEntities();
-        public void AddCertification(Certification certification)
+        public void AddManager(LineManager lineManager)
         {
             try
             {
-                db.Certifications.Add(certification);
+                db.LineManagers.Add(lineManager);
             }
             catch (Exception ex)
             {
@@ -51,12 +53,12 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public void DeleteCertification(Certification certification)
+        public void DeleteManager(LineManager lineManager)
         {
             try
             {
-                //var cert = GetCertification(id);
-                db.Certifications.Remove(certification);
+                //var client = GetClient(id);
+                db.LineManagers.Remove(lineManager);
             }
             catch (Exception ex)
             {
@@ -77,12 +79,94 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-
-        public Certification GetCertification(int? id)
+        public async Task<LineManager> GetManagerAsync(int? id)
         {
             try
             {
-                return db.Certifications.Find(id);
+                return await db.LineManagers.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public IEnumerable<ManagerForDropDown> GetAllManagersForDropDown()
+        {
+            try
+            {
+                var managersList = new List<ManagerForDropDown>();
+                var managers = db.sp_GetLineManagers().ToList();
+
+                foreach (var manager in managers)
+                {
+                    managersList.Add(new ManagerForDropDown
+                    {
+                        ManagerId= manager.LineManagerId,
+                        ManagerName=manager.ManagerName
+                    });
+                }
+                return managersList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<LineManager>> GetManagersAsync()
+        {
+            try
+            {
+                return await db.LineManagers.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public LineManager GetLineManager(int? id)
+        {
+            try
+            {
+                return db.LineManagers.Find(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public IEnumerable<LineManager> GetManagers()
+        {
+            try
+            {
+                return db.LineManagers.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<LineManager>> GetManagersAsync(Expression<Func<LineManager, bool>> expression)
+        {
+            try
+            {
+                return await db.LineManagers.Where(expression).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public IEnumerable<LineManager> GetManagers(Expression<Func<LineManager, bool>> expression)
+        {
+            try
+            {
+                return db.LineManagers.Where(expression).ToList();
             }
             catch (Exception ex)
             {
@@ -91,129 +175,12 @@ namespace LegalManagementSystem.Repositories
             }
         }
 
-        public Certification GetCertification(Expression<Func<Certification, bool>> expression)
+        public void UpdateClient(LineManager lineManager)
         {
             try
             {
-                return db.Certifications.FirstOrDefault(expression);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public async Task<Certification> GetCertificationAsync(int? id)
-        {
-            try
-            {
-                return await db.Certifications.FindAsync(id);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public IEnumerable<Certification> GetCertifications()
-        {
-            try
-            {
-                return db.Certifications.ToList();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public IEnumerable<Certification> GetCertifications(Expression<Func<Certification, bool>> expression)
-        {
-            try
-            {
-                return db.Certifications.Where(expression).ToList();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync()
-        {
-            try
-            {
-                return await db.Certifications.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsAsync(Expression<Func<Certification, bool>> expression)
-        {
-            try
-            {
-                return await db.Certifications.Where(expression).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public IEnumerable<Certification> GetCertificationsWithStaff()
-        {
-            try
-            {
-                return db.Certifications.Include(c => c.Staff).ToList();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync()
-        {
-            try
-            {
-                return await db.Certifications.Include(c => c.Staff).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            
-        }
-
-        public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync(Expression<Func<Certification, bool>> expression)
-        {
-            try
-            {
-                return await db.Certifications.Include(c => c.Staff).Where(expression).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public void UpdateCertification(Certification certification)
-        {
-            try
-            {
-                db.Entry(certification).State = EntityState.Modified;
+                db.Entry(lineManager).State = EntityState.Modified;
+                db.SaveChanges();
             }
             catch (Exception ex)
             {

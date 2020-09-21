@@ -5,71 +5,81 @@
 }
 <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<h4 class="text-center">List of Line Managers</h4>
+<h4 class="text-center"></h4>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title text-center">Line Managers</h5>
+        <p>
+            <a href="@Url.Action("Create","LineManagers")" class="btn btn-primary">
+                <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            </a>
+        </p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive"  style="padding-left:25%">
+            <table class="table table-responsive table-striped table-condensed table-hover" id="lineManagerTable">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Department)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Designation)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
 
-<p>
-    <a href="@Url.Action("Create","LineManagers")" class="btn btn-primary">
-        <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-    </a>
-</p>
-<table class="table table-responsive" id="lineManagerTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Designation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+                @*<tfoot>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Department)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Designation)
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>*@
 
-    <tfoot>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Designation)
-            </th>
-            <th></th>
-        </tr>
-    </tfoot>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Department)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Designation)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit","LineManagers",new {id = item.LineManagerId })" style="margin-right:10px;">
+                                    <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                                </a>
+                                @*<a href="@Url.Action("Details","LineManagers",new { id = item.LineManagerId})">
+                                    <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                                </a>*@
+                            </td>
+                        </tr>
+                    </tbody>
 
-    @foreach (var item in Model)
-    {
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Department)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Designation)
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit","LineManagers",new {id = item.LineManagerId })" style="margin-right:10px;">
-                        <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                    </a>
-                    <a href="@Url.Action("Details","LineManagers",new { id = item.LineManagerId})">
-                        <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
+                }
 
-    }
+            </table>
+        </div>
+    </div>
+</div>
 
-</table>
+
 
 @section scripts{
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

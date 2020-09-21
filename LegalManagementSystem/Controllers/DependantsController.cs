@@ -1,4 +1,6 @@
-﻿using LegalManagementSystem.Models;
+﻿using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,13 +13,17 @@ namespace LegalManagementSystem.Controllers
     [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class DependantsController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
-
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private IDependant dependantRepo;
+        public DependantsController()
+        {
+            dependantRepo = new DependantRepository();
+        }
         // GET: Dependants
         public async Task<ActionResult> Index()
         {
-            var dependants = db.Dependants.Include(d => d.Staff);
-            return View(await dependants.ToListAsync());
+            //var dependants = db.Dependants.Include(d => d.Staff);
+            return View(await dependantRepo.GetDependantsWithStaffAsync());
         }
 
         // GET: Dependants/Details/5
@@ -27,7 +33,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dependant dependant = await db.Dependants.FindAsync(id);
+            Dependant dependant = await dependantRepo.GetDependantAsync(id);
             if (dependant == null)
             {
                 return HttpNotFound();
@@ -57,8 +63,8 @@ namespace LegalManagementSystem.Controllers
             //var staffId = "stf01";
 
             dependant.StaffId = LegalGuideUtility.StaffId;
-            db.Dependants.Add(dependant);
-            await db.SaveChangesAsync();
+            dependantRepo.AddDependant(dependant);
+            await dependantRepo.CompleteAsync();
 
             return RedirectToAction("Create", "Dependants");
             //}
@@ -84,8 +90,8 @@ namespace LegalManagementSystem.Controllers
                 dependant.CreatedBy = user;
                 dependant.CreatedOn = DateTime.Today;
                 dependant.StaffId = LegalGuideUtility.StaffId;
-                db.Dependants.Add(dependant);
-                await db.SaveChangesAsync();
+                dependantRepo.AddDependant(dependant);
+                await dependantRepo.CompleteAsync();
                 return RedirectToAction("Create", "Dependants");
             }
             var gender = new List<SelectListItem> {
@@ -104,7 +110,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dependant dependant = await db.Dependants.FindAsync(id);
+            Dependant dependant = await dependantRepo.GetDependantAsync(id);
             if (dependant == null)
             {
                 return HttpNotFound();
@@ -127,8 +133,9 @@ namespace LegalManagementSystem.Controllers
                 dependant.ModifiedOn = DateTime.Today;
                 dependant.StaffId = LegalGuideUtility.StaffId;
 
-                db.Entry(dependant).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                dependantRepo.UpdateDependant(dependant);
+                await dependantRepo.CompleteAsync();
+
                 return RedirectToAction("Index");
             //}
             //var gender = new List<SelectListItem> {
@@ -154,8 +161,8 @@ namespace LegalManagementSystem.Controllers
                 dependant.ModifiedOn = DateTime.Today;
                 dependant.StaffId = LegalGuideUtility.StaffId;
 
-                db.Entry(dependant).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                dependantRepo.UpdateDependant(dependant);
+                await dependantRepo.CompleteAsync();
                 return RedirectToAction("Index");
             }
             var gender = new List<SelectListItem> {
@@ -174,7 +181,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dependant dependant = await db.Dependants.FindAsync(id);
+            Dependant dependant = await dependantRepo.GetDependantAsync(id);
             if (dependant == null)
             {
                 return HttpNotFound();
@@ -187,9 +194,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Dependant dependant = await db.Dependants.FindAsync(id);
-            db.Dependants.Remove(dependant);
-            await db.SaveChangesAsync();
+            Dependant dependant = await dependantRepo.GetDependantAsync(id);
+            dependantRepo.DeleteDependant(dependant);
+            await dependantRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -197,7 +204,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                dependantRepo.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -1,219 +1,37 @@
 ﻿using LMS.Data.Interfaces;
+using LMS.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace LMS.Data.Repositories
 {
-    public class CertificationRepository //: ICertification
+    public class CertificationRepository :GenericRepository<Certification>, ICertification
     {
-        //private readonly MyCaseNewEntities db = new MyCaseNewEntities();
-        //public void AddCertification(Certification certification)
-        //{
-        //    try
-        //    {
-        //        db.Certifications.Add(certification);
-        //    }
-        //    catch (Exception ex)
-        //    {
+        private DbContext _context;
+        public CertificationRepository(DbContext context):base(context)
+        {
+            _context = context;
+        }
 
-        //        throw ex;
-        //    }
-        //}
 
-        //public int Complete()
-        //{
-        //    try
-        //    {
-        //        return db.SaveChanges();
-        //    }
-        //    catch (Exception ex)
-        //    {
 
-        //        throw ex;
-        //    }
-        //}
+        public IEnumerable<Certification> GetCertificationsWithStaff(string staffId)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public async Task<int> CompleteAsync()
-        //{
-        //    try
-        //    {
-        //        return await db.SaveChangesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
+        public Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync(string staffId)
+        {
+            throw new NotImplementedException();
+        }
 
-        //        throw ex;
-        //    }
-        //}
-
-        //public void DeleteCertification(int id)
-        //{
-        //    try
-        //    {
-        //        var cert = GetCertification(id);
-        //        db.Certifications.Remove(cert);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public void Dispose()
-        //{
-        //    try
-        //    {
-        //        db.Dispose();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public Certification GetCertification(int id)
-        //{
-        //    try
-        //    {
-        //        return db.Certifications.Find(id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public Certification GetCertification(Expression<Func<Certification, bool>> expression)
-        //{
-        //    try
-        //    {
-        //        return db.Certifications.FirstOrDefault(expression);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public async Task<Certification> GetCertificationAsync(int id)
-        //{
-        //    try
-        //    {
-        //        return await db.Certifications.FindAsync(id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public IEnumerable<Certification> GetCertifications()
-        //{
-        //    try
-        //    {
-        //        return db.Certifications.ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public IEnumerable<Certification> GetCertifications(Expression<Func<Certification, bool>> expression)
-        //{
-        //    try
-        //    {
-        //        return db.Certifications.Where(expression).ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public async Task<IEnumerable<Certification>> GetCertificationsAsync()
-        //{
-        //    try
-        //    {
-        //        return await db.Certifications.ToListAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public async Task<IEnumerable<Certification>> GetCertificationsAsync(Expression<Func<Certification, bool>> expression)
-        //{
-        //    try
-        //    {
-        //        return await db.Certifications.Where(expression).ToListAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public IEnumerable<Certification> GetCertificationsWithStaff()
-        //{
-        //    try
-        //    {
-        //        return db.Certifications.Include(c => c.Staff).ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync()
-        //{
-        //    try
-        //    {
-        //        return await db.Certifications.Include(c => c.Staff).ToListAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-            
-        //}
-
-        //public async Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync(Expression<Func<Certification, bool>> expression)
-        //{
-        //    try
-        //    {
-        //        return await db.Certifications.Include(c => c.Staff).Where(expression).ToListAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public void UpdateCertification(int id)
-        //{
-        //    try
-        //    {
-        //        var cert = GetCertification(id);
-        //        db.Entry(cert).State = EntityState.Modified;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
+        public Task<IEnumerable<Certification>> GetCertificationsWithStaffAsync(Expression<Func<Certification, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

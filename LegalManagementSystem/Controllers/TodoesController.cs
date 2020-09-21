@@ -1,24 +1,30 @@
-﻿using System;
+﻿using LegalManagementSystem.Interfaces;
+using LegalManagementSystem.Models;
+using LegalManagementSystem.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using LegalManagementSystem.Models;
 
 namespace LegalManagementSystem.Controllers
 {
     public class TodoesController : Controller
     {
-        private MyCaseNewEntities db = new MyCaseNewEntities();
+        //private MyCaseNewEntities db = new MyCaseNewEntities();
+        private ITodo todoRepo;
+        public TodoesController()
+        {
+            todoRepo = new TotoRepository();
+        }
 
         // GET: Todoes
         public async Task<ActionResult> Index()
         {
-            return View(await db.Todoes.ToListAsync());
+            return View(await todoRepo.GetTodosAsync());
         }
 
         // GET: Todoes/Details/5
@@ -28,7 +34,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Todo todo = await db.Todoes.FindAsync(id);
+            Todo todo = await todoRepo.GetTodoAsync(id);
             if (todo == null)
             {
                 return HttpNotFound();
@@ -38,20 +44,21 @@ namespace LegalManagementSystem.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangeStatus(Guid id)
         {
-            var todo = await db.Todoes.FirstOrDefaultAsync(x => x.Id==id);
+            var todo = todoRepo.GetTodo(x => x.Id==id);
 
             if (todo != null)
             {
                 todo.Done = !todo.Done;
                 //await db.Entry(todo).State
-                await db.SaveChangesAsync();
+                todoRepo.UpdateTodo(todo);
+                await todoRepo.CompleteAsync();
             }
             return View();
         }
         [HttpGet]
         public ActionResult GetPending(string employeeId)
         {
-            var dao = db.Todoes.Where(x => x.Created_By==employeeId && !x.Done);
+            var dao = todoRepo.GetTodos(x => x.Created_By==employeeId && !x.Done);
 
             var _todo = (from item in dao.OrderByDescending(x => x.CreatedDate)
                          select new
@@ -75,8 +82,8 @@ namespace LegalManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 model.CreatedDate = model.CreatedDate;
-                db.Todoes.Add(model);
-                await db.SaveChangesAsync();
+               todoRepo.AddTodo(model);
+                await todoRepo.CompleteAsync();
                 return View();
                 //return Get(model.EmployeeId, model.CreatedDate);
             }
@@ -103,8 +110,8 @@ namespace LegalManagementSystem.Controllers
             {
                 todo.Id = Guid.NewGuid();
                 todo.Created_By = User.Identity.Name;
-                db.Todoes.Add(todo);
-                await db.SaveChangesAsync();
+               todoRepo.AddTodo(todo);
+                await todoRepo.CompleteAsync();
                 return RedirectToAction("Index");
             }
 
@@ -118,7 +125,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Todo todo = await db.Todoes.FindAsync(id);
+            Todo todo = await todoRepo.GetTodoAsync(id);
             if (todo == null)
             {
                 return HttpNotFound();
@@ -136,8 +143,9 @@ namespace LegalManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 todo.Created_By = User.Identity.Name;
-                db.Entry(todo).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                todoRepo.UpdateTodo(todo);
+                //db.Entry(todo).State = EntityState.Modified;
+                await todoRepo.CompleteAsync();
                 return RedirectToAction("Index");
             }
             return View(todo);
@@ -150,7 +158,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Todo todo = await db.Todoes.FindAsync(id);
+            Todo todo = await todoRepo.GetTodoAsync(id);
             if (todo == null)
             {
                 return HttpNotFound();
@@ -163,9 +171,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            Todo todo = await db.Todoes.FindAsync(id);
-            db.Todoes.Remove(todo);
-            await db.SaveChangesAsync();
+            Todo todo = await todoRepo.GetTodoAsync(id);
+           todoRepo.UpdateTodo(todo);
+            await todoRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -173,7 +181,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+               todoRepo.Dispose();
             }
             base.Dispose(disposing);
         }

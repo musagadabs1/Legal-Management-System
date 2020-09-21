@@ -1,8 +1,8 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@*<link href="~/Content/styles.css" rel="stylesheet" />*@
+}t"
+@*<link href="~/Content/styles.css" rel="styleshee />*@
 <style>
     #modal-container .modal-body {
         max-height: 100px;
@@ -23,9 +23,7 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        <div class="col-md-12 col-sm-12 col-xl-12 col2-xs-12">
-
-            <br />
+        <div class="col-md-12">
             <div style="margin-top:10px;">
 
                 <img src="~/Content/Images/man-user.png" id="output" width="120" height="120" />
@@ -44,29 +42,26 @@
 </div>
 
 <div class="container body-content" style="padding:0;margin:0">
-
-
-
-    <div class="col-md-11 col-sm-11 col-xl-11 col-xs-11">
+    <div class="col-md-12">
         @RenderBody()
     </div>
 </div>
 @section scripts{
     @RenderSection("scripts", required: false)
-<script>
+    <script>
 
-            var openFile = function (event) {
-                var input = event.target;
+        var openFile = function (event) {
+            var input = event.target;
 
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var dataURL = reader.result;
-                    var output = document.getElementById('output');
-                    output.src = dataURL;
-                };
-                reader.readAsDataURL(input.files[0]);
+            var reader = new FileReader();
+            reader.onload = function () {
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                output.src = dataURL;
             };
-</script>
+            reader.readAsDataURL(input.files[0]);
+        };
+    </script>
     @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
 
 }

@@ -13,6 +13,7 @@ namespace LegalManagementSystem.Models
     using System.Collections.Generic;
     
     public partial class Client
+
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()

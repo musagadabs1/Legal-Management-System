@@ -61,7 +61,6 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
-
                                 <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
                                     <input type="text" class="form-control" placeholder="Hearing Date" id="DateHeared">
                                     <div class="input-group-append">
@@ -72,7 +71,6 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
-
                                 <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
                                     <input type="text" class="form-control" placeholder="Date Adjourned" id="DateAdjourned">
                                     <div class="input-group-append">
@@ -154,6 +152,14 @@
         });
 
         function saveCourtActivity() {
+
+           var res = validate();
+            
+            if (res == false) {  
+                return false;  
+            }
+
+
             //
             //var url =
             var courtActivity = {};
@@ -222,12 +228,78 @@
             });
         }
 
-        //<script>
-        //jQuery(document).ready(function() {
+        //Valdidation using jquery
+        function validate() {
+            var isValid = true;
+            if ($('#CourtName').val().trim() == "") {
+                $('#CourtName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#CourtName').css('border-color', 'lightgrey');
+            }
+            if ($('#Location').val().trim() == "") {
+                $('#Location').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Location').css('border-color', 'lightgrey');
+            }
+            if ($('#Status').val().trim() == "") {
+                $('#Status').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Status').css('border-color', 'lightgrey');
+            }
+            if ($('#DefenseCounselName').val().trim() == "") {
+                $('#DefenseCounselName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DefenseCounselName').css('border-color', 'lightgrey');
+            }
+            if ($('#DateHeared').val().trim() == "") {
+                $('#DateHeared').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DateHeared').css('border-color', 'lightgrey');
+            }
+            if ($('#DateAdjourned').val().trim() == "") {
+                $('#DateAdjourned').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DateAdjourned').css('border-color', 'lightgrey');
+            }
+            if ($('.summernote').summernote('code').trim() == "") {
+                $('.summernote').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('.summernote').css('border-color', 'lightgrey');
+            }
+            return isValid;
 
+            if ($('.summernote').eq(1).summernote('code').trim() == "") {
+                $('.summernote').eq(1).summernote.css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('.summernote').eq(1).summernote.css('border-color', 'lightgrey');
+            }
+            return isValid;
 
-
-        //});
+            if ($('.summernote').eq(2).summernote('code').trim() == "") {
+                $('.summernote').eq(2).summernote.css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('.summernote').eq(2).summernote.css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
 
         window.edit = function() {
             $(".click2edit").summernote()

@@ -2,12 +2,26 @@
 @using LegalManagementSystem.Helpers
 @{
     ViewBag.Title = "Staff Info";
-    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+    //Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 <!--CSS for Staff Menu -->
 @*<link href="~/Content/MenuStyle.css" rel="stylesheet" />*@
-<h2>Profile</h2>
+@*<h2>Profile</h2>*@
+
+<div class="clearfix" style="margin-top:20px;">
+    <img src="~/Content/Images/man-user.png" style="margin-left:20px; padding:5px;" id="output" width="140" height="100" />
+    <div class="col-md-3">
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" accept="image/*" onchange="openFile(event)" class="custom-file-input" id="fileBase">
+                <label class="custom-file-label" for="fileBase"></label>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+
 @if (User.Identity.IsAuthenticated)
 {
     if (User.IsInRole("Admin"))
@@ -17,435 +31,347 @@
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="row form-horizontal" style="padding-right:17px;color:#000000">
-                <div class="col-md-6">
-                    @if (ViewBag.Error != null)
-                    {
-                        <span style="color:red;">@ViewBag.Error.ToString()</span>
-                    }
-                    <div class="card">
-                        @*style="height:380px; "*@
-                        <div class="card-header">
-                            <h4>PERSONAL DATA</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">First Name</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="FirstName" placeholder="First Name"
-                                               aria- label="FirstName" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name" } })
-                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Middle Name</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name"
-                                               aria- label="MiddleName" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Middle Name" } })
-                                        @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Last Name</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="LastName" placeholder="Last Name"
-                                               aria- label="LastName" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
-                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Marital Status</span>
-                                        </div>
-                                        @Html.DropDownListFor(model => model.MaritalStatus, new SelectList(ViewBag.Marital, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "MaritalStatus" })
-                                    </div>
-                                    @*@Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label" })
 
-                                        @Html.DropDownListFor(model => model.MaritalStatus, new SelectList(ViewBag.Marital, "Value", "Text"), "---Select Marital Status---", htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })*@
-                                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @if (ViewBag.Error != null)
+                        {
+                            <span style="color:red;">@ViewBag.Error.ToString()</span>
+                        }
+                        <div class="card">
+                            @*style="height:380px; "*@
+                            <div class="card-header">
+                                <h5 class="card-title">PERSONAL DATA</h5>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
-                                        <input type="text" class="form-control" placeholder="Date of Birth" id="DOB">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button">
-                                                <i class="fa fa-calendar"></i>
-                                            </button>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">First Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="FirstName" placeholder="First Name"
+                                                   aria- label="FirstName" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.DOB, "Date of Birth", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "09 Feb 2019" } })
-                                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })*@
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Middle Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name"
+                                                   aria- label="MiddleName" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Gender</span>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Last Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="LastName" placeholder="Last Name"
+                                                   aria- label="LastName" aria-describedby="basic-addon1">
                                         </div>
-                                        @Html.DropDownListFor(model => model.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "Gender" })
                                     </div>
-                                    @*@Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(model => model.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), "---Select Gender---", htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })*@
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Marital Status</span>
+                                            </div>
+                                            @Html.DropDownListFor(model => model.MaritalStatus, new SelectList(ViewBag.Marital, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "MaritalStatus" })
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Identity Number</span>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                            <input type="text" class="form-control" placeholder="Date of Birth" id="DOB">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <input type="text" class="form-control" id="NationalIdentityNumber"
-                                               placeholder="National Identity Number"
-                                               aria-label="NationalIdentityNumber" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.NationalIdentityNumber, "Personal Identity Number", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.NationalIdentityNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "National Identity Number" } })
-                                        @Html.ValidationMessageFor(model => model.NationalIdentityNumber, "", new { @class = "text-danger" })*@
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Gender</span>
+                                            </div>
+                                            @Html.DropDownListFor(model => model.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "Gender" })
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Gender</span>
-                                        </div>
-                                        @Html.DropDownListFor(model => model.BloodGroup, new SelectList(ViewBag.BloodGroup, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "BloodGroup" })
-                                    </div>
-                                    @*@Html.LabelFor(model => model.BloodGroup, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(model => model.BloodGroup, new SelectList(ViewBag.BloodGroup, "Value", "Text"), "---Select Blood Group---", htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>ADDRESS & CONTACT INFORMATION</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Address</span>
-                                        </div>
-                                        <textarea class="form-control" aria-label="Address" id="Address"></textarea>
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.Address, "Contact Address", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address" } })
-                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12" style="margin-top:15px;">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
-                                        </div>
-                                        <input type="text" id="EmailAddress" class="form-control email"
-                                               placeholder="Email Address">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "none@none.com" } })
-                                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
-                                        </div>
-                                        <input type="text" id="MobileNo" class="form-control mobile-phone-number"
-                                               placeholder="Mobile No">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.MobileNo, "Mobile Number", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2348000000000" } })
-                                        @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
-                                        </div>
-                                        <input type="text" id="PersonalEmail" class="form-control email"
-                                               placeholder="Personal Email">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.PersonalEmail, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.PersonalEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "none@none.com" } })
-                                        @Html.ValidationMessageFor(model => model.PersonalEmail, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
-                                        </div>
-                                        <input type="text" id="OfficeNo" class="form-control mobile-phone-number"
-                                               placeholder="Office No">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.OfficeNo, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.OfficeNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2349000000000" } })
-                                        @Html.ValidationMessageFor(model => model.OfficeNo, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Password</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="Password" placeholder="Password"
-                                               aria- label="Password" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.Password, "Password", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Staff Number</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="StaffId" placeholder="Staff Number"
-                                               aria- label="StaffId" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.StaffId, "Staff Number", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })*@
-                                </div>
-                                @*<div class="col-md-6">
-                                    </div>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>EMPLOYMENT INFORMATION</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
-                                        <input type="text" class="form-control" placeholder="Date of Employment"
-                                               disabled="disabled" id="DOE">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button">
-                                                <i class="fa fa-calendar"></i>
-                                            </button>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Identity Number</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="NationalIdentityNumber"
+                                                   placeholder="National Identity Number"
+                                                   aria-label="NationalIdentityNumber" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.DOE, "Date of Employment", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.DOE, new { htmlAttributes = new { @class = "form-control", @placeholder = "09 Feb 2019" } })
-                                        @Html.ValidationMessageFor(model => model.DOE, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Line Manager</span>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Gender</span>
+                                            </div>
+                                            @Html.DropDownListFor(model => model.BloodGroup, new SelectList(ViewBag.BloodGroup, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "BloodGroup" })
                                         </div>
-                                        @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", id = "lineMger" })
                                     </div>
-                                    @*@Html.LabelFor(model => model.LineManagerId, "Line Manager", htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", id = "lineMger" })
-                                        @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Department</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="Department" placeholder="Department"
-                                               aria- label="Department" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.Department, "Department", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", @placeholder = "Department" } })
-                                        @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Designation</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="Designation" placeholder="Senior Developer"
-                                               aria- label="Designation" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.Designation, "Designation", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senior Developer" } })
-                                        @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Year Call To Bar</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="YearCallToBar" placeholder="3" aria- label="YearCallToBar" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.YearCallToBar, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.YearCallToBar, new { htmlAttributes = new { @class = "form-control", @placeholder = "5" } })
-                                        @Html.ValidationMessageFor(model => model.YearCallToBar, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Location</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="Location" placeholder="Call to Bar location" aria- label="Location" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelForRequired(model => model.Location, "Location", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @placeholder = "Call to Bar location" } })
-                                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Bank</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="Bank" placeholder="UBA" aria-label="Bank"
-                                               aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.Bank, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Bank, new { htmlAttributes = new { @class = "form-control", @placeholder = "UBA" } })
-                                        @Html.ValidationMessageFor(model => model.Bank, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Account Number</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="AccountNumber" placeholder="1234567890"
-                                               aria- label="AccountNumber" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "1234567890" } })
-                                        @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        @*style="height:380px;"*@
-                        <div class="card-header">
-                            <h4>EMERGENCY CONTACT</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Full Name</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="NKFullName" placeholder="Full Name" aria- label="NKFullName" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.NKFullName, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.NKFullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Full Name" } })
-                                        @Html.ValidationMessageFor(model => model.NKFullName, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Relationship</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="Relationship" placeholder="Relationship" aria- label="Relationship" aria-describedby="basic-addon1">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.Relationship, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.Relationship, new { htmlAttributes = new { @class = "form-control", @placeholder = "Relationship" } })
-                                        @Html.ValidationMessageFor(model => model.Relationship, "", new { @class = "text-danger" })*@
-                                </div>
+                        <br />
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>ADDRESS & CONTACT INFORMATION</h5>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
-                                        </div>
-                                        <input type="text" id="KTelephone" class="form-control mobile-phone-number"
-                                               placeholder="Ex: (080) 0000-00-00">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.KTelephone, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.KTelephone, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2348022222222" } })
-                                        @Html.ValidationMessageFor(model => model.KTelephone, "", new { @class = "text-danger" })*@
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
-                                        </div>
-                                        <input type="text" id="NKEmail" class="form-control email"
-                                               placeholder="Ex: example@example.com">
-                                    </div>
-                                    @*@Html.LabelFor(model => model.NKEmail, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.NKEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "none@none.com" } })
-                                        @Html.ValidationMessageFor(model => model.NKEmail, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="input-group mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Address</span>
                                             </div>
-                                            <textarea class="form-control" aria-label="NKAddress" id="NKAddress"></textarea>
+                                            <textarea class="form-control" aria-label="Address" id="Address"></textarea>
                                         </div>
                                     </div>
-                                    @*@Html.LabelFor(model => model.NKAddress, htmlAttributes: new { @class = "control-label" })
-                                        <div>
-                                            @Html.EditorFor(model => model.NKAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address" } })
-                                            @Html.ValidationMessageFor(model => model.NKAddress, "", new { @class = "text-danger" })
-                                        </div>*@
+                                    <div class="col-md-6 col-sm-12" style="margin-top:15px;">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" id="EmailAddress" class="form-control email"
+                                                   placeholder="Email Address">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                            </div>
+                                            <input type="text" id="MobileNo" class="form-control mobile-phone-number"
+                                                   placeholder="Mobile No">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" id="PersonalEmail" class="form-control email"
+                                                   placeholder="Personal Email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                            </div>
+                                            <input type="text" id="OfficeNo" class="form-control mobile-phone-number"
+                                                   placeholder="Office No">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Password</span>
+                                            </div>
+                                            <input type="password"  class="form-control" id="Password" placeholder="Password"
+                                                   aria- label="Password" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Staff Number</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="StaffId" placeholder="Staff Number"
+                                                   aria- label="StaffId" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <input type="button" value="Add" class="btn btn-primary" id="add-Staff" />
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>EMPLOYMENT INFORMATION</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                            <input type="text" class="form-control" placeholder="Date of Employment"
+                                                   disabled="disabled" id="DOE">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Line Manager</span>
+                                            </div>
+                                            @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", id = "lineMger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Department</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Department" placeholder="Department"
+                                                   aria- label="Department" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Designation</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Designation" placeholder="Senior Developer"
+                                                   aria- label="Designation" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Year Call To Bar</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="YearCallToBar" placeholder="3" aria- label="YearCallToBar" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Location</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Location" placeholder="Call to Bar location" aria- label="Location" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Bank</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Bank" placeholder="UBA" aria-label="Bank"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Account Number</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="AccountNumber" placeholder="1234567890"
+                                                   aria- label="AccountNumber" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>EMERGENCY CONTACT</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Full Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="NKFullName" placeholder="Full Name" aria- label="NKFullName" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Relationship</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Relationship" placeholder="Relationship" aria- label="Relationship" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                            </div>
+                                            <input type="text" id="KTelephone" class="form-control mobile-phone-number"
+                                                   placeholder="Ex: (080) 0000-00-00">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" id="NKEmail" class="form-control email"
+                                                   placeholder="Ex: example@example.com">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Address</span>
+                                                </div>
+                                                <textarea class="form-control" aria-label="NKAddress" id="NKAddress"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <input type="button" value="Add" class="btn btn-primary" id="add-Staff" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         }
+
     }
     else
     {
-        //"Create", "Staffs",FormMethod.Post, new { @enctype = "multipart/form-data" }
+        //"Create", "Staffs",FormMethod.Post, new { @enctype = "multipart/form-data" }*@
         using (Html.BeginForm("Create", "Staffs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="row form-horizontal" style="padding-right:17px;">
+            <div class="row" style="padding-right:17px;">
                 <div class="col-md-6">
                     <div class="card">
                         @*style="height:380px;"*@
                         <div class="card-header">
-                            <h3 class="card-title"> PERSONAL DATA</h3>
+                            <h5 class="card-title"> PERSONAL DATA</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -457,9 +383,6 @@
                                         <input type="text" class="form-control" id="FirstName" placeholder="First Name"
                                                aria- label="FirstName" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name" } })
-                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -469,9 +392,6 @@
                                         <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name"
                                                aria- label="MiddleName" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Middle Name" } })
-                                        @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -483,9 +403,6 @@
                                         <input type="text" class="form-control" id="LastName" placeholder="Last Name"
                                                aria- label="LastName" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name" } })
-                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
 
@@ -495,10 +412,6 @@
                                         </div>
                                         @Html.DropDownListFor(model => model.MaritalStatus, new SelectList(ViewBag.Marital, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
                                     </div>
-                                    @*@Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label" })
-
-                                        @Html.DropDownListFor(model => model.MaritalStatus, new SelectList(ViewBag.Marital, "Value", "Text"), "---Select Marital Status---", htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -512,9 +425,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.DOB, "Date of Birth", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "09 Feb 2019" } })
-                                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group input-group-sm mb-3">
@@ -523,16 +433,13 @@
                                         </div>
                                         @Html.DropDownListFor(model => model.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
                                     </div>
-                                    @*@Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(model => model.Gender, new SelectList(ViewBag.Gender, "Value", "Text"), "---Select Gender---", htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">ADDRESS & CONTACT INFORMATION</h3>
+                            <h5 class="card-title">ADDRESS & CONTACT INFORMATION</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -543,9 +450,6 @@
                                         </div>
                                         <textarea class="form-control" aria-label="Address" id="Address"></textarea>
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.Address, "Contact Address", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address" } })
-                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -555,9 +459,6 @@
                                         <input type="text" id="EmailAddress" class="form-control email"
                                                placeholder="Ex: example@example.com">
                                     </div>
-                                    @*@Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "none@none.com" } })
-                                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -569,9 +470,6 @@
                                         <input type="text" id="MobileNo" class="form-control mobile-phone-number"
                                                placeholder="Ex: (080) 0000-00-00">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.MobileNo, "Mobile Number", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2348000000000" } })
-                                        @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -581,9 +479,6 @@
                                         <input type="text" id="PersonalEmail" class="form-control email"
                                                placeholder="Ex: example@example.com">
                                     </div>
-                                    @*@Html.LabelFor(model => model.PersonalEmail, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.PersonalEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "none@none.com" } })
-                                        @Html.ValidationMessageFor(model => model.PersonalEmail, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -595,21 +490,15 @@
                                         <input type="text" id="OfficeNo" class="form-control mobile-phone-number"
                                                placeholder="Ex: (080) 0000-00-00">
                                     </div>
-                                    @*@Html.LabelFor(model => model.OfficeNo, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.OfficeNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2349000000000" } })
-                                        @Html.ValidationMessageFor(model => model.OfficeNo, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Password</span>
                                         </div>
-                                        <input type="text" class="form-control" id="Password" placeholder="Password"
+                                        <input type="password" class="form-control" id="Password" placeholder="Password"
                                                aria- label="Password" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.Password, "Password", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -621,9 +510,6 @@
                                         <input type="text" class="form-control" id="StaffId" placeholder="Staff Number"
                                                aria- label="StaffId" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.StaffId, "Staff Number", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.StaffId, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6">
                                 </div>
@@ -631,10 +517,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">EMPLOYMENT INFORMATION</h3>
+                            <h5 class="card-title">EMPLOYMENT INFORMATION</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -648,9 +534,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.DOE, "Date of Employment", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.DOE, new { htmlAttributes = new { @class = "form-control", @placeholder = "09 Feb 2019", disabled = "disabled" } })
-                                        @Html.ValidationMessageFor(model => model.DOE, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group input-group-sm mb-3">
@@ -659,10 +542,6 @@
                                         </div>
                                         @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", disabled = "disabled", id = "lineMger" })
                                     </div>
-
-                                    @*@Html.LabelFor(model => model.LineManagerId, "Line Manager", htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", disabled = "disabled", id = "lineMger" })
-                                        @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -674,9 +553,6 @@
                                         <input type="text" class="form-control" id="Department" placeholder="Department"
                                                aria- label="Department" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.Department, "Department", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", @placeholder = "Department" } })
-                                        @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -686,9 +562,6 @@
                                         <input type="text" class="form-control" id="Designation" placeholder="Senior Developer"
                                                aria- label="Designation" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.Designation, "Designation", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senior Developer" } })
-                                        @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -699,10 +572,6 @@
                                         </div>
                                         <input type="text" class="form-control" id="YearCallToBar" placeholder="3" aria- label="YearCallToBar" aria-describedby="basic-addon1">
                                     </div>
-
-                                    @*@Html.LabelFor(model => model.YearCallToBar, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.YearCallToBar, new { htmlAttributes = new { @class = "form-control", @placeholder = "5" } })
-                                        @Html.ValidationMessageFor(model => model.YearCallToBar, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -711,9 +580,6 @@
                                         </div>
                                         <input type="text" class="form-control" id="Location" placeholder="Call to Bar location" aria- label="Location" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelForRequired(model => model.Location, "Location", htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @placeholder = "Call to Bar location" } })
-                                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -725,9 +591,6 @@
                                         <input type="text" class="form-control" id="Bank" placeholder="UBA" aria-label="Bank"
                                                aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelFor(model => model.Bank, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.Bank, new { htmlAttributes = new { @class = "form-control", @placeholder = "UBA" } })
-                                        @Html.ValidationMessageFor(model => model.Bank, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -737,9 +600,6 @@
                                         <input type="text" class="form-control" id="AccountNumber" placeholder="1234567890"
                                                aria- label="AccountNumber" aria-describedby="basic-addon1">
                                     </div>
-                                    @*@Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "1234567890" } })
-                                        @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                         </div>
@@ -747,7 +607,7 @@
                     <div class="card">
                         @*style="height:380px;"*@
                         <div class="card-header">
-                            <h3 class="card-title">EMERGENCY CONTACT</h3>
+                            <h5 class="card-title">EMERGENCY CONTACT</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -758,10 +618,6 @@
                                         </div>
                                         <input type="text" class="form-control" id="NKFullName" placeholder="Full Name" aria- label="NKFullName" aria-describedby="basic-addon1">
                                     </div>
-
-                                    @*@Html.LabelFor(model => model.NKFullName, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.NKFullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Full Name" } })
-                                        @Html.ValidationMessageFor(model => model.NKFullName, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -770,10 +626,6 @@
                                         </div>
                                         <input type="text" class="form-control" id="Relationship" placeholder="Relationship" aria- label="Relationship" aria-describedby="basic-addon1">
                                     </div>
-
-                                    @*@Html.LabelFor(model => model.Relationship, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.Relationship, new { htmlAttributes = new { @class = "form-control", @placeholder = "Relationship" } })
-                                        @Html.ValidationMessageFor(model => model.Relationship, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="row">
@@ -785,10 +637,6 @@
                                         <input type="text" id="KTelephone" class="form-control mobile-phone-number"
                                                placeholder="Ex: (080) 0000-00-00">
                                     </div>
-
-                                    @*@Html.LabelFor(model => model.KTelephone, htmlAttributes: new { @class = "control-label " })
-                                        @Html.EditorFor(model => model.KTelephone, new { htmlAttributes = new { @class = "form-control", @placeholder = "+2348022222222" } })
-                                        @Html.ValidationMessageFor(model => model.KTelephone, "", new { @class = "text-danger" })*@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -798,9 +646,6 @@
                                         <input type="text" id="NKEmail" class="form-control email"
                                                placeholder="Ex: example@example.com">
                                     </div>
-                                    @*@Html.LabelFor(model => model.NKEmail, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.NKEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "none@none.com" } })
-                                        @Html.ValidationMessageFor(model => model.NKEmail, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-12">
@@ -812,12 +657,6 @@
                                         <textarea class="form-control" aria-label="NKAddress" id="NKAddress"></textarea>
                                     </div>
                                 </div>
-
-                                @*@Html.LabelFor(model => model.NKAddress, htmlAttributes: new { @class = "control-label" })
-                                    <div>
-                                        @Html.EditorFor(model => model.NKAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address" } })
-                                        @Html.ValidationMessageFor(model => model.NKAddress, "", new { @class = "text-danger" })
-                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -839,12 +678,23 @@
         //select2DropDown('ClientId', '@Url.Action("GetClientForDropDown", "Matters")', "Select Client");
         select2DropDown('advocateGroup', '@Url.Action("GetAdvocateGroupForDropDown", "Staffs")', "Select Advocate Group");
         select2DropDown('lineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");
+        $('#add-Staff').click(function () {
+            saveStaff();
+        });
 
     });
 
         function saveStaff() {
-            //
-            //var url =
+             var data = new FormData();
+            //var fileFields = $('form input[type=file]')[0].files[0];
+            var file = $('#fileBase')[0].files[0];
+
+            //$.each(fileFields, function (i, file) {
+                data.append('file', file);
+            //});
+                //data.append('files', file);
+            
+
             var staff = {};
 
             var firstName = $('#FirstName').val();
@@ -920,23 +770,25 @@
 
             };
 
-            $.ajax({
+            data.append('model', JSON.stringify(staff));
 
+            $.ajax({
                 type: 'POST',
-                url: '@Url.Action("SaveCourtActivity","CourtActivities")',
-                data: JSON.stringify(staff),
+                url: '@Url.Action("Create","Staffs")',
+                data: data,//JSON.stringify(staff),
                 contentType: 'application/json',
                 success: function () {
                     alert('Saved');
+                    window.location.href='@Url.Action("Create","Experiences")'
                 },
                 error: function (e) {
-                    window.location.href='@Url.Action("Index","Matters")'
+                    window.location.href='@Url.Action("Create","Experiences")'
                     //alert(e);
                 }
             });
         }
 
-    function select2DropDown(elementId,url,placeholder) {
+        function select2DropDown(elementId,url,placeholder) {
         $('#' + elementId).select2({
             placeholder: placeholder,
             //minimumInputLength:3,
@@ -958,7 +810,45 @@
                 }
             }
         });
-    }
+        }
+
+        var openFile = function (event) {
+                var input = event.target;
+
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var dataURL = reader.result;
+                    var output = document.getElementById('output');
+                    output.src = dataURL;
+                };
+                reader.readAsDataURL(input.files[0]);
+        };
+
+        function validate() {
+            var isValid = true;
+            if ($('#matterNumber').val().trim() == "") {
+                $('#matterNumber').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#matterNumber').css('border-color', 'lightgrey');
+            }
+            if ($('#DocName').val().trim() == "") {
+                $('#DocName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DocName').css('border-color', 'lightgrey');
+            }
+            if ($('#Description').val().trim() == "") {
+                $('#Description').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Description').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
     </script>
 
 }
