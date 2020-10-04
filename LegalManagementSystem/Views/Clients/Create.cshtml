@@ -32,7 +32,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">First Name</span>
                                     </div>
-                                    <input type="text" class="form-control" id="FirstName"                  placeholder="First Name" aria-label="FirstName" aria-          describedby="basic-addon1">
+                                    <input type="text" class="form-control" id="FirstName" placeholder="First Name" aria-label="FirstName" aria-          describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -181,11 +181,12 @@
                 dataType: 'json',
                 data:JSON.stringify(client),
                 success: function (e) {
-                    //alert('Saved.');
+                    alert('Saved.');
                     window.location.href = '@Url.Action("Index","Clients")';
                 },
                 error: function (e) {
-                    window.location.href = '@Url.Action("Index","Clients")';
+                    alert('Error Occured.')
+                    //window.location.href = '@Url.Action("Index","Clients")';
                 }
             });
         }

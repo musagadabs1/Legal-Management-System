@@ -163,7 +163,7 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
-                return await db.Experiences.Include(e => e.Staff).Where(expression).ToListAsync();
+                return await db.Experiences.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -175,7 +175,7 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
-                return await db.Experiences.Include(e => e.Staff).ToListAsync();
+                return await db.Experiences.ToListAsync();
             }
             catch (Exception ex)
             {

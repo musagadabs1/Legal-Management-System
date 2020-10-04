@@ -18,17 +18,16 @@ namespace LegalManagementSystem.Models
         public Matter()
         {
             this.CourtActivities = new HashSet<CourtActivity>();
-            this.LMSTasks = new HashSet<LMSTask>();
         }
     
         public string Subject { get; set; }
         public string Description { get; set; }
         public string AreaOfPractice { get; set; }
-        public Nullable<int> ClientId { get; set; }
+        public int ClientId { get; set; }
         public Nullable<int> LineManagerId { get; set; }
         public Nullable<System.DateTime> ArrivalDate { get; set; }
-        public Nullable<System.DateTime> FiledOn { get; set; }
-        public Nullable<System.DateTime> DueDate { get; set; }
+        public System.DateTime FiledOn { get; set; }
+        public System.DateTime DueDate { get; set; }
         public string MatterNumber { get; set; }
         public string Priority { get; set; }
         public string MatterStage { get; set; }
@@ -45,7 +44,5 @@ namespace LegalManagementSystem.Models
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourtActivity> CourtActivities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LMSTask> LMSTasks { get; set; }
     }
 }

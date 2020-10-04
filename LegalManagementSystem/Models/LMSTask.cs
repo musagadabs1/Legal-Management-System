@@ -27,7 +27,5 @@ namespace LegalManagementSystem.Models
         public string Reporter { get; set; }
         public Nullable<int> AdvocateGroupId { get; set; }
         public Nullable<System.DateTime> DueDate { get; set; }
-    
-        public virtual Matter Matter { get; set; }
     }
 }

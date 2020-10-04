@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <style>
 
     .modal-full {
@@ -21,8 +21,8 @@
     }
 </style>
 <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
+    <div class="col-md-0"></div>
+    <div class="col-md-12">
         <div class="table-responsive">
             <div class="card">
                 <div class="card-header">
@@ -30,26 +30,31 @@
                     <p>
                         @*@if (ViewBag.rolename != "Employee")
                             {*@
-                        <a href="javascript:void(0);" style="border-radius:0.7rem;" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addEmployee">Add New Employee</a>
-                        @*}*@
+                        <a href="@Url.Action("Create","Staffs")" class="btn btn-primary">
+                            <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                        </a>
 
-                        @*<a href="@Url.Action("Create","Staffs")" class="btn btn-primary">
-                                <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                            </a>*@
+                        @*<a href="javascript:void(0);" style="border-radius:0.7rem;" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addEmployee">Add New Employee</a>*@
                     </p>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-condensed table-responsive" id="staffTable">
+                    <table class="table table-striped table-condensed table-responsive" id="staffTable" style="width:100%">
                         <thead>
                             <tr>
                                 <th>
-                                    ID
+                                    Staff Id
                                 </th>
                                 <th>
                                     First Name
                                 </th>
                                 <th>
                                     Last Name
+                                </th>
+                                <th>
+                                    Date Of Birth
+                                </th>
+                                <th>
+                                    Date Of Employment
                                 </th>
                                 <th>
                                     Address
@@ -60,15 +65,12 @@
                                 <th>
                                     Email Address
                                 </th>
-                                @*<th>
-                                    Department
-                                </th>*@
-                                <th></th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
 
-                        @foreach (var item in Model)
+                        @*@foreach (var item in Model)
                         {
                             <tbody>
                                 <tr>
@@ -90,9 +92,6 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.EmailAddress)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Department)
-                                    </td>*@
                                     <td>
                                         <a href="@Url.Action("Edit","Staffs",new {id = item.StaffId })" style="margin-right:10px;">
                                             <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
@@ -103,7 +102,7 @@
                                 </tr>
                             </tbody>
 
-                        }
+                        }*@
 
                     </table>
                 </div>
@@ -111,295 +110,138 @@
 
         </div>
     </div>
-    <div class="col-md-1"></div>
+    <div class="col-md-0"></div>
 </div>
 
 @*<div class="modal animated bounceIn" id="addEmployee" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-full" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="title text-center" id="defaultModalLabel">Add New Employee</h6>
-            </div>
-            <div class="modal-body" id="employee-form">
-                <hr />
-                <hr />
-                <div class="clearfix" style="margin-top:20px;">
-                    <img src="~/Content/Images/man-user.png" style="margin-left:20px; padding:5px;" id="output" width="140" height="100" />
-                    <div class="col-md-3">
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                                <input type="file" accept="image/*" onchange="openFile(event)" class="custom-file-input" id="fileBase">
-                                <label class="custom-file-label" for="fileBase"></label>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
+        <div class="modal-dialog modal-full" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="title text-center" id="defaultModalLabel">Add New Employee</h6>
                 </div>
+                <div class="modal-body" id="employee-form">
+                    <hr />
+                    <hr />
+                    <div class="clearfix" style="margin-top:20px;">
+                        <img src="~/Content/Images/man-user.png" style="margin-left:20px; padding:5px;" id="output" width="140" height="100" />
+                        <div class="col-md-3">
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input type="file" accept="image/*" onchange="openFile(event)" class="custom-file-input" id="fileBase">
+                                    <label class="custom-file-label" for="fileBase"></label>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
 
-                
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="save-employee">Save</button>
-                <img id="spinner" style="display:none" src="~/assets/vendor/select2/select2-spinner.gif" />
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="save-employee">Save</button>
+                    <img id="spinner" style="display:none" src="~/assets/vendor/select2/select2-spinner.gif" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 
 @section scripts{
-    
-    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
+
+    <script src="~/Content/assets/vendor/jquery-datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.html5.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.print.min.js"></script>
 
     <script>
+
+        var actionButton = function (obj) {
+            return "<a href='/Staffs/Edit/" + obj.StaffId + "' class='btn btn-sm btn-primary' title='Edit Client' style='border: none;'>" + "<i class='fa fa-pencil'></i> Edit Client</a> <a href='/Staffs/Details/" + obj.StaffId + "' class='btn btn-sm btn-primary' title='Details' style='border: none;'>" + "<i class='fa fa-eye'></i> Details</a>";
+        }
+
         $(document).ready(function () {
 
-            //select2DropDown('ClientId', '@Url.Action("GetClientForDropDown", "Matters")', "Select Client");
-        @*select2DropDown('advocateGroup', '@Url.Action("GetAdvocateGroupForDropDown", "Staffs")', "Select Advocate Group");
-        select2DropDown('lineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");*@
-
-           // $('#staffTable').DataTable();
-
-            //$('#save-employee').click(function () {
-            //    saveEmployee();
-            //});
-            
+            $('#staffTable').DataTable({
+                "serverSide": true,
+                "processing": true,
+                'language': {
+                    'emptyTable': 'No record found.',
+                    'processing': '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
+                },
+                "paging": true,
+                "filter": true,
+                "pageLength": 10,
+                "lengthMenu": [[5, 10, 50, 100], [5, 10, 50, 100]],
+                "Sort": true,
+                "ajax": {
+                    "url": '/Staffs/GetStaffRecords',//'@Url.Action("GetStaffRecords", "Staffs")',
+                    "type": 'POST',
+                    "dataType": 'json'
+                },
+                "columns": [
+                    { 'data': 'StaffId' },
+                    { 'data': 'FirstName' },
+                    { 'data': 'LastName' },
+                    { 'data': 'DOB' },
+                    { 'data': 'DOE' },
+                    { 'data': 'Address' },
+                    { 'data': 'MobileNo' },
+                    { 'data': 'EmailAddress' }
+                ],
+                "buttons": [
+                    'excel', 'pdf'
+                ],
+                'createdRow': function (row, data, index) {
+                    $(row).append($("<td>").html(actionButton(data)));
+                }
+            });
         });
 
-        @*var openFile = function (event) {
-                var input = event.target;
-
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var dataURL = reader.result;
-                    var output = document.getElementById('output');
-                    output.src = dataURL;
-                };
-                reader.readAsDataURL(input.files[0]);
-        };
-
-        function select2DropDown(elementId,url,placeholder) {
-            $('#' + elementId).select2({
-                placeholder: placeholder,
-                //minimumInputLength:3,
-                allowclear: true,
-                theme: "classic",
-                ajax: {
-                    url: url,
-                    datatype: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            searchKey: params.term
-                        };
+        function bindStaffTable() {
+            $("#staffTable").DataTable(
+            {
+                "serverSide": true,
+                //"bRetrieve": true,
+                "processing": true,
+                 'language': {
+                        'emptyTable': 'No record found.',
+                        'processing': '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
+                  },
+                "paging": true,
+                "filter": true,
+                "pageLength": 10,
+                "lengthMenu": [[5, 10, 50,100], [5, 10, 50,100]],
+                "Sort": true,
+                    "ajax": {
+                        "url": '@Url.Action("GetStaffRecords", "Staffs")',
+                        "type": 'POST',
+                        "dataType": 'json',
+                        //"dataSrc": ''
                     },
-                    processResults: function (data,params) {
-                        return {
-                            results: data
-                        };
+                    //data: response,DOB
+                    "columns": [
+                        { 'data':'StaffId'},
+                        { 'data': 'FirstName' },
+                        { 'data': 'LastName' },
+                        { 'data': 'DOB' },
+                        { 'data': 'DOE' },
+                        { 'data': 'Address' },
+                        { 'data': 'EmailAddress' },
+                        { 'data': 'MobileNo' }
+                    ],
+                    "buttons": [
+                        'excel', 'pdf'
+                    ],
+                    'createdRow': function (row, data, index) {
+                        $(row).append($("<td>").html(actionButton(data)));
                     }
-                }
             });
         }
-
-        function saveEmployee() {
-
-            var res = validate();
-            if (res == false) {  
-                return false;  
-            }
-
-            var data = new FormData();
-            //var fileFields = $('form input[type=file]')[0].files[0];
-            var fileField = $('#fileBase')[0].files[0];
-
-            //$.each(fileFields, function (i, file) {
-                data.append('file', fileField);
-            //});
-                //data.append('files', file);
-            
-
-            var staff = {};
-
-            var firstName = $('#FirstName').val();
-            var middleName = $('#MiddleName').val();
-            var lastName = $('#LastName').val();
-            var maritalStatus = $('#MaritalStatus').val();
-            var dOB = new Date($('#DOB').val());
-            var gender = $('#Gender').val();
-            var nationalIdentityNumber = $('#NationalIdentityNumber').val();
-            var bloodGroup = $('#BloodGroup').val();
-
-            var address = $('#Address').val();
-            var emailAddress = $('#EmailAddress').val();
-            var mobileNo = $('#MobileNo').val();
-            var personalEmail = $('#PersonalEmail').val();
-            var officeNo = $('#OfficeNo').val();
-            var password = $('#Password').val();
-            var staffId = $('#StaffId').val();
-
-            var dOE = new Date($('#DOE').val());
-            var linMger = $('#lineMger').val();
-            var department = $('#Department').val();
-            var designation = $('#Designation').val();
-            var yearCallToBar = $('#YearCallToBar').val();
-            var location = $('#Location').val();
-            var bank = $('#Bank').val();
-            var accountNumber = $('#AccountNumber').val();
-
-            var nKFullName = $('#NKFullName').val();
-            var relationship = $('#Relationship').val();
-            var kTelephone = $('#KTelephone').val();
-            var nKEmail = $('#NKEmail').val();
-            var nKAddress = $('#NKAddress').val();
-
-
-
-            staff = {
-                //PERSONAL DATA
-                FirstName: firstName,
-                MiddleName: middleName,
-                LastName: lastName,
-                MaritalStatus: maritalStatus,
-                DOB: dOB,
-                Gender: gender,
-                NationalIdentityNumber: nationalIdentityNumber,
-                BloodGroup: bloodGroup,
-
-                //ADDRESS & CONTACT INFORMATION
-                Address: address,
-                EmailAddress: emailAddress,
-                MobileNo: mobileNo,
-                PersonalEmail: personalEmail,
-                OfficeNo: officeNo,
-                Password: password,
-                StaffId: staffId,
-
-                //EMPLOYMENT INFORMATION
-                DOE: dOE,
-                lineMger: linMger,
-                Department: department,
-                Designation: designation,
-                YearCallToBar: yearCallToBar,
-                Location: location,
-                Bank: bank,
-                AccountNumber: accountNumber,
-
-                //EMERGENCY CONTACT
-                NKFullName: nKFullName,
-                Relationship: relationship,
-                KTelephone: kTelephone,
-                NKEmail: nKEmail,
-                NKAddress:nKAddress
-
-            };
-
-            data.append('model', JSON.stringify(staff));
-
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("Create","Staffs")',
-                data: data,//JSON.stringify(staff),
-                contentType: 'application/json',
-                success: function () {
-                    alert('Saved');
-                    window.location.href='@Url.Action("Create","Experiences")'
-                },
-                error: function (e) {
-                    window.location.href='@Url.Action("Create","Experiences")'
-                    //alert(e);
-                }
-            });
-        }
-
-        function validate() {
-            var isValid = true;
-
-            if ($('#FirstName').val().trim() == "") {
-                $('#FirstName').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#FirstName').css('border-color', 'lightgrey');
-            }
-            if ($('#LastName').val().trim() == "") {
-                $('#LastName').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#LastName').css('border-color', 'lightgrey');
-            }
-            if ($('#DOB').val().trim() == "") {
-                $('#DOB').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#DOB').css('border-color', 'lightgrey');
-            }
-
-            if ($('#Gender').val().trim() == "") {
-                $('#Gender').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#Gender').css('border-color', 'lightgrey');
-            }
-            if ($('#NationalIdentityNumber').val().trim() == "") {
-                $('#NationalIdentityNumber').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#NationalIdentityNumber').css('border-color', 'lightgrey');
-            }
-            if ($('#EmailAddress').val().trim() == "") {
-                $('#EmailAddress').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#EmailAddress').css('border-color', 'lightgrey');
-            }
-
-            if ($('#MobileNo').val().trim() == "") {
-                $('#MobileNo').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#MobileNo').css('border-color', 'lightgrey');
-            }
-            if ($('#StaffId').val().trim() == "") {
-                $('#StaffId').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#StaffId').css('border-color', 'lightgrey');
-            }
-            if ($('#DOE').val().trim() == "") {
-                $('#DOE').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#DOE').css('border-color', 'lightgrey');
-            }
-
-            if ($('#NKFullName').val().trim() == "") {
-                $('#NKFullName').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#NKFullName').css('border-color', 'lightgrey');
-            }
-            if ($('#KTelephone').val().trim() == "") {
-                $('#KTelephone').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#KTelephone').css('border-color', 'lightgrey');
-            }
-
-            return isValid;
-        }*@
     </script>
 }

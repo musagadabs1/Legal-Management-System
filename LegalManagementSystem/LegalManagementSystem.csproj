@@ -230,6 +230,7 @@
     <Compile Include="Interfaces\IDocument.cs" />
     <Compile Include="Interfaces\IEducation.cs" />
     <Compile Include="Interfaces\IExperience.cs" />
+    <Compile Include="Interfaces\IJudgement.cs" />
     <Compile Include="Interfaces\ILicenseTable.cs" />
     <Compile Include="Interfaces\ILineManager.cs" />
     <Compile Include="Interfaces\IMatter.cs" />
@@ -261,7 +262,6 @@
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CaseDocument.cs" />
-    <Compile Include="Models\CaseViewModel.cs" />
     <Compile Include="Models\Certification.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -277,7 +277,6 @@
     <Compile Include="Models\CourtActivity.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CourtActivityVM.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -287,7 +286,6 @@
     <Compile Include="Models\Document.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DocumentViewModel.cs" />
     <Compile Include="Models\Education.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -363,6 +361,9 @@
     <Compile Include="Models\GEtListOfDocuments_Result.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Judgement.cs">
+      <DependentUpon>LMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Library.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -423,6 +424,13 @@
     <Compile Include="Models\UserRole.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\JudgementRepository.cs" />
+    <Compile Include="ViewModels\CaseViewModel.cs" />
+    <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="Models\CourtActivityVM.cs" />
+    <Compile Include="Models\DocumentViewModel.cs" />
+    <Compile Include="Models\JqueryDatatableParam.cs" />
+    <Compile Include="ViewModels\MatterViewModel.cs" />
     <Compile Include="ReportDataSets\AllStaffDataset.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -547,9 +555,10 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ManagerForDropDown.cs" />
     <Compile Include="ViewModels\MatterForDropDown.cs" />
-    <Compile Include="ViewModels\MatterViewModel.cs" />
     <Compile Include="ViewModels\ReportParameter.cs" />
     <Compile Include="ViewModels\StaffForDropDown.cs" />
+    <Compile Include="ViewModels\StaffViewModel.cs" />
+    <Compile Include="ViewModels\StaffVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ContactUs\css\main.css" />
@@ -4976,6 +4985,7 @@
     <Content Include="Views\Todoes\Details.cshtml" />
     <Content Include="Views\Todoes\Edit.cshtml" />
     <Content Include="Views\Todoes\Index.cshtml" />
+    <Content Include="Views\Staffs\StaffDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />

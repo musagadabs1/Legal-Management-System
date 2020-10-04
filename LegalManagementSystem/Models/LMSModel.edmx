@@ -146,19 +146,19 @@
             <PropertyRef Name="ClientId" />
           </Key>
           <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="MiddleName" Type="nvarchar(max)" />
-          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="EmailAddress" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Town" Type="nvarchar(max)" />
-          <Property Name="PostalCode" Type="nvarchar(max)" />
-          <Property Name="Website" Type="nvarchar(max)" />
-          <Property Name="CreatedBy" Type="nvarchar(max)" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="nvarchar(max)" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Town" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="15" />
+          <Property Name="Website" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="ClientNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Companies">
@@ -207,6 +207,8 @@
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="DateAdjourned" Type="datetime" />
           <Property Name="DefenseCounselName" Type="nvarchar" MaxLength="50" />
+          <Property Name="JudgeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Judgement" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Dependants">
           <Key>
@@ -319,6 +321,16 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
+        <EntityType Name="Judgements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CaseTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateDelivered" Type="datetime" />
+          <Property Name="JudgementPassed" Type="nvarchar(max)" />
+          <Property Name="CourtName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Libraries">
           <Key>
             <PropertyRef Name="ISBN" />
@@ -391,8 +403,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
@@ -409,11 +421,11 @@
           <Property Name="Subject" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="AreaOfPractice" Type="nvarchar" MaxLength="50" />
-          <Property Name="ClientId" Type="int" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
           <Property Name="LineManagerId" Type="int" />
           <Property Name="ArrivalDate" Type="datetime" />
-          <Property Name="FiledOn" Type="datetime" />
-          <Property Name="DueDate" Type="datetime" />
+          <Property Name="FiledOn" Type="datetime" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" Nullable="false" />
           <Property Name="MatterNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Priority" Type="nvarchar" MaxLength="50" />
           <Property Name="MatterStage" Type="nvarchar" MaxLength="50" />
@@ -448,41 +460,41 @@
             <PropertyRef Name="StaffId" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="MiddleName" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="30" />
           <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar(max)" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ModifiedBy" Type="nvarchar(max)" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="DOB" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="DOE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="DOB" Type="datetime" Nullable="false" />
+          <Property Name="DOE" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bit" />
           <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
-          <Property Name="ImagePath" Type="nvarchar(max)" />
-          <Property Name="OfficeNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="MobileNo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="EmailAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="15" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="100" />
+          <Property Name="OfficeNo" Type="nvarchar" MaxLength="15" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PersonalEmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="Relationship" Type="nvarchar" MaxLength="50" />
-          <Property Name="KTelephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Relationship" Type="nvarchar" MaxLength="20" />
+          <Property Name="KTelephone" Type="nvarchar" MaxLength="15" />
           <Property Name="NKEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="NKAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="Bank" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bank" Type="nvarchar" MaxLength="30" />
           <Property Name="AccountNumber" Type="int" />
-          <Property Name="NKFullName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="StaffId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NKFullName" Type="nvarchar" MaxLength="60" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="StaffId" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="LineManagerId" Type="int" Nullable="false" />
           <Property Name="Department" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="YearCallToBar" Type="int" />
-          <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="AdvocateGroupId" Type="int" />
-          <Property Name="NationalIdentityNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="NationalIdentityNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -517,18 +529,6 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
-        <Association Name="FK_Certifications_Staffs">
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="1" />
-          <End Role="Certifications" Type="Self.Certifications" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Certifications">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ClientMatterAcceptanceForms_Clients">
           <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
           <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForms" Multiplicity="*" />
@@ -609,68 +609,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Dependants_Staffs">
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
-          <End Role="Dependants" Type="Self.Dependants" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Dependants">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Educations_Staffs">
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="1" />
-          <End Role="Educations" Type="Self.Educations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Educations">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Experiences_Staffs">
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="1" />
-          <End Role="Experiences" Type="Self.Experiences" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Experiences">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FileEvents_Staffs">
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="0..1" />
-          <End Role="FileEvents" Type="Self.FileEvents" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="FileEvents">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LMSTasks_Matters">
-          <End Role="Matters" Type="Self.Matters" Multiplicity="1" />
-          <End Role="LMSTasks" Type="Self.LMSTasks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Matters">
-              <PropertyRef Name="MatterNumber" />
-            </Principal>
-            <Dependent Role="LMSTasks">
-              <PropertyRef Name="MatterNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Matters_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
           <End Role="Matters" Type="Self.Matters" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -694,7 +634,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Roles">
-          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="0..1" />
           <End Role="LoginUsers" Type="Self.LoginUsers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserRoles">
@@ -813,6 +753,7 @@
           <EntitySet Name="Experiences" EntityType="Self.Experiences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileEvents" EntityType="Self.FileEvents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Judgements" EntityType="Self.Judgements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Libraries" EntityType="Self.Libraries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LicenseTable" EntityType="Self.LicenseTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LineManagers" EntityType="Self.LineManagers" Schema="dbo" store:Type="Tables" />
@@ -825,10 +766,6 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Todoes" EntityType="Self.Todoes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Certifications" EntitySet="Certifications" />
-          </AssociationSet>
           <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
@@ -852,26 +789,6 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Dependants_Staffs" Association="Self.FK_Dependants_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Dependants" EntitySet="Dependants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Educations_Staffs" Association="Self.FK_Educations_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Educations" EntitySet="Educations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Experiences_Staffs" Association="Self.FK_Experiences_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Experiences" EntitySet="Experiences" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FileEvents_Staffs" Association="Self.FK_FileEvents_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="FileEvents" EntitySet="FileEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LMSTasks_Matters" Association="Self.FK_LMSTasks_Matters">
-            <End Role="Matters" EntitySet="Matters" />
-            <End Role="LMSTasks" EntitySet="LMSTasks" />
           </AssociationSet>
           <AssociationSet Name="FK_Matters_Clients" Association="Self.FK_Matters_Clients">
             <End Role="Clients" EntitySet="Clients" />
@@ -1006,7 +923,6 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModeifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Certifications_Staffs" FromRole="Certifications" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="ClientMatterAcceptanceForm">
           <Key>
@@ -1032,19 +948,19 @@
             <PropertyRef Name="ClientId" />
           </Key>
           <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Town" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PostalCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Town" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="ClientNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ClientMatterAcceptanceForms" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="Clients" ToRole="ClientMatterAcceptanceForms" />
           <NavigationProperty Name="Matters" Relationship="Self.FK_Matters_Clients" FromRole="Clients" ToRole="Matters" />
@@ -1095,6 +1011,8 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="DateAdjourned" Type="DateTime" Precision="3" />
           <Property Name="DefenseCounselName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JudgeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Judgement" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Matter" Relationship="Self.FK_CourtActivities_Matters" FromRole="CourtActivities" ToRole="Matters" />
         </EntityType>
         <EntityType Name="Dependant">
@@ -1117,7 +1035,6 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Dependants_Staffs" FromRole="Dependants" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -1154,7 +1071,6 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Educations_Staffs" FromRole="Educations" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="Experience">
           <Key>
@@ -1172,7 +1088,6 @@
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_Experiences_Staffs" FromRole="Experiences" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="FileEvent">
           <Key>
@@ -1192,7 +1107,6 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK_FileEvents_Staffs" FromRole="FileEvents" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="File">
           <Key>
@@ -1211,6 +1125,16 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Judgement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CaseTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateDelivered" Type="DateTime" Precision="3" />
+          <Property Name="JudgementPassed" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CourtName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Library">
           <Key>
@@ -1278,7 +1202,6 @@
           <Property Name="Reporter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AdvocateGroupId" Type="Int32" />
           <Property Name="DueDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Matter" Relationship="Self.FK_LMSTasks_Matters" FromRole="LMSTasks" ToRole="Matters" />
         </EntityType>
         <EntityType Name="LoginUser">
           <Key>
@@ -1286,8 +1209,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="7" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1305,11 +1228,11 @@
           <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AreaOfPractice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
           <Property Name="LineManagerId" Type="Int32" />
           <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
-          <Property Name="FiledOn" Type="DateTime" Precision="3" />
-          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="FiledOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MatterNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MatterStage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1324,7 +1247,6 @@
           <Property Name="CourtStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Matters_Clients" FromRole="Matters" ToRole="Clients" />
           <NavigationProperty Name="CourtActivities" Relationship="Self.FK_CourtActivities_Matters" FromRole="Matters" ToRole="CourtActivities" />
-          <NavigationProperty Name="LMSTasks" Relationship="Self.FK_LMSTasks_Matters" FromRole="Matters" ToRole="LMSTasks" />
         </EntityType>
         <EntityType Name="StaffGroup">
           <Key>
@@ -1347,46 +1269,41 @@
             <PropertyRef Name="StaffId" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="DOE" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DOE" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OfficeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PersonalEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="KTelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Relationship" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="KTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="NKEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NKAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bank" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="AccountNumber" Type="Int32" />
-          <Property Name="NKFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StaffId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NKFullName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StaffId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LineManagerId" Type="Int32" Nullable="false" />
           <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YearCallToBar" Type="Int32" />
-          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AdvocateGroupId" Type="Int32" />
-          <Property Name="NationalIdentityNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Certifications" Relationship="Self.FK_Certifications_Staffs" FromRole="Staffs" ToRole="Certifications" />
-          <NavigationProperty Name="Dependants" Relationship="Self.FK_Dependants_Staffs" FromRole="Staffs" ToRole="Dependants" />
-          <NavigationProperty Name="Educations" Relationship="Self.FK_Educations_Staffs" FromRole="Staffs" ToRole="Educations" />
-          <NavigationProperty Name="Experiences" Relationship="Self.FK_Experiences_Staffs" FromRole="Staffs" ToRole="Experiences" />
-          <NavigationProperty Name="FileEvents" Relationship="Self.FK_FileEvents_Staffs" FromRole="Staffs" ToRole="FileEvents" />
+          <Property Name="NationalIdentityNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LineManager" Relationship="Self.FK_Staffs_LineManagers" FromRole="Staffs" ToRole="LineManagers" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -1451,18 +1368,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Certifications_Staffs">
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="1" />
-          <End Role="Certifications" Type="Self.Certification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Certifications">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ClientMatterAcceptanceForms_Clients">
           <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
           <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForm" Multiplicity="*" />
@@ -1476,7 +1381,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Matters_Clients">
-          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Client" Multiplicity="1" />
           <End Role="Matters" Type="Self.Matter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -1499,54 +1404,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Dependants_Staffs">
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="0..1" />
-          <End Role="Dependants" Type="Self.Dependant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Dependants">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Educations_Staffs">
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="1" />
-          <End Role="Educations" Type="Self.Education" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Educations">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Experiences_Staffs">
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="1" />
-          <End Role="Experiences" Type="Self.Experience" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="Experiences">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FileEvents_Staffs">
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="0..1" />
-          <End Role="FileEvents" Type="Self.FileEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staffs">
-              <PropertyRef Name="StaffId" />
-            </Principal>
-            <Dependent Role="FileEvents">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Staffs_LineManagers">
           <End Role="LineManagers" Type="Self.LineManager" Multiplicity="1" />
           <End Role="Staffs" Type="Self.Staff" Multiplicity="*" />
@@ -1559,20 +1416,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LMSTasks_Matters">
-          <End Role="Matters" Type="Self.Matter" Multiplicity="1" />
-          <End Role="LMSTasks" Type="Self.LMSTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Matters">
-              <PropertyRef Name="MatterNumber" />
-            </Principal>
-            <Dependent Role="LMSTasks">
-              <PropertyRef Name="MatterNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_Roles">
-          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="0..1" />
           <End Role="LoginUsers" Type="Self.LoginUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserRoles">
@@ -1607,6 +1452,7 @@
           <EntitySet Name="Experiences" EntityType="Self.Experience" />
           <EntitySet Name="FileEvents" EntityType="Self.FileEvent" />
           <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="Judgements" EntityType="Self.Judgement" />
           <EntitySet Name="Libraries" EntityType="Self.Library" />
           <EntitySet Name="LicenseTables" EntityType="Self.LicenseTable" />
           <EntitySet Name="LineManagers" EntityType="Self.LineManager" />
@@ -1627,10 +1473,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_Certifications_Staffs" Association="Self.FK_Certifications_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Certifications" EntitySet="Certifications" />
-          </AssociationSet>
           <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
@@ -1643,29 +1485,9 @@
             <End Role="Matters" EntitySet="Matters" />
             <End Role="CourtActivities" EntitySet="CourtActivities" />
           </AssociationSet>
-          <AssociationSet Name="FK_Dependants_Staffs" Association="Self.FK_Dependants_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Dependants" EntitySet="Dependants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Educations_Staffs" Association="Self.FK_Educations_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Educations" EntitySet="Educations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Experiences_Staffs" Association="Self.FK_Experiences_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="Experiences" EntitySet="Experiences" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FileEvents_Staffs" Association="Self.FK_FileEvents_Staffs">
-            <End Role="Staffs" EntitySet="Staffs" />
-            <End Role="FileEvents" EntitySet="FileEvents" />
-          </AssociationSet>
           <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
             <End Role="LineManagers" EntitySet="LineManagers" />
             <End Role="Staffs" EntitySet="Staffs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LMSTasks_Matters" Association="Self.FK_LMSTasks_Matters">
-            <End Role="Matters" EntitySet="Matters" />
-            <End Role="LMSTasks" EntitySet="LMSTasks" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="UserRoles" EntitySet="UserRoles" />
@@ -1771,41 +1593,41 @@
           <Property Type="String" Name="CalendarName" Nullable="true" MaxLength="83" />
         </ComplexType>
         <ComplexType Name="GetAllClientByClientNumber_Result">
-          <Property Type="String" Name="First_Name" Nullable="false" />
-          <Property Type="String" Name="Middle_Name" Nullable="true" />
-          <Property Type="String" Name="Last_Name" Nullable="false" />
-          <Property Type="String" Name="Email_Address" Nullable="false" />
-          <Property Type="String" Name="Phone_Number" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Middle_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Last_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email_Address" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Phone_Number" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Address" Nullable="false" />
-          <Property Type="String" Name="Town" Nullable="true" />
+          <Property Type="String" Name="Town" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="GetAllClientByClientTown_Result">
           <Property Type="String" Name="Client_Number" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FirstName" Nullable="false" />
-          <Property Type="String" Name="MiddleName" Nullable="true" />
-          <Property Type="String" Name="LastName" Nullable="false" />
-          <Property Type="String" Name="Email_Address" Nullable="false" />
-          <Property Type="String" Name="Phone_Number" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email_Address" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Phone_Number" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Address" Nullable="false" />
-          <Property Type="String" Name="Town" Nullable="true" />
+          <Property Type="String" Name="Town" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="GetAllClientForDropDown_Result">
           <Property Type="Int32" Name="ClientId" Nullable="false" />
-          <Property Type="String" Name="ClientName" Nullable="true" />
+          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="152" />
         </ComplexType>
         <ComplexType Name="GetAllClientNames_Result">
-          <Property Type="String" Name="ClientName" Nullable="false" />
-          <Property Type="String" Name="Client" Nullable="false" />
+          <Property Type="String" Name="ClientName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Client" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="GetAllClients_Result">
           <Property Type="String" Name="Client_Number" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="First_Name" Nullable="false" />
-          <Property Type="String" Name="Middle_Name" Nullable="true" />
-          <Property Type="String" Name="Last_Name" Nullable="false" />
-          <Property Type="String" Name="Email_Address" Nullable="false" />
-          <Property Type="String" Name="Phone_Number" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Middle_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Last_Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email_Address" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Phone_Number" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Address" Nullable="false" />
-          <Property Type="String" Name="Town" Nullable="true" />
+          <Property Type="String" Name="Town" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="GetAllCompaniesForDropDown_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1824,14 +1646,14 @@
           <Property Type="String" Name="Defendant_Name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Staff_on_Case" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Client_Name" Nullable="true" MaxLength="152" />
         </ComplexType>
         <ComplexType Name="GetAllCourtActivitiesByCaseNumber_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Case_Number" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Hearing_Date" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Court_Name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Client_Name" Nullable="true" MaxLength="152" />
           <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Plantiff_Argument" Nullable="true" />
           <Property Type="String" Name="Defendant_Argument" Nullable="true" />
@@ -1854,7 +1676,7 @@
           <Property Type="String" Name="Defendant_Name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Staff_on_Case" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Client_Name" Nullable="true" MaxLength="152" />
         </ComplexType>
         <ComplexType Name="GetAllCourtActivitiesByHearingDate_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1869,7 +1691,7 @@
           <Property Type="String" Name="Defendant_Name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Staff_on_Case" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Client_Name" Nullable="true" MaxLength="152" />
         </ComplexType>
         <ComplexType Name="GetAllCourtActivitiesByStatus_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1884,7 +1706,7 @@
           <Property Type="String" Name="Defendant_Name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Staff_on_Case" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Client_Name" Nullable="true" />
+          <Property Type="String" Name="Client_Name" Nullable="true" MaxLength="152" />
         </ComplexType>
         <ComplexType Name="GetAllCourtNames_Result">
           <Property Type="String" Name="CourtName" Nullable="false" MaxLength="50" />
@@ -1899,35 +1721,35 @@
           <Property Type="String" Name="Subject" Nullable="true" MaxLength="86" />
         </ComplexType>
         <ComplexType Name="GetAllStaff_Result">
-          <Property Type="String" Name="Employee_Name" Nullable="true" />
+          <Property Type="String" Name="Employee_Name" Nullable="true" MaxLength="92" />
           <Property Type="String" Name="Date_of_Birth" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Date_Employed" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Address" Nullable="false" />
           <Property Type="String" Name="Department" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Designation" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Gender" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="Marital_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Marital_Status" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="Line_Manager" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Mobile_No" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Personal_ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Mobile_No" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Personal_ID" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="Year_Call_To_Bar" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetAllStaffForDropDown_Result">
-          <Property Type="String" Name="StaffId" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="StaffName" Nullable="true" />
+          <Property Type="String" Name="StaffId" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="StaffName" Nullable="true" MaxLength="143" />
         </ComplexType>
         <ComplexType Name="GetAllTasksForDropDown_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="TaskName" Nullable="false" />
         </ComplexType>
         <ComplexType Name="GetClientByFirstNameOrLastName_Result">
-          <Property Type="String" Name="FirstName" Nullable="false" />
-          <Property Type="String" Name="MiddleName" Nullable="true" />
-          <Property Type="String" Name="LastName" Nullable="false" />
-          <Property Type="String" Name="EmailAddress" Nullable="false" />
-          <Property Type="String" Name="PhoneNumber" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="Address" Nullable="false" />
-          <Property Type="String" Name="Town" Nullable="true" />
+          <Property Type="String" Name="Town" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="GEtListOfDocuments_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -2155,6 +1977,8 @@
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="DateAdjourned" ColumnName="DateAdjourned" />
                 <ScalarProperty Name="DefenseCounselName" ColumnName="DefenseCounselName" />
+                <ScalarProperty Name="JudgeName" ColumnName="JudgeName" />
+                <ScalarProperty Name="Judgement" ColumnName="Judgement" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2272,6 +2096,17 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Judgements">
+            <EntityTypeMapping TypeName="MyCaseNewModel.Judgement">
+              <MappingFragment StoreEntitySet="Judgements">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CaseTitle" ColumnName="CaseTitle" />
+                <ScalarProperty Name="DateDelivered" ColumnName="DateDelivered" />
+                <ScalarProperty Name="JudgementPassed" ColumnName="JudgementPassed" />
+                <ScalarProperty Name="CourtName" ColumnName="CourtName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

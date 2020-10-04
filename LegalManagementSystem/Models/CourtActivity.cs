@@ -30,6 +30,8 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<System.DateTime> DateAdjourned { get; set; }
         public string DefenseCounselName { get; set; }
+        public string JudgeName { get; set; }
+        public string Judgement { get; set; }
     
         public virtual Matter Matter { get; set; }
     }

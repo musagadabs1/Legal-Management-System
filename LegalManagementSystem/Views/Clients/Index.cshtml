@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
-<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
 <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
+    @*<div class="col-md-1"></div>*@
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title align-center">Registered Clients</h5>
@@ -16,8 +16,8 @@
                 </a>
             </div>
             <div class="card-body">
-                <div class="table-responsive" style="width:70%; margin:0 auto">
-                    <table class="table table-responsive table-hover table-condensed" id="client-table">
+                <div class="table-responsive">
+                    <table class="table table-responsive table-hover table-condensed" id="client-table" style="width:90%; margin-left:10%;">
                         <thead>
                             <tr>
                                 <th>
@@ -33,60 +33,98 @@
                                     Phone Number
                                 </th>
                                 <th>Actions</th>
-                                <th></th>
                             </tr>
                         </thead>
 
+                        @*<tbody></tbody>*@
 
-                        @foreach (var item in Model)
-                        {
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FirstName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LastName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.EmailAddress)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Address)
-                                    </td>*@
-                                    <td>
-                                        <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
-                                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                                        </a>
-                                        <a href="@Url.Action("Details","Clients",new { id = item.ClientId})">
-                                            <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
+                        @*@foreach (var item in Model)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FirstName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LastName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmailAddress)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
+                                                <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
+                                            </a>
+                                            <a href="@Url.Action("Details","Clients",new { id = item.ClientId})">
+                                                <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
 
-                        }
+                            }*@
 
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-1"></div>
+    @*<div class="col-md-1"></div>*@
 </div>
 
 
 
 
 @section scripts{
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.html5.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.print.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#client-table').DataTable();
-        });
+    var actionButton = function (obj) {
+        return "<a href='/Clients/Edit/" + obj.ClientId + "' class='btn btn-sm btn-primary' title='Edit Client' style='border: none;'>" + "<i class='fa fa-pencil'></i> Edit Client</a> <a href='/Clients/Details/" + obj.ClientId + "' class='btn btn-sm btn-primary' title='Details' style='border: none;'>" + "<i class='fa fa-eye'></i> Details</a>";
+    }
+    $(document).ready(function () {
+
+            $("#client-table").DataTable(
+            {
+                "serverSide": true,
+                //"bRetrieve": true,
+                "processing": true,
+                "oLanguage": { "sProcessing": "Loading... Please wait" },
+                "paging": true,
+                "filter": true,
+                "pageLength": 10,
+                "lengthMenu": [[5, 10, 50,100], [5, 10, 50,100]],
+                "Sort": true,
+                    "ajax": {
+                        "url": '@Url.Action("GetRecords", "Clients")',
+                        "type": 'POST',
+                        "dataType": 'json',
+                        //"dataSrc": ''
+                    },
+                    //data: response,
+                    "columns": [
+                        { 'data': 'FirstName' },
+                        { 'data': 'LastName' },
+                        { 'data': 'EmailAddress' },
+                        { 'data': 'PhoneNumber' }
+                    ],
+                    "buttons": [
+                        'excel', 'pdf'
+                    ],
+                    'createdRow': function (row, data, index) {
+                        $(row).append($("<td>").html(actionButton(data)));
+                    }
+            });
+        //};
+    });
     </script>
 }
 

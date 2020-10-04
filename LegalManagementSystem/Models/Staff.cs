@@ -14,16 +14,6 @@ namespace LegalManagementSystem.Models
     
     public partial class Staff
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Staff()
-        {
-            this.Certifications = new HashSet<Certification>();
-            this.Dependants = new HashSet<Dependant>();
-            this.Educations = new HashSet<Education>();
-            this.Experiences = new HashSet<Experience>();
-            this.FileEvents = new HashSet<FileEvent>();
-        }
-    
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -31,7 +21,7 @@ namespace LegalManagementSystem.Models
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
-        public System.DateTime ModifiedOn { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string LastName { get; set; }
         public System.DateTime DOB { get; set; }
         public System.DateTime DOE { get; set; }
@@ -61,16 +51,6 @@ namespace LegalManagementSystem.Models
         public string NationalIdentityNumber { get; set; }
         public string BloodGroup { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Certification> Certifications { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dependant> Dependants { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Education> Educations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Experience> Experiences { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileEvent> FileEvents { get; set; }
         public virtual LineManager LineManager { get; set; }
     }
 }

@@ -201,7 +201,7 @@ namespace LegalManagementSystem.Repositories
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
     }

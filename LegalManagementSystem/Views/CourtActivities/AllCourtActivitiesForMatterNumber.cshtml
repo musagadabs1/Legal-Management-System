@@ -1,29 +1,10 @@
 ﻿
-@*@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>CourtActivitiesForMatterNumber</title>
-</head>
-<body>
-    <div>
-    </div>
-</body>
-</html>*@
-
-
-@model IEnumerable<LegalManagementSystem.Models.CourtActivity>
+@model IEnumerable<LegalManagementSystem.Models.CourtActivityVM>
 
 @{
     ViewBag.Title = "CourtActivities";
 }
-<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
-@*<h3 class="text-center"></h3>*@
+<link href="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
 <div class="row">
     <div class="col-md-1">
@@ -57,22 +38,19 @@
                                 <th>
                                     Status
                                 </th>
-                                @*<th>
-                                    Advocate Note
-                                </th>*@
                                 <th>
                                     Date Adjourned
                                 </th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
-                        @foreach (var item in Model)
+                        @*@foreach (var item in Model)
                         {
                             <tbody>
                                 <tr>
                                     <td>
-                                        @item.DateHeared.ToShortDateString()
+                                        @item.DateHeared
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.CourtName)
@@ -83,11 +61,8 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.AdvocateNote)
-                                    </td>*@
                                     <td>
-                                        @item.DateAdjourned.Value.ToShortDateString()
+                                        @item.DateAdjourned
                                     </td>
                                     <td>
                                         <a href="@Url.Action("Edit","CourtActivities", new {id = item.Id  })">
@@ -100,7 +75,7 @@
                                 </tr>
                             </tbody>
 
-                        }
+                        }*@
 
                     </table>
                 </div>
@@ -114,76 +89,100 @@
 
 
 @*<div class="modal modal-lg" id="Passwordmodal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
-                <h3>Please Enter your Profile Password</h3>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="txtPassword" placeholder="Enter Profile Password" />
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h3>Please Enter your Profile Password</h3>
                 </div>
-                <div class="form-group">
-                    <input type="button" class="btn btn-primary" value="Submit" id="btnSubmit" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="txtPassword" placeholder="Enter Profile Password" />
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-primary" value="Submit" id="btnSubmit" />
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="close" data-dismiss="modal">close</button>
+                <div class="modal-footer">
+                    <button class="close" data-dismiss="modal">close</button>
+                </div>
             </div>
         </div>
-    </div>
 
-</div>*@
+    </div>*@
 @section scripts{
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.html5.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.print.min.js"></script>
     <script>
-    @*$(document).ready(function () {
-        $('#courtTable').DataTable({
-            "ajax": {
-                "url": "@Url.Action("AllCourtActivitiesForMatterNumber", "CourtActivities")",
-                "type": "POST",
-                "datatype": "json",
-            },
-            "columns": [
-                { "data": "MatterNumber", "name": "MatterNumber" },
-                { "data": "DateHeared", "name": "DateHeared" },
-                { "data": "CourtName", "name": "CourtName" },
-                { "data": "Location", "name": "Location" },
-                { "data": "Status", "name": "Status" },
-                { "data": "AdvocateArgument", "name": "AdvocateArgument" },
-                { "data": "OpponentArgument", "name": "OpponentArgument" },
-                { "data": "DefenseCounselName", "name": "DefenseCounselName" },
-                { "data": "AdvocateNote", "name": "AdvocateNote" },
-                { "data": "DateAdjourned", "name": "DateAdjourned" },
+        var actionButton = function (obj) {
+            return "<a href = '/CourtActivities/Details/" + obj.Id + "'class='btn btn-sm btn-primary' title = 'Court Activity' style = 'border: none;'> " + " <i class='fa fa-eye'></i> Court Activity</a>";
+        };
 
-            ],
-            "serverSide": "true",
-            "order": [0, "asc"],
-            "processing": "true",
-            "language": {
-                "processing":"Processing... please wait."
-            }
+        $(document).ready(function () {
+            bindActivityTable();
+            @*$('#btnSubmit').on('click', function () {
+                var password = $('#txtPassword').val();
+                $('#Passwordmodal').modal('toggle');
+                $('.modal').modal('hide').data('bs.modal', null);
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetStaffPassword", "CourtActivities")' + '?password=' + password,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                    //success: function (response) {
+                    //    if (response != null) {
+                    //    }
+                    //},
+                });
+            })*@
         });
-    });
 
-    $(document).ready(function () {
-        $('#btnSubmit').on('click', function () {
-            var password = $('#txtPassword').val();
-            $('#Passwordmodal').modal('toggle');
-            $('.modal').modal('hide').data('bs.modal', null);
-            $.ajax({
-                type: "GET",
-                url: '@Url.Action("GetStaffPassword", "CourtActivities")' + '?password=' + password,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json"
-                //success: function (response) {
-                //    if (response != null) {
-                //    }
-                //},
+        function bindActivityTable() {
+            $('#courtTable').DataTable({
+                "serverSide": "true",
+                "order": [0, "asc"],
+                "processing": "true",
+                "paging": true,
+                "filter": true,
+                "pageLength": 10,
+                "lengthMenu": [[5, 10, 50, 100], [5, 10, 50, 100]],
+                "sort": true,
+                "language": {
+                    'emptyTable': 'No record found.',
+                    'processing': '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
+                },
+                "ajax": {
+                    "url": "@Url.Action("AllCourtActivitiesForMatterNumber", "CourtActivities")",
+                    "type": "POST",
+                    "datatype": "json",
+                },
+                "columns": [
+                    { "data": "MatterNumber"},
+                    { "data": "DateHeared"},
+                    { "data": "CourtName"},
+                    { "data": "Location"},
+                    { "data": "Status"},
+                    { "data": "AdvocateArgument"},
+                    { "data": "OpponentArgument"},
+                    { "data": "DefenseCounselName"},
+                    { "data": "AdvocateNote"},
+                    { "data": "DateAdjourned"},
+
+                ],
+                "buttons": [
+                    'excel', 'pdf'
+                ],
+                'createdRow': function (row, data, index) {
+                    $(row).append($("<td>").html(actionButton(data)));
+                }
+
             });
-        })
-    })*@
+        };
     </script>
 
 }

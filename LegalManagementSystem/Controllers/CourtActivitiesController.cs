@@ -17,14 +17,16 @@ namespace LegalManagementSystem.Controllers
     public class CourtActivitiesController : Controller
     {
         //private MyCaseNewEntities db = new MyCaseNewEntities();
-        private ICourtActivity db;
+        private ICourtActivity courtRepo;
         private IStaff staffRepo;
         private IMatter matterRepo;
+        private IJudgement judgementRepo;
         public CourtActivitiesController()
         {
-            db = new CourtActivityRepository();
+            courtRepo = new CourtActivityRepository();
             staffRepo = new StaffRepository();
             matterRepo = new MatterRepository();
+            judgementRepo = new JudgementRepository();
         }
 
         private static string mattrNumer = string.Empty;
@@ -32,115 +34,91 @@ namespace LegalManagementSystem.Controllers
         public async Task<ActionResult> Index()
         {
             var user = User.Identity.Name;
+            var courts = await courtRepo.GetCourtActivitiesAsync(x => x.Status == "Adjourned");
+            var returnedCourts = courts.Select(s => new CourtActivityVM
+            {
+                AdvocateArgument = s.AdvocateArgument,
+                AdvocateNote = s.AdvocateNote,
+                CourtName = s.CourtName,
+                DateAdjourned = s.DateAdjourned.HasValue ? s.DateAdjourned.Value.ToString("dd/MM/yyyy") : DateTime.Now.ToShortDateString(),
+                DateHeared = s.DateHeared.ToShortDateString(),
+                DefenseCounselName = s.DefenseCounselName,
+                Location = s.Location,
+                OpponentArgument = s.OpponentArgument,
+                Status = s.Status,
+                Id = s.Id,
+                CreatedBy=s.CreatedBy
+            });
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                return View(await db.GetCourtActivitiesAsync(x => x.Status =="Adjourned"));
+                
+                return View(returnedCourts);
                 //return View(await db.CourtActivities.Where(x => x.Status == "Adjourned").ToListAsync());
             }
-            return View(await db.GetCourtActivitiesAsync(x => x.CreatedBy.Equals(user) && x.Status == "Adjourned"));
+            //await courtRepo.GetCourtActivitiesAsync(x => x.CreatedBy.Equals(user) && x.Status == "Adjourned")
+            return View(returnedCourts.Where(x => x.CreatedBy.Equals(user)));
 
         }
-        //[Httpget]
+        [HttpPost]
         public async Task<ActionResult> AllCourtActivitiesForMatterNumber(string number)
         {
-            /*
-             
-            //Server side parameters
-            var start = Convert.ToInt32(Request["start"]);
-            var length = Convert.ToInt32(Request["length"]);
-            var searchValue = Request["search[value]"];
-            var sortColumnName = Request["columns[" + Request["order[0][column]"] + "][name]"];
-            var sortDirection = Request["order[0][dir]"];
-
-
-            var courtActivities = new List<CourtActivityViewModel>();
             var user = User.Identity.Name;
+            var courts = await courtRepo.GetCourtActivitiesAsync(x => x.Status == "Adjourned");
+            var returnedCourts = courts.Select(s => new CourtActivityViewModel
+            {
+                AdvocateArgument = s.AdvocateArgument,
+                AdvocateNote = s.AdvocateNote,
+                CourtName = s.CourtName,
+                DateAdjourned = s.DateAdjourned.HasValue ? s.DateAdjourned.Value.ToString("dd/MM/yyyy") : DateTime.Now.ToShortDateString(),
+                DateHeared = s.DateHeared.ToShortDateString(),
+                DefenseCounselName = s.DefenseCounselName,
+                Location = s.Location,
+                OpponentArgument = s.OpponentArgument,
+                Status = s.Status,
+                Id = s.Id,
+                CreatedBy = s.CreatedBy
+            });
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
 
-
-                var getCourtActivitiesAdmin = db.CourtActivities.ToList();
-                foreach (var item in getCourtActivitiesAdmin)
-                {
-                    courtActivities.Add(new CourtActivityViewModel
-                    {
-                        CourtName = item.CourtName,
-                        DateAdjourned =(DateTime)item.DateAdjourned,
-                        DateHeared = item.DateHeared,
-                        MatterNumber=item.MatterNumber,
-                        Location=item.Location,
-                        Status=item.Status,
-                        AdvocateArgument=item.AdvocateArgument,
-                        OpponentArgument=item.OpponentArgument,
-                        DefenseCounselName=item.DefenseCounselName,
-                        AdvocateNote=item.AdvocateNote
-                    });
-                }
-                //Search operations
-                if (!string.IsNullOrEmpty(searchValue))
-                {
-                    courtActivities = courtActivities.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower()) || x.AdvocateNote.ToLower().Contains(searchValue.ToLower()) || x.Status.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower())|| x.OpponentArgument.ToLower().Contains(searchValue.ToLower()) ||x.Location.ToLower().Contains(searchValue.ToLower()) || x.DefenseCounselName.ToLower().Contains(searchValue.ToLower()) || x.DateHeared.ToShortDateString().Contains(searchValue) || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())).ToList();
-                }
-
-                //Sort Operations
-                courtActivities = courtActivities.OrderBy(sortColumnName + " " + sortDirection).ToList();
-
-                // Paging operation
-                courtActivities = courtActivities.Skip(start).Take(length).ToList();
-
-                return Json(new { data = courtActivities }, JsonRequestBehavior.AllowGet);
+                return View(returnedCourts);
+                //return View(await db.CourtActivities.Where(x => x.Status == "Adjourned").ToListAsync());
             }
-            var getLineManagers = db.CourtActivities.Where(x => x.CreatedBy.Equals(user)).ToList();
-            foreach (var item in getLineManagers)
-            {
-                courtActivities.Add(new CourtActivityViewModel
-                {
-                    CourtName = item.CourtName,
-                    DateAdjourned = (DateTime)item.DateAdjourned,
-                    DateHeared = item.DateHeared,
-                    MatterNumber = item.MatterNumber,
-                    Location = item.Location,
-                    Status = item.Status,
-                    AdvocateArgument = item.AdvocateArgument,
-                    OpponentArgument = item.OpponentArgument,
-                    DefenseCounselName = item.DefenseCounselName,
-                    AdvocateNote = item.AdvocateNote
-                });
-            }
-            //Searching Operations
-            if (!string.IsNullOrEmpty(searchValue))
-            {
-                courtActivities = courtActivities.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower()) || x.AdvocateNote.ToLower().Contains(searchValue.ToLower()) || x.Status.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.OpponentArgument.ToLower().Contains(searchValue.ToLower()) || x.Location.ToLower().Contains(searchValue.ToLower()) || x.DefenseCounselName.ToLower().Contains(searchValue.ToLower()) || x.DateHeared.ToShortDateString().Contains(searchValue) || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())).ToList();
-            }
+            //await courtRepo.GetCourtActivitiesAsync(x => x.CreatedBy.Equals(user) && x.Status == "Adjourned")
+            return View(returnedCourts.Where(x => x.CreatedBy.Equals(user)));
 
-            //Sort Operations
-            courtActivities = courtActivities.OrderBy(sortColumnName + " " + sortDirection).ToList();
 
-            // Paging operation
-            courtActivities = courtActivities.Skip(start).Take(length).ToList();
-            return Json(new { data = courtActivities }, JsonRequestBehavior.AllowGet); 
-             
-             
-            */
-            var user = User.Identity.Name;
-            if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
-            {
-                return View(await db.GetCourtActivitiesAsync(x => x.MatterNumber==number && x.Status != "Strike Out"));
-            }
-            return View(await db.GetCourtActivitiesAsync(x => x.CreatedBy.Equals(user) && x.MatterNumber==number && x.Status != "Strike Out"));
+
+            //var user = User.Identity.Name;
+            //if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+            //{
+            //    return View(await courtRepo.GetCourtActivitiesAsync(x => x.MatterNumber==number && x.Status != "Strike Out"));
+            //}
+            //return View(await courtRepo.GetCourtActivitiesAsync(x => x.CreatedBy.Equals(user) && x.MatterNumber==number && x.Status != "Strike Out"));
 
         }
+        //[HttpPost]
         public ActionResult GetCourtActivitiesByMatterNumber(string id)
         {
-            var getCourtActivities = db.GetCourtActivity(x => x.MatterNumber==id && x.Status != "Strike Out");
-            if (getCourtActivities ==null)
+            try
             {
-                return RedirectToAction("Create", "CourtActivities",new { mattNumber = id });
+                var getCourtActivity = courtRepo.GetCourtActivity(x => x.MatterNumber == id && x.Status != LegalGuideUtility.StrikeOut && x.Status != LegalGuideUtility.JudgementDelivered && x.Status != LegalGuideUtility.Dismissed);
+                if (getCourtActivity ==null || getCourtActivity.MatterNumber==id)
+                {
+                return RedirectToAction("Create", "CourtActivities", new { mattNumber = id });
+                }
+                return View();
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction("AllCourtActivitiesForMatterNumber", "CourtActivities", new { number = id });
+
+                throw ex;
             }
+            
+            //else
+            //{
+                //return RedirectToAction("AllCourtActivitiesForMatterNumber", "CourtActivities", new { number = id });
+            //}
             //return View();
         }
         [HttpPost]
@@ -160,14 +138,14 @@ namespace LegalManagementSystem.Controllers
             {
 
 
-                var getCourtActivitiesAdmin = db.GetCourtActivities();
+                var getCourtActivitiesAdmin = courtRepo.GetCourtActivities();
                 foreach (var item in getCourtActivitiesAdmin)
                 {
                     courtActivities.Add(new CourtActivityViewModel
                     {
                         CourtName = item.CourtName,
-                        DateAdjourned =(DateTime)item.DateAdjourned,
-                        DateHeared = item.DateHeared,
+                        DateAdjourned = item.DateAdjourned.HasValue ? item.DateAdjourned.Value.ToString("dd-MM-yyyy") : DateTime.Now.ToShortDateString(),
+                        DateHeared = item.DateHeared.ToShortDateString(),
                         MatterNumber=item.MatterNumber,
                         Location=item.Location,
                         Status=item.Status,
@@ -180,7 +158,7 @@ namespace LegalManagementSystem.Controllers
                 //Search operations
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    courtActivities = courtActivities.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower()) || x.AdvocateNote.ToLower().Contains(searchValue.ToLower()) || x.Status.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower())|| x.OpponentArgument.ToLower().Contains(searchValue.ToLower()) ||x.Location.ToLower().Contains(searchValue.ToLower()) || x.DefenseCounselName.ToLower().Contains(searchValue.ToLower()) || x.DateHeared.ToShortDateString().Contains(searchValue) || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())).ToList();
+                    courtActivities = courtActivities.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower()) || x.AdvocateNote.ToLower().Contains(searchValue.ToLower()) || x.Status.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower())|| x.OpponentArgument.ToLower().Contains(searchValue.ToLower()) ||x.Location.ToLower().Contains(searchValue.ToLower()) || x.DefenseCounselName.ToLower().Contains(searchValue.ToLower()) || x.DateHeared.Contains(searchValue) || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())).ToList();
                 }
 
                 //Sort Operations
@@ -191,14 +169,14 @@ namespace LegalManagementSystem.Controllers
 
                 return Json(new { data = courtActivities }, JsonRequestBehavior.AllowGet);
             }
-            var getLineManagers = db.GetCourtActivities(x => x.CreatedBy.Equals(user));
+            var getLineManagers = courtRepo.GetCourtActivities(x => x.CreatedBy.Equals(user));
             foreach (var item in getLineManagers)
             {
                 courtActivities.Add(new CourtActivityViewModel
                 {
                     CourtName = item.CourtName,
-                    DateAdjourned = (DateTime)item.DateAdjourned,
-                    DateHeared = item.DateHeared,
+                    DateAdjourned = item.DateAdjourned.HasValue ? item.DateAdjourned.Value.ToString("dd/MM/yyyy"):DateTime.Now.ToShortDateString(),
+                    DateHeared = item.DateHeared.ToString("dd/MM/yyyy"),
                     MatterNumber = item.MatterNumber,
                     Location = item.Location,
                     Status = item.Status,
@@ -211,7 +189,7 @@ namespace LegalManagementSystem.Controllers
             //Searching Operations
             if (!string.IsNullOrEmpty(searchValue))
             {
-                courtActivities = courtActivities.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower()) || x.AdvocateNote.ToLower().Contains(searchValue.ToLower()) || x.Status.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.OpponentArgument.ToLower().Contains(searchValue.ToLower()) || x.Location.ToLower().Contains(searchValue.ToLower()) || x.DefenseCounselName.ToLower().Contains(searchValue.ToLower()) || x.DateHeared.ToShortDateString().Contains(searchValue) || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())).ToList();
+                courtActivities = courtActivities.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower()) || x.AdvocateNote.ToLower().Contains(searchValue.ToLower()) || x.Status.ToLower().Contains(searchValue.ToLower()) || x.MatterNumber.ToLower().Contains(searchValue.ToLower()) || x.OpponentArgument.ToLower().Contains(searchValue.ToLower()) || x.Location.ToLower().Contains(searchValue.ToLower()) || x.DefenseCounselName.ToLower().Contains(searchValue.ToLower()) || x.DateHeared.Contains(searchValue) || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())).ToList();
             }
 
             //Sort Operations
@@ -252,12 +230,200 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var courtActivity = await db.GetCourtActivityAsync(Convert.ToInt32(id));
+            var courtActivity = await courtRepo.GetCourtActivityAsync(Convert.ToInt32(id));
             if (courtActivity == null)
             {
                 return HttpNotFound();
             }
             return View(courtActivity);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetCourtsData()
+        {
+            //System User
+            var user = User.Identity.Name;
+
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            //Find Order Column
+            var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+            //Sort Column index
+            var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
+            var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
+            //Search
+            var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+            //Paging Size (10,20,50,100)    
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+            try
+            {
+
+                var email = staffRepo.GetStaffEmailByLoginName(user);
+                var staffId = staffRepo.GetStaffIdByEmail(email);
+
+                if (string.IsNullOrEmpty(staffId))
+                {
+                    LegalGuideUtility.ErrorMessage = "Staff not Registered. Please Contact IT Department";
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                    //return RedirectToAction("Error");
+                }
+
+
+                //Admin Section
+                if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR) || IsSelectedForTheCase(staffId))
+                {
+
+                    var adminCourt = await courtRepo.GetCourtActivitiesAsync(x => x.Status == "Adjourned");
+
+                    var returnedCourts = adminCourt.Select(s => new CourtActivityViewModel
+                    {
+                        MatterNumber = s.MatterNumber,
+                        OpponentArgument=s.OpponentArgument,
+                        AdvocateArgument=s.AdvocateArgument,
+                        CourtName=s.CourtName,
+                        DefenseCounselName=s.DefenseCounselName,
+                        AdvocateNote=s.AdvocateNote,
+                        DateAdjourned= s.DateAdjourned.HasValue ? s.DateAdjourned.Value.ToString("dd-MM-yyyy") : DateTime.Now.ToShortDateString(),
+                        DateHeared = s.DateHeared.ToString("dd-MM-yyyy"),
+                        Location = s.Location,
+                        Status = s.Status
+
+                    });
+
+                    List<CourtActivityViewModel> courtDTO = returnedCourts.ToList();
+
+                    //Sorting
+                    if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortColumnDir))
+                    {
+                        if (sortColumnIndex == 0)
+                        {
+                            courtDTO = sortColumnDir == "asc" ? courtDTO.OrderBy(o => o.CourtName).ToList() : courtDTO.OrderByDescending(o => o.CourtName).ToList();
+                        }
+                        else if (sortColumnIndex == 1)
+                        {
+                            courtDTO = sortColumnDir == "asc" ? courtDTO.OrderBy(o => o.AdvocateArgument).ToList() : courtDTO.OrderByDescending(o => o.AdvocateArgument).ToList();
+                        }
+                        else if (sortColumnIndex == 2)
+                        {
+                            courtDTO = sortColumnDir == "asc" ? courtDTO.OrderBy(o => o.OpponentArgument).ToList() : courtDTO.OrderByDescending(o => o.OpponentArgument).ToList();
+                        }
+                        else if (sortColumnIndex == 3)
+                        {
+                            courtDTO = sortColumnDir == "asc" ? courtDTO.OrderBy(o => o.DateHeared).ToList() : courtDTO.OrderByDescending(o => o.DateHeared).ToList();
+                        }
+                        else if (sortColumnIndex == 4)
+                        {
+                            courtDTO = sortColumnDir == "asc" ? courtDTO.OrderBy(o => o.DateAdjourned).ToList() : courtDTO.OrderByDescending(o => o.DateAdjourned).ToList();
+                        }
+                        else
+                        {
+                            courtDTO = sortColumnDir == "asc" ? courtDTO.OrderBy(o => o.Location).ToList() : courtDTO.OrderByDescending(o => o.Location).ToList();
+                        }
+
+                    }
+                    //Searching
+                    if (!string.IsNullOrEmpty(searchValue))
+                    {
+                        courtDTO = courtDTO.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower())
+                                                                || x.Location.ToLower().Contains(searchValue.ToLower())
+                                                                || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())
+                                                                || x.OpponentArgument.ToLower().Contains(searchValue.ToLower())).ToList();
+                    }
+
+                    //total number of row count
+                    recordsTotal = courtDTO.Count();
+                    //Paging
+                    var aData = courtDTO.Skip(skip).Take(pageSize).ToList();
+
+                    return Json(new
+                    {
+                        draw = draw,
+                        iTotalRecords = recordsTotal,
+                        iTotalDisplayRecords = recordsTotal,
+                        aaData = aData
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                // Other Users 
+                var courts = await courtRepo.GetCourtActivitiesAsync(x => x.Status == "Adjourned" && x.CreatedBy == user);
+
+                var rCourts = courts.Select(s => new CourtActivityViewModel
+                {
+                    MatterNumber = s.MatterNumber,
+                    OpponentArgument = s.OpponentArgument,
+                    AdvocateArgument = s.AdvocateArgument,
+                    CourtName = s.CourtName,
+                    DefenseCounselName = s.DefenseCounselName,
+                    AdvocateNote = s.AdvocateNote,
+                    DateAdjourned = s.DateAdjourned.HasValue ? s.DateAdjourned.Value.ToString("dd-MM-yyyy") : DateTime.Now.ToShortDateString(),
+                    DateHeared = s.DateHeared.ToString("dd-MM-yyyy"),
+                    Location = s.Location,
+                    Status = s.Status
+
+                });
+
+                //Searching
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    rCourts = rCourts.Where(x => x.CourtName.ToLower().Contains(searchValue.ToLower())
+                                                            || x.Location.ToLower().Contains(searchValue.ToLower())
+                                                            || x.AdvocateArgument.ToLower().Contains(searchValue.ToLower())
+                                                            || x.OpponentArgument.ToLower().Contains(searchValue.ToLower())).ToList();
+                }
+
+
+                //Sorting
+                if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortColumnDir))
+                {
+                    if (sortColumnIndex == 0)
+                    {
+                        rCourts = sortColumnDir == "asc" ? rCourts.OrderBy(o => o.CourtName).ToList() : rCourts.OrderByDescending(o => o.CourtName).ToList();
+                    }
+                    else if (sortColumnIndex == 1)
+                    {
+                        rCourts = sortColumnDir == "asc" ? rCourts.OrderBy(o => o.AdvocateArgument).ToList() : rCourts.OrderByDescending(o => o.AdvocateArgument).ToList();
+                    }
+                    else if (sortColumnIndex == 2)
+                    {
+                        rCourts = sortColumnDir == "asc" ? rCourts.OrderBy(o => o.OpponentArgument).ToList() : rCourts.OrderByDescending(o => o.OpponentArgument).ToList();
+                    }
+                    else if (sortColumnIndex == 3)
+                    {
+                        rCourts = sortColumnDir == "asc" ? rCourts.OrderBy(o => o.DateHeared).ToList() : rCourts.OrderByDescending(o => o.DateHeared).ToList();
+                    }
+                    else if (sortColumnIndex == 4)
+                    {
+                        rCourts = sortColumnDir == "asc" ? rCourts.OrderBy(o => o.DateAdjourned).ToList() : rCourts.OrderByDescending(o => o.DateAdjourned).ToList();
+                    }
+                    else
+                    {
+                        rCourts = sortColumnDir == "asc" ? rCourts.OrderBy(o => o.Location).ToList() : rCourts.OrderByDescending(o => o.Location).ToList();
+                    }
+
+                }
+                //total number of row count
+                recordsTotal = rCourts.Count();
+                //Paging
+                var rData = rCourts.Skip(skip).Take(pageSize).ToList();
+
+                return Json(new
+                {
+                    draw = draw,
+                    iTotalRecords = recordsTotal,
+                    iTotalDisplayRecords = recordsTotal,
+                    aaData = rData
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         [HttpPost]
@@ -268,24 +434,54 @@ namespace LegalManagementSystem.Controllers
             var staffId = staffRepo.GetStaffIdByEmail(email);
             courtActivity.CreatedBy = user;
 
+            courtActivity.AdvocateArgument = LegalGuideUtility.RemoveHTMLTags(courtActivity.AdvocateArgument);
+
+            courtActivity.AdvocateNote = LegalGuideUtility.RemoveHTMLTags(courtActivity.AdvocateNote);
+            courtActivity.Judgement = LegalGuideUtility.RemoveHTMLTags(courtActivity.Judgement);
+
+            courtActivity.OpponentArgument = LegalGuideUtility.RemoveHTMLTags(courtActivity.OpponentArgument);
+
+
             courtActivity.CreatedOn = DateTime.Today;
             courtActivity.MatterNumber = mattrNumer;
             courtActivity.StaffId = staffId;
             var status = courtActivity.Status;
 
+
+            //var judgement = new Judgement();
             var matter = matterRepo.GetMatterByMatterNumber(mattrNumer);//.Ge db.Matters.FirstOrDefault(x => x.MatterNumber == mattrNumer);
             if (matter != null)
             {
                     matter.CourtStatus = "YES";
                     matter.MatterStage = status;
-                
+
+
+                //Save to Judgement table if judgement is delivered
+                if (status == "Judgement Delivered")
+                {
+                    var judgement=new Judgement
+                    {
+                        CourtName = courtActivity.CourtName,
+                        DateDelivered = courtActivity.DateHeared,
+
+                        JudgementPassed = courtActivity.Judgement,
+
+                        CaseTitle = matter.Subject
+                    }; //courtActivity.Matter.Subject;
+                    //Commit
+                    judgementRepo.AddJudgement(judgement);
+                    judgementRepo.Complete();
+                }
+
             }
+            //Update the case 
             matterRepo.UpdateMatter(matter);
             matterRepo.Complete();
+            
+            //Add the new court activity
+            courtRepo.AddCourtActivity(courtActivity);
 
-            db.AddCourtActivity(courtActivity);
-
-            await db.CompleteAsync();
+            await courtRepo.CompleteAsync();
             return Json(0, JsonRequestBehavior.AllowGet);
         }
         //private string MatterNumber { get; set; }
@@ -301,51 +497,6 @@ namespace LegalManagementSystem.Controllers
             };
             mattrNumer = mattNumber;
             return View();
-        }
-
-        // POST: CourtActivities/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,MatterNumber,DateHeared,CourtName,Location,StaffId,Status,AdvocateArgument,OpponentArgument,AdvocateNote,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,DateAdjourned,DefenseCounselName")] CourtActivity courtActivity)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = User.Identity.Name;
-                courtActivity.CreatedBy = user;
-                courtActivity.CreatedOn = DateTime.Today;
-
-                var email = staffRepo.GetStaffEmailByLoginName(user);
-                var staffId = staffRepo.GetStaffIdByEmail(email);
-
-                courtActivity.MatterNumber = mattrNumer;// ViewBag.MatterNumber;// LegalGuideUtility.MatterId;
-                courtActivity.StaffId = staffId;
-
-                
-
-                var matter = matterRepo.GetMatterByMatterNumber( mattrNumer);
-                if (matter !=null)
-                {
-                    matter.CourtStatus = "YES";
-                }
-                matterRepo.UpdateMatter(matter);
-                matterRepo.Complete();
-
-                db.AddCourtActivity(courtActivity);
-
-                await db.CompleteAsync();
-                return RedirectToAction("Index","Matters");
-        }
-        ViewBag.Status = new List<SelectListItem>{
-            new SelectListItem { Value="Adjourned",Text="Adjourned"},
-                new SelectListItem { Value="Dismissed",Text="Dismissed"},
-                new SelectListItem { Value="Judgement Delivered",Text="Judgement Delivered"},
-                new SelectListItem { Value="Strike Out",Text="Strike Out"}
-            };
-
-
-            return View(courtActivity);
         }
         public JsonResult GetMatterNumber(string matterNumber)
         {
@@ -404,7 +555,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var courtActivity = await db.GetCourtActivityAsync(Convert.ToInt32(id));
+            var courtActivity = await courtRepo.GetCourtActivityAsync(Convert.ToInt32(id));
             ViewBag.Status = new List<SelectListItem>{
                 new SelectListItem { Value="Adjourned",Text="Adjourned"},
                 new SelectListItem { Value="Dismissed",Text="Dismissed"},
@@ -447,8 +598,8 @@ namespace LegalManagementSystem.Controllers
                 matterRepo.UpdateMatter(matter);
                 matterRepo.Complete();
                 //db.Entry(courtActivity).State = EntityState.Modified;
-                db.UpdateCourtActivity(courtActivity);
-                await db.CompleteAsync();
+                courtRepo.UpdateCourtActivity(courtActivity);
+                await courtRepo.CompleteAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.Status = new List<SelectListItem>{
@@ -468,7 +619,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var courtActivity = await db.GetCourtActivityAsync(Convert.ToInt32(id));
+            var courtActivity = await courtRepo.GetCourtActivityAsync(Convert.ToInt32(id));
             if (courtActivity == null)
             {
                 return HttpNotFound();
@@ -481,9 +632,9 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var courtActivity = await db.GetCourtActivityAsync(id);
-            db.DeleteCourtActivity(courtActivity);
-            await db.CompleteAsync();
+            var courtActivity = await courtRepo.GetCourtActivityAsync(id);
+            courtRepo.DeleteCourtActivity(courtActivity);
+            await courtRepo.CompleteAsync();
             return RedirectToAction("Index");
         }
 
@@ -491,7 +642,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                courtRepo.Dispose();
             }
             base.Dispose(disposing);
         }

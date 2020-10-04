@@ -196,6 +196,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
+
+        public void ProxySetting()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
         public void UpdateClient(Client client)
         {
             try

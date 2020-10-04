@@ -12,18 +12,12 @@ namespace LegalManagementSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Certification
+    public partial class Judgement
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string CertificationType { get; set; }
-        public Nullable<System.DateTime> DateAchieved { get; set; }
-        public string Skilled { get; set; }
-        public string StaffId { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public string ModeifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public string CaseTitle { get; set; }
+        public Nullable<System.DateTime> DateDelivered { get; set; }
+        public string JudgementPassed { get; set; }
+        public string CourtName { get; set; }
     }
 }

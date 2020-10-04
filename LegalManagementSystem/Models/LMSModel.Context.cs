@@ -46,6 +46,7 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<Experience> Experiences { get; set; }
         public virtual DbSet<FileEvent> FileEvents { get; set; }
         public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Judgement> Judgements { get; set; }
         public virtual DbSet<Library> Libraries { get; set; }
         public virtual DbSet<LicenseTable> LicenseTables { get; set; }
         public virtual DbSet<LineManager> LineManagers { get; set; }

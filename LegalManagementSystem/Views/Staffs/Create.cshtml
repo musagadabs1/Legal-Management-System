@@ -24,8 +24,8 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    if (User.IsInRole("Admin"))
-    {
+    //if (User.IsInRole("Admin"))
+    //{
         //"Create", ,  FormMethod.Post,
         using (Html.BeginForm("Create", "Staffs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
@@ -33,13 +33,12 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-6">
                         @if (ViewBag.Error != null)
                         {
                             <span style="color:red;">@ViewBag.Error.ToString()</span>
                         }
                         <div class="card">
-                            @*style="height:380px; "*@
                             <div class="card-header">
                                 <h5 class="card-title">PERSONAL DATA</h5>
                             </div>
@@ -117,7 +116,7 @@
                                     <div class="col-md-6 col-sm-12">
                                         <div class="input-group input-group-sm mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroup-sizing-sm">Gender</span>
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Blood Group</span>
                                             </div>
                                             @Html.DropDownListFor(model => model.BloodGroup, new SelectList(ViewBag.BloodGroup, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "BloodGroup" })
                                         </div>
@@ -181,31 +180,34 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
-                                        <div class="input-group mb-3">
+
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Staff Number</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="StaffId" placeholder="Staff Number"
+                                                       aria- label="StaffId" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+
+                                        @*<div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Password</span>
                                             </div>
-                                            <input type="password"  class="form-control" id="Password" placeholder="Password"
+                                            <input type="password" class="form-control" id="Password" placeholder="Password"
                                                    aria- label="Password" aria-describedby="basic-addon1">
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Staff Number</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="StaffId" placeholder="Staff Number"
-                                                   aria- label="StaffId" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-12">
                         <div class="card">
                             <div class="card-header">
                                 <h5>EMPLOYMENT INFORMATION</h5>
@@ -215,7 +217,7 @@
                                     <div class="col-md-6 col-sm-12">
                                         <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
                                             <input type="text" class="form-control" placeholder="Date of Employment"
-                                                   disabled="disabled" id="DOE">
+                                                   @*disabled="disabled"*@ id="DOE">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button">
                                                     <i class="fa fa-calendar"></i>
@@ -349,7 +351,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row pull-left" style="margin-bottom:20px; margin-left:20px;">
                             <div class="col-md-6 col-sm-12">
                                 <input type="button" value="Add" class="btn btn-primary" id="add-Staff" />
                             </div>
@@ -358,10 +360,9 @@
                 </div>
         }
 
-    }
-    else
+    //}
+    @*else
     {
-        //"Create", "Staffs",FormMethod.Post, new { @enctype = "multipart/form-data" }*@
         using (Html.BeginForm("Create", "Staffs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -369,7 +370,6 @@
             <div class="row" style="padding-right:17px;">
                 <div class="col-md-6">
                     <div class="card">
-                        @*style="height:380px;"*@
                         <div class="card-header">
                             <h5 class="card-title"> PERSONAL DATA</h5>
                         </div>
@@ -605,7 +605,6 @@
                         </div>
                     </div>
                     <div class="card">
-                        @*style="height:380px;"*@
                         <div class="card-header">
                             <h5 class="card-title">EMERGENCY CONTACT</h5>
                         </div>
@@ -668,32 +667,153 @@
                 </div>
             </div>
         }
-    }
+    }*@
 }
+
 @section scripts{
     <script src="~/Scripts/select2.min.js"></script>
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
+            //$('#add-Staff').prop('disabled', true);
+            select2DropDown('advocateGroup', '@Url.Action("GetAdvocateGroupForDropDown", "Staffs")', "Select Advocate Group");
+            select2DropDown('lineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");
+            $('#add-Staff').click(function () {
+                //saveStaff();
+                // Validate image
+                validateImage();
 
-        //select2DropDown('ClientId', '@Url.Action("GetClientForDropDown", "Matters")', "Select Client");
-        select2DropDown('advocateGroup', '@Url.Action("GetAdvocateGroupForDropDown", "Staffs")', "Select Advocate Group");
-        select2DropDown('lineMger', '@Url.Action("GetLineManagerForDropDown", "Matters")', "Select Line Manager");
-        $('#add-Staff').click(function () {
-            saveStaff();
+                //Validating inputs
+                var res = validate();
+
+                if (res == false) {
+                    return false;
+                }
+
+                var data = new FormData();
+                var files = $("#fileBase").get(0).files;
+                if (files.length > 0) {
+                    data.append("file", files[0]);
+                }
+                else {
+                    alert('Please select image to continue');
+                    return;
+                }
+
+                var model = {
+                    FirstName: $('#FirstName').val(),
+                    MiddleName: $('#MiddleName').val(),
+                    LastName: $('#LastName').val(),
+                    MaritalStatus: $('#MaritalStatus').val(),
+                    DOB: new Date($('#DOB').val()),
+                    Gender: $('#Gender').val(),
+                    NationalIdentityNumber: $('#NationalIdentityNumber').val(),
+                    BloodGroup: $('#BloodGroup').val(),
+
+                    //ADDRESS & CONTACT INFORMATION
+                    Address: $('#Address').val(),
+                    EmailAddress: $('#EmailAddress').val(),
+                    MobileNo: $('#MobileNo').val(),
+                    PersonalEmail: $('#PersonalEmail').val(),
+                    OfficeNo: $('#OfficeNo').val(),
+                    //Password: password,
+                    StaffId: $('#StaffId').val(),
+
+                    //EMPLOYMENT INFORMATION
+                    DOE: new Date($('#DOE').val()),
+                    LineMger: $('#lineMger').val(),
+                    Department: $('#Department').val(),
+                    Designation: $('#Designation').val(),
+                    YearCallToBar: $('#YearCallToBar').val(),
+                    Location: $('#Location').val(),
+                    Bank: $('#Bank').val(),
+                    AccountNumber: $('#AccountNumber').val(),
+
+                    //EMERGENCY CONTACT
+                    NKFullName: $('#NKFullName').val(),
+                    Relationship: $('#Relationship').val(),
+                    KTelephone: $('#KTelephone').val(),
+                    NKEmail: $('#NKEmail').val(),
+                    NKAddress: $('#NKAddress').val()
+                };
+
+                data.append('model', JSON.stringify(model));
+
+                $.ajax({
+                    type: 'POST',
+                    datatype: 'json',
+                    cache:false,
+                    contentType: false,
+                    processData:false,
+                    url: '@Url.Action("SaveStaffRecord", "Staffs")',
+                    data: data,
+                    success: function (e) {
+                        alert('Saved Successfully.');
+                        window.location.href = '/Staffs/StaffDetails';
+                    },
+                    error: function () {
+                        alert('Error Occured.');
+                    }
+                });
+            });
+
         });
-
-    });
+        function validateImage() {
+            $('#add-Staff').prop('disabled', true);
+            $("#fileBase").change(function () {
+                // Get uploaded file extension
+                var extension = $(this).val().split('.').pop().toLowerCase();
+                // Create array with the files extensions that we wish to upload
+                var validFileExtensions = ['jpg', 'png'];
+                //Check file extension in the array.if -1 that means the file extension is not in the list.
+                if ($.inArray(extension, validFileExtensions) == -1) {
+                    alert("Sorry!! Upload only 'jpg', 'png' file")
+                    // Clear fileuload control selected file
+                    $(this).replaceWith($(this).val('').clone(true));
+                    //Disable Submit Button
+                    $('#add-Staff').prop('disabled', true);
+                } else {
+                    // Check and restrict the file size to 128 KB.
+                    if ($(this).get(0).files[0].size > (531072)) {
+                        alert("Sorry!! Max allowed file size is 128 kb");
+                        // Clear fileuload control selected file
+                        $(this).replaceWith($(this).val('').clone(true));
+                        //Disable Submit Button
+                        $('#add-Staff').prop('disabled', true);
+                    } else {
+                        //Enable Submit Button
+                        $('#add-Staff').prop('disabled', false);
+                    }
+                }
+            });
+        }
 
         function saveStaff() {
-             var data = new FormData();
-            //var fileFields = $('form input[type=file]')[0].files[0];
-            var file = $('#fileBase')[0].files[0];
 
-            //$.each(fileFields, function (i, file) {
-                data.append('file', file);
-            //});
-                //data.append('files', file);
-            
+            // Validate image
+            validateImage();
+
+            //Validating inputs
+            var res = validate();
+
+            if (res == false) {
+                //$('#add-Staff').prop('disabled', true);
+                return false;
+            }
+            //else {
+            //    $('#add-Staff').prop('disabled', false);
+            //}
+
+
+
+            var data = new FormData();
+            var files = $("#fileBase").get(0).files;
+            if (files.length > 0) {
+                data.append("file", files[0]);
+            }
+            else {
+                alert('Please select image to continue');
+                return;
+            }
 
             var staff = {};
 
@@ -711,7 +831,7 @@
             var mobileNo = $('#MobileNo').val();
             var personalEmail = $('#PersonalEmail').val();
             var officeNo = $('#OfficeNo').val();
-            var password = $('#Password').val();
+            //var password = $('#Password').val();
             var staffId = $('#StaffId').val();
 
             var dOE = new Date($('#DOE').val());
@@ -748,7 +868,7 @@
                 MobileNo: mobileNo,
                 PersonalEmail: personalEmail,
                 OfficeNo: officeNo,
-                Password: password,
+                //Password: password,
                 StaffId: staffId,
 
                 //EMPLOYMENT INFORMATION
@@ -774,16 +894,16 @@
 
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("Create","Staffs")',
-                data: data,//JSON.stringify(staff),
+                datatype: 'json',
                 contentType: 'application/json',
-                success: function () {
-                    alert('Saved');
-                    window.location.href='@Url.Action("Create","Experiences")'
+                url: '@Url.Action("SaveStaffRecord", "Staffs")',
+                data: data,
+                success: function (e) {
+                    alert('Saved Successfully.');
+                    window.location.href = '/Staffs/StaffDetails';
                 },
-                error: function (e) {
-                    window.location.href='@Url.Action("Create","Experiences")'
-                    //alert(e);
+                error: function () {
+                    alert('Error Occured.');
                 }
             });
         }
@@ -826,27 +946,107 @@
 
         function validate() {
             var isValid = true;
-            if ($('#matterNumber').val().trim() == "") {
-                $('#matterNumber').css('border-color', 'Red');
+            //validateImage();
+
+
+            if ($('#FirstName').val().trim() == "") {
+                $('#FirstName').css('border-color', 'Red');
                 isValid = false;
             }
             else {
-                $('#matterNumber').css('border-color', 'lightgrey');
+                $('#FirstName').css('border-color', 'lightgrey');
             }
-            if ($('#DocName').val().trim() == "") {
-                $('#DocName').css('border-color', 'Red');
+            if ($('#LastName').val().trim() == "") {
+                $('#LastName').css('border-color', 'Red');
                 isValid = false;
             }
             else {
-                $('#DocName').css('border-color', 'lightgrey');
+                $('#LastName').css('border-color', 'lightgrey');
             }
-            if ($('#Description').val().trim() == "") {
-                $('#Description').css('border-color', 'Red');
+            if ($('#DOB').val().trim() == "") {
+                $('#DOB').css('border-color', 'Red');
                 isValid = false;
             }
             else {
-                $('#Description').css('border-color', 'lightgrey');
+                $('#DOB').css('border-color', 'lightgrey');
             }
+            if ($('#Address').val().trim() == "") {
+                $('#Address').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Address').css('border-color', 'lightgrey');
+            }
+            if ($('#EmailAddress').val().trim() == "") {
+                $('#EmailAddress').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#EmailAddress').css('border-color', 'lightgrey');
+            }
+            if ($('#MobileNo').val().trim() == "") {
+                $('#MobileNo').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#MobileNo').css('border-color', 'lightgrey');
+            }
+            if ($('#StaffId').val().trim() == "") {
+                $('#StaffId').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#StaffId').css('border-color', 'lightgrey');
+            }
+            if ($('#DOE').val().trim() == "") {
+                $('#DOE').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DOE').css('border-color', 'lightgrey');
+            }
+            if ($('#Department').val().trim() == "") {
+                $('#Department').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Department').css('border-color', 'lightgrey');
+            }
+            if ($('#Designation').val().trim() == "") {
+                $('#Designation').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Designation').css('border-color', 'lightgrey');
+            }
+            if ($('#NKFullName').val().trim() == "") {
+                $('#NKFullName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#NKFullName').css('border-color', 'lightgrey');
+            }
+            if ($('#KTelephone').val().trim() == "") {
+                $('#KTelephone').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#KTelephone').css('border-color', 'lightgrey');
+            }
+            if ($('#NKAddress').val().trim() == "") {
+                $('#NKAddress').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#NKAddress').css('border-color', 'lightgrey');
+            }
+            //if ($('#NKFullName').val().trim() == "") {
+            //    $('#NKFullName').css('border-color', 'Red');
+            //    isValid = false;
+            //}
+            //else {
+            //    $('#NKFullName').css('border-color', 'lightgrey');
+            //}
             return isValid;
         }
     </script>

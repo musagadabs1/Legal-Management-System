@@ -1,7 +1,7 @@
 ﻿@model LegalManagementSystem.Models.CourtActivity
 @using LegalManagementSystem.Helpers
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Court Activities";
 }
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
@@ -20,29 +20,63 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal" style="padding:5px;">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
+                <div class="form-horizontal" style="padding:5px;">
 
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Court Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="CourtName" placeholder="Court Name" aria-label="CourtName" aria-describedby="basic-addon1">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Court Name</span>
                                 </div>
+                                <input type="text" class="form-control" id="CourtName" placeholder="Court Name" aria-label="CourtName" aria-describedby="basic-addon1">
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Location</span>
+                                </div>
+                                <input type="text" class="form-control" id="Location" placeholder="Location" aria-label="Location" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Location</span>
+                                        <span class="input-group-text">Judge Name</span>
                                     </div>
-                                    <input type="text" class="form-control" id="Location" placeholder="Location" aria-label="Location" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" id="JudgeName" placeholder="Judge Name" aria-label="JudgeName" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
+                        
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Defense Counsel Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="DefenseCounselName" placeholder="Defense Counsel Name" aria-label="DefenseCounselName" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                <input type="text" class="form-control" placeholder="Hearing Date" id="DateHeared">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
@@ -50,83 +84,74 @@
                                     @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.Status, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Defense Counsel Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="DefenseCounselName" placeholder="Defense Counsel Name" aria-label="DefenseCounselName" aria-describedby="basic-addon1">
-                                </div>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
-                                    <input type="text" class="form-control" placeholder="Hearing Date" id="DateHeared">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
-                                    <input type="text" class="form-control" placeholder="Date Adjourned" id="DateAdjourned">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Plantiff Argument</span>
-                                    </div>
-                                    <div class="summernote">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Defendant Argument</span>
-                                    </div>
-                                    <div class="summernote">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12" style="margin-top:15px;">
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Advocate Note</span>
-                                    </div>
-                                    <div class="summernote">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row" style="margin-top:15px;">
-                            <div class="col-md-12 col-sm-12">
-                                @*<button type="submit" id="btnSave" class="btn btn-primary">Add</button>*@
-                                <input type="button" id="btnSave" value="Add" class="btn btn-primary" />
+                    </div>
+                    
+                    <div class="row" style="margin-top:15px;">
+                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                            <input type="text" class="form-control" placeholder="Date Adjourned" id="DateAdjourned">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Plantiff Argument</span>
+                                </div>
+                                <div class="summernote">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Defendant Argument</span>
+                                </div>
+                                <div class="summernote">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Judgement Passed</span>
+                                </div>
+                                <div class="summernote">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12" style="margin-top:15px;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Plantiff Summary Note</span>
+                                </div>
+                                <div class="summernote">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-12 col-sm-12">
+                            <input type="button" id="btnSave" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
                 }
             </div>
         </div>
@@ -167,22 +192,26 @@
             var courtName = $('#CourtName').val();
             var location = $('#Location').val();
             var status = $('#Status').val();
+            var judgeName = $('#JudgeName').val();
             var defenseCounselName = $('#DefenseCounselName').val();
             var dateHeared = new Date( $('#DateHeared').val());
             var dateAdjourned = new Date( $('#DateAdjourned').val());
             var advocateArgument = $('.summernote').summernote('code');
             var opponentArgument = $('.summernote').eq(1).summernote('code');
-            var advocateNote = $('.summernote').eq(2).summernote('code')
+            var judgement = $('.summernote').eq(2).summernote('code');
+            var advocateNote = $('.summernote').eq(3).summernote('code')
 
             courtActivity = {
                 CourtName: courtName,
                 Location: location,
                 Status: status,
+                JudgeName: judgeName,
                 DefenseCounselName: defenseCounselName,
                 DateHeared: new Date(dateHeared),
                 DateAdjourned: new Date(dateAdjourned),
                 AdvocateArgument: advocateArgument,
                 OpponentArgument: opponentArgument,
+                Judgement: judgement,
                 AdvocateNote: advocateNote
 
             };
@@ -266,13 +295,13 @@
             else {
                 $('#DateHeared').css('border-color', 'lightgrey');
             }
-            if ($('#DateAdjourned').val().trim() == "") {
-                $('#DateAdjourned').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#DateAdjourned').css('border-color', 'lightgrey');
-            }
+            //if ($('#DateAdjourned').val().trim() == "") {
+            //    $('#DateAdjourned').css('border-color', 'Red');
+            //    isValid = false;
+            //}
+            //else {
+            //    $('#DateAdjourned').css('border-color', 'lightgrey');
+            //}
             if ($('.summernote').summernote('code').trim() == "") {
                 $('.summernote').css('border-color', 'Red');
                 isValid = false;
@@ -310,7 +339,7 @@
         }
         function summerNote() {
              $('.summernote').summernote({
-                height: 350, // set editor height
+                height: 50, // set editor height
                 minHeight: null, // set minimum height of editor
                 maxHeight: null, // set maximum height of editor
                 focus: false, // set focus to editable area after initializing summernote

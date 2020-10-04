@@ -173,7 +173,7 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
-                return db.Certifications.Include(c => c.Staff).ToList();
+                return db.Certifications.ToList();
             }
             catch (Exception ex)
             {
@@ -186,7 +186,7 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
-                return await db.Certifications.Include(c => c.Staff).ToListAsync();
+                return await db.Certifications.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -200,7 +200,7 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
-                return await db.Certifications.Include(c => c.Staff).Where(expression).ToListAsync();
+                return await db.Certifications.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {

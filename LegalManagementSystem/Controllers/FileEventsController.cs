@@ -23,10 +23,10 @@ namespace LegalManagementSystem.Controllers
             var user = User.Identity.Name;
             if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
             {
-                var adminFileEvents = db.FileEvents.Include(f => f.Staff);
+                var adminFileEvents = db.FileEvents;
                 return View(await adminFileEvents.ToListAsync());
             }
-            var fileEvents = db.FileEvents.Include(f => f.Staff);
+            var fileEvents = db.FileEvents;
             return View(await fileEvents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
         }
 

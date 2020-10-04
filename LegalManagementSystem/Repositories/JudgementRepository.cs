@@ -6,24 +6,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LegalManagementSystem.Repositories
 {
-    public class DependantRepository : IDependant
+    public class JudgementRepository:IJudgement
     {
         private readonly MyCaseNewEntities db = new MyCaseNewEntities();
-        public void AddDependant(Dependant dependant)
-        {
-            try
-            {
-                db.Dependants.Add(dependant);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
         public int Complete()
         {
             try
@@ -48,18 +37,6 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public void DeleteDependant(Dependant dependant)
-        {
-            try
-            {
-                db.Dependants.Remove(dependant);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
         public void Dispose()
         {
             try
@@ -72,11 +49,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public Dependant GetDependant(int? id)
+
+        public void AddJudgement(Judgement judgement)
         {
             try
             {
-                return db.Dependants.Find(id);
+                db.Judgements.Add(judgement);
             }
             catch (Exception ex)
             {
@@ -84,11 +62,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public async Task<Dependant> GetDependantAsync(int? id)
+
+        public void DeleteJudgement(Judgement judgement)
         {
             try
             {
-                return await db.Dependants.FindAsync(id);
+                db.Judgements.Remove(judgement);
             }
             catch (Exception ex)
             {
@@ -96,11 +75,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public IEnumerable<Dependant> GetDependants()
+
+        public Judgement GetJudgement(int? id)
         {
             try
             {
-                return db.Dependants.ToList();
+                return db.Judgements.Find(id);
             }
             catch (Exception ex)
             {
@@ -108,11 +88,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public IEnumerable<Dependant> GetDependants(Expression<Func<Dependant, bool>> expression)
+
+        public async Task<Judgement> GetJudgementAsync(int? id)
         {
             try
             {
-                return db.Dependants.Where(expression).ToList();
+                return await db.Judgements.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -120,11 +101,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public Dependant GetDependant(Expression<Func<Dependant, bool>> expression)
+
+        public async Task<IEnumerable<Judgement>> GetJudgementsAsync()
         {
             try
             {
-                return db.Dependants.FirstOrDefault(expression);
+                return await db.Judgements.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -132,11 +114,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public async Task<IEnumerable<Dependant>> GetDependantsAsync()
+
+        public async Task<IEnumerable<Judgement>> GetJudgementsAsync(Expression<Func<Judgement, bool>> expression)
         {
             try
             {
-                return await db.Dependants.ToListAsync();
+                return await db.Judgements.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -144,11 +127,12 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public async Task<IEnumerable<Dependant>> GetDependantsAsync(Expression<Func<Dependant, bool>> expression)
+
+        public IEnumerable<Judgement> GetJudgements(Expression<Func<Judgement, bool>> expression)
         {
             try
             {
-                return await db.Dependants.Where(expression).ToListAsync();
+                return db.Judgements.Where(expression).ToList();
             }
             catch (Exception ex)
             {
@@ -156,35 +140,17 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public async Task<IEnumerable<Dependant>> GetDependantsWithStaffAsync(Expression<Func<Dependant, bool>> expression)
-        {
-            try
-            {
-                return await db.Dependants.Where(expression).ToListAsync();
-            }
-            catch (Exception ex)
-            {
 
-                throw ex;
-            }
-        }
-        public async Task<IEnumerable<Dependant>> GetDependantsWithStaffAsync()
+        public IEnumerable<Judgement> GetJudgements()
         {
-            try
-            {
-                return await db.Dependants.ToListAsync();
-            }
-            catch (Exception ex)
-            {
+            throw new NotImplementedException();
+        }
 
-                throw ex;
-            }
-        }
-        public void UpdateDependant(Dependant dependant)
+        public void UpdateJudgement(Judgement judgement)
         {
             try
             {
-                db.Entry(dependant).State = EntityState.Modified;
+                db.Entry(judgement).State = EntityState.Modified;
             }
             catch (Exception ex)
             {

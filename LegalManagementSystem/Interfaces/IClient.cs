@@ -11,6 +11,7 @@ namespace LegalManagementSystem.Interfaces
 {
     public interface IClient
     {
+        void ProxySetting();
         void AddClient(Client client);
         void DeleteClient(Client client);
         Client GetClient(int? id);

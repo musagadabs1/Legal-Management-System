@@ -17,7 +17,7 @@ namespace LegalManagementSystem.Models
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public int RoleId { get; set; }
+        public Nullable<int> RoleId { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
