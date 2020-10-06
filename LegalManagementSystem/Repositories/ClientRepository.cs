@@ -188,7 +188,8 @@ namespace LegalManagementSystem.Repositories
         {
             try
             {
-                return (db.Clients.Max(x => x.ClientId));
+                var getMax = db.Clients.Max(x =>(int?) x.ClientId)??0;
+                return getMax;
             }
             catch (Exception ex)
             {

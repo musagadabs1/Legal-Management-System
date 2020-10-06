@@ -105,7 +105,7 @@ namespace LegalManagementSystem.Controllers
                     {
                         MatterNumber = s.MatterNumber,
                         DueDate = s.DueDate.ToShortDateString(),
-                        FiledOn = s.FiledOn.ToShortDateString(),// ? s.FiledOn.Value.ToString("dd-MM-yyyy") : DateTime.Now.ToShortDateString(),
+                        FiledOn = s.FiledOn.ToShortDateString(),
                         Subject = s.Subject,
                         ClientName = s.Client.FirstName + " " + s.Client.LastName,
                         MatterStage = s.MatterStage,
@@ -451,148 +451,8 @@ namespace LegalManagementSystem.Controllers
         // GET: Matters/Create
         public ActionResult Create()
         {
-            ViewBag.Priority = new List<SelectListItem>{
-                new SelectListItem { Value="Critical",Text="Critical"},
-                new SelectListItem { Value="High",Text="High"},
-                new SelectListItem { Value="Medium",Text="Medium"},
-                new SelectListItem { Value="Low",Text="Low"}
-            };
-            ViewBag.Stage = new List<SelectListItem>{
-                new SelectListItem { Value="Discovery",Text="Discovery"},
-                new SelectListItem { Value="Trial",Text="Trial"},
-                new SelectListItem { Value="Apeal",Text="Apeal"},
-                new SelectListItem { Value="Motions",Text="Motions"},
-                new SelectListItem { Value="Closed",Text="Closed"},
-                new SelectListItem { Value="Pleading",Text="Pleading"}
-            };
-            ViewBag.PracticeArea = new List<SelectListItem>{
-                new SelectListItem { Value="None",Text="None"},
-                new SelectListItem { Value="Acquisition",Text="Acquisition"},
-                new SelectListItem { Value="Administrative",Text="Administrative"},
-                new SelectListItem { Value="Audit",Text="Audit"},
-                new SelectListItem { Value="Civil",Text="Civil"},
-                new SelectListItem { Value="Commercial",Text="Commercial"},
-                new SelectListItem { Value="Consultation",Text="Consultation"},
-                new SelectListItem { Value="Corporate",Text="Corporate"},
-                new SelectListItem { Value="Criminal",Text="Criminal"},
-                new SelectListItem { Value="Dispute",Text="Dispute"},
-                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
-                new SelectListItem { Value="Labour",Text="Labour"},
-                new SelectListItem { Value="Real Estate",Text="Real Estate"},
-                new SelectListItem { Value="Sharia",Text="Sharia"},
-                new SelectListItem { Value="Agreement",Text="Agreement"}
-            };
             ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName");
-            //ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName");
             return View();
-        }
-
-        // POST: Matters/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Matter matter)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var nextId = matterRepo.GetCurrentId() + 1;
-                    var matterId = "CASE-" + nextId + "-" + DateTime.Today.ToShortDateString();
-                    var user = User.Identity.Name;
-                    matter.CreatedBy = user;
-                    matter.CreatedOn = DateTime.Today;
-                    matter.CaseNumber = matterId; //"01_05-03-2019";
-                    LegalGuideUtility.MatterId = matter.MatterNumber;
-                    //matter.ass
-                    matter.CourtStatus = "NO";
-
-                    //db.Matters.Add(matter);
-                    matterRepo.AddMatter(matter);
-                    //await db.SaveChangesAsync();
-                    await matterRepo.CompleteAsync();
-
-                    return RedirectToAction("Index");
-                }
-                catch (Exception)
-                {
-
-                    ViewBag.Error = "Can't Add Matter, Error Occured. Please Contact IT Department.";
-                }
-            }
-            else
-            {
-                ViewBag.Error = "Fill in the required fields to continue";
-                ViewBag.Priority = new List<SelectListItem>{
-                new SelectListItem { Value="Critical",Text="Critical"},
-                new SelectListItem { Value="High",Text="High"},
-                new SelectListItem { Value="Medium",Text="Medium"},
-                new SelectListItem { Value="Low",Text="Low"}
-            };
-                ViewBag.Stage = new List<SelectListItem>{
-                new SelectListItem { Value="Discovery",Text="Discovery"},
-                new SelectListItem { Value="Trial",Text="Trial"},
-                new SelectListItem { Value="Apeal",Text="Apeal"},
-                new SelectListItem { Value="Motions",Text="Motions"},
-                new SelectListItem { Value="Closed",Text="Closed"},
-                new SelectListItem { Value="Pleading",Text="Pleading"}
-            };
-                ViewBag.PracticeArea = new List<SelectListItem>{
-                new SelectListItem { Value="None",Text="None"},
-                new SelectListItem { Value="Acquisition",Text="Acquisition"},
-                new SelectListItem { Value="Administrative",Text="Administrative"},
-                new SelectListItem { Value="Audit",Text="Audit"},
-                new SelectListItem { Value="Civil",Text="Civil"},
-                new SelectListItem { Value="Commercial",Text="Commercial"},
-                new SelectListItem { Value="Consultation",Text="Consultation"},
-                new SelectListItem { Value="Corporate",Text="Corporate"},
-                new SelectListItem { Value="Criminal",Text="Criminal"},
-                new SelectListItem { Value="Dispute",Text="Dispute"},
-                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
-                new SelectListItem { Value="Labour",Text="Labour"},
-                new SelectListItem { Value="Real Estate",Text="Real Estate"},
-                new SelectListItem { Value="Sharia",Text="Sharia"},
-                new SelectListItem { Value="Agreement",Text="Agreement"}
-            };
-                ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
-                //ViewBag.ClientId = new SelectList(db.Clients, "ClientId", "FirstName", matter.ClientId);
-                return View(matter);
-            }
-            ViewBag.Priority = new List<SelectListItem>{
-                new SelectListItem { Value="Critical",Text="Critical"},
-                new SelectListItem { Value="High",Text="High"},
-                new SelectListItem { Value="Medium",Text="Medium"},
-                new SelectListItem { Value="Low",Text="Low"}
-            };
-            ViewBag.Stage = new List<SelectListItem>{
-                new SelectListItem { Value="Discovery",Text="Discovery"},
-                new SelectListItem { Value="Trial",Text="Trial"},
-                new SelectListItem { Value="Apeal",Text="Apeal"},
-                new SelectListItem { Value="Motions",Text="Motions"},
-                new SelectListItem { Value="Closed",Text="Closed"},
-                new SelectListItem { Value="Pleading",Text="Pleading"}
-            };
-            ViewBag.PracticeArea = new List<SelectListItem>{
-                new SelectListItem { Value="None",Text="None"},
-                new SelectListItem { Value="Acquisition",Text="Acquisition"},
-                new SelectListItem { Value="Administrative",Text="Administrative"},
-                new SelectListItem { Value="Audit",Text="Audit"},
-                new SelectListItem { Value="Civil",Text="Civil"},
-                new SelectListItem { Value="Commercial",Text="Commercial"},
-                new SelectListItem { Value="Consultation",Text="Consultation"},
-                new SelectListItem { Value="Corporate",Text="Corporate"},
-                new SelectListItem { Value="Criminal",Text="Criminal"},
-                new SelectListItem { Value="Dispute",Text="Dispute"},
-                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
-                new SelectListItem { Value="Labour",Text="Labour"},
-                new SelectListItem { Value="Real Estate",Text="Real Estate"},
-                new SelectListItem { Value="Sharia",Text="Sharia"},
-                new SelectListItem { Value="Agreement",Text="Agreement"}
-            };
-            ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
-            return View(matter);
-
         }
         // GET: Matters/Edit/5
         public async Task<ActionResult> Edit(string id)
@@ -608,37 +468,7 @@ namespace LegalManagementSystem.Controllers
                 //return Json(0, JsonRequestBehavior.AllowGet);
                 return HttpNotFound();
             }
-            ViewBag.Priority = new List<SelectListItem>{
-                new SelectListItem { Value="Critical",Text="Critical"},
-                new SelectListItem { Value="High",Text="High"},
-                new SelectListItem { Value="Medium",Text="Medium"},
-                new SelectListItem { Value="Low",Text="Low"}
-            };
-            ViewBag.Stage = new List<SelectListItem>{
-                new SelectListItem { Value="Discovery",Text="Discovery"},
-                new SelectListItem { Value="Trial",Text="Trial"},
-                new SelectListItem { Value="Apeal",Text="Apeal"},
-                new SelectListItem { Value="Motions",Text="Motions"},
-                new SelectListItem { Value="Closed",Text="Closed"},
-                new SelectListItem { Value="Pleading",Text="Pleading"}
-            };
-            ViewBag.PracticeArea = new List<SelectListItem>{
-                new SelectListItem { Value="None",Text="None"},
-                new SelectListItem { Value="Acquisition",Text="Acquisition"},
-                new SelectListItem { Value="Administrative",Text="Administrative"},
-                new SelectListItem { Value="Audit",Text="Audit"},
-                new SelectListItem { Value="Civil",Text="Civil"},
-                new SelectListItem { Value="Commercial",Text="Commercial"},
-                new SelectListItem { Value="Consultation",Text="Consultation"},
-                new SelectListItem { Value="Corporate",Text="Corporate"},
-                new SelectListItem { Value="Criminal",Text="Criminal"},
-                new SelectListItem { Value="Dispute",Text="Dispute"},
-                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
-                new SelectListItem { Value="Labour",Text="Labour"},
-                new SelectListItem { Value="Real Estate",Text="Real Estate"},
-                new SelectListItem { Value="Sharia",Text="Sharia"},
-                new SelectListItem { Value="Agreement",Text="Agreement"}
-            };
+
             ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
             //return Json(0, JsonRequestBehavior.AllowGet);
             return View(matter);
@@ -659,37 +489,7 @@ namespace LegalManagementSystem.Controllers
                 //return HttpNotFound();
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
-            ViewBag.Priority = new List<SelectListItem>{
-                new SelectListItem { Value="Critical",Text="Critical"},
-                new SelectListItem { Value="High",Text="High"},
-                new SelectListItem { Value="Medium",Text="Medium"},
-                new SelectListItem { Value="Low",Text="Low"}
-            };
-            ViewBag.Stage = new List<SelectListItem>{
-                new SelectListItem { Value="Discovery",Text="Discovery"},
-                new SelectListItem { Value="Trial",Text="Trial"},
-                new SelectListItem { Value="Apeal",Text="Apeal"},
-                new SelectListItem { Value="Motions",Text="Motions"},
-                new SelectListItem { Value="Closed",Text="Closed"},
-                new SelectListItem { Value="Pleading",Text="Pleading"}
-            };
-            ViewBag.PracticeArea = new List<SelectListItem>{
-                new SelectListItem { Value="None",Text="None"},
-                new SelectListItem { Value="Acquisition",Text="Acquisition"},
-                new SelectListItem { Value="Administrative",Text="Administrative"},
-                new SelectListItem { Value="Audit",Text="Audit"},
-                new SelectListItem { Value="Civil",Text="Civil"},
-                new SelectListItem { Value="Commercial",Text="Commercial"},
-                new SelectListItem { Value="Consultation",Text="Consultation"},
-                new SelectListItem { Value="Corporate",Text="Corporate"},
-                new SelectListItem { Value="Criminal",Text="Criminal"},
-                new SelectListItem { Value="Dispute",Text="Dispute"},
-                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
-                new SelectListItem { Value="Labour",Text="Labour"},
-                new SelectListItem { Value="Real Estate",Text="Real Estate"},
-                new SelectListItem { Value="Sharia",Text="Sharia"},
-                new SelectListItem { Value="Agreement",Text="Agreement"}
-            };
+            
             ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
             //return View(matter);
             return Json(matter, JsonRequestBehavior.AllowGet);
@@ -710,9 +510,6 @@ namespace LegalManagementSystem.Controllers
                     var user = User.Identity.Name;
                     matter.ModifiedBy = user;
                     matter.ModifiedOn = DateTime.Today;
-                    //matter.FiledOn = DateTime.Now.ToShortDateString();
-
-                    //db.Entry(matter).State = EntityState.Modified;
                     matterRepo.UpdateMatter(matter);
                     //await db.SaveChangesAsync();
                     await matterRepo.CompleteAsync();
@@ -724,79 +521,14 @@ namespace LegalManagementSystem.Controllers
                     ViewBag.Error = "Can't Add Matter, Error Occured. Please Contact IT Department.";
                     //throw ex;
                 }
-                //db.Entry(matter).State = EntityState.Modified;
-                //await db.SaveChangesAsync();
-                //return RedirectToAction("Index");
             }
             else
             {
                 ViewBag.Error = "Fill in the required fields to continue";
-                ViewBag.Priority = new List<SelectListItem>{
-                new SelectListItem { Value="Critical",Text="Critical"},
-                new SelectListItem { Value="High",Text="High"},
-                new SelectListItem { Value="Medium",Text="Medium"},
-                new SelectListItem { Value="Low",Text="Low"}
-            };
-                ViewBag.PracticeArea = new List<SelectListItem>{
-                new SelectListItem { Value="None",Text="None"},
-                new SelectListItem { Value="Acquisition",Text="Acquisition"},
-                new SelectListItem { Value="Administrative",Text="Administrative"},
-                new SelectListItem { Value="Audit",Text="Audit"},
-                new SelectListItem { Value="Civil",Text="Civil"},
-                new SelectListItem { Value="Commercial",Text="Commercial"},
-                new SelectListItem { Value="Consultation",Text="Consultation"},
-                new SelectListItem { Value="Corporate",Text="Corporate"},
-                new SelectListItem { Value="Criminal",Text="Criminal"},
-                new SelectListItem { Value="Dispute",Text="Dispute"},
-                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
-                new SelectListItem { Value="Labour",Text="Labour"},
-                new SelectListItem { Value="Real Estate",Text="Real Estate"},
-                new SelectListItem { Value="Sharia",Text="Sharia"},
-                new SelectListItem { Value="Agreement",Text="Agreement"}
-            };
-                ViewBag.Stage = new List<SelectListItem>{
-                new SelectListItem { Value="Discovery",Text="Discovery"},
-                new SelectListItem { Value="Trial",Text="Trial"},
-                new SelectListItem { Value="Apeal",Text="Apeal"},
-                new SelectListItem { Value="Motions",Text="Motions"},
-                new SelectListItem { Value="Closed",Text="Closed"},
-                new SelectListItem { Value="Pleading",Text="Pleading"}
-            };
                 ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
                 return Json(matter, JsonRequestBehavior.AllowGet);
                 //return View(matter);
             }
-            ViewBag.Priority = new List<SelectListItem>{
-                new SelectListItem { Value="Critical",Text="Critical"},
-                new SelectListItem { Value="High",Text="High"},
-                new SelectListItem { Value="Medium",Text="Medium"},
-                new SelectListItem { Value="Low",Text="Low"}
-            };
-            ViewBag.Stage = new List<SelectListItem>{
-                new SelectListItem { Value="Discovery",Text="Discovery"},
-                new SelectListItem { Value="Trial",Text="Trial"},
-                new SelectListItem { Value="Apeal",Text="Apeal"},
-                new SelectListItem { Value="Motions",Text="Motions"},
-                new SelectListItem { Value="Closed",Text="Closed"},
-                new SelectListItem { Value="Pleading",Text="Pleading"}
-            };
-            ViewBag.PracticeArea = new List<SelectListItem>{
-                new SelectListItem { Value="None",Text="None"},
-                new SelectListItem { Value="Acquisition",Text="Acquisition"},
-                new SelectListItem { Value="Administrative",Text="Administrative"},
-                new SelectListItem { Value="Audit",Text="Audit"},
-                new SelectListItem { Value="Civil",Text="Civil"},
-                new SelectListItem { Value="Commercial",Text="Commercial"},
-                new SelectListItem { Value="Consultation",Text="Consultation"},
-                new SelectListItem { Value="Corporate",Text="Corporate"},
-                new SelectListItem { Value="Criminal",Text="Criminal"},
-                new SelectListItem { Value="Dispute",Text="Dispute"},
-                new SelectListItem { Value="Due Deligence",Text="Due Deligence"},
-                new SelectListItem { Value="Labour",Text="Labour"},
-                new SelectListItem { Value="Real Estate",Text="Real Estate"},
-                new SelectListItem { Value="Sharia",Text="Sharia"},
-                new SelectListItem { Value="Agreement",Text="Agreement"}
-            };
             ViewBag.ClientId = new SelectList(clientRepo.GetClients(), "ClientId", "FirstName", matter.ClientId);
             return Json(matter, JsonRequestBehavior.AllowGet);
             //return View(matter);

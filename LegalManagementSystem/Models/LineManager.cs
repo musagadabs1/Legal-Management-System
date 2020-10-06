@@ -14,12 +14,6 @@ namespace LegalManagementSystem.Models
     
     public partial class LineManager
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LineManager()
-        {
-            this.Staffs = new HashSet<Staff>();
-        }
-    
         public int LineManagerId { get; set; }
         public string Name { get; set; }
         public string Department { get; set; }
@@ -28,8 +22,5 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Staff> Staffs { get; set; }
     }
 }

@@ -98,7 +98,7 @@ namespace LegalManagementSystem.Repositories
                 throw ex;
             }
         }
-        public IEnumerable<Document> GetDocument()
+        public IEnumerable<Document> GetDocuments()
         {
             try
             {
@@ -197,6 +197,32 @@ namespace LegalManagementSystem.Repositories
                                     DocPath = doc.DocPath,
                                     AssignedDate = doc.AssignedDate
                                 }).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<Document>> GetDocumentsByMatterNumberAsync(string matterNumber)
+        {
+            try
+            {
+                return await db.Documents.Where(x => x.MatterNumber==matterNumber).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Document> GetDocumentsByMatterNumber(string matterNumber)
+        {
+            try
+            {
+                return db.Documents.Where(x => x.MatterNumber==matterNumber).ToList();
             }
             catch (Exception ex)
             {

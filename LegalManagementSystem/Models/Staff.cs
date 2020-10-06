@@ -19,7 +19,7 @@ namespace LegalManagementSystem.Models
         public string MiddleName { get; set; }
         public string Gender { get; set; }
         public string CreatedBy { get; set; }
-        public System.DateTime CreatedOn { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string LastName { get; set; }
@@ -40,9 +40,8 @@ namespace LegalManagementSystem.Models
         public string Bank { get; set; }
         public Nullable<int> AccountNumber { get; set; }
         public string NKFullName { get; set; }
-        public string Password { get; set; }
         public string StaffId { get; set; }
-        public int LineManagerId { get; set; }
+        public Nullable<int> LineManagerId { get; set; }
         public string Department { get; set; }
         public string Designation { get; set; }
         public Nullable<int> YearCallToBar { get; set; }
@@ -50,7 +49,5 @@ namespace LegalManagementSystem.Models
         public Nullable<int> AdvocateGroupId { get; set; }
         public string NationalIdentityNumber { get; set; }
         public string BloodGroup { get; set; }
-    
-        public virtual LineManager LineManager { get; set; }
     }
 }

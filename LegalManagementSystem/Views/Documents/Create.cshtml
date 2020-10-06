@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Create";
 }
-@*<link href="~/md-template/css/mdb.css" rel="stylesheet" />*@
 
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 
@@ -14,32 +13,19 @@
     </div>
     <div class="col-md-8">
         <div class="card">
-            @*style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;"*@
             <div class="card-header">
                 <h3 class="card-title text-center text-capitalize">Add Document</h3>
             </div>
-            <div class="panel-body" style="margin:20px">
+            <div class="card-body" style="margin:20px">
                 @using (Html.BeginForm("Create", "Documents", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
-                    @if (ViewBag.Error != null)
+                    if (ViewBag.Error != null)
                     {
                         <span style="color:red;">@ViewBag.Error.ToString()</span>
                     }
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Case Number</span>
-                                </div>
-                                @Html.DropDownListFor(model => model.MatterNumber, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control matterId", @id = "matterNumber" })
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
@@ -106,7 +92,6 @@
                             <button type="button" class="btn btn-primary" id="saveDocument">Add</button>
                         </div>
                     </div>
-                </div>
                 }
 
             </div>
@@ -117,8 +102,6 @@
     </div>
 </div>
 
-@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
-
 
 @section scripts{
     <script src="~/Scripts/select2.min.js"></script>
@@ -126,7 +109,7 @@
     <script>
         $(document).ready(function () {
 
-            select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "Documents")', "Select Case");
+            //select2DropDown('matterNumber', '@Url.Action("GetMatterForDropDown", "Documents")', "Select Case");
             $('#saveDocument').click(function () {
                 saveDocument();
             });
@@ -201,13 +184,13 @@
         }
         function validate() {
             var isValid = true;
-            if ($('#matterNumber').val().trim() == "") {
-                $('#matterNumber').css('border-color', 'Red');
-                isValid = false;
-            }
-            else {
-                $('#matterNumber').css('border-color', 'lightgrey');
-            }
+            //if ($('#matterNumber').val().trim() == "") {
+            //    $('#matterNumber').css('border-color', 'Red');
+            //    isValid = false;
+            //}
+            //else {
+            //    $('#matterNumber').css('border-color', 'lightgrey');
+            //}
             if ($('#DocName').val().trim() == "") {
                 $('#DocName').css('border-color', 'Red');
                 isValid = false;

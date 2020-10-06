@@ -14,20 +14,34 @@ namespace LegalManagementSystem.Models
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+    using System.Data.Entity.Validation;
+    using static LegalManagementSystem.Models.LegalGuideUtility;
+
     public partial class MyCaseNewEntities : DbContext
     {
         public MyCaseNewEntities()
             : base("name=MyCaseNewEntities")
         {
         }
-    
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var newException = new FormattedDbEntityValidationException(e);
+                throw newException;
+            }
+            //return base.SaveChanges();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AdvocateGroup> AdvocateGroups { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
@@ -36,7 +50,6 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<CalendarStaff> CalendarStaffs { get; set; }
         public virtual DbSet<Certification> Certifications { get; set; }
-        public virtual DbSet<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<CourtActivity> CourtActivities { get; set; }
@@ -56,7 +69,6 @@ namespace LegalManagementSystem.Models
         public virtual DbSet<StaffGroup> StaffGroups { get; set; }
         public virtual DbSet<StaffMatter> StaffMatters { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Todo> Todoes { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
     

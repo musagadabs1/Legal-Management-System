@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <style>
@@ -19,7 +19,9 @@
     .danger {
         color: red;
     }
+
 </style>
+@*<img src="~/Content/Captures/@item.ImagePath" class="rounded-circle width35" width="50" height="30" alt="" />*@
 <div class="row">
     <div class="col-md-0"></div>
     <div class="col-md-12">
@@ -28,13 +30,9 @@
                 <div class="card-header">
                     <h3 class="card-title align-center">EMPLOYEES</h3>
                     <p>
-                        @*@if (ViewBag.rolename != "Employee")
-                            {*@
                         <a href="@Url.Action("Create","Staffs")" class="btn btn-primary">
                             <span style="font-size:x-large" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                         </a>
-
-                        @*<a href="javascript:void(0);" style="border-radius:0.7rem;" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addEmployee">Add New Employee</a>*@
                     </p>
                 </div>
                 <div class="card-body">
@@ -69,41 +67,6 @@
                             </tr>
                         </thead>
 
-
-                        @*@foreach (var item in Model)
-                        {
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FirstName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LastName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.MobileNo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.EmailAddress)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Edit","Staffs",new {id = item.StaffId })" style="margin-right:10px;">
-                                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                                        </a>
-                                        <a href="@Url.Action("Details","Staffs",new { id = item.StaffId})">
-                                            <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        }*@
-
                     </table>
                 </div>
             </div>
@@ -112,45 +75,7 @@
     </div>
     <div class="col-md-0"></div>
 </div>
-
-@*<div class="modal animated bounceIn" id="addEmployee" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-full" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="title text-center" id="defaultModalLabel">Add New Employee</h6>
-                </div>
-                <div class="modal-body" id="employee-form">
-                    <hr />
-                    <hr />
-                    <div class="clearfix" style="margin-top:20px;">
-                        <img src="~/Content/Images/man-user.png" style="margin-left:20px; padding:5px;" id="output" width="140" height="100" />
-                        <div class="col-md-3">
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input type="file" accept="image/*" onchange="openFile(event)" class="custom-file-input" id="fileBase">
-                                    <label class="custom-file-label" for="fileBase"></label>
-                                </div>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="save-employee">Save</button>
-                    <img id="spinner" style="display:none" src="~/assets/vendor/select2/select2-spinner.gif" />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-
-
 @section scripts{
-
     <script src="~/Content/assets/vendor/jquery-datatable/jquery.dataTables.min.js"></script>
     <script src="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.js"></script>
     <script src="~/Content/assets/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
@@ -162,12 +87,12 @@
     <script>
 
         var actionButton = function (obj) {
-            return "<a href='/Staffs/Edit/" + obj.StaffId + "' class='btn btn-sm btn-primary' title='Edit Client' style='border: none;'>" + "<i class='fa fa-pencil'></i> Edit Client</a> <a href='/Staffs/Details/" + obj.StaffId + "' class='btn btn-sm btn-primary' title='Details' style='border: none;'>" + "<i class='fa fa-eye'></i> Details</a>";
+            return "<a href='/Staffs/Edit/" + obj.StaffId + "' class='btn btn-sm btn-primary' title='Edit Client' style='border: none;'>" + "<i class='fa fa-pencil'></i> Edit </a> <a href='/Staffs/Details/" + obj.StaffId + "' class='btn btn-sm btn-primary' title='Details' style='border: none;'>" + "<i class='fa fa-eye'></i> Details</a>";
         }
 
         $(document).ready(function () {
-
-            $('#staffTable').DataTable({
+            bindStaffTable();
+            $('#').DataTable({
                 "serverSide": true,
                 "processing": true,
                 'language': {
@@ -207,7 +132,6 @@
             $("#staffTable").DataTable(
             {
                 "serverSide": true,
-                //"bRetrieve": true,
                 "processing": true,
                  'language': {
                         'emptyTable': 'No record found.',
@@ -222,9 +146,7 @@
                         "url": '@Url.Action("GetStaffRecords", "Staffs")',
                         "type": 'POST',
                         "dataType": 'json',
-                        //"dataSrc": ''
                     },
-                    //data: response,DOB
                     "columns": [
                         { 'data':'StaffId'},
                         { 'data': 'FirstName' },
@@ -232,8 +154,8 @@
                         { 'data': 'DOB' },
                         { 'data': 'DOE' },
                         { 'data': 'Address' },
-                        { 'data': 'EmailAddress' },
-                        { 'data': 'MobileNo' }
+                        { 'data': 'MobileNo' },
+                        { 'data': 'EmailAddress' }
                     ],
                     "buttons": [
                         'excel', 'pdf'

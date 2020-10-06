@@ -1,8 +1,10 @@
 ﻿using LegalManagementSystem.Interfaces;
 using LegalManagementSystem.Models;
 using LegalManagementSystem.Repositories;
+using LegalManagementSystem.ViewModels;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -16,28 +18,26 @@ namespace LegalManagementSystem.Controllers
     [Authorize(Roles = "Admin,Attorney,Advocate")]
     public class DocumentsController : Controller
     {
-
-        //private MyCaseNewEntities db = new MyCaseNewEntities();
-        private IDocument documentRepo;
-        private IMatter matterRepo;
+        private IDocument _documentRepo;
+        private IMatter _matterRepo;
+        private static string mattrNumer = string.Empty;
         public DocumentsController()
         {
-            documentRepo = new DocumentRepository();
-            matterRepo = new MatterRepository();
+            _documentRepo = new DocumentRepository();
+            _matterRepo = new MatterRepository();
         }
         // GET: Documents
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string matterNumber)
         {
             try
             {
+                mattrNumer = matterNumber;
                 var user = User.Identity.Name;
                 if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
                 {
-                    return View(await documentRepo.GetDocumentsAsync());
-                    //return View(await db.Documents.ToListAsync());
+                    return View(await _documentRepo.GetDocumentsAsync(x => x.MatterNumber.Equals(matterNumber)));
                 }
-                return View(await documentRepo.GetDocumentsAsync(x => x.CreatedBy.Equals(user)));
-                //return View(await db.Documents.Where(x => x.CreatedBy.Equals(user)).ToListAsync());
+                return View(await _documentRepo.GetDocumentsAsync(x => x.CreatedBy.Equals(user) && x.MatterNumber.Equals(matterNumber)));
             }
             catch (Exception ex)
             {
@@ -46,6 +46,129 @@ namespace LegalManagementSystem.Controllers
                 //throw;
             }
 
+        }
+        [HttpPost]
+        public async Task<JsonResult> GetDocuments()
+        {
+            var user = User.Identity.Name;
+
+
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            //Find Order Column
+            var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+            //Sort Column index
+            var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
+            //Search
+            var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+            //Paging Size (10,20,50,100)    
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+
+            try
+            {
+                var adminData = await _documentRepo.GetDocumentsAsync(x => x.MatterNumber==mattrNumer);
+                if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+                {
+                    var dataToReturn = adminData.Select(s => new DocumentViewModel
+                    {DocumentId=s.DocumentId, DocName = s.DocName, AssignedDate = s.AssignedDate.ToString("MM/dd/yyyy"),Description=s.Description}
+                    );
+                    //DTO record
+                    List<DocumentViewModel> docData = dataToReturn.ToList();
+
+                    //Sorting
+                    if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortColumnDir))
+                    {
+                        if (sortColumnIndex == 0)
+                        {
+                            docData = sortColumnDir == "asc" ? docData.OrderBy(o => o.DocName).ToList() : docData.OrderByDescending(o => o.DocName).ToList();
+                        }
+                        else if (sortColumnIndex == 1)
+                        {
+                            docData = sortColumnDir == "asc" ? docData.OrderBy(o => o.AssignedDate).ToList() : docData.OrderByDescending(o => o.AssignedDate).ToList();
+                        }
+                        else
+                        {
+                            docData = sortColumnDir == "asc" ? docData.OrderBy(o => o.Description).ToList() : docData.OrderByDescending(o => o.Description).ToList();
+                        }
+
+                    }
+                    //Search
+                    if (!string.IsNullOrEmpty(searchValue))
+                    {
+                        docData = docData.Where(x => x.DocName.ToLower().Contains(searchValue.ToLower())
+                                                                || x.AssignedDate.ToLower().Contains(searchValue.ToLower())
+                                                                || x.Description.ToLower().Contains(searchValue.ToLower())).ToList();
+                    }
+                    //total number of row count
+                    recordsTotal = docData.Count();
+                    //Paging
+                    var aData = docData.Skip(skip).Take(pageSize).ToList();
+
+                    return Json(new
+                    {
+                        draw,
+                        //param.sEcho,
+                        recordsFiltered = recordsTotal,
+                        recordsTotal,
+                        data = aData
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                //Not an Admin User
+                var data = adminData.Where(x => x.CreatedBy.Equals(user) && x.MatterNumber==mattrNumer).Select(s => new DocumentViewModel { DocumentId = s.DocumentId, DocName = s.DocName, AssignedDate = s.AssignedDate.ToString("MM/dd/yyyy"), Description = s.Description});
+
+                List<DocumentViewModel> resultData = data.ToList();
+
+                if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortColumnDir))
+                {
+                    if (sortColumnIndex == 0)
+                    {
+                        resultData = sortColumnDir == "asc" ? resultData.OrderBy(o => o.DocName).ToList() : resultData.OrderByDescending(o => o.DocName).ToList();
+                    }
+                    else if (sortColumnIndex == 1)
+                    {
+                        resultData = sortColumnDir == "asc" ? resultData.OrderBy(o => o.AssignedDate).ToList() : resultData.OrderByDescending(o => o.AssignedDate).ToList();
+                    }
+                    else
+                    {
+                        resultData = sortColumnDir == "asc" ? resultData.OrderBy(o => o.Description).ToList() : resultData.OrderByDescending(o => o.Description).ToList();
+                    }
+
+                }
+
+                //Search
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    resultData = resultData.Where(x => x.DocName.ToLower().Contains(searchValue.ToLower())
+                                                                || x.AssignedDate.ToLower().Contains(searchValue.ToLower())
+                                                                || x.Description.ToLower().Contains(searchValue.ToLower())).ToList();
+                }
+
+                //total number of row count
+                recordsTotal = resultData.Count();
+                //Paging
+                var cData = resultData.Skip(skip).Take(pageSize).ToList();
+
+                return Json(new
+                {
+                    draw = draw,
+                    //param.sEcho,
+                    filteredRecords = recordsTotal,
+                    totalRecords = recordsTotal,
+                    aaData = cData
+                }, JsonRequestBehavior.AllowGet);
+
+                //return Json(resultData);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         public ActionResult Error()
         {
@@ -58,7 +181,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CaseDocument document = await documentRepo.GetDocumentWithCaseAsync(id);
+            CaseDocument document = await _documentRepo.GetDocumentWithCaseAsync(id);
             if (document == null)
             {
                 return HttpNotFound();
@@ -67,40 +190,65 @@ namespace LegalManagementSystem.Controllers
         }
         public JsonResult GetMatterForDropDown(string searchKey)
         {
-            //var user = User.Identity.Name;
-            //var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
-            //var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
-            var getData = matterRepo.GetMatterForDropDowns(); //  db.GetAllMattersForDropDown().ToList();
-
-            //if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
-            //{
-            if (searchKey != null)
+            try
             {
-                getData = matterRepo.GetMatterForDropDowns().Where(x => x.Subject.Contains(searchKey)).ToList();
+                //var user = User.Identity.Name;
+                //var email = LegalGuideUtility.GetStaffEmailByLoginName(user);
+                //var staffId = LegalGuideUtility.GetStaffIdByEmail(email);
+                var getData = _matterRepo.GetMatterForDropDowns(); //  db.GetAllMattersForDropDown().ToList();
+
+                //if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
+                //{
+                if (searchKey != null)
+                {
+                    getData = _matterRepo.GetMatterForDropDowns().Where(x => x.Subject.Contains(searchKey)).ToList();
+                }
+                var ModifiedData = getData.Select(x => new
+                {
+                    id = x.MatterNumber,
+                    text = x.Subject
+                });
+
+                return Json(ModifiedData, JsonRequestBehavior.AllowGet);
             }
-            var ModifiedData = getData.Select(x => new
+            catch (Exception ex)
             {
-                id = x.MatterNumber,
-                text = x.Subject
-            });
 
-            return Json(ModifiedData, JsonRequestBehavior.AllowGet);
-            //}
-            //return null;
-            //var data = null;
-
-
+                throw ex;
+            }
+            
         }
-
-        [HttpPost]
-        public async Task<ActionResult> SaveDocument()
+        public ActionResult GetDocumentsByMatterNumber(string id)
         {
             try
             {
+                var getCourtActivity = _documentRepo.GetDocumentsByMatterNumber(id);
+                if (getCourtActivity.Count()<=0)
+                {
+                return RedirectToAction("Create", "Documents", new { mattNumber = id });
+                }
+                else
+                {
+                    return RedirectToAction("index", "Documents", new { matterNumber= id });
+                }
+                //return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public async Task<JsonResult> SaveDocument()
+        {
+            try
+            {
+                //mattrNumer = id;
                 string fileName = string.Empty;
                 string filePath = string.Empty;
 
-                DocumentViewModel model = JsonConvert.DeserializeObject<DocumentViewModel>(Request.Form["model"].ToString());
+                Document model = JsonConvert.DeserializeObject<Document>(Request.Form["model"].ToString());
 
                 HttpPostedFileBase fileBase = Request.Files[0];
 
@@ -110,94 +258,55 @@ namespace LegalManagementSystem.Controllers
                     fileName = Path.GetFileName(fileBase.FileName);
                 }
 
-                var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Docs";
+                var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/Content/Documents";
                 var docPath = Path.Combine(folderPath, filePath);
 
                 var user = User.Identity;
-                var document = new Document
-                {
-                    DocName = model.DocName,
-                    Description = model.Description,
-                    CreatedBy = user.Name,
-                    DateCreated = DateTime.Today,
-                    DocPath = docPath,
-                    Tags = model.Tags,
-                    MatterNumber = model.MatterNumber
-                };
+                model.CreatedBy = user.Name;
+                model.DateCreated = DateTime.Today;
+                model.DocPath = docPath;
+                model.MatterNumber = mattrNumer;
 
-                documentRepo.AddDocument(document);
+                _documentRepo.AddDocument(model);
+                fileBase.SaveAs(docPath);
                 //db.Documents.Add(document);
-                await documentRepo.CompleteAsync();
+                await _documentRepo.CompleteAsync();
                 //await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return Json(0,JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
 
                 ViewBag.Error = "Can't add Document. Something went wrong " + ex.Message;
-                return View();
+                return Json(0,JsonRequestBehavior.AllowGet);
             }
 
 
 
         }
-
-        // GET: Documents/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Documents/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DocumentId,MatterNumber,DocName,AssignedDate,Tags,Description,CreatedBy,DateCreated,ModifiedBy,DateModified,DocPath")] Document document, HttpPostedFileBase fileBase)
+        public FileResult Download(int documentId)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    string fileName = string.Empty;
-                    string filePath = string.Empty;
+                var document = _documentRepo.GetDocument(documentId);
+                if (document == null)
+                    throw new Exception(String.Format("No report found with id {0}", documentId));
 
-                    if (fileBase.ContentLength > 0 && fileBase != null)
-                    {
-                        filePath = fileBase.FileName;
-                        fileName = Path.GetFileName(fileBase.FileName);
-                    }
-                    var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/Docs";
-                    var docPath = Path.Combine(folderPath, filePath);
-
-                    var user = User.Identity;
-                    document.CreatedBy = user.Name;
-                    document.DateCreated = DateTime.Today;
-                    document.DocPath = fileName;
-
-                    documentRepo.AddDocument(document);
-                    //db.Documents.Add(document);
-                    await documentRepo.CompleteAsync();
-                    //await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
-                    //ViewBag.FileNumber = new SelectList(db.Files, "FileNumber", "FileName", document.FileNumber);
-                    //ViewBag.MatterNumber = new SelectList(db.Matters, "MatterNumber", "Subject");
-                    return View(document);
-
-                }
+                //var folderPath = AppDomain.CurrentDomain.BaseDirectory + "~/Content/Documents/" + document.DocPath;
+                var folderPath = "~/Content/Documents/" + document.DocPath;
+                return File(folderPath, "application/force-download", Path.GetFileName(folderPath)+".pdf");
             }
             catch (Exception ex)
             {
 
-                ViewBag.Error = "Can't add Document. Something went wrong " + ex.Message;
+                throw ex;
             }
-
-
-            return View(document);
+        }
+        // GET: Documents/Create
+        public ActionResult Create(string mattNumber)
+        {
+            mattrNumer = mattNumber;
+            return View();
         }
 
         // GET: Documents/Edit/5
@@ -207,7 +316,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Document document = await documentRepo.GetDocumentAsync(id);
+            Document document = await _documentRepo.GetDocumentAsync(id);
             if (document == null)
             {
                 return HttpNotFound();
@@ -220,7 +329,7 @@ namespace LegalManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DocumentId,MatterNumber,DocName,AssignedDate,Tags,Description,CreatedBy,DateCreated,ModifiedBy,DateModified,DocPath")] Document document, HttpPostedFileBase fileBase)
+        public async Task<ActionResult> Edit(Document document, HttpPostedFileBase fileBase)
         {
             try
             {
@@ -242,16 +351,16 @@ namespace LegalManagementSystem.Controllers
                     document.DateModified = DateTime.Today;
                     document.DocPath = fileName;
 
-                    documentRepo.UpdateDocument(document);
+                    _documentRepo.UpdateDocument(document);
                     //db.Entry(document).State = EntityState.Modified;
-                    await documentRepo.CompleteAsync();
+                    await _documentRepo.CompleteAsync();
                     //await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     ViewBag.Error = "Can't add Document. Fill in the required Fields. ";
-                    ViewBag.MatterNumber = new SelectList(matterRepo.GetMatterForDropDowns(), "MatterNumber", "Subject", document.MatterNumber);
+                    ViewBag.MatterNumber = new SelectList(_matterRepo.GetMatterForDropDowns(), "MatterNumber", "Subject", document.MatterNumber);
                     return View(document);
 
                 }
@@ -272,7 +381,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Document document = await documentRepo.GetDocumentAsync(id);
+            Document document = await _documentRepo.GetDocumentAsync(id);
             if (document == null)
             {
                 return HttpNotFound();
@@ -285,10 +394,10 @@ namespace LegalManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Document document = await documentRepo.GetDocumentAsync(id);
+            Document document = await _documentRepo.GetDocumentAsync(id);
             //db.Documents.Remove(document);
-            documentRepo.DeleteDocument(document);
-            await documentRepo.CompleteAsync();
+            _documentRepo.DeleteDocument(document);
+            await _documentRepo.CompleteAsync();
             //await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -297,7 +406,7 @@ namespace LegalManagementSystem.Controllers
         {
             if (disposing)
             {
-                documentRepo.Dispose();
+                _documentRepo.Dispose();
             }
             base.Dispose(disposing);
         }

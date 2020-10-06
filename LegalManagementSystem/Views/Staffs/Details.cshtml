@@ -2,261 +2,312 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    dl {
-        /*border: 3px double #ccc;*/
-        padding: 0.5em;
-    }
-
-    dt {
-        /*float: left;
-                clear: left;*/
-        /*width: 100px;*/
-        text-align: right;
-        font-weight: bold;
-        color: green;
-    }
-
-        dt::after {
-            content: ":";
-        }
-
-    dd {
-        /*margin: 0 0 0 110px;
-                padding: 0 0 0.5em 0;*/
-        text-align: left;
-    }
-</style>
 
 <div class="row">
-    <div class="col-1"></div>
-    <div class="col-10">
+    <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title align-center">STAFF DETAILS</h5>
             </div>
             <div class="card-body">
                 <div class="float-right">
-                    <img src="~/App_Data/StaffImages/@Model.ImagePath" class="rounded-circle" width="120" height="120" alt="Staff_Image" />
+                    <img src="~/Content/Images/staff_images/@Model.ImagePath" class="rounded-circle" width="120" height="120" alt="Staff_Image" />
                 </div>
-                @*<div class="align-center">
-                    <img src="" alt="" height="120" width="120" />
-                </div>*@
-                <dl class="row">
-                    <dt class="col-md-4 col-sm-12">
-                        First Name
-                    </dt>
 
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.FirstName)
-                    </dd>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">PERSONAL DATA</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">First Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="FirstName" readonly value="@Model.FirstName" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Middle Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="MiddleName" readonly value="@Model.MiddleName" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Last Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="LastName" readonly value="@Model.LastName"
+                                                   aria- label="LastName" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Marital Status</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="MaritalStatus" readonly value="@Model.MaritalStatus"
+                                                   aria- label="LastName" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                            <input type="text" class="form-control" value="@Model.DOB.ToString("dd/MM/yyyy")" readonly id="DOB">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Gender</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Gender" readonly value="@ViewBag.Gender"
+                                                   aria- label="Gender" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Identity Number</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="NationalIdentityNumber" readonly value="@Model.NationalIdentityNumber"
+                                                   aria-label="NationalIdentityNumber" aria-describedby="basic-addon1">&nbsp;<span id="nin" class="errmsg"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">Blood Group</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="BloodGroup" readonly value="@Model.BloodGroup"
+                                                   aria-label="BloodGroup" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>ADDRESS & CONTACT INFORMATION</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Address</span>
+                                            </div>
+                                            <textarea class="form-control" aria-label="Address" readonly id="Address">@Model.Address</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12" style="margin-top:15px;">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" id="EmailAddress" class="form-control email" readonly
+                                                   value="@Model.EmailAddress">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                            </div>
+                                            <input type="text" id="MobileNo" class="form-control mobile-phone-number" value="@Model.MobileNo" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" id="PersonalEmail" class="form-control email" readonly
+                                                   value="@Model.PersonalEmail">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                            </div>
+                                            <input type="text" id="OfficeNo" class="form-control mobile-phone-number" readonly
+                                                   value="@Model.OfficeNo">
+                                        </div>
+                                    </div>
+                                    <input type="text" value="@Model.StaffId" id="StaffId" hidden="hidden" />
+                                </div>
+                                <div class="row">
 
-                    <dt class="col-md-4 col-sm-12">
-                        Middle Name
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.MiddleName)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Last Name
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-
-                        @Html.DisplayFor(model => model.LastName)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Gender
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @*@Html.DisplayFor(model => model.Gender)*@
-                        @ViewBag.Gender
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Date of Birth
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Model.DOB.ToShortDateString()
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Date of Employment
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Model.DOE.ToShortDateString()
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        @Html.DisplayNameFor(model => model.Address)
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.Address)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Marital Status
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.MaritalStatus)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Office Number
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.OfficeNo)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Mobile Number
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.MobileNo)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Email Address
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.EmailAddress)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Personal Email Address
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.PersonalEmail)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Relationship
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.Relationship)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Next of kin Full Name
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.NKFullName)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Next of Kin Mobile Number
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.KTelephone)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Next of Kin Email Address
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.NKEmail)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Next of Kin Address
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.NKAddress)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Bank
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.Bank)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Account Number
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.AccountNumber)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Line Manager
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @*@Html.DisplayFor(model => model.LineManagerId)*@
-                        @ViewBag.LineManager
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Department
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.Department)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Designation
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.Designation)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Year Call to Bar
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.YearCallToBar)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Call to Bar Location
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @Html.DisplayFor(model => model.Location)
-                    </dd>
-
-                    <dt class="col-md-4 col-sm-12">
-                        Advocate Group
-                    </dt>
-
-                    <dd class="col-md-8 col-sm-12">
-                        @ViewBag.AdvocateGroup
-                    </dd>
-
-                </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>EMPLOYMENT INFORMATION</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                            <input type="text" class="form-control" value="@Model.DOE.ToString("dd/MM/yyyy")" id="DOE" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Supervisor</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="LineManager" value="@ViewBag.LineManager" readonly
+                                                   aria- label="LineManager" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Department</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Department" value="@Model.Department" readonly
+                                                   aria- label="Department" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Designation</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Designation" value="@Model.Designation" readonly
+                                                   aria- label="Designation" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Year Call To Bar</span>
+                                            </div>
+                                            <input type="text" class="form-control" readonly id="YearCallToBar" value="@Model.YearCallToBar" aria- label="YearCallToBar" aria-describedby="basic-addon1">&nbsp;<span class="errmsg" id="yearCallBar"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Location</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Location" readonly value="@Model.Location" aria- label="Location" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Bank</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Bank" value="@Model.Bank" aria-label="Bank" readonly
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Account Number</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="AccountNumber" value="@Model.AccountNumber" readonly
+                                                   aria- label="AccountNumber" aria-describedby="basic-addon1">&nbsp;<span id="accNo-errmsg" class="errmsg"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>EMERGENCY CONTACT</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Full Name</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="NKFullName" value="@Model.NKFullName" readonly aria- label="NKFullName" aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Relationship</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="Relationship" value="@Model.Relationship" aria- label="Relationship" readonly aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                            </div>
+                                            <input type="text" id="KTelephone" class="form-control mobile-phone-number" readonly value="@Model.KTelephone" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+                                            <input type="text" id="NKEmail" class="form-control email" readonly
+                                                   value="@Model.NKEmail">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Address</span>
+                                                </div>
+                                                <textarea class="form-control" aria-label="NKAddress" readonly id="NKAddress">@Model.NKAddress</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-1">
-        
     </div>
 </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.StaffId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <div class="col-md-2">
+        <a href="@Url.Action("Index","Staffs")" class="btn btn-primary">Back to List</a>
+    </div>
 </p>

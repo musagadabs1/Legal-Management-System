@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
-<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <div class="row">
     @*<div class="col-md-1">
 
-    </div>*@
+        </div>*@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -18,9 +18,12 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive ">
-                    <table class="table table-responsive table-bordered table-hover" id="documentTable">
+                    <table class="table table-responsive table-bordered table-hover" id="documentTable" style="width:100%;">
                         <thead>
                             <tr>
+                                <th>
+                                    Document Id
+                                </th>
                                 <th>
                                     Document Name
                                 </th>
@@ -34,52 +37,61 @@
                             </tr>
                         </thead>
 
-
-                        @foreach (var item in Model)
-                        {
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DocName)
-                                    </td>
-                                    <td>
-                                        @item.AssignedDate.ToShortDateString()
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        <a style="margin-right:10px;" href="@Url.Action("Edit","Documents",new {id = item.DocumentId })">
-                                            <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                                        </a>
-                                        <a href="@Url.Action("Details","Documents",new { id = item.DocumentId})">
-                                            <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        }
-
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    @*<div class="col-md-1">
-
-    </div>*@
 </div>
 
 
 
 
 @section scripts{
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.html5.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery-datatable/buttons/buttons.print.min.js"></script>
 
     <script>
+        var actionButton = function (obj) {
+            return "<a href='/Documents/Edit/" + obj.DocumentId + "' class='btn btn-sm btn-primary' title='Edit' style='border: none;'>" + "<i class='fa fa-pencil'></i> Edit Client</a> <a href='/Documents/Download/" + obj.DocumentId + "' class='btn btn-sm btn-primary' title='Details' style='border: none;'>" + "<i class='fa fa-eye'></i> Download</a>";
+        }
         $(document).ready(function () {
-            $('#documentTable').DataTable();
+            $('#documentTable').DataTable(
+            {
+                'serverSide': true,
+                'processing': true,
+                 'language': {
+                    'emptyTable': 'No record found.',
+                     'processing': '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
+                  },
+                "paging": true,
+                "filter": true,
+                "pageLength": 10,
+                "lengthMenu": [[5, 10, 50,100], [5, 10, 50,100]],
+                "Sort": true,
+                    "ajax": {
+                        "url": '@Url.Action("GetDocuments", "Documents")',
+                        "type": 'POST',
+                        "dataType": 'json'
+                    },
+                    "columns": [
+                        {'data':'DocumentId'},
+                        { 'data': 'DocName', 'autoWidth': true },
+                        { 'data': 'AssignedDate', 'autoWidth': true },
+                        { 'data': 'Description', 'autoWidth': true}
+                    ],
+                    "buttons": [
+                        'excel', 'pdf'
+                    ],
+                    'createdRow': function (row, data, index) {
+                        $(row).append($("<td>").html(actionButton(data)));
+                    }
+            });
         });
     </script>
 }

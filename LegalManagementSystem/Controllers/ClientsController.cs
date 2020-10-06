@@ -50,7 +50,7 @@ namespace LegalManagementSystem.Controllers
         }
         //GET: Clients
         [HttpPost]
-        public async Task<JsonResult> GetRecords()
+        public async Task<JsonResult> GetClientRecords()
         {
             var user = User.Identity.Name;
 
@@ -337,105 +337,6 @@ namespace LegalManagementSystem.Controllers
                 throw ex;
             }
         }
-        [HttpPost]
-        public async Task<JsonResult> GetMattersData(JqueryDatatableParam param)
-        {
-            try
-            {
-                var user = User.Identity.Name;
-                if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
-                {
-                    var adminClients = await _clientRepo.GetClientsAsync();
-                    if (!string.IsNullOrEmpty(param.sSearch))
-                    {
-                        adminClients = adminClients.Where(x => x.FirstName.ToLower().Contains(param.sSearch.ToLower())
-                                                                || x.LastName.ToLower().Contains(param.sSearch.ToLower())
-                                                                || x.Address.ToLower().Contains(param.sSearch.ToLower())
-                                                                || x.PhoneNumber.ToLower().Contains(param.sSearch.ToLower())).ToList();
-                    }
-                    var adminSortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
-                    var adminSortDirection = HttpContext.Request.QueryString["sSortDir_0"];
-
-                    if (adminSortColumnIndex == 3)
-                    {
-                        adminClients = adminSortDirection == "asc" ? adminClients.OrderBy(x => x.FirstName) : adminClients.OrderByDescending(x => x.FirstName);
-                    }
-                    else if (adminSortColumnIndex == 4)
-                    {
-                        adminClients = adminSortDirection == "asc" ? adminClients.OrderBy(x => x.LastName) : adminClients.OrderByDescending(x => x.LastName);
-                    }
-                    else if (adminSortColumnIndex == 5)
-                    {
-                        adminClients = adminSortDirection == "asc" ? adminClients.OrderBy(x => x.Address) : adminClients.OrderByDescending(x => x.Address);
-                    }
-                    else
-                    {
-                        adminClients = adminSortDirection == "asc" ? adminClients.OrderBy(x => x.PhoneNumber) : adminClients.OrderByDescending(x => x.PhoneNumber);
-                    }
-                    var adminDisplayResult = adminClients.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-                    if (adminDisplayResult.Count==0)
-                    {
-                        adminDisplayResult = adminClients.ToList();
-                    }
-                    var adminTotalRecords = adminClients.Count();
-
-                    return Json(new
-                    {
-                        param.sEcho,
-                        iTotalRecords = adminTotalRecords,
-                        iTotalDisplayRecords = adminTotalRecords,
-                        aaData = adminDisplayResult
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                var clients = await _clientRepo.GetClientsAsync(x => x.CreatedBy == user);
-                if (!string.IsNullOrEmpty(param.sSearch))
-                {
-                    clients = clients.Where(x => x.FirstName.ToLower().Contains(param.sSearch.ToLower())
-                                                            || x.LastName.ToLower().Contains(param.sSearch.ToLower())
-                                                            || x.EmailAddress.ToLower().Contains(param.sSearch.ToLower())
-                                                            || x.PhoneNumber.ToLower().Contains(param.sSearch.ToLower())).ToList();
-                }
-                var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
-                var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
-
-                if (sortColumnIndex == 3)
-                {
-                    clients = sortDirection == "asc" ? clients.OrderBy(x => x.FirstName) : clients.OrderByDescending(x => x.FirstName);
-                }
-                else if (sortColumnIndex == 4)
-                {
-                    clients = sortDirection == "asc" ? clients.OrderBy(x => x.LastName) : clients.OrderByDescending(x => x.LastName);
-                }
-                else if (sortColumnIndex == 5)
-                {
-                    clients = sortDirection == "asc" ? clients.OrderBy(x => x.EmailAddress) : clients.OrderByDescending(x => x.EmailAddress);
-                }
-                else
-                {
-                    clients = sortDirection == "asc" ? clients.OrderBy(x => x.PhoneNumber) : clients.OrderByDescending(x => x.PhoneNumber);
-                }
-                var displayResult = clients.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-                if (displayResult == null)
-                {
-                    displayResult = clients.ToList();
-                }
-                var totalRecords = clients.Count();
-
-                return Json(new
-                {
-                    param.sEcho,
-                    iTotalRecords = totalRecords,
-                    iTotalDisplayRecords = totalRecords,
-                    aaData = displayResult
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
         // GET: Clients/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {

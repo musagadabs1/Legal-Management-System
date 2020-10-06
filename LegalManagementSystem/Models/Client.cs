@@ -17,7 +17,6 @@ namespace LegalManagementSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.ClientMatterAcceptanceForms = new HashSet<ClientMatterAcceptanceForm>();
             this.Matters = new HashSet<Matter>();
         }
     
@@ -37,8 +36,6 @@ namespace LegalManagementSystem.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string ClientNumber { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClientMatterAcceptanceForm> ClientMatterAcceptanceForms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matter> Matters { get; set; }
     }

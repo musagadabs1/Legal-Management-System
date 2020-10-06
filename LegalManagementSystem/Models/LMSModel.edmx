@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="MyCaseNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdvocateGroups">
           <Key>
             <PropertyRef Name="Id" />
@@ -121,24 +111,6 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedOn" Type="datetime2" Precision="7" />
           <Property Name="ModeifiedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
-        </EntityType>
-        <EntityType Name="ClientMatterAcceptanceForms">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientId" Type="int" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Industry" Type="nvarchar" MaxLength="50" />
-          <Property Name="AgreedFee" Type="float" />
-          <Property Name="PaymentTerms" Type="nvarchar" MaxLength="50" />
-          <Property Name="TimeFrame" Type="int" />
-          <Property Name="MatterManager" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime2" Precision="7" />
-          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Clients">
@@ -464,7 +436,7 @@
           <Property Name="MiddleName" Type="nvarchar" MaxLength="30" />
           <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -485,9 +457,8 @@
           <Property Name="Bank" Type="nvarchar" MaxLength="30" />
           <Property Name="AccountNumber" Type="int" />
           <Property Name="NKFullName" Type="nvarchar" MaxLength="60" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="StaffId" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="LineManagerId" Type="int" Nullable="false" />
+          <Property Name="LineManagerId" Type="int" />
           <Property Name="Department" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="YearCallToBar" Type="int" />
@@ -495,16 +466,6 @@
           <Property Name="AdvocateGroupId" Type="int" />
           <Property Name="NationalIdentityNumber" Type="nvarchar" MaxLength="20" />
           <Property Name="BloodGroup" Type="nvarchar" MaxLength="20" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Todoes">
           <Key>
@@ -529,18 +490,6 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
-        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForms" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="ClientMatterAcceptanceForms">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CourtActivities_Matters">
           <End Role="Matters" Type="Self.Matters" Multiplicity="1" />
           <End Role="CourtActivities" Type="Self.CourtActivities" Multiplicity="*" />
@@ -618,18 +567,6 @@
             </Principal>
             <Dependent Role="Matters">
               <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Staffs_LineManagers">
-          <End Role="LineManagers" Type="Self.LineManagers" Multiplicity="1" />
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LineManagers">
-              <PropertyRef Name="LineManagerId" />
-            </Principal>
-            <Dependent Role="Staffs">
-              <PropertyRef Name="LineManagerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -733,7 +670,6 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MyCaseNewModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdvocateGroups" EntityType="Self.AdvocateGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -743,7 +679,6 @@
           <EntitySet Name="Calendars" EntityType="Self.Calendars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarStaffs" EntityType="Self.CalendarStaffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Certifications" EntityType="Self.Certifications" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourtActivities" EntityType="Self.CourtActivities" Schema="dbo" store:Type="Tables" />
@@ -763,13 +698,8 @@
           <EntitySet Name="StaffGroups" EntityType="Self.StaffGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StaffMatters" EntityType="Self.StaffMatters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Todoes" EntityType="Self.Todoes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
-          </AssociationSet>
           <AssociationSet Name="FK_CourtActivities_Matters" Association="Self.FK_CourtActivities_Matters">
             <End Role="Matters" EntitySet="Matters" />
             <End Role="CourtActivities" EntitySet="CourtActivities" />
@@ -794,30 +724,15 @@
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Matters" EntitySet="Matters" />
           </AssociationSet>
-          <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
-            <End Role="LineManagers" EntitySet="LineManagers" />
-            <End Role="Staffs" EntitySet="Staffs" />
-          </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="UserRoles" EntitySet="UserRoles" />
             <End Role="LoginUsers" EntitySet="LoginUsers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyCaseNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="AdvocateGroup">
           <Key>
             <PropertyRef Name="Id" />
@@ -924,25 +839,6 @@
           <Property Name="ModeifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
         </EntityType>
-        <EntityType Name="ClientMatterAcceptanceForm">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientId" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Industry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AgreedFee" Type="Double" />
-          <Property Name="PaymentTerms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TimeFrame" Type="Int32" />
-          <Property Name="MatterManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="7" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="ClientMatterAcceptanceForms" ToRole="Clients" />
-        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientId" />
@@ -962,7 +858,6 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="ClientNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ClientMatterAcceptanceForms" Relationship="Self.FK_ClientMatterAcceptanceForms_Clients" FromRole="Clients" ToRole="ClientMatterAcceptanceForms" />
           <NavigationProperty Name="Matters" Relationship="Self.FK_Matters_Clients" FromRole="Clients" ToRole="Matters" />
         </EntityType>
         <EntityType Name="Company">
@@ -1183,7 +1078,6 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Staffs" Relationship="Self.FK_Staffs_LineManagers" FromRole="LineManagers" ToRole="Staffs" />
         </EntityType>
         <EntityType Name="LMSTask">
           <Key>
@@ -1273,7 +1167,7 @@
           <Property Name="MiddleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1294,9 +1188,8 @@
           <Property Name="Bank" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="AccountNumber" Type="Int32" />
           <Property Name="NKFullName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StaffId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LineManagerId" Type="Int32" Nullable="false" />
+          <Property Name="LineManagerId" Type="Int32" />
           <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YearCallToBar" Type="Int32" />
@@ -1304,17 +1197,6 @@
           <Property Name="AdvocateGroupId" Type="Int32" />
           <Property Name="NationalIdentityNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="BloodGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LineManager" Relationship="Self.FK_Staffs_LineManagers" FromRole="Staffs" ToRole="LineManagers" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Todo">
           <Key>
@@ -1368,18 +1250,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientMatterAcceptanceForms_Clients">
-          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="ClientMatterAcceptanceForms" Type="Self.ClientMatterAcceptanceForm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="ClientMatterAcceptanceForms">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Matters_Clients">
           <End Role="Clients" Type="Self.Client" Multiplicity="1" />
           <End Role="Matters" Type="Self.Matter" Multiplicity="*" />
@@ -1404,18 +1274,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Staffs_LineManagers">
-          <End Role="LineManagers" Type="Self.LineManager" Multiplicity="1" />
-          <End Role="Staffs" Type="Self.Staff" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LineManagers">
-              <PropertyRef Name="LineManagerId" />
-            </Principal>
-            <Dependent Role="Staffs">
-              <PropertyRef Name="LineManagerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_Roles">
           <End Role="UserRoles" Type="Self.UserRole" Multiplicity="0..1" />
           <End Role="LoginUsers" Type="Self.LoginUser" Multiplicity="*" />
@@ -1433,7 +1291,6 @@
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="MyCaseNewEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AdvocateGroups" EntityType="Self.AdvocateGroup" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -1442,7 +1299,6 @@
           <EntitySet Name="Calendars" EntityType="Self.Calendar" />
           <EntitySet Name="CalendarStaffs" EntityType="Self.CalendarStaff" />
           <EntitySet Name="Certifications" EntityType="Self.Certification" />
-          <EntitySet Name="ClientMatterAcceptanceForms" EntityType="Self.ClientMatterAcceptanceForm" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="CourtActivities" EntityType="Self.CourtActivity" />
@@ -1462,7 +1318,6 @@
           <EntitySet Name="StaffGroups" EntityType="Self.StaffGroup" />
           <EntitySet Name="StaffMatters" EntityType="Self.StaffMatter" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Todoes" EntityType="Self.Todo" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -1473,10 +1328,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientMatterAcceptanceForms_Clients" Association="Self.FK_ClientMatterAcceptanceForms_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="ClientMatterAcceptanceForms" EntitySet="ClientMatterAcceptanceForms" />
-          </AssociationSet>
           <AssociationSet Name="FK_Matters_Clients" Association="Self.FK_Matters_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Matters" EntitySet="Matters" />
@@ -1484,10 +1335,6 @@
           <AssociationSet Name="FK_CourtActivities_Matters" Association="Self.FK_CourtActivities_Matters">
             <End Role="Matters" EntitySet="Matters" />
             <End Role="CourtActivities" EntitySet="CourtActivities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Staffs_LineManagers" Association="Self.FK_Staffs_LineManagers">
-            <End Role="LineManagers" EntitySet="LineManagers" />
-            <End Role="Staffs" EntitySet="Staffs" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
             <End Role="UserRoles" EntitySet="UserRoles" />
@@ -1505,7 +1352,7 @@
             <Parameter Name="toDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetAllCasesByCaseNumber">
-            <Parameter Name="caseNumber" Mode="In" Type="String" />
+          <Parameter Name="caseNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCasesByClientName">
             <Parameter Name="clientfirstName" Mode="In" Type="String" />
@@ -1513,13 +1360,13 @@
             <Parameter Name="clientLastName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCasesByPracticeArea">
-            <Parameter Name="pArea" Mode="In" Type="String" />
+          <Parameter Name="pArea" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllClientByClientNumber" ReturnType="Collection(MyCaseNewModel.GetAllClientByClientNumber_Result)">
-            <Parameter Name="clientNumber" Mode="In" Type="String" />
+          <Parameter Name="clientNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllClientByClientTown" ReturnType="Collection(MyCaseNewModel.GetAllClientByClientTown_Result)">
-            <Parameter Name="clientTown" Mode="In" Type="String" />
+          <Parameter Name="clientTown" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllClientForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllClientForDropDown_Result)" />
           <FunctionImport Name="GetAllClientNames" ReturnType="Collection(MyCaseNewModel.GetAllClientNames_Result)" />
@@ -1527,16 +1374,16 @@
           <FunctionImport Name="GetAllCompaniesForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllCompaniesForDropDown_Result)" />
           <FunctionImport Name="GetAllCourtActivities" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivities_Result)" />
           <FunctionImport Name="GetAllCourtActivitiesByCaseNumber" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCaseNumber_Result)">
-            <Parameter Name="caseNumber" Mode="In" Type="String" />
+          <Parameter Name="caseNumber" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourtActivitiesByCourtName" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByCourtName_Result)">
-            <Parameter Name="courtName" Mode="In" Type="String" />
+          <Parameter Name="courtName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourtActivitiesByHearingDate" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByHearingDate_Result)">
-            <Parameter Name="hearingDate" Mode="In" Type="DateTime" />
+          <Parameter Name="hearingDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourtActivitiesByStatus" ReturnType="Collection(MyCaseNewModel.GetAllCourtActivitiesByStatus_Result)">
-            <Parameter Name="status" Mode="In" Type="String" />
+          <Parameter Name="status" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetAllCourtNames" ReturnType="Collection(MyCaseNewModel.GetAllCourtNames_Result)" />
           <FunctionImport Name="GetAllLocationsForDropdown" ReturnType="Collection(MyCaseNewModel.GetAllLocationsForDropdown_Result)" />
@@ -1545,7 +1392,7 @@
           <FunctionImport Name="GetAllStaffForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllStaffForDropDown_Result)" />
           <FunctionImport Name="GetAllTasksForDropDown" ReturnType="Collection(MyCaseNewModel.GetAllTasksForDropDown_Result)" />
           <FunctionImport Name="GetCasesByFiledDate">
-            <Parameter Name="filedDate" Mode="In" Type="DateTime" />
+          <Parameter Name="filedDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetClientByFirstNameOrLastName" ReturnType="Collection(MyCaseNewModel.GetClientByFirstNameOrLastName_Result)">
             <Parameter Name="firstName" Mode="In" Type="String" />
@@ -1776,16 +1623,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MyCaseNewModelStoreContainer" CdmEntityContainer="MyCaseNewEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="MyCaseNewModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AdvocateGroups">
             <EntityTypeMapping TypeName="MyCaseNewModel.AdvocateGroup">
               <MappingFragment StoreEntitySet="AdvocateGroups">
@@ -1887,25 +1724,6 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModeifiedBy" ColumnName="ModeifiedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClientMatterAcceptanceForms">
-            <EntityTypeMapping TypeName="MyCaseNewModel.ClientMatterAcceptanceForm">
-              <MappingFragment StoreEntitySet="ClientMatterAcceptanceForms">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Industry" ColumnName="Industry" />
-                <ScalarProperty Name="AgreedFee" ColumnName="AgreedFee" />
-                <ScalarProperty Name="PaymentTerms" ColumnName="PaymentTerms" />
-                <ScalarProperty Name="TimeFrame" ColumnName="TimeFrame" />
-                <ScalarProperty Name="MatterManager" ColumnName="MatterManager" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2271,7 +2089,6 @@
                 <ScalarProperty Name="Bank" ColumnName="Bank" />
                 <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
                 <ScalarProperty Name="NKFullName" ColumnName="NKFullName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
                 <ScalarProperty Name="LineManagerId" ColumnName="LineManagerId" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
@@ -2281,17 +2098,6 @@
                 <ScalarProperty Name="AdvocateGroupId" ColumnName="AdvocateGroupId" />
                 <ScalarProperty Name="NationalIdentityNumber" ColumnName="NationalIdentityNumber" />
                 <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MyCaseNewModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

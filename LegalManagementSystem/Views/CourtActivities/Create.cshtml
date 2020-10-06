@@ -11,7 +11,6 @@
     </div>
     <div class="col-md-8">
         <div class="card">
-            @*style="background-color:#1ac6ff;color: #fff;margin-bottom:5px;"*@
             <div class="card-header">
                 <h3 class="card-title text-center">Enter Court Activity</h3>
             </div>
@@ -81,7 +80,13 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
                                     </div>
-                                    @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.Status, "Value", "Text"), null, htmlAttributes: new { @class = "form-control" })
+                                    <select class="custom-select" id="Status">
+                                        <option disabled selected>Choose...</option>
+                                        <option value="Adjourned">Adjourned</option>
+                                        <option value="Dismissed">Dismissed</option>
+                                        <option value="Judgement Delivered">Judgement Delivered</option>
+                                        <option value="Strike Out">Strike Out</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

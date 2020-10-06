@@ -17,7 +17,9 @@ namespace LegalManagementSystem.Interfaces
         void Dispose();
         Document GetDocument(int? id);
         CaseDocument GetDocumentWithCase(int? id);
-        IEnumerable<Document> GetDocument();
+        IEnumerable<Document> GetDocuments();
+        Task<IEnumerable<Document>> GetDocumentsByMatterNumberAsync(string matterNumber);
+        IEnumerable<Document> GetDocumentsByMatterNumber(string matterNumber);
         Document GetDocument(Expression<Func<Document, bool>> expression);
         Task<Document> GetDocumentAsync(int? id);
         Task<CaseDocument> GetDocumentWithCaseAsync(int? id);

@@ -2,264 +2,599 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
 }
+<div class="clearfix" style="margin-top:20px;">
+    <div class="float-right">
+        <img src="~/Content/Images/staff_images/@Model.ImagePath" class="rounded-circle" width="120" height="120" alt="Staff_Image" id="output" />
+    </div>
+    @*<img src="~/Content/Images/staff_images/@Model.ImagePath" class="rounded-circle" style="margin-left:20px; margin-bottom:2px; padding:5px;" id="output" width="140" height="100" />*@
+    <div class="col-md-3">
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" accept="image/*" onchange="openFile(event)" class="custom-file-input" id="fileBase">
+                <label class="custom-file-label" for="fileBase"></label>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
 
-<h2>Edit Staff Info</h2>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Staffs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            @if (ViewBag.Error != null)
+            {
+                <span style="color:red;">@ViewBag.Error.ToString()</span>
+            }
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">PERSONAL DATA</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">First Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="FirstName" placeholder="First Name" value="@Model.FirstName" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Middle Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="MiddleName" placeholder="Middle Name" value="@Model.MiddleName" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Last Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="LastName" value="@Model.LastName"
+                                       aria- label="LastName" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Marital Status</span>
+                                </div>
+                                <select class="custom-select" data-placeholder="select" id="MaritalStatus">
+                                    <option selected disabled value="@Model.MaritalStatus">@Model.MaritalStatus</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widowed">Widowed</option>
+                                    <option value="Divorced">Divorced</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                <input type="text" class="form-control" value="@Model.DOB.ToString("dd/MM/yyyy")" id="DOB">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Gender</span>
+                                </div>
+                                <select class="custom-select" data-placeholder="select" id="Gender">
+                                    <option selected value="@Model.Gender">@Model.Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Identity Number</span>
+                                </div>
+                                <input type="text" class="form-control" id="NationalIdentityNumber" value="@Model.NationalIdentityNumber"
+                                       aria-label="NationalIdentityNumber" aria-describedby="basic-addon1">&nbsp;<span id="nin" class="errmsg"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Blood Group</span>
+                                </div>
+                                <select class="custom-select" data-placeholder="select" id="BloodGroup">
+                                    <option selected value="@Model.BloodGroup">@Model.BloodGroup</option>
+                                    <option value="A">A</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B">B-</option>
+                                    <option value="AB">AB</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O">O</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-header">
+                    <h5>ADDRESS & CONTACT INFORMATION</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Address</span>
+                                </div>
+                                <textarea class="form-control" aria-label="Address" id="Address">@Model.Address</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12" style="margin-top:15px;">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                </div>
+                                <input type="text" id="EmailAddress" class="form-control email"
+                                       value="@Model.EmailAddress">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                </div>
+                                <input type="text" id="MobileNo" class="form-control mobile-phone-number" value="@Model.MobileNo">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                </div>
+                                <input type="text" id="PersonalEmail" class="form-control email"
+                                       value="@Model.PersonalEmail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                </div>
+                                <input type="text" id="OfficeNo" class="form-control mobile-phone-number"
+                                       value="@Model.OfficeNo">
+                            </div>
+                        </div>
+                        <input type="text" value="@Model.StaffId" id="StaffId" hidden="hidden" />
+                    </div>
+                    <div class="row">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DOE, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DOE, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DOE, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.Status)
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>EMPLOYMENT INFORMATION</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
+                                <input type="text" class="form-control" value="@Model.DOE.ToString("dd/MM/yyyy")" id="DOE">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Line Manager</span>
+                                </div>
+                                @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", id = "lineMger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Department</span>
+                                </div>
+                                <input type="text" class="form-control" id="Department" value="@Model.Department"
+                                       aria- label="Department" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Designation</span>
+                                </div>
+                                <input type="text" class="form-control" id="Designation" value="@Model.Designation"
+                                       aria- label="Designation" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Year Call To Bar</span>
+                                </div>
+                                <input type="text" class="form-control" id="YearCallToBar" value="@Model.YearCallToBar" aria- label="YearCallToBar" aria-describedby="basic-addon1">&nbsp;<span class="errmsg" id="yearCallBar"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Location</span>
+                                </div>
+                                <input type="text" class="form-control" id="Location" value="@Model.Location" aria- label="Location" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Bank</span>
+                                </div>
+                                <input type="text" class="form-control" id="Bank" value="@Model.Bank" aria-label="Bank"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Account Number</span>
+                                </div>
+                                <input type="text" class="form-control" id="AccountNumber" value="@Model.AccountNumber"
+                                       aria- label="AccountNumber" aria-describedby="basic-addon1">&nbsp;<span id="accNo-errmsg" class="errmsg"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5>EMERGENCY CONTACT</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Full Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="NKFullName" value="@Model.NKFullName" aria- label="NKFullName" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Relationship</span>
+                                </div>
+                                <input type="text" class="form-control" id="Relationship" value="@Model.Relationship" aria- label="Relationship" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-mobile-phone"></i></span>
+                                </div>
+                                <input type="text" id="KTelephone" class="form-control mobile-phone-number" value="@Model.KTelephone" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                </div>
+                                <input type="text" id="NKEmail" class="form-control email"
+                                       value="@Model.NKEmail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="input-group mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Address</span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="NKAddress" id="NKAddress">@Model.NKAddress</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pull-left" style="margin-bottom:20px; margin-left:20px;">
+                <div class="col-md-6 col-sm-12">
+                    <input type="button" value="Update" class="btn btn-primary" id="update-Staff" />
+                </div>
+                <div class="col-md-2">
+                    <a href="@Url.Action("Index","Staffs")" class="btn btn-info">Cancel</a>
+                </div>
             </div>
         </div>
     </div>
+}
+@section Scripts{
+    <script src="~/Scripts/select2.min.js"></script>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <script>
+        $(document).ready(function () {
+            $('#update-Staff').click(function () {
+                updateStaff();
+            });
+        });
 
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
+        function select2DropDown(elementId, url, placeholder) {
+            $('#' + elementId).select2({
+                placeholder: placeholder,
+                //minimumInputLength:3,
+                allowclear: true,
+                theme: "classic",
+                ajax: {
+                    url: url,
+                    datatype: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchKey: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
+        }
+        function updateStaff() {
+            // Validate image
+            //validateImage();
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.OfficeNo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.OfficeNo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.OfficeNo, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            //Validating inputs
+            var res = validate();
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            if (res == false) {
+                return false;
+            }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.PersonalEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PersonalEmail, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PersonalEmail, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            var data = new FormData();
+            var files = $("#fileBase").get(0).files;
+            if (files.length > 0) {
+                    data.append("file", files[0]);
+            }
+            //else {
+            //    alert('Please select image to continue');
+            //    return;
+            //} 
+            var dobString =convertToReadableDate( $('#DOB').val());
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Relationship, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Relationship, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Relationship, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            var doeString =convertToReadableDate( $('#DOE').val());
+            var dob = new Date(dobString);
+            var doe = new Date(doeString);
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.KTelephone, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.KTelephone, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.KTelephone, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            var model = {
+                FirstName: $('#FirstName').val(),
+                MiddleName: $('#MiddleName').val(),
+                LastName: $('#LastName').val(),
+                MaritalStatus: $('#MaritalStatus').val(),
+                StaffId: $('#StaffId').val(),
+                DOB: dob,
+                Gender: $('#Gender').val(),
+                NationalIdentityNumber: $('#NationalIdentityNumber').val(),
+                BloodGroup: $('#BloodGroup').val(),
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.NKEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NKEmail, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NKEmail, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                //ADDRESS & CONTACT INFORMATION
+                Address: $('#Address').val(),
+                EmailAddress: $('#EmailAddress').val(),
+                MobileNo: $('#MobileNo').val(),
+                PersonalEmail: $('#PersonalEmail').val(),
+                OfficeNo: $('#OfficeNo').val(),
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.NKAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NKAddress, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NKAddress, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                //EMPLOYMENT INFORMATION
+                DOE: doe,
+                //LineMger: $('#lineMger').val(),
+                Department: $('#Department').val(),
+                Designation: $('#Designation').val(),
+                YearCallToBar: $('#YearCallToBar').val(),
+                Location: $('#Location').val(),
+                Bank: $('#Bank').val(),
+                AccountNumber: $('#AccountNumber').val(),
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Bank, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Bank, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Bank, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                //EMERGENCY CONTACT
+                NKFullName: $('#NKFullName').val(),
+                Relationship: $('#Relationship').val(),
+                KTelephone: $('#KTelephone').val(),
+                NKEmail: $('#NKEmail').val(),
+                NKAddress: $('#NKAddress').val()
+             };
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            data.append('model', JSON.stringify(model));
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.NKFullName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NKFullName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NKFullName, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            $.ajax({
+                type: 'POST',
+                datatype: 'json',
+                cache:false,
+                contentType: false,
+                processData:false,
+                url: '@Url.Action("EditStaffDetail", "Staffs")',
+                data: data,
+                success: function (e) {
+                    alert('Updated Successfully.');
+                    window.location.href = '/Staffs/Index';
+                },
+                error: function () {
+                    alert('Error Occured.');
+                }
+            });
+        }
+        function convertToReadableDate(dateString) {
+            //const data = "15/01/2012 21:10:17";
+            const readableDate = dateString.substring(3, 6) + dateString.substring(0, 2) + dateString.substring(5, dateString.length);
+            return readableDate;
+        }
+        var openFile = function (event) {
+            var input = event.target;
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            var reader = new FileReader();
+            reader.onload = function () {
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                output.src = dataURL;
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+        function validateImage() {
+            $('#add-Staff').prop('disabled', true);
+            $("#fileBase").change(function () {
+                // Get uploaded file extension
+                var extension = $(this).val().split('.').pop().toLowerCase();
+                // Create array with the files extensions that we wish to upload
+                var validFileExtensions = ['jpg', 'png'];
+                //Check file extension in the array.if -1 that means the file extension is not in the list.
+                if ($.inArray(extension, validFileExtensions) == -1) {
+                    alert("Sorry!! Upload only 'jpg', 'png' file")
+                    // Clear fileuload control selected file
+                    $(this).replaceWith($(this).val('').clone(true));
+                    //Disable Submit Button
+                    $('#add-Staff').prop('disabled', true);
+                } else {
+                    // Check and restrict the file size to 128 KB.
+                    if ($(this).get(0).files[0].size > (531072)) {
+                        alert("Sorry!! Max allowed file size is 128 kb");
+                        // Clear fileuload control selected file
+                        $(this).replaceWith($(this).val('').clone(true));
+                        //Disable Submit Button
+                        $('#add-Staff').prop('disabled', true);
+                    } else {
+                        //Enable Submit Button
+                        $('#add-Staff').prop('disabled', false);
+                    }
+                }
+            });
+        }
+        function validate() {
+            var isValid = true;
 
-    @Html.HiddenFor(model => model.StaffId)
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.LineManagerId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LineManagerId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LineManagerId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.YearCallToBar, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.YearCallToBar, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.YearCallToBar, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.NationalIdentityNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NationalIdentityNumber, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NationalIdentityNumber, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.BloodGroup, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-2" style="margin-top:15px; margin-left:0px">
-            <button type="submit" value="Save" class="btn btn-info">Update</button>
-        </div>
-        <div class="col-md-2">
-            <a href="@Url.Action("Index","Staffs")" class="btn btn-info">Cancel</a>
-        </div>
-    </div>
-</div>
+            if ($('#FirstName').val().trim() == "") {
+                $('#FirstName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#FirstName').css('border-color', 'lightgrey');
+            }
+            if ($('#LastName').val().trim() == "") {
+                $('#LastName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#LastName').css('border-color', 'lightgrey');
+            }
+            if ($('#DOB').val().trim() == "") {
+                $('#DOB').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DOB').css('border-color', 'lightgrey');
+            }
+            if ($('#Address').val().trim() == "") {
+                $('#Address').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Address').css('border-color', 'lightgrey');
+            }
+            if ($('#EmailAddress').val().trim() == "") {
+                $('#EmailAddress').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#EmailAddress').css('border-color', 'lightgrey');
+            }
+            if ($('#MobileNo').val().trim() == "") {
+                $('#MobileNo').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#MobileNo').css('border-color', 'lightgrey');
+            }
+            if ($('#DOE').val().trim() == "") {
+                $('#DOE').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#DOE').css('border-color', 'lightgrey');
+            }
+            if ($('#Department').val().trim() == "") {
+                $('#Department').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Department').css('border-color', 'lightgrey');
+            }
+            if ($('#Designation').val().trim() == "") {
+                $('#Designation').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#Designation').css('border-color', 'lightgrey');
+            }
+            if ($('#NKFullName').val().trim() == "") {
+                $('#NKFullName').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#NKFullName').css('border-color', 'lightgrey');
+            }
+            if ($('#KTelephone').val().trim() == "") {
+                $('#KTelephone').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#KTelephone').css('border-color', 'lightgrey');
+            }
+            if ($('#NKAddress').val().trim() == "") {
+                $('#NKAddress').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#NKAddress').css('border-color', 'lightgrey');
+            }
+            return isValid;
+        }
+    </script>
 }
 
-@*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@

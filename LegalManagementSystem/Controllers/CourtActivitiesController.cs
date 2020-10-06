@@ -16,7 +16,6 @@ namespace LegalManagementSystem.Controllers
     [Authorize(Roles = "Admin, Attorney, Advocate")]
     public class CourtActivitiesController : Controller
     {
-        //private MyCaseNewEntities db = new MyCaseNewEntities();
         private ICourtActivity courtRepo;
         private IStaff staffRepo;
         private IMatter matterRepo;
@@ -82,19 +81,8 @@ namespace LegalManagementSystem.Controllers
             {
 
                 return View(returnedCourts);
-                //return View(await db.CourtActivities.Where(x => x.Status == "Adjourned").ToListAsync());
             }
-            //await courtRepo.GetCourtActivitiesAsync(x => x.CreatedBy.Equals(user) && x.Status == "Adjourned")
             return View(returnedCourts.Where(x => x.CreatedBy.Equals(user)));
-
-
-
-            //var user = User.Identity.Name;
-            //if (HttpContext.User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
-            //{
-            //    return View(await courtRepo.GetCourtActivitiesAsync(x => x.MatterNumber==number && x.Status != "Strike Out"));
-            //}
-            //return View(await courtRepo.GetCourtActivitiesAsync(x => x.CreatedBy.Equals(user) && x.MatterNumber==number && x.Status != "Strike Out"));
 
         }
         //[HttpPost]
@@ -207,7 +195,7 @@ namespace LegalManagementSystem.Controllers
             var staffRec = staffRepo.GetStaffByEmail(email) ;
             if (staffRec !=null)
             {
-                profilePassword = staffRec.Password;
+                profilePassword = staffRec.StaffId;
             }
             if (profilePassword.Equals(password))
             {
@@ -488,13 +476,6 @@ namespace LegalManagementSystem.Controllers
         // GET: CourtActivities/Create
         public ActionResult Create(string mattNumber)
         {
-            //ViewBag.MatterNumber = id;
-            ViewBag.Status = new List<SelectListItem>{
-                new SelectListItem { Value="Adjourned",Text="Adjourned"},
-                new SelectListItem { Value="Dismissed",Text="Dismissed"},
-                new SelectListItem { Value="Judgement Delivered",Text="Judgement Delivered"},
-                new SelectListItem { Value="Strike Out",Text="Strike Out"} 
-            };
             mattrNumer = mattNumber;
             return View();
         }
@@ -535,7 +516,6 @@ namespace LegalManagementSystem.Controllers
             try
             {
                 var staffIdInStaffMatters = staffRepo.StaffId(LegalGuideUtility.MatterId);
-                //var staffIdInStaffMatters = db.StaffMatters.Where(x => x.MatterNumber.Equals(LegalGuideUtility.MatterId)).Distinct().FirstOrDefault().StaffId;
                 if (staffId == staffIdInStaffMatters)
                 {
                     return true;

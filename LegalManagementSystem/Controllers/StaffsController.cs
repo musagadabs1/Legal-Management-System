@@ -255,33 +255,12 @@ namespace LegalManagementSystem.Controllers
             var advocateGroup = advocateGroupRepo.GetAdvocateGroup(staff.AdvocateGroupId);
 
            gender= (staff.Gender == "M") ? "Male" : "Female";
+           ViewBag.AdvocateGroup = advocateGroup !=null ? advocateGroup.GroupName :string.Empty;
 
-            //if (staff.Gender=="M")
-            //{
-            //    gender = "Male";
-            //}
-            //else
-            //{
-            //    gender = "Female";
-            //}
-            ViewBag.AdvocateGroup = advocateGroup.GroupName;
-            ViewBag.LineManager = lineManger.Name;
+            ViewBag.LineManager = lineManger !=null ? lineManger.Name:string.Empty;
             ViewBag.Gender = gender;
+
             return View(staff);
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> StaffDetails()
-        {
-            try
-            {
-                return Json(0, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
         }
         //Save Staff Record
         [HttpPost]
@@ -295,16 +274,16 @@ namespace LegalManagementSystem.Controllers
                 //HttpPostedFileBase file = model.File;
                 var file = System.Web.HttpContext.Current.Request.Files["file"];
 
-                if (file.ContentLength <= 0 && file == null)
-                {
-                    ViewBag.Error = " please select image to continue.";
-                    return Json(file, JsonRequestBehavior.AllowGet);
-                }
+                //if (file.ContentLength <= 0 && file == null)
+                //{
+                //    ViewBag.Error = " please select image to continue.";
+                //    return Json(file, JsonRequestBehavior.AllowGet);
+                //}
 
                 filePath = file.FileName;
                 fileName = Path.GetFileName(file.FileName);
-
-                var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
+                //"~/Content/Images/staff_images/
+                var folderPath = "~/Content/Images/staff_images/";
                 var fullFilePath = Path.Combine(folderPath, filePath);
                 file.SaveAs(fullFilePath);
 
@@ -318,13 +297,11 @@ namespace LegalManagementSystem.Controllers
                 model.CreatedBy = user;
                 model.CreatedOn = DateTime.Today;
                 model.ImagePath = fileName;
-                model.ModifiedOn = DateTime.Now;
                 model.Status = true;
                 model.AdvocateGroupId = 0;
-                model.Password = "P@ssw0rd";
                 staffRepo.AddStaff(model);
                 staffRepo.Complete(); 
-                return Json(model, JsonRequestBehavior.AllowGet);
+                return Json(0, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -337,149 +314,7 @@ namespace LegalManagementSystem.Controllers
         // GET: Staffs/Create
         public ActionResult Create()
         {
-            ViewBag.Gender = new List<SelectListItem> {
-                new SelectListItem{Text="Male",Value ="M"},
-                new SelectListItem{Text="Female",Value ="F"}
-            };
-            ViewBag.Marital = new List<SelectListItem> {
-                new SelectListItem{Text="Divorced",Value="Divorced"},
-                new SelectListItem{Text="Married",Value="Married"},
-                new SelectListItem{Text="Single",Value="Single"},
-                new SelectListItem{Text="Separated",Value="Separated"},
-                new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
-                new SelectListItem{Text="Single With Children",Value="Single With Children"}
-
-            };
-            ViewBag.BloodGroup = new List<SelectListItem> {
-                new SelectListItem{Text="A",Value="A"},
-                new SelectListItem{Text="A-",Value="A-"},
-                new SelectListItem{Text="B",Value="B"},
-                new SelectListItem{Text="B-",Value="B-"},
-                new SelectListItem{Text="AB",Value="AB"},
-                new SelectListItem{Text="AB-",Value="AB-"},
-                new SelectListItem{Text="O",Value="O"},
-                new SelectListItem{Text="O-",Value="O-"},
-
-            };
             return View();
-        }
-
-        // POST: Staffs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<JsonResult> Create(Staff staff)
-        {
-            //if (ModelState.IsValid)
-            //{
-
-                try
-                {
-                    string fileName = string.Empty;
-                    string filePath = string.Empty;
-
-                    HttpPostedFileBase file = null;
-
-                    //  Get all files from Request object  
-                    HttpFileCollectionBase files = Request.Files;
-                    for (int i = 0; i < files.Count; i++)
-                    {  
-                        file = files[i];
-                    }
-
-
-                    if (file.ContentLength <= 0 && file == null)
-                    {
-                        ViewBag.Error = " please select image to continue.";
-                        return Json(staff,JsonRequestBehavior.AllowGet);
-                    }
-
-                    filePath = file.FileName;
-                    fileName = Path.GetFileName(file.FileName);
-
-                    var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
-                    var fullFilePath = Path.Combine(folderPath, filePath);
-
-                    var staffId = string.Empty;
-                    var user = User.Identity.Name;
-                    staff.CreatedBy = user;
-                    staff.CreatedOn = DateTime.Today;
-                    staffId = staff.StaffId.ToUpper();
-                    LegalGuideUtility.StaffId = staffId;
-
-                    staff.ImagePath = fileName;
-                    staff.Status = true;
-                    staff.AdvocateGroupId = 0;
-
-                    //db.Staffs.Add(staff);
-                    staffRepo.AddStaff(staff);
-                    //await db.SaveChangesAsync();
-                    await staffRepo.CompleteAsync();
-                    //return RedirectToAction("Create", "Experiences"); 
-                    return Json(staff, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
-
-                    ViewBag.Error = "Can't Save Profile please check and try again." + ex.Message;
-                }
-            //}
-            //else
-            //{
-            //    ViewBag.Error = "Can't Save Profile, Some fields are missing";
-            //    ViewBag.Gender = new List<SelectListItem> {
-            //    new SelectListItem{Text="Male",Value ="M"},
-            //    new SelectListItem{Text="Female",Value ="F"}
-            //};
-            //    ViewBag.Marital = new List<SelectListItem> {
-            //    new SelectListItem{Text="Divorced",Value="Divorced"},
-            //    new SelectListItem{Text="Married",Value="Married"},
-            //    new SelectListItem{Text="Single",Value="Single"},
-            //    new SelectListItem{Text="Separated",Value="Separated"},
-            //    new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
-            //    new SelectListItem{Text="Single With Children",Value="Sinardgle With Children"}
-
-            //};
-            //    ViewBag.BloodGroup = new List<SelectListItem> {
-            //    new SelectListItem{Text="A",Value="A"},
-            //    new SelectListItem{Text="A-",Value="A-"},
-            //    new SelectListItem{Text="B",Value="B"},
-            //    new SelectListItem{Text="B-",Value="B-"},
-            //    new SelectListItem{Text="AB",Value="AB"},
-            //    new SelectListItem{Text="AB-",Value="AB-"},
-            //    new SelectListItem{Text="O",Value="O"},
-            //    new SelectListItem{Text="O-",Value="O-"},
-
-            //};
-            //    return View(staff);
-
-            //}
-            ViewBag.Gender = new List<SelectListItem> {
-                new SelectListItem{Text="Male",Value ="M"},
-                new SelectListItem{Text="Female",Value ="F"}
-            };
-            ViewBag.Marital = new List<SelectListItem> {
-                new SelectListItem{Text="Divorced",Value="Divorced"},
-                new SelectListItem{Text="Married",Value="Married"},
-                new SelectListItem{Text="Single",Value="Single"},
-                new SelectListItem{Text="Separated",Value="Separated"},
-                new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
-                new SelectListItem{Text="Single With Children",Value="Single With Children"}
-
-            };
-            ViewBag.BloodGroup = new List<SelectListItem> {
-                new SelectListItem{Text="A",Value="A"},
-                new SelectListItem{Text="A-",Value="A-"},
-                new SelectListItem{Text="B",Value="B"},
-                new SelectListItem{Text="B-",Value="B-"},
-                new SelectListItem{Text="AB",Value="AB"},
-                new SelectListItem{Text="AB-",Value="AB-"},
-                new SelectListItem{Text="O",Value="O"},
-                new SelectListItem{Text="O-",Value="O-"},
-
-            };
-            return Json(staff,JsonRequestBehavior.AllowGet);
         }
 
         // GET: Staffs/Edit/5
@@ -489,31 +324,7 @@ namespace LegalManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await staffRepo.GetStaffAsync(id);
-            ViewBag.Gender = new List<SelectListItem> {
-                new SelectListItem{Text="Male",Value ="M"},
-                new SelectListItem{Text="Female",Value ="F"}
-            };
-            ViewBag.Marital = new List<SelectListItem> {
-                new SelectListItem{Text="Divorced",Value="Divorced"},
-                new SelectListItem{Text="Married",Value="Married"},
-                new SelectListItem{Text="Single",Value="Single"},
-                new SelectListItem{Text="Separated",Value="Separated"},
-                new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
-                new SelectListItem{Text="Single With Children",Value="Single With Children"}
-
-            };
-            ViewBag.BloodGroup = new List<SelectListItem> {
-                new SelectListItem{Text="A",Value="A"},
-                new SelectListItem{Text="A-",Value="A-"},
-                new SelectListItem{Text="B",Value="B"},
-                new SelectListItem{Text="B-",Value="B-"},
-                new SelectListItem{Text="AB",Value="AB"},
-                new SelectListItem{Text="AB-",Value="AB-"},
-                new SelectListItem{Text="O",Value="O"},
-                new SelectListItem{Text="O-",Value="O-"},
-
-            };
+            var staff = await staffRepo.GetStaffAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -521,114 +332,58 @@ namespace LegalManagementSystem.Controllers
             return View(staff);
         }
 
-        // POST: Staffs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Staff staff, HttpPostedFileBase file)
+        public JsonResult EditStaffDetail()
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    string fileName = string.Empty;
-                    string filePath = string.Empty;
+                string fileName = string.Empty;
+                string filePath = string.Empty;
 
-                    if (file.ContentLength > 0 && file != null)
-                    {
-                        filePath = file.FileName;
-                        fileName = Path.GetFileName(file.FileName);
-                    }
-                    else
-                    {
-                        ViewBag.Error = " please select image to continue.";
-                        return View(staff);
-                    }
-                    var folderPath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/StaffImages";
+                //HttpPostedFileBase file = model.File;
+                var file = System.Web.HttpContext.Current.Request.Files["file"];
+
+                //Get model from the view
+                var model = JsonConvert.DeserializeObject<Staff>(Request.Form["model"].ToString());
+
+                if (file != null)
+                {
+                    filePath = file.FileName;
+                    fileName = Path.GetFileName(file.FileName);
+
+                    var folderPath = "~/Content/Images/staff_images/";
                     var fullFilePath = Path.Combine(folderPath, filePath);
 
-                    var staffId = string.Empty;
-
-                    var user = User.Identity.Name;
-                    staff.ModifiedBy = user;
-                    staffId = staff.StaffId.ToUpper();
-                    staff.ModifiedOn = DateTime.Today;
-                    LegalGuideUtility.StaffId = staffId; //ViewBag.StaffId=staff.StaffId;
-                    staff.ImagePath = fileName;
-                    staff.Status = true;
-
-
-                    //db.Entry(staff).State = EntityState.Modified;
-                    staffRepo.UpdateStaff(staff);
-                    //await db.SaveChangesAsync();
-                    await staffRepo.CompleteAsync();
-                    return RedirectToAction("Create", "Experiences");
-                }
-                else
-                {
-                    ViewBag.Error = "Can't Save Profile, Some fields are missing";
-                    ViewBag.Gender = new List<SelectListItem> {
-                        new SelectListItem{Text="Male",Value ="M"},
-                        new SelectListItem{Text="Female",Value ="F"}
-                    };
-                    ViewBag.Marital = new List<SelectListItem> {
-                            new SelectListItem{Text="Divorced",Value="Divorced"},
-                            new SelectListItem{Text="Married",Value="Married"},
-                            new SelectListItem{Text="Single",Value="Single"},
-                            new SelectListItem{Text="Separated",Value="Separated"},
-                            new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
-                            new SelectListItem{Text="Single With Children",Value="Single With Children"}
-
-                     };
-                    ViewBag.BloodGroup = new List<SelectListItem> {
-                new SelectListItem{Text="A",Value="A"},
-                new SelectListItem{Text="A-",Value="A-"},
-                new SelectListItem{Text="B",Value="B"},
-                new SelectListItem{Text="B-",Value="B-"},
-                new SelectListItem{Text="AB",Value="AB"},
-                new SelectListItem{Text="AB-",Value="AB-"},
-                new SelectListItem{Text="O",Value="O"},
-                new SelectListItem{Text="O-",Value="O-"},
-
-            };
-
-                    return View(staff);
+                    file.SaveAs(Server.MapPath(fullFilePath));
+                    model.ImagePath = fileName;
                 }
 
+                
+
+                var staffId = string.Empty;
+                var user = User.Identity.Name;
+                
+
+                staffId = model.StaffId.ToUpper();
+                LegalGuideUtility.StaffId = staffId;
+                model.ModifiedBy = user;
+                model.ModifiedOn = DateTime.Today;
+                
+                model.Status = true;
+                model.AdvocateGroupId = 0;
+                //Update Details
+                staffRepo.UpdateStaff(model);
+                staffRepo.Complete();
+                return Json(0, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
 
-                ViewBag.Error = "Can't Save Profile please check and try again." + ex.Message;
+                ViewBag.Error = "Can't Update Profile please check and try again." + ex.Message;
+                //var error = ex.InnerException.Message;
+                return Json(0, JsonRequestBehavior.AllowGet);
             }
-            ViewBag.Gender = new List<SelectListItem> {
-                new SelectListItem{Text="Male",Value ="M"},
-                new SelectListItem{Text="Female",Value ="F"}
-            };
-            ViewBag.Marital = new List<SelectListItem> {
-                new SelectListItem{Text="Divorced",Value="Divorced"},
-                new SelectListItem{Text="Married",Value="Married"},
-                new SelectListItem{Text="Single",Value="Single"},
-                new SelectListItem{Text="Separated",Value="Separated"},
-                new SelectListItem{Text="Maried With Children",Value="Maried With Children"},
-                new SelectListItem{Text="Single With Children",Value="Single With Children"}
-
-            };
-            ViewBag.BloodGroup = new List<SelectListItem> {
-                new SelectListItem{Text="A",Value="A"},
-                new SelectListItem{Text="A-",Value="A-"},
-                new SelectListItem{Text="B",Value="B"},
-                new SelectListItem{Text="B-",Value="B-"},
-                new SelectListItem{Text="AB",Value="AB"},
-                new SelectListItem{Text="AB-",Value="AB-"},
-                new SelectListItem{Text="O",Value="O"},
-                new SelectListItem{Text="O-",Value="O-"},
-
-            };
-            return View(staff);
         }
-
         // GET: Staffs/Delete/5
         public async Task<ActionResult> Delete(string id)
         {

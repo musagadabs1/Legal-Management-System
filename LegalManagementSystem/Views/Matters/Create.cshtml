@@ -1,14 +1,10 @@
 ﻿@model LegalManagementSystem.Models.Matter
-@using LegalManagementSystem.Helpers
-@using LegalManagementSystem.Models
 @{
     ViewBag.Title = "Create";
 }
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
 @if (User.Identity.IsAuthenticated)
 {
-    if (User.IsInRole(LegalGuideUtility.ADMINISTRATOR))
-    {
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -17,7 +13,7 @@
                 <div class="col-md-10">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title text-center" style="background-color:#f4f7f6;">Add new Case</h5>
+                            <h5 class="card-title text-center">Add new Case</h5>
                         </div>
                         <div class="card-body">
                             <div class="form-horizontal" style="padding:10px">
@@ -51,8 +47,24 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Area Of Practice</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea, "Value", "Text"), null, htmlAttributes: new { @class = "form-control",
-                                           @id ="practiceArea" })
+                                            <select id="practiceArea" class="custom-select">
+                                                <option disabled selected>Choose...</option>
+                                                <option value="None">None</option>
+                                                <option value="Acquisition">Acquisition</option>
+                                                <option value="Administrative">Administrative</option>
+                                                <option value="Audit">Audit</option>
+                                                <option value="Civil">Civil</option>
+                                                <option value="Commercial">Commercial</option>
+                                                <option value="Consultation">Consultation</option>
+                                                <option value="Corporate">Corporate</option>
+                                                <option value="Criminal">Criminal</option>
+                                                <option value="Dispute">Dispute</option>
+                                                <option value="Due Deligence">Due Deligence</option>
+                                                <option value="Labour">Labour</option>
+                                                <option value="Real Estate">Real Estate</option>
+                                                <option value="Sharia">Sharia</option>
+                                                <option value="Agreement">Agreement</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -70,7 +82,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Client Name</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.ClientId, Enumerable.Empty<SelectListItem>(),                      htmlAttributes: new { @class = "form-control ClientId", @id = "ClientId" })
+                                            @Html.DropDownListFor(model => model.ClientId, Enumerable.Empty<SelectListItem>(),                      htmlAttributes: new { @class = "custom-select ClientId", @id = "ClientId" })
                                         </div>
                                         
                                     </div>
@@ -79,7 +91,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Assigned By</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(),                 htmlAttributes: new { @class = "form-control staffId", @id = "LineMger" })
+                                            @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(),                 htmlAttributes: new { @class = "custom-select staffId", @id = "LineMger" })
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +145,13 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Priority</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value","Text"), null, htmlAttributes: new { @class = "form-control",@id="Priority" })
+                                            <select id="Priority" class="custom-select">
+                                                <option disabled selected>Choose...</option>
+                                                <option value="Critical">Critical</option>
+                                                <option value="High">High</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Low">Low</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -141,7 +159,15 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Case Stage</span>
                                             </div>
-                                            @Html.DropDownListFor(model => model.MatterStage, new SelectList(ViewBag.Stage, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "caseStage" })
+                                            <select id="caseStage" class="custom-select">
+                                                <option disabled selected>Choose...</option>
+                                                <option value="Discovery">Discovery</option>
+                                                <option value="Trial">Trial</option>
+                                                <option value="Apeal">Apeal</option>
+                                                <option value="Motions">Motions</option>
+                                                <option value="Closed">Closed</option>
+                                                <option value="Pleading">Pleading</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +207,6 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        @*<button type="submit" class="btn btn-primary" id="btnAdd">Add</button>*@
                                         <button type="button" class="btn btn-primary" id="btnAdd">Add</button>
                                     </div>
                                 </div>
@@ -193,201 +218,6 @@
             </div>
 
         }
-    }
-    else
-    {
-        using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <div class="row">
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-10">
-                    <div class="card">
-                        <div class="card-header">
-                            @*tyle="background-color:#1ac6ff;color: #fff;margin-bottom:5px;"*@
-                            <h3 class="card-title text-center">Add new Case</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-horizontal" style="padding:10px">
-                                <hr />
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @if (ViewBag.Error != null)
-                                {
-                                    <span style="color:red;">@ViewBag.Error.ToString()</span>
-                                }
-
-                            <div class="row">
-                                <div class="col-md-6">
-
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Subject</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="Subject" placeholder="Subject" aria- label="Subject" aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Case Number</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="MatterNumber" placeholder="FGN-UAC-001" aria- label="MatterNumber" aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
-                            </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroup-sizing-sm">Area Of Practice</span>
-                                            </div>
-                                            @Html.DropDownListFor(model => model.AreaOfPractice, new SelectList(ViewBag.PracticeArea,"Value", "Text"), null, htmlAttributes: new {@class = "form-control", @id="practiceArea"})
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div>
-                                            <label class="control-label">Select Assignee</label>
-                                        </div>
-                                        <div>
-                                            <select class="form-control" id="Assignee" multiple></select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroup-sizing-sm">Client Name</span>
-                                            </div>
-                                            @Html.DropDownListFor(model => model.ClientId, Enumerable.Empty<SelectListItem>(),                      htmlAttributes: new { @class = "form-control ClientId", @id = "ClientId" })
-                                            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroup-sizing-sm">Assigned By</span>
-                                            </div>
-                                            @Html.DropDownListFor(model => model.LineManagerId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control staffId", @id = "LineMger", disabled = "disabled"})
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-
-                                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
-                                            <input type="text" class="form-control" placeholder="Arrival Date" id="ArrivalDate">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fa fa-calendar"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-
-                                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
-                                            <input type="text" class="form-control" placeholder="Filed On" id="FiledOn">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fa fa-calendar"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-
-                                        <div class="input-group date" data-date-autoclose="true" data-provide="datepicker">
-                                            <input type="text" class="form-control" placeholder="Due Date" id="DueDate">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fa fa-calendar"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Description</span>
-                                            </div>
-                                            <textarea class="form-control" id="Description" aria-label="With textarea"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroup-sizing-sm">Priority</span>
-                                            </div>
-                                            @Html.DropDownListFor(model => model.Priority, new SelectList(ViewBag.Priority, "Value","Text"), null, htmlAttributes: new { @class = "form-control" })
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroup-sizing-sm">Case Stage</span>
-                                            </div>
-                                            @Html.DropDownListFor(model => model.MatterStage, new SelectList(ViewBag.Stage, "Value", "Text"), null, htmlAttributes: new { @class = "form-control", @id = "caseStage" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Requested By</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="RequestedBy" placeholder="Requested By" aria-               label="RequestedBy" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Case Value</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="MatterValue" placeholder="Case Value" aria- label="MatterValue" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Estimated Effort</span>
-                                            </div>
-                                            <input type="text" class="form-control" id="EstimatedEffort" placeholder="EstimatedEffort" aria- label="Estimated Effort" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="hidden" id="txtBoxVal" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        @*<button type="submit" class="btn btn-primary btn-block" id="btnAdd">Add</button>*@
-                                        <button type="button" class="btn btn-primary btn-block" id="btnAdd">Add</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-1">
-                </div>
-            </div>
-
-        }
-    }
 }
 
 @section scripts{

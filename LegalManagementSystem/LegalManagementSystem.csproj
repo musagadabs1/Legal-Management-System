@@ -268,16 +268,10 @@
     <Compile Include="Models\Client.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClientMatterAcceptanceForm.cs">
-      <DependentUpon>LMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Company.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CourtActivity.cs">
-      <DependentUpon>LMSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Dependant.cs">
@@ -415,9 +409,6 @@
     <Compile Include="Models\StaffMatter.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>LMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Todo.cs">
       <DependentUpon>LMSModel.tt</DependentUpon>
     </Compile>
@@ -428,8 +419,8 @@
     <Compile Include="ViewModels\CaseViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="Models\CourtActivityVM.cs" />
-    <Compile Include="Models\DocumentViewModel.cs" />
     <Compile Include="Models\JqueryDatatableParam.cs" />
+    <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\MatterViewModel.cs" />
     <Compile Include="ReportDataSets\AllStaffDataset.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -561,6 +552,8 @@
     <Compile Include="ViewModels\StaffVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\StaffImages\Miser_Voter_Front.jpg" />
+    <Content Include="App_Data\StaffImages\Musa.png" />
     <Content Include="ContactUs\css\main.css" />
     <Content Include="ContactUs\css\util.css" />
     <Content Include="ContactUs\fonts\font-awesome-4.7.0\css\font-awesome.css" />
@@ -4156,6 +4149,8 @@
     <Content Include="Content\Images\legal-scale-icon-21.jpg" />
     <Content Include="Content\Images\legal-scale-icon-5.jpg" />
     <Content Include="Content\Images\man-user.png" />
+    <Content Include="Content\Images\staff_images\Miser_Voter_Front.jpg" />
+    <Content Include="Content\Images\staff_images\Musa.png" />
     <Content Include="Content\Images\Task.png" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\my-login.js" />
@@ -4990,7 +4985,7 @@
   <ItemGroup>
     <Folder Include="App_Data\Docs\" />
     <Folder Include="App_Data\LicenseDocs\" />
-    <Folder Include="App_Data\StaffImages\" />
+    <Folder Include="Content\Documents\" />
     <Folder Include="ReportViewers\" />
   </ItemGroup>
   <ItemGroup>

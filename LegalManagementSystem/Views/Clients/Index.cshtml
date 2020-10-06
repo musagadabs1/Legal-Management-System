@@ -36,37 +36,6 @@
                             </tr>
                         </thead>
 
-                        @*<tbody></tbody>*@
-
-                        @*@foreach (var item in Model)
-                            {
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FirstName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.LastName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EmailAddress)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PhoneNumber)
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Edit","Clients",new {id = item.ClientId })" style="margin-right:10px;">
-                                                <span style="font-size:large" class="glyphicon glyphicon-edit"></span>
-                                            </a>
-                                            <a href="@Url.Action("Details","Clients",new { id = item.ClientId})">
-                                                <span style="font-size:large" class="glyphicon glyphicon-eye-open"></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-
-                            }*@
-
                     </table>
                 </div>
             </div>
@@ -95,21 +64,21 @@
             $("#client-table").DataTable(
             {
                 "serverSide": true,
-                //"bRetrieve": true,
                 "processing": true,
-                "oLanguage": { "sProcessing": "Loading... Please wait" },
+                 'language': {
+                    'emptyTable': 'No record found.',
+                     'processing': '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
+                  },
                 "paging": true,
                 "filter": true,
                 "pageLength": 10,
                 "lengthMenu": [[5, 10, 50,100], [5, 10, 50,100]],
                 "Sort": true,
                     "ajax": {
-                        "url": '@Url.Action("GetRecords", "Clients")',
+                        "url": '@Url.Action("GetClientRecords", "Clients")',
                         "type": 'POST',
-                        "dataType": 'json',
-                        //"dataSrc": ''
+                        "dataType": 'json'
                     },
-                    //data: response,
                     "columns": [
                         { 'data': 'FirstName' },
                         { 'data': 'LastName' },
